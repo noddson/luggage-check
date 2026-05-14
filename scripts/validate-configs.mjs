@@ -1,6 +1,6 @@
 import { readdir } from 'node:fs/promises';
 import path from 'node:path';
-import { loadEuropeanVehicles, loadLuggageSet } from '../src/config/loadConfigs.js';
+import { loadLuggageSet, loadVehicles } from '../src/config/loadConfigs.js';
 import { estimateFit } from '../src/packing/fitEstimator.js';
 
 const ISO_DATE = /^\d{4}-\d{2}-\d{2}$/;
@@ -82,10 +82,12 @@ function validateVehicle(vehicle) {
 }
 
 const luggageSet = await loadLuggageSet();
-const vehicles = await loadEuropeanVehicles();
+const vehicles = await loadVehicles();
 const errors = [...validateLuggageSet(luggageSet), ...vehicles.flatMap(validateVehicle)];
-const vehicleFiles = (await readdir('configs/vehicles/europe')).filter((file) => file.endsWith('.json'));
-assert(vehicleFiles.length >= 6, 'expected at least six starter European vehicle configs', errors);
+const europeFiles = (await readdir('configs/vehicles/europe')).filter((file) => file.endsWith('.json'));
+const northAmericaFiles = (await readdir('configs/vehicles/north-america')).filter((file) => file.endsWith('.json'));
+assert(europeFiles.length >= 6, 'expected at least six starter European vehicle configs', errors);
+assert(northAmericaFiles.length >= 2, 'expected at least two North American vehicle configs', errors);
 
 for (const vehicle of vehicles) {
   const result = estimateFit(luggageSet, vehicle, 'seats_up');
@@ -98,5 +100,5 @@ if (errors.length > 0) {
   process.exit(1);
 }
 
-console.log(`Validated ${luggageSet.items.length} luggage presets and ${vehicles.length} European vehicle configs.`);
-console.log(`Config directories: ${path.resolve('configs/luggage')} and ${path.resolve('configs/vehicles/europe')}`);
+console.log(`Validated ${luggageSet.items.length} luggage presets and ${vehicles.length} vehicle configs.`);
+console.log(`Config directories: ${path.resolve('configs/luggage')} and ${path.resolve('configs/vehicles')}`);

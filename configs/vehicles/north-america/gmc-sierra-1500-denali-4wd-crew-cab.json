@@ -1,0 +1,179 @@
+{
+  "id": "gmc-sierra-1500-denali-4wd-crew-cab",
+  "make": "GMC",
+  "model": "Sierra 1500 Denali 4WD Crew Cab",
+  "generation": "Fourth generation / 2020 Sierra 1500 Denali",
+  "modelYears": [
+    "2020"
+  ],
+  "bodyStyle": "4-door full-size pickup truck",
+  "rentalClasses": [
+    "full-size pickup",
+    "premium pickup",
+    "crew-cab pickup"
+  ],
+  "commonRentalAliases": [
+    "GMC Sierra 1500 Denali Crew Cab or similar",
+    "Full-size pickup or similar",
+    "Chevrolet Silverado 1500 or similar pickup"
+  ],
+  "cargoZones": [
+    {
+      "id": "short_bed",
+      "label": "Open cargo bed — short box (Crew Cab 147.4 in wheelbase)",
+      "volumeLitres": 1781,
+      "dimensionsMm": {
+        "length": 1776,
+        "width": 1286,
+        "height": 569
+      },
+      "openingMm": {
+        "width": 1286,
+        "height": 569
+      },
+      "usableFraction": 0.86,
+      "confidence": "medium",
+      "notes": "Uses the wheel-house width as the conservative rectangular width so rigid luggage is not planned through the wider floor sections. The open pickup bed is weather-exposed unless a cover/cap is fitted."
+    },
+    {
+      "id": "short_bed_full_floor",
+      "label": "Open cargo bed — short box full floor width",
+      "volumeLitres": 1781,
+      "dimensionsMm": {
+        "length": 1776,
+        "width": 1814,
+        "height": 569
+      },
+      "openingMm": {
+        "width": 1814,
+        "height": 569
+      },
+      "usableFraction": 0.72,
+      "confidence": "low",
+      "notes": "Alternate planning envelope that uses the full bed floor width. Wheel wells interrupt this width, so it should be treated as optimistic for rigid bags."
+    },
+    {
+      "id": "standard_bed",
+      "label": "Open cargo bed — standard box (Crew Cab 157 in wheelbase)",
+      "volumeLitres": 2030,
+      "dimensionsMm": {
+        "length": 2017,
+        "width": 1286,
+        "height": 569
+      },
+      "openingMm": {
+        "width": 1286,
+        "height": 569
+      },
+      "usableFraction": 0.86,
+      "confidence": "medium",
+      "notes": "Uses the wheel-house width as the conservative rectangular width. GMC lists Crew Cab cargo volume as 62.9–71.7 cu ft depending on short or standard bed."
+    },
+    {
+      "id": "rear_cabin_floor",
+      "label": "Rear cabin floor / seat overflow",
+      "volumeLitres": 180,
+      "dimensionsMm": {
+        "length": 740,
+        "width": 1500,
+        "height": 300
+      },
+      "usableFraction": 0.45,
+      "confidence": "low",
+      "notes": "Generic interior overflow area for soft bags when rear seating is sacrificed; not a manufacturer cargo specification."
+    }
+  ],
+  "seatConfigurations": [
+    {
+      "id": "seats_up",
+      "label": "Crew cab, short bed",
+      "cargoZoneIds": [
+        "short_bed"
+      ],
+      "seatsAvailable": 5,
+      "notes": "Assumes the common Denali Crew Cab short-box configuration; cargo is exposed to weather without a bed cover."
+    },
+    {
+      "id": "short_bed_full_width",
+      "label": "Crew cab, short bed full floor width",
+      "cargoZoneIds": [
+        "short_bed_full_floor"
+      ],
+      "seatsAvailable": 5,
+      "notes": "Optimistic width view for soft bags or loads that can sit around wheel wells."
+    },
+    {
+      "id": "standard_bed",
+      "label": "Crew cab, standard bed",
+      "cargoZoneIds": [
+        "standard_bed"
+      ],
+      "seatsAvailable": 5,
+      "notes": "For the less common Crew Cab standard-box configuration on the 157 in wheelbase."
+    },
+    {
+      "id": "short_bed_with_cabin_overflow",
+      "label": "Short bed with rear cabin overflow",
+      "cargoZoneIds": [
+        "short_bed",
+        "rear_cabin_floor"
+      ],
+      "seatsAvailable": 2,
+      "notes": "Assumes rear passenger seating is used for additional soft luggage."
+    }
+  ],
+  "sources": [
+    {
+      "sourceType": "manufacturer",
+      "publisher": "GMC",
+      "title": "2020 GMC Sierra 1500 Trailering Guide",
+      "url": "https://www.gmc.com/content/dam/gmc/na/us/english/index/about/trailering-towing/02-pdfs/GMTB20CT300_2020_GMC_Trailering%20Guide.pdf",
+      "retrievedAt": "2026-05-14",
+      "fieldsCovered": [
+        "Crew Cab short/standard bed availability",
+        "cargo volume range",
+        "wheelbase",
+        "passenger capacity"
+      ],
+      "confidence": "high"
+    },
+    {
+      "sourceType": "manufacturer",
+      "publisher": "GMC",
+      "title": "2020 GMC Sierra brochure",
+      "url": "https://www.gmc.com/content/dam/gmc/na/us/english/index/about/download-brochures/2020-models/updated-2020-pdfs/2020-gmc-sierra-ld-catalog.pdf",
+      "retrievedAt": "2026-05-14",
+      "fieldsCovered": [
+        "short bed cargo volume",
+        "standard bed cargo volume"
+      ],
+      "confidence": "high"
+    },
+    {
+      "sourceType": "editorial",
+      "publisher": "Carspecs.org",
+      "title": "GMC Sierra 1500 Cargo Space",
+      "url": "https://carspecs.org/cargo-space/gmc/sierra-1500/",
+      "retrievedAt": "2026-05-14",
+      "fieldsCovered": [
+        "cargo box length",
+        "cargo box width at floor",
+        "cargo box width at wheel housings",
+        "cargo box height"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "sourceType": "rental-company",
+      "publisher": "Hertz",
+      "title": "Hertz 2021 Vehicle Guide",
+      "url": "https://images.hertz.com/pdfs/Hertz_2021_Vehicle_Guides.pdf",
+      "retrievedAt": "2026-05-14",
+      "fieldsCovered": [
+        "North American pickup rental class context",
+        "Chevrolet Silverado or similar rental alias"
+      ],
+      "confidence": "medium"
+    }
+  ]
+}
