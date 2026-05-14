@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Luggage Check</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <section class="hero">
+        <div>
+          <p class="eyebrow">Rental car luggage planner</p>
+          <h1>Pick a vehicle setup and see whether your bags fit.</h1>
+          <p class="hero-copy">
+            Compare European rental-car cargo configurations, tune the luggage list, and visualize the
+            estimated placement in each cargo zone before you book.
+          </p>
+        </div>
+        <div class="hero-card" aria-live="polite">
+          <span class="hero-card__label">Fit result</span>
+          <strong id="heroResult">Loading…</strong>
+          <span id="heroDetail">Reading vehicle and luggage configs.</span>
+        </div>
+      </section>
+
+      <section class="workspace" aria-label="Luggage fit workspace">
+        <aside class="panel controls-panel">
+          <div class="panel-heading">
+            <p class="eyebrow">Configuration</p>
+            <h2>Trip setup</h2>
+          </div>
+
+          <label class="field">
+            <span>Vehicle</span>
+            <select id="vehicleSelect"></select>
+          </label>
+
+          <label class="field">
+            <span>Seat / cargo configuration</span>
+            <select id="configurationSelect"></select>
+          </label>
+
+          <div id="vehicleMeta" class="vehicle-meta"></div>
+
+          <div class="panel-heading compact">
+            <p class="eyebrow">Luggage</p>
+            <h2>Bag list</h2>
+          </div>
+          <div id="luggageControls" class="luggage-list"></div>
+        </aside>
+
+        <section class="panel results-panel">
+          <div class="results-header">
+            <div>
+              <p class="eyebrow">Visualization</p>
+              <h2 id="resultTitle">Estimated cargo fit</h2>
+            </div>
+            <div id="fitBadge" class="fit-badge">Loading</div>
+          </div>
+
+          <div class="metrics" id="metrics"></div>
+
+          <div class="view-tabs" role="tablist" aria-label="Visualization view">
+            <button class="view-tab active" type="button" data-view="top">Top view</button>
+            <button class="view-tab" type="button" data-view="side">Side view</button>
+            <button class="view-tab" type="button" data-view="front">Rear opening</button>
+          </div>
+
+          <div id="visualization" class="visualization" aria-label="Scaled luggage placement drawing"></div>
+
+          <div class="details-grid">
+            <section>
+              <h3>Placed luggage</h3>
+              <ul id="placedList" class="status-list"></ul>
+            </section>
+            <section>
+              <h3>Needs another plan</h3>
+              <ul id="unplacedList" class="status-list"></ul>
+            </section>
+          </div>
+
+          <div id="warnings" class="warnings"></div>
+        </section>
+      </section>
+    </main>
+
+    <script type="module" src="./app.js"></script>
+  </body>
+</html>

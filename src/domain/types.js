@@ -40,6 +40,17 @@
  * @property {'high'|'medium'|'low'} confidence
  * @property {string=} notes
  *
+
+ * @typedef {Object} Placement
+ * @property {string} itemId
+ * @property {string} sourceId
+ * @property {string} label
+ * @property {string} zoneId
+ * @property {string} zoneLabel
+ * @property {{x:number,y:number,z:number}} positionMm
+ * @property {DimensionsMm} orientationMm
+ * @property {number} volumeLitres
+ *
  * @typedef {Object} VehicleConfig
  * @property {string} id
  * @property {string} make
