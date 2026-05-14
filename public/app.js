@@ -10,7 +10,14 @@ const VEHICLE_FILES = [
 ];
 
 const BAG_COLORS = ['#2563eb', '#16a34a', '#f97316', '#9333ea', '#0891b2', '#e11d48', '#ca8a04', '#4f46e5'];
-const state = { luggageSet: null, vehicles: [], vehicleId: '', configurationId: '', activeView: 'top' };
+const state = {
+  luggageSet: null,
+  vehicles: [],
+  vehicleId: '',
+  configurationId: '',
+  activeView: 'top',
+  rotation3d: { yaw: -38, pitch: 58 }
+};
 
 const $ = (selector) => document.querySelector(selector);
 const vehicleSelect = $('#vehicleSelect');
@@ -125,6 +132,19 @@ function projectZone(zone, view) {
   return { width: dimensions.length, height: dimensions.width, xLabel: 'length', yLabel: 'width' };
 }
 
+function clamp(value, min, max) {
+  return Math.min(max, Math.max(min, value));
+}
+
+function shadeColor(hex, percent) {
+  const number = Number.parseInt(hex.replace('#', ''), 16);
+  const amount = Math.round(2.55 * percent);
+  const red = clamp((number >> 16) + amount, 0, 255);
+  const green = clamp(((number >> 8) & 0x00ff) + amount, 0, 255);
+  const blue = clamp((number & 0x0000ff) + amount, 0, 255);
+  return `#${((1 << 24) + (red << 16) + (green << 8) + blue).toString(16).slice(1)}`;
+}
+
 function renderZoneSvg(zone, placements, index) {
   const projection = projectZone(zone, state.activeView);
   const padding = 28;
@@ -142,7 +162,7 @@ function renderZoneSvg(zone, placements, index) {
     const height = Math.max(4, box.height * scale);
     return `
       <g>
-        <rect x="${x}" y="${y}" width="${width}" height="${height}" rx="7" fill="${colorForPlacement(placement)}" opacity="0.86" />
+        <rect class="luggage-rect" x="${x}" y="${y}" width="${width}" height="${height}" rx="7" fill="${colorForPlacement(placement)}" />
         <title>${placement.label}: ${dimensionsLabel(placement.orientationMm)}</title>
       </g>
     `;
@@ -155,7 +175,7 @@ function renderZoneSvg(zone, placements, index) {
         <span>${dimensionsLabel(zone.dimensionsMm)} · ${zone.volumeLitres} L</span>
       </div>
       <svg viewBox="0 0 ${svgWidth} ${svgHeight}" role="img" aria-label="${zone.label} ${state.activeView} view">
-        <rect x="${padding}" y="${padding}" width="${projection.width * scale}" height="${projection.height * scale}" rx="12" fill="#eff6ff" stroke="#1d4ed8" stroke-width="2" stroke-dasharray="7 6" />
+        <rect class="cargo-outline" x="${padding}" y="${padding}" width="${projection.width * scale}" height="${projection.height * scale}" rx="12" fill="#eff6ff" />
         ${rects}
         <text x="${padding}" y="${svgHeight - 12}" class="axis-label">${projection.xLabel}: ${projection.width} mm</text>
         <text x="${svgWidth - padding}" y="${svgHeight - 12}" text-anchor="end" class="axis-label">${projection.yLabel}: ${projection.height} mm</text>
@@ -165,11 +185,159 @@ function renderZoneSvg(zone, placements, index) {
   `;
 }
 
+
+function createBoxVertices(position, size) {
+  const { x, y, z } = position;
+  const { length, width, height } = size;
+  return [
+    { x, y, z },
+    { x: x + length, y, z },
+    { x: x + length, y: y + width, z },
+    { x, y: y + width, z },
+    { x, y, z: z + height },
+    { x: x + length, y, z: z + height },
+    { x: x + length, y: y + width, z: z + height },
+    { x, y: y + width, z: z + height }
+  ];
+}
+
+function createProjector(zone, placements, canvasWidth, canvasHeight, padding) {
+  const dimensions = zone.dimensionsMm;
+  const yaw = state.rotation3d.yaw * Math.PI / 180;
+  const pitch = state.rotation3d.pitch * Math.PI / 180;
+  const cosYaw = Math.cos(yaw);
+  const sinYaw = Math.sin(yaw);
+  const cosPitch = Math.cos(pitch);
+  const sinPitch = Math.sin(pitch);
+  const center = { x: dimensions.length / 2, y: dimensions.width / 2 };
+  const allPoints = [
+    ...createBoxVertices({ x: 0, y: 0, z: 0 }, dimensions),
+    ...placements.flatMap((placement) => createBoxVertices(placement.positionMm, placement.orientationMm))
+  ];
+  const raw = (point) => {
+    const centeredX = point.x - center.x;
+    const centeredY = point.y - center.y;
+    const rotatedX = centeredX * cosYaw - centeredY * sinYaw;
+    const rotatedY = centeredX * sinYaw + centeredY * cosYaw;
+    return {
+      x: rotatedX,
+      y: rotatedY * cosPitch - point.z * sinPitch,
+      depth: rotatedY * sinPitch + point.z * cosPitch
+    };
+  };
+  const projected = allPoints.map(raw);
+  const minX = Math.min(...projected.map((point) => point.x));
+  const maxX = Math.max(...projected.map((point) => point.x));
+  const minY = Math.min(...projected.map((point) => point.y));
+  const maxY = Math.max(...projected.map((point) => point.y));
+  const scale = Math.min((canvasWidth - padding * 2) / Math.max(1, maxX - minX), (canvasHeight - padding * 2) / Math.max(1, maxY - minY));
+  return (point) => {
+    const output = raw(point);
+    return {
+      x: padding + (output.x - minX) * scale,
+      y: padding + (output.y - minY) * scale,
+      depth: output.depth
+    };
+  };
+}
+
+function polygonPoints(points) {
+  return points.map((point) => `${point.x.toFixed(1)},${point.y.toFixed(1)}`).join(' ');
+}
+
+function renderFace(vertices, indices, fill, className, title = '') {
+  const points = indices.map((faceIndex) => vertices[faceIndex]);
+  const depth = points.reduce((total, point) => total + point.depth, 0) / points.length;
+  return {
+    depth,
+    markup: `<polygon class="${className}" points="${polygonPoints(points)}" fill="${fill}">${title ? `<title>${title}</title>` : ''}</polygon>`
+  };
+}
+
+function renderZone3dSvg(zone, placements) {
+  const svgWidth = 820;
+  const svgHeight = 440;
+  const padding = 34;
+  const project = createProjector(zone, placements, svgWidth, svgHeight, padding);
+  const zoneVertices = createBoxVertices({ x: 0, y: 0, z: 0 }, zone.dimensionsMm).map(project);
+  const faces = [
+    renderFace(zoneVertices, [0, 1, 2, 3], '#dbeafe', 'zone-face zone-face--floor'),
+    ...placements.flatMap((placement) => {
+      const color = colorForPlacement(placement);
+      const vertices = createBoxVertices(placement.positionMm, placement.orientationMm).map(project);
+      const title = `${placement.label}: ${dimensionsLabel(placement.orientationMm)}`;
+      return [
+        renderFace(vertices, [0, 1, 2, 3], shadeColor(color, -18), 'bag-face', title),
+        renderFace(vertices, [0, 1, 5, 4], shadeColor(color, -8), 'bag-face', title),
+        renderFace(vertices, [1, 2, 6, 5], shadeColor(color, -14), 'bag-face', title),
+        renderFace(vertices, [2, 3, 7, 6], shadeColor(color, 2), 'bag-face', title),
+        renderFace(vertices, [3, 0, 4, 7], shadeColor(color, -22), 'bag-face', title),
+        renderFace(vertices, [4, 5, 6, 7], shadeColor(color, 12), 'bag-face', title)
+      ];
+    })
+  ].sort((a, b) => a.depth - b.depth).map((face) => face.markup).join('');
+
+  return `
+    <article class="zone-card zone-card--3d">
+      <div class="zone-card__header">
+        <div>
+          <strong>${zone.label}</strong>
+          <span>${dimensionsLabel(zone.dimensionsMm)} · ${zone.volumeLitres} L</span>
+        </div>
+        <span>Drag to rotate · yaw ${Math.round(state.rotation3d.yaw)}° · pitch ${Math.round(state.rotation3d.pitch)}°</span>
+      </div>
+      <svg class="zone-3d-svg" viewBox="0 0 ${svgWidth} ${svgHeight}" role="img" aria-label="${zone.label} rotatable 3D luggage view">
+        <rect x="0" y="0" width="${svgWidth}" height="${svgHeight}" rx="18" fill="#f8fafc" />
+        ${faces}
+        <polyline class="zone-wire" points="${polygonPoints([zoneVertices[0], zoneVertices[1], zoneVertices[2], zoneVertices[3], zoneVertices[0]])}" />
+        <line class="zone-wire" x1="${zoneVertices[0].x}" y1="${zoneVertices[0].y}" x2="${zoneVertices[4].x}" y2="${zoneVertices[4].y}" />
+        <line class="zone-wire" x1="${zoneVertices[1].x}" y1="${zoneVertices[1].y}" x2="${zoneVertices[5].x}" y2="${zoneVertices[5].y}" />
+        <line class="zone-wire" x1="${zoneVertices[2].x}" y1="${zoneVertices[2].y}" x2="${zoneVertices[6].x}" y2="${zoneVertices[6].y}" />
+        <line class="zone-wire" x1="${zoneVertices[3].x}" y1="${zoneVertices[3].y}" x2="${zoneVertices[7].x}" y2="${zoneVertices[7].y}" />
+        <polyline class="zone-wire" points="${polygonPoints([zoneVertices[4], zoneVertices[5], zoneVertices[6], zoneVertices[7], zoneVertices[4]])}" />
+      </svg>
+      ${placements.length === 0 ? '<p class="empty-zone">No bags placed in this zone.</p>' : ''}
+    </article>
+  `;
+}
+
 function renderVisualization(vehicle, config, result) {
   const zones = config.cargoZoneIds.map((id) => vehicle.cargoZones.find((zone) => zone.id === id)).filter(Boolean);
-  visualization.innerHTML = zones.map((zone, index) =>
-    renderZoneSvg(zone, result.placements.filter((placement) => placement.zoneId === zone.id), index)
-  ).join('');
+  visualization.innerHTML = zones.map((zone, index) => {
+    const placements = result.placements.filter((placement) => placement.zoneId === zone.id);
+    return state.activeView === '3d' ? renderZone3dSvg(zone, placements) : renderZoneSvg(zone, placements, index);
+  }).join('');
+  bind3dRotation();
+}
+
+function bind3dRotation() {
+  if (state.activeView !== '3d') return;
+  visualization.querySelectorAll('.zone-3d-svg').forEach((svg) => {
+    svg.addEventListener('pointerdown', (event) => {
+      event.preventDefault();
+      let previous = { x: event.clientX, y: event.clientY };
+      svg.classList.add('is-dragging');
+
+      const handleMove = (moveEvent) => {
+        const dx = moveEvent.clientX - previous.x;
+        const dy = moveEvent.clientY - previous.y;
+        previous = { x: moveEvent.clientX, y: moveEvent.clientY };
+        state.rotation3d.yaw += dx * 0.35;
+        state.rotation3d.pitch = clamp(state.rotation3d.pitch - dy * 0.25, 18, 78);
+        renderResults();
+      };
+      const endDrag = () => {
+        window.removeEventListener('pointermove', handleMove);
+        window.removeEventListener('pointerup', endDrag);
+        window.removeEventListener('pointercancel', endDrag);
+        visualization.querySelectorAll('.zone-3d-svg').forEach((currentSvg) => currentSvg.classList.remove('is-dragging'));
+      };
+
+      window.addEventListener('pointermove', handleMove);
+      window.addEventListener('pointerup', endDrag, { once: true });
+      window.addEventListener('pointercancel', endDrag, { once: true });
+    });
+  });
 }
 
 function renderLists(result) {
