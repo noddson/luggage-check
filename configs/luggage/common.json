@@ -1,0 +1,110 @@
+{
+  "version": 1,
+  "items": [
+    {
+      "id": "iata-cabin-bag",
+      "label": "IATA-style cabin bag",
+      "quantity": 1,
+      "shapeType": "box",
+      "dimensionsMm": { "length": 550, "width": 350, "height": 200 },
+      "rotationAllowed": true,
+      "sources": [
+        {
+          "sourceType": "standard-body",
+          "publisher": "International Air Transport Association",
+          "title": "Cabin OK initiative size reference",
+          "url": "https://www.iata.org/en/pressroom/2015-releases/2015-06-09-02/",
+          "retrievedAt": "2026-05-13",
+          "fieldsCovered": ["cabin bag dimensions"],
+          "confidence": "medium",
+          "notes": "IATA withdrew the Cabin OK initiative, but its 55 x 35 x 20 cm reference remains useful as a common cabin-size preset."
+        }
+      ]
+    },
+    {
+      "id": "us-carry-on",
+      "label": "US airline carry-on",
+      "quantity": 1,
+      "shapeType": "box",
+      "dimensionsMm": { "length": 559, "width": 356, "height": 229 },
+      "rotationAllowed": true,
+      "sources": [
+        {
+          "sourceType": "standard-body",
+          "publisher": "American Airlines",
+          "title": "Carry-on bags",
+          "url": "https://www.aa.com/i18n/travel-info/baggage/carry-on-baggage.jsp",
+          "retrievedAt": "2026-05-13",
+          "fieldsCovered": ["carry-on dimensions"],
+          "confidence": "high",
+          "notes": "22 x 14 x 9 inches converted to millimetres and rounded."
+        }
+      ]
+    },
+    {
+      "id": "medium-checked-suitcase",
+      "label": "Medium checked suitcase",
+      "quantity": 1,
+      "shapeType": "box",
+      "dimensionsMm": { "length": 660, "width": 470, "height": 280 },
+      "rotationAllowed": true,
+      "sources": [
+        {
+          "sourceType": "luggage-brand",
+          "publisher": "Samsonite",
+          "title": "Ultimate luggage guide",
+          "url": "https://shop.samsonite.com/ultimate-luggage-guide.html",
+          "retrievedAt": "2026-05-13",
+          "fieldsCovered": ["checked suitcase size bands"],
+          "confidence": "medium",
+          "notes": "Representative midpoint derived from common medium checked luggage size ranges."
+        }
+      ]
+    },
+    {
+      "id": "large-checked-suitcase",
+      "label": "Large checked suitcase",
+      "quantity": 1,
+      "shapeType": "box",
+      "dimensionsMm": { "length": 760, "width": 520, "height": 310 },
+      "rotationAllowed": true,
+      "sources": [
+        {
+          "sourceType": "luggage-brand",
+          "publisher": "Samsonite",
+          "title": "Ultimate luggage guide",
+          "url": "https://shop.samsonite.com/ultimate-luggage-guide.html",
+          "retrievedAt": "2026-05-13",
+          "fieldsCovered": ["checked suitcase size bands"],
+          "confidence": "medium",
+          "notes": "Representative midpoint derived from common large checked luggage size ranges."
+        }
+      ]
+    },
+    {
+      "id": "soft-travel-backpack",
+      "label": "Soft travel backpack",
+      "quantity": 1,
+      "shapeType": "free_form",
+      "dimensionsMm": { "length": 520, "width": 330, "height": 240 },
+      "compressibility": 0.25,
+      "rotationAllowed": true,
+      "boundingBoxes": [
+        { "label": "main compartment", "dimensionsMm": { "length": 460, "width": 320, "height": 210 } },
+        { "label": "front pocket bulge", "dimensionsMm": { "length": 260, "width": 280, "height": 70 } }
+      ],
+      "sources": [
+        {
+          "sourceType": "editorial",
+          "publisher": "Luggage Check",
+          "title": "Default soft backpack approximation",
+          "url": "https://github.com/example/luggage-check/configs/luggage/common.json",
+          "retrievedAt": "2026-05-13",
+          "fieldsCovered": ["free-form luggage approximation"],
+          "confidence": "low",
+          "notes": "Placeholder approximation for irregular/compressible bags until a user enters measured dimensions or scans."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,116 @@
+{
+  "id": "peugeot-3008",
+  "make": "Peugeot",
+  "model": "3008",
+  "generation": "Second generation SUV references",
+  "modelYears": [
+    "2016-2024"
+  ],
+  "bodyStyle": "SUV",
+  "rentalClasses": [
+    "intermediate SUV",
+    "midsize SUV",
+    "compact SUV"
+  ],
+  "commonRentalAliases": [
+    "Peugeot 3008 or similar",
+    "Intermediate SUV",
+    "Midsize SUV"
+  ],
+  "cargoZones": [
+    {
+      "id": "boot_seats_up",
+      "label": "Boot / trunk with rear seats up",
+      "volumeLitres": 520,
+      "dimensionsMm": {
+        "length": 870,
+        "width": 1050,
+        "height": 569
+      },
+      "usableFraction": 0.82,
+      "confidence": "low",
+      "notes": "Manufacturer volume is sourced; rectangular dimensions are first-pass estimated cuboids for MVP packing and should be replaced by measured cargo dimensions."
+    },
+    {
+      "id": "boot_seats_folded",
+      "label": "Expanded cargo area with rear seats folded",
+      "volumeLitres": 1482,
+      "dimensionsMm": {
+        "length": 1580,
+        "width": 1050,
+        "height": 894
+      },
+      "usableFraction": 0.72,
+      "confidence": "low",
+      "notes": "Manufacturer folded volume is sourced where available; dimensions estimate a box-like load floor and ignore seat rake, wheel arches, and trim intrusions."
+    },
+    {
+      "id": "rear_seat_footwell",
+      "label": "Rear passenger footwell overflow",
+      "volumeLitres": 80,
+      "dimensionsMm": {
+        "length": 650,
+        "width": 1100,
+        "height": 180
+      },
+      "usableFraction": 0.45,
+      "confidence": "low",
+      "notes": "Generic overflow area, enabled only when passenger space can be used."
+    }
+  ],
+  "seatConfigurations": [
+    {
+      "id": "seats_up",
+      "label": "Rear seats up",
+      "cargoZoneIds": [
+        "boot_seats_up"
+      ],
+      "seatsAvailable": 5
+    },
+    {
+      "id": "rear_folded",
+      "label": "Rear seats folded",
+      "cargoZoneIds": [
+        "boot_seats_up",
+        "boot_seats_folded"
+      ],
+      "seatsAvailable": 2,
+      "notes": "For two occupants plus cargo; exact split-fold support varies by trim."
+    },
+    {
+      "id": "seats_up_with_footwell",
+      "label": "Rear seats up with rear footwell overflow",
+      "cargoZoneIds": [
+        "boot_seats_up",
+        "rear_seat_footwell"
+      ],
+      "seatsAvailable": 4,
+      "notes": "Assumes at least one rear passenger position is sacrificed for soft bags."
+    }
+  ],
+  "sources": [
+    {
+      "sourceType": "manufacturer",
+      "publisher": "Stellantis / Peugeot",
+      "title": "New Peugeot 3008 advanced SUV",
+      "url": "https://www.media.stellantis.com/em-en/peugeot/press/new-peugeot-3008-advanced-suv",
+      "retrievedAt": "2026-05-13",
+      "fieldsCovered": [
+        "boot volume"
+      ],
+      "confidence": "high",
+      "notes": "Press materials list 520 L VDA boot capacity for the referenced 3008 generation."
+    },
+    {
+      "sourceType": "rental-broker",
+      "publisher": "Auto Europe",
+      "title": "Avis car rental classes guide",
+      "url": "https://www.autoeurope.com/avis-car-classes/",
+      "retrievedAt": "2026-05-13",
+      "fieldsCovered": [
+        "rental fleet example models"
+      ],
+      "confidence": "medium"
+    }
+  ]
+}
