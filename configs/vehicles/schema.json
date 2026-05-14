@@ -1,0 +1,76 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://luggage-check.local/configs/vehicles/schema.json",
+  "title": "Vehicle cargo configuration",
+  "type": "object",
+  "required": ["id", "make", "model", "generation", "modelYears", "bodyStyle", "rentalClasses", "commonRentalAliases", "cargoZones", "seatConfigurations", "sources"],
+  "properties": {
+    "id": { "type": "string" },
+    "make": { "type": "string" },
+    "model": { "type": "string" },
+    "generation": { "type": "string" },
+    "modelYears": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+    "bodyStyle": { "type": "string" },
+    "rentalClasses": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+    "commonRentalAliases": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+    "cargoZones": { "type": "array", "items": { "$ref": "#/$defs/cargoZone" }, "minItems": 1 },
+    "seatConfigurations": { "type": "array", "items": { "$ref": "#/$defs/seatConfiguration" }, "minItems": 1 },
+    "sources": { "type": "array", "items": { "$ref": "#/$defs/source" }, "minItems": 2 }
+  },
+  "$defs": {
+    "dimensionsMm": {
+      "type": "object",
+      "required": ["length", "width", "height"],
+      "properties": {
+        "length": { "type": "number", "exclusiveMinimum": 0 },
+        "width": { "type": "number", "exclusiveMinimum": 0 },
+        "height": { "type": "number", "exclusiveMinimum": 0 }
+      }
+    },
+    "cargoZone": {
+      "type": "object",
+      "required": ["id", "label", "volumeLitres", "confidence"],
+      "properties": {
+        "id": { "type": "string" },
+        "label": { "type": "string" },
+        "volumeLitres": { "type": "number", "exclusiveMinimum": 0 },
+        "dimensionsMm": { "$ref": "#/$defs/dimensionsMm" },
+        "openingMm": {
+          "type": "object",
+          "properties": {
+            "width": { "type": "number", "exclusiveMinimum": 0 },
+            "height": { "type": "number", "exclusiveMinimum": 0 }
+          }
+        },
+        "usableFraction": { "type": "number", "exclusiveMinimum": 0, "maximum": 1 },
+        "confidence": { "enum": ["high", "medium", "low"] },
+        "notes": { "type": "string" }
+      }
+    },
+    "seatConfiguration": {
+      "type": "object",
+      "required": ["id", "label", "cargoZoneIds", "seatsAvailable"],
+      "properties": {
+        "id": { "type": "string" },
+        "label": { "type": "string" },
+        "cargoZoneIds": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+        "seatsAvailable": { "type": "integer", "minimum": 1 },
+        "notes": { "type": "string" }
+      }
+    },
+    "source": {
+      "type": "object",
+      "required": ["sourceType", "publisher", "title", "url", "retrievedAt", "fieldsCovered", "confidence"],
+      "properties": {
+        "sourceType": { "enum": ["manufacturer", "rental-company", "rental-broker", "standard-body", "luggage-brand", "editorial"] },
+        "publisher": { "type": "string" },
+        "title": { "type": "string" },
+        "url": { "type": "string", "format": "uri" },
+        "retrievedAt": { "type": "string", "format": "date" },
+        "fieldsCovered": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+        "confidence": { "enum": ["high", "medium", "low"] },
+        "notes": { "type": "string" }
+      }
+    }
+  }
+}

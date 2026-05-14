@@ -1,0 +1,65 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://luggage-check.local/configs/luggage/schema.json",
+  "title": "Luggage definition set",
+  "type": "object",
+  "required": ["version", "items"],
+  "properties": {
+    "version": { "type": "integer", "minimum": 1 },
+    "items": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/luggageItem" }
+    }
+  },
+  "$defs": {
+    "dimensionsMm": {
+      "type": "object",
+      "required": ["length", "width", "height"],
+      "properties": {
+        "length": { "type": "number", "exclusiveMinimum": 0 },
+        "width": { "type": "number", "exclusiveMinimum": 0 },
+        "height": { "type": "number", "exclusiveMinimum": 0 }
+      }
+    },
+    "source": {
+      "type": "object",
+      "required": ["sourceType", "publisher", "title", "url", "retrievedAt", "fieldsCovered", "confidence"],
+      "properties": {
+        "sourceType": { "enum": ["manufacturer", "rental-company", "rental-broker", "standard-body", "luggage-brand", "editorial"] },
+        "publisher": { "type": "string" },
+        "title": { "type": "string" },
+        "url": { "type": "string", "format": "uri" },
+        "retrievedAt": { "type": "string", "format": "date" },
+        "fieldsCovered": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+        "confidence": { "enum": ["high", "medium", "low"] },
+        "notes": { "type": "string" }
+      }
+    },
+    "luggageItem": {
+      "type": "object",
+      "required": ["id", "label", "quantity", "shapeType", "dimensionsMm", "rotationAllowed", "sources"],
+      "properties": {
+        "id": { "type": "string" },
+        "label": { "type": "string" },
+        "quantity": { "type": "integer", "minimum": 1 },
+        "shapeType": { "enum": ["box", "soft_box", "ellipsoid", "cylinder", "free_form"] },
+        "dimensionsMm": { "$ref": "#/$defs/dimensionsMm" },
+        "compressibility": { "type": "number", "minimum": 0, "maximum": 1 },
+        "rotationAllowed": { "oneOf": [{ "type": "boolean" }, { "type": "array", "items": { "enum": ["length", "width", "height"] } }] },
+        "weightKg": { "type": "number", "minimum": 0 },
+        "boundingBoxes": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["label", "dimensionsMm"],
+            "properties": {
+              "label": { "type": "string" },
+              "dimensionsMm": { "$ref": "#/$defs/dimensionsMm" }
+            }
+          }
+        },
+        "sources": { "type": "array", "items": { "$ref": "#/$defs/source" }, "minItems": 1 }
+      }
+    }
+  }
+}

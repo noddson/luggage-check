@@ -1,0 +1,117 @@
+{
+  "id": "renault-clio",
+  "make": "Renault",
+  "model": "Clio",
+  "generation": "V / current UK Clio E-Tech and petrol references",
+  "modelYears": [
+    "2019-present"
+  ],
+  "bodyStyle": "5-door hatchback",
+  "rentalClasses": [
+    "economy",
+    "compact",
+    "small hatchback"
+  ],
+  "commonRentalAliases": [
+    "Renault Clio or similar",
+    "Economy manual",
+    "Compact hatchback"
+  ],
+  "cargoZones": [
+    {
+      "id": "boot_seats_up",
+      "label": "Boot / trunk with rear seats up",
+      "volumeLitres": 391,
+      "dimensionsMm": {
+        "length": 720,
+        "width": 1000,
+        "height": 460
+      },
+      "usableFraction": 0.82,
+      "confidence": "low",
+      "notes": "Manufacturer volume is sourced; rectangular dimensions are first-pass estimated cuboids for MVP packing and should be replaced by measured cargo dimensions."
+    },
+    {
+      "id": "boot_seats_folded",
+      "label": "Expanded cargo area with rear seats folded",
+      "volumeLitres": 1069,
+      "dimensionsMm": {
+        "length": 1350,
+        "width": 1000,
+        "height": 760
+      },
+      "usableFraction": 0.72,
+      "confidence": "low",
+      "notes": "Manufacturer folded volume is sourced where available; dimensions estimate a box-like load floor and ignore seat rake, wheel arches, and trim intrusions."
+    },
+    {
+      "id": "rear_seat_footwell",
+      "label": "Rear passenger footwell overflow",
+      "volumeLitres": 80,
+      "dimensionsMm": {
+        "length": 650,
+        "width": 1100,
+        "height": 180
+      },
+      "usableFraction": 0.45,
+      "confidence": "low",
+      "notes": "Generic overflow area, enabled only when passenger space can be used."
+    }
+  ],
+  "seatConfigurations": [
+    {
+      "id": "seats_up",
+      "label": "Rear seats up",
+      "cargoZoneIds": [
+        "boot_seats_up"
+      ],
+      "seatsAvailable": 5
+    },
+    {
+      "id": "rear_folded",
+      "label": "Rear seats folded",
+      "cargoZoneIds": [
+        "boot_seats_up",
+        "boot_seats_folded"
+      ],
+      "seatsAvailable": 2,
+      "notes": "For two occupants plus cargo; exact split-fold support varies by trim."
+    },
+    {
+      "id": "seats_up_with_footwell",
+      "label": "Rear seats up with rear footwell overflow",
+      "cargoZoneIds": [
+        "boot_seats_up",
+        "rear_seat_footwell"
+      ],
+      "seatsAvailable": 4,
+      "notes": "Assumes at least one rear passenger position is sacrificed for soft bags."
+    }
+  ],
+  "sources": [
+    {
+      "sourceType": "manufacturer",
+      "publisher": "Renault UK",
+      "title": "Clio design and modularity",
+      "url": "https://www.renault.co.uk/cars/clio/design.html",
+      "retrievedAt": "2026-05-13",
+      "fieldsCovered": [
+        "boot volume",
+        "folded boot volume"
+      ],
+      "confidence": "high",
+      "notes": "Renault lists 301 L or 391 L boot capacity depending powertrain, and folded capacities around 1006-1069 L."
+    },
+    {
+      "sourceType": "rental-broker",
+      "publisher": "Auto Europe",
+      "title": "Rental car classes in Europe",
+      "url": "https://www.autoeurope.com/rental-car-classes/",
+      "retrievedAt": "2026-05-13",
+      "fieldsCovered": [
+        "rental class context"
+      ],
+      "confidence": "medium"
+    }
+  ]
+}
