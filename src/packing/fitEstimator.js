@@ -1,4 +1,5 @@
 const MM3_PER_LITRE = 1_000_000;
+const MIN_SPACE_MM = 1;
 
 function permutations(dimensions) {
   const { length, width, height } = dimensions;
@@ -16,6 +17,10 @@ function permutations(dimensions) {
 
 function volumeLitres(dimensions) {
   return (dimensions.length * dimensions.width * dimensions.height) / MM3_PER_LITRE;
+}
+
+function volumeMm3(dimensions) {
+  return dimensions.length * dimensions.width * dimensions.height;
 }
 
 function effectiveDimensions(item) {
@@ -37,7 +42,7 @@ function expandItems(items) {
     dimensionsMm: effectiveDimensions(item),
     rotationAllowed: item.rotationAllowed,
     compressibility: item.compressibility ?? 0
-  }))).sort((a, b) => volumeLitres(b.dimensionsMm) - volumeLitres(a.dimensionsMm));
+  })));
 }
 
 function itemFitsOpening(item, orientation, zone) {
@@ -64,53 +69,263 @@ function orientationsForZone(item, zone) {
   );
 }
 
-function clonePackingState(state) {
-  return { ...state };
+function initialZoneState(zone) {
+  return {
+    zone,
+    remainingLitres: zone.volumeLitres * (zone.usableFraction ?? 0.75),
+    spaces: [{
+      x: 0,
+      y: 0,
+      z: 0,
+      length: zone.dimensionsMm?.length ?? 0,
+      width: zone.dimensionsMm?.width ?? 0,
+      height: zone.dimensionsMm?.height ?? 0
+    }],
+    placements: []
+  };
 }
 
-function fitsAtCursor(orientation, zone, state) {
-  return state.x + orientation.length <= zone.dimensionsMm.length
-    && state.y + orientation.width <= zone.dimensionsMm.width
-    && state.z + orientation.height <= zone.dimensionsMm.height;
+function spaceVolume(space) {
+  return space.length * space.width * space.height;
 }
 
-function commitPlacement(state, orientation) {
-  const position = { x: state.x, y: state.y, z: state.z };
-  state.x += orientation.length;
-  state.rowWidth = Math.max(state.rowWidth, orientation.width);
-  state.layerHeight = Math.max(state.layerHeight, orientation.height);
-  return position;
+function fitsInSpace(orientation, space) {
+  return orientation.length <= space.length
+    && orientation.width <= space.width
+    && orientation.height <= space.height;
 }
 
-function tryPlaceOrientation(orientation, zone, currentState) {
-  let state = clonePackingState(currentState);
-  if (fitsAtCursor(orientation, zone, state)) return { state, position: commitPlacement(state, orientation) };
-
-  state = { ...state, x: 0, y: state.y + state.rowWidth, rowWidth: 0 };
-  if (fitsAtCursor(orientation, zone, state)) return { state, position: commitPlacement(state, orientation) };
-
-  state = { ...state, x: 0, y: 0, z: state.z + state.layerHeight, rowWidth: 0, layerHeight: 0 };
-  if (fitsAtCursor(orientation, zone, state)) return { state, position: commitPlacement(state, orientation) };
-
-  return undefined;
+function candidatePosition(space) {
+  return { x: space.x, y: space.y, z: space.z };
 }
 
-function findPlacement(item, zone, packingState) {
-  const candidates = orientationsForZone(item, zone)
-    .map((orientation) => ({ orientation, attempt: tryPlaceOrientation(orientation, zone, packingState) }))
-    .filter((candidate) => candidate.attempt)
-    .sort((a, b) =>
-      a.attempt.position.z - b.attempt.position.z
-      || a.attempt.position.y - b.attempt.position.y
-      || a.attempt.position.x - b.attempt.position.x
-      || a.orientation.height - b.orientation.height
-    );
-  return candidates[0];
+function boxesOverlap(aPosition, aSize, bPosition, bSize) {
+  return aPosition.x < bPosition.x + bSize.length
+    && aPosition.x + aSize.length > bPosition.x
+    && aPosition.y < bPosition.y + bSize.width
+    && aPosition.y + aSize.width > bPosition.y
+    && aPosition.z < bPosition.z + bSize.height
+    && aPosition.z + aSize.height > bPosition.z;
+}
+
+function collidesWithPlacement(position, orientation, placements) {
+  return placements.some((placement) => boxesOverlap(position, orientation, placement.positionMm, placement.orientationMm));
+}
+
+function isContainedBy(inner, outer) {
+  return inner.x >= outer.x
+    && inner.y >= outer.y
+    && inner.z >= outer.z
+    && inner.x + inner.length <= outer.x + outer.length
+    && inner.y + inner.width <= outer.y + outer.width
+    && inner.z + inner.height <= outer.z + outer.height;
+}
+
+function normalizeSpaces(spaces) {
+  return spaces
+    .filter((space) => space.length >= MIN_SPACE_MM && space.width >= MIN_SPACE_MM && space.height >= MIN_SPACE_MM)
+    .filter((space, index, list) => list.findIndex((candidate) =>
+      candidate.x === space.x
+      && candidate.y === space.y
+      && candidate.z === space.z
+      && candidate.length === space.length
+      && candidate.width === space.width
+      && candidate.height === space.height
+    ) === index)
+    .filter((space, index, list) => !list.some((candidate, candidateIndex) => candidateIndex !== index && isContainedBy(space, candidate)))
+    .sort((a, b) => a.z - b.z || a.y - b.y || a.x - b.x || spaceVolume(a) - spaceVolume(b));
+}
+
+function splitSpace(space, position, orientation) {
+  const xEnd = space.x + space.length;
+  const yEnd = space.y + space.width;
+  const zEnd = space.z + space.height;
+  const placedXEnd = position.x + orientation.length;
+  const placedYEnd = position.y + orientation.width;
+  const placedZEnd = position.z + orientation.height;
+
+  return [
+    {
+      x: placedXEnd,
+      y: space.y,
+      z: space.z,
+      length: xEnd - placedXEnd,
+      width: space.width,
+      height: space.height
+    },
+    {
+      x: space.x,
+      y: placedYEnd,
+      z: space.z,
+      length: orientation.length,
+      width: yEnd - placedYEnd,
+      height: space.height
+    },
+    {
+      x: space.x,
+      y: space.y,
+      z: placedZEnd,
+      length: orientation.length,
+      width: orientation.width,
+      height: zEnd - placedZEnd
+    }
+  ];
+}
+
+function scoreCandidate(candidate) {
+  const { space, orientation, position, zoneIndex } = candidate;
+  const leftover = spaceVolume(space) - volumeMm3(orientation);
+  const slack = (space.length - orientation.length) + (space.width - orientation.width) + (space.height - orientation.height);
+  return [
+    zoneIndex,
+    position.z,
+    position.y,
+    position.x,
+    leftover,
+    slack,
+    orientation.height,
+    Math.max(orientation.length, orientation.width, orientation.height)
+  ];
+}
+
+function compareScores(a, b) {
+  for (let index = 0; index < a.length; index += 1) {
+    if (a[index] !== b[index]) return a[index] - b[index];
+  }
+  return 0;
+}
+
+function findBestCandidate(item, zoneStates) {
+  const itemVolume = volumeLitres(item.dimensionsMm);
+  let best;
+
+  for (const [zoneIndex, zoneState] of zoneStates.entries()) {
+    if (itemVolume > zoneState.remainingLitres) continue;
+    for (const orientation of orientationsForZone(item, zoneState.zone)) {
+      for (const [spaceIndex, space] of zoneState.spaces.entries()) {
+        if (!fitsInSpace(orientation, space)) continue;
+        const position = candidatePosition(space);
+        if (collidesWithPlacement(position, orientation, zoneState.placements)) continue;
+        const candidate = { zoneIndex, zoneState, spaceIndex, space, orientation, position };
+        const score = scoreCandidate(candidate);
+        if (!best || compareScores(score, best.score) < 0) best = { ...candidate, score };
+      }
+    }
+  }
+
+  return best;
+}
+
+function placeItem(item, candidate) {
+  const itemVolume = volumeLitres(item.dimensionsMm);
+  const placement = {
+    itemId: item.id,
+    sourceId: item.sourceId,
+    label: item.label,
+    zoneId: candidate.zoneState.zone.id,
+    zoneLabel: candidate.zoneState.zone.label,
+    positionMm: candidate.position,
+    orientationMm: candidate.orientation,
+    volumeLitres: Number(itemVolume.toFixed(1))
+  };
+
+  const remainingSpaces = candidate.zoneState.spaces.filter((_, index) => index !== candidate.spaceIndex);
+  candidate.zoneState.spaces = normalizeSpaces([
+    ...remainingSpaces,
+    ...splitSpace(candidate.space, candidate.position, candidate.orientation)
+  ]);
+  candidate.zoneState.remainingLitres -= itemVolume;
+  candidate.zoneState.placements.push(placement);
+}
+
+function cloneItem(item) {
+  return { ...item, dimensionsMm: { ...item.dimensionsMm } };
+}
+
+function compareItems(...comparators) {
+  return (a, b) => {
+    for (const comparator of comparators) {
+      const result = comparator(a, b);
+      if (result !== 0) return result;
+    }
+    return a.sourceId.localeCompare(b.sourceId) || a.id.localeCompare(b.id);
+  };
+}
+
+const itemComparators = {
+  volumeDesc: (a, b) => volumeMm3(b.dimensionsMm) - volumeMm3(a.dimensionsMm),
+  longestDesc: (a, b) => Math.max(b.dimensionsMm.length, b.dimensionsMm.width, b.dimensionsMm.height) - Math.max(a.dimensionsMm.length, a.dimensionsMm.width, a.dimensionsMm.height),
+  heightDesc: (a, b) => b.dimensionsMm.height - a.dimensionsMm.height,
+  footprintDesc: (a, b) => (b.dimensionsMm.length * b.dimensionsMm.width) - (a.dimensionsMm.length * a.dimensionsMm.width),
+  maxFaceDesc: (a, b) => {
+    const aFaces = [a.dimensionsMm.length * a.dimensionsMm.width, a.dimensionsMm.length * a.dimensionsMm.height, a.dimensionsMm.width * a.dimensionsMm.height];
+    const bFaces = [b.dimensionsMm.length * b.dimensionsMm.width, b.dimensionsMm.length * b.dimensionsMm.height, b.dimensionsMm.width * b.dimensionsMm.height];
+    return Math.max(...bFaces) - Math.max(...aFaces);
+  }
+};
+
+function itemOrders(items) {
+  const orderings = [
+    compareItems(itemComparators.volumeDesc, itemComparators.longestDesc, itemComparators.footprintDesc),
+    compareItems(itemComparators.longestDesc, itemComparators.volumeDesc, itemComparators.footprintDesc),
+    compareItems(itemComparators.footprintDesc, itemComparators.volumeDesc, itemComparators.heightDesc),
+    compareItems(itemComparators.heightDesc, itemComparators.volumeDesc, itemComparators.longestDesc),
+    compareItems(itemComparators.maxFaceDesc, itemComparators.volumeDesc, itemComparators.longestDesc),
+    compareItems((a, b) => a.sourceId.localeCompare(b.sourceId), itemComparators.volumeDesc)
+  ];
+
+  return orderings.map((comparator) => items.map(cloneItem).sort(comparator));
+}
+
+function packingScore(result, zones) {
+  const zoneCount = new Set(result.placements.map((placement) => placement.zoneId)).size;
+  const usedVolume = result.placements.reduce((sum, placement) => sum + placement.volumeLitres, 0);
+  const totalUsableVolume = zones.reduce((sum, zone) => sum + (zone.volumeLitres * (zone.usableFraction ?? 0.75)), 0);
+  const heightUsed = result.placements.reduce((max, placement) => Math.max(max, placement.positionMm.z + placement.orientationMm.height), 0);
+  return [
+    -result.unplacedItems.length,
+    result.placements.length,
+    usedVolume / Math.max(1, totalUsableVolume),
+    -zoneCount,
+    -heightUsed
+  ];
+}
+
+function comparePackingScores(a, b) {
+  for (let index = 0; index < a.length; index += 1) {
+    if (a[index] !== b[index]) return b[index] - a[index];
+  }
+  return 0;
+}
+
+function packItems(order, zones) {
+  const zoneStates = zones.filter((zone) => zone.dimensionsMm).map(initialZoneState);
+  const unplacedItems = [];
+
+  for (const item of order) {
+    const candidate = findBestCandidate(item, zoneStates);
+    if (candidate) {
+      placeItem(item, candidate);
+    } else {
+      unplacedItems.push({
+        itemId: item.id,
+        label: item.label,
+        dimensionsMm: item.dimensionsMm,
+        volumeLitres: Number(volumeLitres(item.dimensionsMm).toFixed(1))
+      });
+    }
+  }
+
+  return {
+    placements: zoneStates.flatMap((zoneState) => zoneState.placements),
+    unplacedItems
+  };
 }
 
 /**
- * First-pass greedy estimator. It models each cargo zone as a single usable cuboid, which is intentionally
- * conservative via zone.usableFraction. Future versions can replace this with voxel or exact bin packing.
+ * Multi-pass 3D fit estimator. Each estimate rebuilds the full packing plan from the currently selected
+ * luggage set, tries every valid axis rotation for each bag, and compares several deterministic item orderings so
+ * adding or removing bags triggers a fresh full-set stacking plan instead of appending to the prior layout.
  *
  * @param {{ items: import('../domain/types.js').LuggageItem[] }} luggageSet
  * @param {import('../domain/types.js').VehicleConfig} vehicle
@@ -121,54 +336,43 @@ export function estimateFit(luggageSet, vehicle, seatConfigurationId = 'seats_up
   if (!seatConfiguration) throw new Error(`Unknown seat configuration: ${seatConfigurationId}`);
 
   const zones = seatConfiguration.cargoZoneIds.map((id) => vehicle.cargoZones.find((zone) => zone.id === id)).filter(Boolean);
-  const remainingByZone = new Map(zones.map((zone) => [zone.id, zone.volumeLitres * (zone.usableFraction ?? 0.75)]));
-  const packingStateByZone = new Map(zones.map((zone) => [zone.id, { x: 0, y: 0, z: 0, rowWidth: 0, layerHeight: 0 }]));
-  const placements = [];
-  const unplacedItems = [];
+  const expandedItems = expandItems(luggageSet.items);
   const warnings = zones.flatMap((zone) => zone.confidence === 'low' ? [`${vehicle.id}/${zone.id}: cargo dimensions are estimated; result is a planning approximation.`] : []);
-
-  for (const item of expandItems(luggageSet.items)) {
-    const itemVolume = volumeLitres(item.dimensionsMm);
-    let placed = false;
-    for (const zone of zones) {
-      const placement = findPlacement(item, zone, packingStateByZone.get(zone.id));
-      const remaining = remainingByZone.get(zone.id) ?? 0;
-      if (placement && itemVolume <= remaining) {
-        packingStateByZone.set(zone.id, placement.attempt.state);
-        remainingByZone.set(zone.id, remaining - itemVolume);
-        placements.push({
-          itemId: item.id,
-          sourceId: item.sourceId,
-          label: item.label,
-          zoneId: zone.id,
-          zoneLabel: zone.label,
-          positionMm: placement.attempt.position,
-          orientationMm: placement.orientation,
-          volumeLitres: Number(itemVolume.toFixed(1))
-        });
-        placed = true;
-        break;
-      }
-    }
-    if (!placed) unplacedItems.push({ itemId: item.id, label: item.label, dimensionsMm: item.dimensionsMm, volumeLitres: Number(itemVolume.toFixed(1)) });
+  const unsupportedZones = zones.filter((zone) => !zone.dimensionsMm);
+  if (unsupportedZones.length > 0) {
+    warnings.push(`${vehicle.id}: ${unsupportedZones.map((zone) => zone.label).join(', ')} missing rectangular dimensions and were skipped by the stacking estimator.`);
   }
 
-  const totalItemVolume = placements.reduce((sum, placement) => sum + placement.volumeLitres, 0);
-  const totalUsableVolume = [...remainingByZone.entries()].reduce((sum, [zoneId, remaining]) => {
-    const zone = zones.find((candidate) => candidate.id === zoneId);
-    return sum + (zone.volumeLitres * (zone.usableFraction ?? 0.75));
-  }, 0);
-  const fitScore = placements.length / Math.max(1, placements.length + unplacedItems.length);
+  let bestResult = { placements: [], unplacedItems: expandedItems.map((item) => ({
+    itemId: item.id,
+    label: item.label,
+    dimensionsMm: item.dimensionsMm,
+    volumeLitres: Number(volumeLitres(item.dimensionsMm).toFixed(1))
+  })) };
+  let bestScore = packingScore(bestResult, zones);
+
+  for (const order of itemOrders(expandedItems)) {
+    const result = packItems(order, zones);
+    const score = packingScore(result, zones);
+    if (comparePackingScores(score, bestScore) < 0) {
+      bestResult = result;
+      bestScore = score;
+    }
+  }
+
+  const totalItemVolume = bestResult.placements.reduce((sum, placement) => sum + placement.volumeLitres, 0);
+  const totalUsableVolume = zones.reduce((sum, zone) => sum + (zone.volumeLitres * (zone.usableFraction ?? 0.75)), 0);
+  const fitScore = bestResult.placements.length / Math.max(1, bestResult.placements.length + bestResult.unplacedItems.length);
 
   return {
     vehicleId: vehicle.id,
     seatConfigurationId,
-    fits: unplacedItems.length === 0,
+    fits: bestResult.unplacedItems.length === 0,
     fitScore: Number(fitScore.toFixed(2)),
     usedVolumeLitres: Number(totalItemVolume.toFixed(1)),
     usableVolumeLitres: Number(totalUsableVolume.toFixed(1)),
-    placements,
-    unplacedItems,
+    placements: bestResult.placements,
+    unplacedItems: bestResult.unplacedItems,
     warnings
   };
 }
