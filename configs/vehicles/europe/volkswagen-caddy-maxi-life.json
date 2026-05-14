@@ -1,0 +1,145 @@
+{
+  "id": "volkswagen-caddy-maxi-life",
+  "make": "Volkswagen",
+  "model": "Caddy Maxi Life",
+  "generation": "Fifth generation / Caddy Maxi references",
+  "modelYears": [
+    "2020-present"
+  ],
+  "bodyStyle": "7-seat compact passenger van / MPV",
+  "rentalClasses": [
+    "standard van",
+    "7-seat MPV",
+    "passenger van"
+  ],
+  "commonRentalAliases": [
+    "VW Caddy Maxi 7 seater or similar",
+    "Volkswagen Caddy Maxi Life or similar",
+    "Standard van 7 seats"
+  ],
+  "cargoZones": [
+    {
+      "id": "boot_seven_seats",
+      "label": "Boot behind third row with all 7 seats in use",
+      "volumeLitres": 446,
+      "dimensionsMm": {
+        "length": 629,
+        "width": 1190,
+        "height": 596
+      },
+      "openingMm": {
+        "width": 1190,
+        "height": 1050
+      },
+      "usableFraction": 0.82,
+      "confidence": "medium",
+      "notes": "Published 7-seat boot volume and rear cargo width are sourced; rectangular dimensions combine the sourced floor length/width with an estimated cuboid height for MVP packing. Soft bags fit more reliably than rigid boxes because the third-row seatbacks and tailgate trim reduce usable shape."
+    },
+    {
+      "id": "boot_five_seats",
+      "label": "Cargo area with third row removed / folded, 5 seats available",
+      "volumeLitres": 1720,
+      "dimensionsMm": {
+        "length": 1452,
+        "width": 1190,
+        "height": 996
+      },
+      "openingMm": {
+        "width": 1190,
+        "height": 1050
+      },
+      "usableFraction": 0.76,
+      "confidence": "medium",
+      "notes": "Five-seat luggage volume is sourced from rental/editorial references and cargo floor length behind row 2 is sourced from Volkswagen. Dimensions are an estimated rectangular planning envelope and do not guarantee clearance around folded/removed seat mounts."
+    },
+    {
+      "id": "full_cargo_rear_rows_removed",
+      "label": "Maximum cargo area with 2nd and 3rd rows removed",
+      "volumeLitres": 3105,
+      "dimensionsMm": {
+        "length": 2136,
+        "width": 1190,
+        "height": 1221
+      },
+      "openingMm": {
+        "width": 1190,
+        "height": 1050
+      },
+      "usableFraction": 0.72,
+      "confidence": "medium",
+      "notes": "Maximum load/luggage volume and floor length behind row 1 are sourced from Volkswagen. Dimensions estimate a box-like load floor and ignore seat rails, wheel arches, trim taper, and roof curvature."
+    }
+  ],
+  "seatConfigurations": [
+    {
+      "id": "seats_up",
+      "label": "All 7 seats in use",
+      "cargoZoneIds": [
+        "boot_seven_seats"
+      ],
+      "seatsAvailable": 7,
+      "notes": "Use this for normal airport-rental 7-passenger use; rental fleets often describe capacity as about four large bags with all passengers seated."
+    },
+    {
+      "id": "third_row_removed",
+      "label": "Third row removed / folded",
+      "cargoZoneIds": [
+        "boot_five_seats"
+      ],
+      "seatsAvailable": 5,
+      "notes": "Assumes both third-row seats are unavailable for passengers and the remaining cargo area is used behind the second row."
+    },
+    {
+      "id": "rear_rows_removed",
+      "label": "2nd and 3rd rows removed",
+      "cargoZoneIds": [
+        "full_cargo_rear_rows_removed"
+      ],
+      "seatsAvailable": 2,
+      "notes": "For two occupants plus maximum cargo; practical availability depends on whether rental seats can be removed or must stay in the vehicle."
+    }
+  ],
+  "sources": [
+    {
+      "sourceType": "manufacturer",
+      "publisher": "Volkswagen Nutzfahrzeuge Austria",
+      "title": "VW Caddy Maxi 7-Sitzer: Technische Daten, Maße & Kofferraum",
+      "url": "https://www.vw-nutzfahrzeuge.at/caddy/caddy/technische-daten/caddy-maxi",
+      "retrievedAt": "2026-05-14",
+      "fieldsCovered": [
+        "seating capacity",
+        "vehicle dimensions",
+        "maximum luggage volume",
+        "cargo width"
+      ],
+      "confidence": "high"
+    },
+    {
+      "sourceType": "manufacturer",
+      "publisher": "Volkswagen Nutzfahrzeuge Germany",
+      "title": "Caddy Life Maxi – Abmessungen innen",
+      "url": "https://www.volkswagen-nutzfahrzeuge.de/de/modelle/caddy/technische-daten/technische-daten-caddy.html/__layer/layers/modelle/caddy_2023/technical_data/caddy-life-maxi---abmessungen-innen/master.layer",
+      "retrievedAt": "2026-05-14",
+      "fieldsCovered": [
+        "maximum luggage volume",
+        "cargo floor length behind first row",
+        "cargo floor length behind second row",
+        "interior headroom"
+      ],
+      "confidence": "high"
+    },
+    {
+      "sourceType": "rental-company",
+      "publisher": "Hertz Iceland",
+      "title": "VW Caddy Maxi 7 seater or similar",
+      "url": "https://www.hertz.is/vehicle_guide/ivmn/",
+      "retrievedAt": "2026-05-14",
+      "fieldsCovered": [
+        "rental fleet example model",
+        "rental luggage guidance",
+        "rental seating capacity"
+      ],
+      "confidence": "medium"
+    }
+  ]
+}

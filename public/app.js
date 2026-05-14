@@ -5,6 +5,7 @@ const VEHICLE_FILES = [
   'peugeot-3008.json',
   'renault-clio.json',
   'skoda-octavia-combi.json',
+  'volkswagen-caddy-maxi-life.json',
   'volkswagen-golf.json',
   'volkswagen-t-roc.json'
 ];
