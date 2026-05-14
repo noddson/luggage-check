@@ -1,0 +1,177 @@
+{
+  "id": "kia-soul-ev-2020",
+  "make": "Kia",
+  "model": "Soul EV",
+  "generation": "Second generation / SK3 EV",
+  "modelYears": [
+    "2020"
+  ],
+  "bodyStyle": "5-door electric subcompact crossover hatchback",
+  "rentalClasses": [
+    "compact car",
+    "electric compact SUV",
+    "subcompact crossover"
+  ],
+  "commonRentalAliases": [
+    "Kia Soul EV or similar",
+    "Kia Soul or similar compact car",
+    "Electric compact SUV or similar"
+  ],
+  "cargoZones": [
+    {
+      "id": "rear_cargo_floor_lower",
+      "label": "Rear cargo area with seats up and cargo floor lowered",
+      "volumeLitres": 663,
+      "dimensionsMm": {
+        "length": 720,
+        "width": 1040,
+        "height": 886
+      },
+      "openingMm": {
+        "width": 980,
+        "height": 720
+      },
+      "usableFraction": 0.8,
+      "confidence": "low",
+      "notes": "Manufacturer cargo volume is sourced for the cargo floor lowered position; rectangular dimensions are planning estimates based on the published volume and Soul proportions."
+    },
+    {
+      "id": "rear_cargo_floor_upper",
+      "label": "Rear cargo area with seats up and cargo floor raised",
+      "volumeLitres": 530,
+      "dimensionsMm": {
+        "length": 720,
+        "width": 1040,
+        "height": 708
+      },
+      "openingMm": {
+        "width": 980,
+        "height": 650
+      },
+      "usableFraction": 0.82,
+      "confidence": "low",
+      "notes": "Represents the flatter raised-floor setup. Cargo volume is sourced from a Canadian review/spec reference; cuboid dimensions and hatch opening are approximate for luggage planning."
+    },
+    {
+      "id": "rear_seats_folded",
+      "label": "Expanded cargo area with rear seats folded",
+      "volumeLitres": 1735,
+      "dimensionsMm": {
+        "length": 1450,
+        "width": 1040,
+        "height": 1150
+      },
+      "openingMm": {
+        "width": 980,
+        "height": 720
+      },
+      "usableFraction": 0.72,
+      "confidence": "low",
+      "notes": "Canadian-market folded cargo volume is sourced; dimensions approximate a box-like envelope and ignore seatback angle, trim, and wheel-arch intrusions."
+    },
+    {
+      "id": "rear_seat_footwell",
+      "label": "Rear passenger footwell overflow",
+      "volumeLitres": 80,
+      "dimensionsMm": {
+        "length": 650,
+        "width": 1100,
+        "height": 180
+      },
+      "usableFraction": 0.45,
+      "confidence": "low",
+      "notes": "Generic overflow area, enabled only when passenger space can be used."
+    }
+  ],
+  "seatConfigurations": [
+    {
+      "id": "seats_up",
+      "label": "Rear seats up, cargo floor lowered",
+      "cargoZoneIds": [
+        "rear_cargo_floor_lower"
+      ],
+      "seatsAvailable": 5
+    },
+    {
+      "id": "seats_up_floor_raised",
+      "label": "Rear seats up, cargo floor raised",
+      "cargoZoneIds": [
+        "rear_cargo_floor_upper"
+      ],
+      "seatsAvailable": 5,
+      "notes": "Flatter load floor but lower cargo volume than the lowered-floor setting."
+    },
+    {
+      "id": "rear_folded",
+      "label": "Rear seats folded",
+      "cargoZoneIds": [
+        "rear_cargo_floor_lower",
+        "rear_seats_folded"
+      ],
+      "seatsAvailable": 2,
+      "notes": "For two occupants plus cargo; exact floor step and seatback angle vary by trim and floor position."
+    },
+    {
+      "id": "seats_up_with_footwell",
+      "label": "Rear seats up with rear footwell overflow",
+      "cargoZoneIds": [
+        "rear_cargo_floor_lower",
+        "rear_seat_footwell"
+      ],
+      "seatsAvailable": 4,
+      "notes": "Assumes at least one rear passenger position is sacrificed for soft bags."
+    }
+  ],
+  "sources": [
+    {
+      "sourceType": "manufacturer",
+      "publisher": "Kia Canada",
+      "title": "2020 Guidebook Series Soul EV",
+      "url": "https://manuals.plus/m/f64a7bda670fd01b21921eb9505e28e920d7e494ad853d885e38ad4368325319.pdf",
+      "retrievedAt": "2026-05-14",
+      "fieldsCovered": [
+        "Canadian-market 2020 Soul EV model context",
+        "cargo capacity rear seats up with floor lowered",
+        "cargo capacity rear seats folded"
+      ],
+      "confidence": "high",
+      "notes": "Kia Canada guidebook PDF mirrored by Manuals+; guidebook directs readers to kia.ca/soulev and includes Kia Canada copyright/vehicle-disclaimer text."
+    },
+    {
+      "sourceType": "editorial",
+      "publisher": "AutoTrader.ca",
+      "title": "2020 Kia Soul EV Review",
+      "url": "https://www.autotrader.ca/editorial/20200304/2020-kia-soul-ev-review/",
+      "retrievedAt": "2026-05-14",
+      "fieldsCovered": [
+        "cargo volume seats up floor upper/lower",
+        "cargo volume rear seats folded",
+        "Canadian trim context"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "sourceType": "rental-company",
+      "publisher": "Avis",
+      "title": "Rent a Kia Soul or Similar Compact Car",
+      "url": "https://www.avis.com/en/cars/kia/soul",
+      "retrievedAt": "2026-05-14",
+      "fieldsCovered": [
+        "North American rental-market alias",
+        "compact rental context"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "sourceType": "rental-company",
+      "publisher": "Enterprise Rent-A-Car",
+      "title": "Compact SUV Rental \u2013 United States",
+      "url": "https://www.enterprise.com/en/rental-cars/us/suvs/compact-suv-cfar.html",
+      "retrievedAt": "2026-05-14",
+      "fieldsCovered": [
+        "electric compact SUV rental context"
+      ],
+      "confidence": "medium"
+    }
+  ]
+}

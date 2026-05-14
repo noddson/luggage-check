@@ -1,5 +1,5 @@
 import { readFile } from 'node:fs/promises';
-import { loadEuropeanVehicles, loadLuggageSet } from '../src/config/loadConfigs.js';
+import { loadLuggageSet, loadVehicles } from '../src/config/loadConfigs.js';
 import { estimateFit } from '../src/packing/fitEstimator.js';
 
 const [html, css, app, luggageSet, vehicles] = await Promise.all([
@@ -7,7 +7,7 @@ const [html, css, app, luggageSet, vehicles] = await Promise.all([
   readFile('public/styles.css', 'utf8'),
   readFile('public/app.js', 'utf8'),
   loadLuggageSet(),
-  loadEuropeanVehicles()
+  loadVehicles()
 ]);
 
 for (const marker of ['vehicleSelect', 'configurationSelect', 'luggageControls', 'visualization']) {

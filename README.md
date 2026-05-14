@@ -1,13 +1,13 @@
 # luggage-check
 
-A tool for checking rental cars for total luggage space based on measured luggage, soft/irregular bags, and vehicle boot/trunk cargo areas.
+A tool for checking rental cars and common trip vehicles for total luggage space based on measured luggage, soft/irregular bags, vehicle boot/trunk cargo areas, and pickup beds.
 
 ## What exists in this starter build
 
 This repository now contains the first data, computation, and browser UI layer for the app:
 
 - Common luggage presets with exact dimensions, quantities, source metadata, and a soft/free-form backpack example.
-- A European rental-car starter set covering economy hatchbacks, compact hatchbacks, estate/wagon, and SUV/crossover classes.
+- Regional vehicle starter sets covering European rental classes plus North American EV/crossover and pickup examples.
 - Vehicle cargo-zone configs for seats-up, rear-seats-folded, and rear-footwell overflow scenarios.
 - A first-pass greedy fit estimator that checks dimensions, rotation, approximate usable zone volume, cargo-opening constraints when present, and returns placement coordinates for visualization.
 - A static browser app for selecting a vehicle, choosing seat/cargo configurations, tuning luggage quantities, and viewing scaled top/side/rear cargo-zone drawings.
@@ -23,6 +23,7 @@ configs/
   vehicles/
     schema.json        # JSON Schema documentation for vehicle cargo config shape
     europe/*.json      # sourced European rental-car starter configs
+    north-america/*.json # sourced North American vehicle configs
 src/
   config/              # config loaders
   domain/              # JSDoc domain typedefs
