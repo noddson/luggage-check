@@ -1,5 +1,6 @@
 const MM3_PER_LITRE = 1_000_000;
 const MIN_SPACE_MM = 1;
+const DEFAULT_SEAT_BACK_ANGLE_DEGREES = 30;
 
 function permutations(dimensions) {
   const { length, width, height } = dimensions;
@@ -93,6 +94,23 @@ function fitsInSpace(orientation, space) {
   return orientation.length <= space.length
     && orientation.width <= space.width
     && orientation.height <= space.height;
+}
+
+function seatBackAngleDegrees(zone) {
+  return zone.seatBackEncroachment?.angleFromVerticalDegrees ?? DEFAULT_SEAT_BACK_ANGLE_DEGREES;
+}
+
+function seatBackEncroachmentMmAtHeight(zone, heightMm) {
+  const angleDegrees = seatBackAngleDegrees(zone);
+  const angleRadians = angleDegrees * (Math.PI / 180);
+  return heightMm * Math.tan(angleRadians);
+}
+
+function fitsSeatBackEncroachment(position, orientation, zone, options) {
+  if (!options.considerSeatBackEncroachment || !zone.seatBackEncroachment || !zone.dimensionsMm) return true;
+  const topHeightMm = position.z + orientation.height;
+  const maxLengthAtTop = zone.dimensionsMm.length - seatBackEncroachmentMmAtHeight(zone, topHeightMm);
+  return position.x + orientation.length <= maxLengthAtTop;
 }
 
 function candidatePosition(space) {
@@ -195,7 +213,7 @@ function compareScores(a, b) {
   return 0;
 }
 
-function findBestCandidate(item, zoneStates) {
+function findBestCandidate(item, zoneStates, options) {
   const itemVolume = volumeLitres(item.dimensionsMm);
   let best;
 
@@ -205,6 +223,7 @@ function findBestCandidate(item, zoneStates) {
       for (const [spaceIndex, space] of zoneState.spaces.entries()) {
         if (!fitsInSpace(orientation, space)) continue;
         const position = candidatePosition(space);
+        if (!fitsSeatBackEncroachment(position, orientation, zoneState.zone, options)) continue;
         if (collidesWithPlacement(position, orientation, zoneState.placements)) continue;
         const candidate = { zoneIndex, zoneState, spaceIndex, space, orientation, position };
         const score = scoreCandidate(candidate);
@@ -298,12 +317,12 @@ function comparePackingScores(a, b) {
   return 0;
 }
 
-function packItems(order, zones) {
+function packItems(order, zones, options = {}) {
   const zoneStates = zones.filter((zone) => zone.dimensionsMm).map(initialZoneState);
   const unplacedItems = [];
 
   for (const item of order) {
-    const candidate = findBestCandidate(item, zoneStates);
+    const candidate = findBestCandidate(item, zoneStates, options);
     if (candidate) {
       placeItem(item, candidate);
     } else {
@@ -330,14 +349,19 @@ function packItems(order, zones) {
  * @param {{ items: import('../domain/types.js').LuggageItem[] }} luggageSet
  * @param {import('../domain/types.js').VehicleConfig} vehicle
  * @param {string} seatConfigurationId
+ * @param {{considerSeatBackEncroachment?: boolean}=} options
  */
-export function estimateFit(luggageSet, vehicle, seatConfigurationId = 'seats_up') {
+export function estimateFit(luggageSet, vehicle, seatConfigurationId = 'seats_up', options = {}) {
   const seatConfiguration = vehicle.seatConfigurations.find((candidate) => candidate.id === seatConfigurationId);
   if (!seatConfiguration) throw new Error(`Unknown seat configuration: ${seatConfigurationId}`);
 
   const zones = seatConfiguration.cargoZoneIds.map((id) => vehicle.cargoZones.find((zone) => zone.id === id)).filter(Boolean);
   const expandedItems = expandItems(luggageSet.items);
   const warnings = zones.flatMap((zone) => zone.confidence === 'low' ? [`${vehicle.id}/${zone.id}: cargo dimensions are estimated; result is a planning approximation.`] : []);
+  const encroachmentZones = options.considerSeatBackEncroachment ? zones.filter((zone) => zone.seatBackEncroachment) : [];
+  if (encroachmentZones.length > 0) {
+    warnings.push(`${vehicle.id}: rear seat-back encroachment is enabled for ${encroachmentZones.map((zone) => `${zone.label} (${seatBackAngleDegrees(zone)}°)`).join(', ')}.`);
+  }
   const unsupportedZones = zones.filter((zone) => !zone.dimensionsMm);
   if (unsupportedZones.length > 0) {
     warnings.push(`${vehicle.id}: ${unsupportedZones.map((zone) => zone.label).join(', ')} missing rectangular dimensions and were skipped by the stacking estimator.`);
@@ -352,7 +376,7 @@ export function estimateFit(luggageSet, vehicle, seatConfigurationId = 'seats_up
   let bestScore = packingScore(bestResult, zones);
 
   for (const order of itemOrders(expandedItems)) {
-    const result = packItems(order, zones);
+    const result = packItems(order, zones, options);
     const score = packingScore(result, zones);
     if (comparePackingScores(score, bestScore) < 0) {
       bestResult = result;
@@ -369,6 +393,7 @@ export function estimateFit(luggageSet, vehicle, seatConfigurationId = 'seats_up
     seatConfigurationId,
     fits: bestResult.unplacedItems.length === 0,
     fitScore: Number(fitScore.toFixed(2)),
+    seatBackEncroachmentConsidered: encroachmentZones.length > 0,
     usedVolumeLitres: Number(totalItemVolume.toFixed(1)),
     usableVolumeLitres: Number(totalUsableVolume.toFixed(1)),
     placements: bestResult.placements,

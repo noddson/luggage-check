@@ -36,6 +36,7 @@
  * @property {number} volumeLitres
  * @property {DimensionsMm=} dimensionsMm
  * @property {{width:number,height:number}=} openingMm
+ * @property {{angleFromVerticalDegrees:number,notes?:string}=} seatBackEncroachment
  * @property {number=} usableFraction
  * @property {'high'|'medium'|'low'} confidence
  * @property {string=} notes

@@ -42,8 +42,17 @@
             "height": { "type": "number", "exclusiveMinimum": 0 }
           }
         },
+        "seatBackEncroachment": { "$ref": "#/$defs/seatBackEncroachment" },
         "usableFraction": { "type": "number", "exclusiveMinimum": 0, "maximum": 1 },
         "confidence": { "enum": ["high", "medium", "low"] },
+        "notes": { "type": "string" }
+      }
+    },
+    "seatBackEncroachment": {
+      "type": "object",
+      "required": ["angleFromVerticalDegrees"],
+      "properties": {
+        "angleFromVerticalDegrees": { "type": "number", "minimum": 0, "exclusiveMaximum": 90 },
         "notes": { "type": "string" }
       }
     },

@@ -13,18 +13,21 @@ const VEHICLE_FILES = [
 ];
 
 const BAG_COLORS = ['#2563eb', '#16a34a', '#f97316', '#9333ea', '#0891b2', '#e11d48', '#ca8a04', '#4f46e5'];
+const DEFAULT_SEAT_BACK_ANGLE_DEGREES = 30;
 const state = {
   luggageSet: null,
   vehicles: [],
   vehicleId: '',
   configurationId: '',
   activeView: 'top',
+  considerSeatBackEncroachment: false,
   rotation3d: { yaw: -38, pitch: 58 }
 };
 
 const $ = (selector) => document.querySelector(selector);
 const vehicleSelect = $('#vehicleSelect');
 const configurationSelect = $('#configurationSelect');
+const seatBackEncroachmentToggle = $('#seatBackEncroachmentToggle');
 const luggageControls = $('#luggageControls');
 const visualization = $('#visualization');
 
@@ -36,6 +39,18 @@ async function readJson(path) {
 
 function dimensionsLabel(dimensions) {
   return `${Math.round(dimensions.length)} × ${Math.round(dimensions.width)} × ${Math.round(dimensions.height)} mm`;
+}
+
+function seatBackAngleDegrees(zone) {
+  return zone.seatBackEncroachment?.angleFromVerticalDegrees ?? DEFAULT_SEAT_BACK_ANGLE_DEGREES;
+}
+
+function seatBackEncroachmentMmAtHeight(zone, heightMm) {
+  return heightMm * Math.tan(seatBackAngleDegrees(zone) * (Math.PI / 180));
+}
+
+function hasActiveSeatBackEncroachment(zones) {
+  return state.considerSeatBackEncroachment && zones.some((zone) => zone.seatBackEncroachment);
 }
 
 function vehicleLabel(vehicle) {
@@ -82,10 +97,12 @@ function renderVehicleMeta() {
   const vehicle = selectedVehicle();
   const config = selectedConfiguration(vehicle);
   const zones = config.cargoZoneIds.map((id) => vehicle.cargoZones.find((zone) => zone.id === id)).filter(Boolean);
+  const encroachmentZones = zones.filter((zone) => zone.seatBackEncroachment);
   $('#vehicleMeta').innerHTML = `
     <strong>${vehicle.generation}</strong>
     <span>${vehicle.rentalClasses.join(' · ')}</span>
     <span>${zones.length} cargo zone${zones.length === 1 ? '' : 's'} active · ${config.seatsAvailable} seats available</span>
+    ${encroachmentZones.length ? `<span>Seat-back encroachment model: ${encroachmentZones.map((zone) => `${seatBackAngleDegrees(zone)}° for ${zone.label}`).join(' · ')}</span>` : ''}
     ${config.notes ? `<em>${config.notes}</em>` : ''}
   `;
 }
@@ -133,6 +150,21 @@ function projectZone(zone, view) {
   if (view === 'side') return { width: dimensions.length, height: dimensions.height, xLabel: 'length', yLabel: 'height' };
   if (view === 'front') return { width: dimensions.width, height: dimensions.height, xLabel: 'width', yLabel: 'height' };
   return { width: dimensions.length, height: dimensions.width, xLabel: 'length', yLabel: 'width' };
+}
+
+function seatEncroachmentOverlay(zone, projection, view, padding, scale) {
+  if (view !== 'side' || !state.considerSeatBackEncroachment || !zone.seatBackEncroachment || !zone.dimensionsMm) return '';
+
+  const floorX = padding + projection.width * scale;
+  const topX = padding + Math.max(0, projection.width - seatBackEncroachmentMmAtHeight(zone, zone.dimensionsMm.height)) * scale;
+  const floorY = padding + projection.height * scale;
+  const topY = padding;
+  return `
+    <g aria-label="Seat-back encroachment envelope">
+      <polygon class="seat-encroachment-area" points="${floorX},${floorY} ${floorX},${topY} ${topX},${topY}" />
+      <line class="seat-encroachment-line" x1="${floorX}" y1="${floorY}" x2="${topX}" y2="${topY}" />
+    </g>
+  `;
 }
 
 function seatOutlineFor2dView(projection, view, padding, scale) {
@@ -215,6 +247,7 @@ function renderZoneSvg(zone, placements, index) {
   const svgWidth = Math.max(360, projection.width * scale + padding * 2 + seatGutter);
   const svgHeight = Math.max(220, projection.height * scale + padding * 2 + 34);
   const seatOutline = seatOutlineFor2dView(projection, state.activeView, padding, scale);
+  const encroachmentOverlay = seatEncroachmentOverlay(zone, projection, state.activeView, padding, scale);
 
   const rects = placements.map((placement) => {
     const box = projectBox(placement, state.activeView);
@@ -239,6 +272,7 @@ function renderZoneSvg(zone, placements, index) {
       <svg viewBox="0 0 ${svgWidth} ${svgHeight}" role="img" aria-label="${zone.label} ${state.activeView} view">
         ${seatOutline}
         <rect class="cargo-outline" x="${padding}" y="${padding}" width="${projection.width * scale}" height="${projection.height * scale}" rx="12" fill="#eff6ff" />
+        ${encroachmentOverlay}
         ${rects}
         <text x="${padding}" y="${svgHeight - 12}" class="axis-label">${projection.xLabel}: ${projection.width} mm</text>
         <text x="${svgWidth - padding}" y="${svgHeight - 12}" text-anchor="end" class="axis-label">${projection.yLabel}: ${projection.height} mm</text>
@@ -454,8 +488,11 @@ function renderLists(result) {
 function renderResults() {
   const vehicle = selectedVehicle();
   const config = selectedConfiguration(vehicle);
+  const zones = config.cargoZoneIds.map((id) => vehicle.cargoZones.find((zone) => zone.id === id)).filter(Boolean);
   const luggageSet = cloneLuggageWithQuantities();
-  const result = estimateFit(luggageSet, vehicle, config.id);
+  const result = estimateFit(luggageSet, vehicle, config.id, {
+    considerSeatBackEncroachment: state.considerSeatBackEncroachment
+  });
   const percent = Math.round(result.fitScore * 100);
   const volumePercent = Math.round((result.usedVolumeLitres / Math.max(1, result.usableVolumeLitres)) * 100);
 
@@ -467,7 +504,10 @@ function renderResults() {
   $('#metrics').innerHTML = [
     metricCard('Fit score', `${percent}%`, `${result.placements.length}/${result.placements.length + result.unplacedItems.length} bags placed`),
     metricCard('Usable volume', `${result.usableVolumeLitres} L`, `${result.usedVolumeLitres} L used`),
-    metricCard('Seats available', config.seatsAvailable, config.notes ?? 'Based on selected cargo setup')
+    metricCard('Seats available', config.seatsAvailable, config.notes ?? 'Based on selected cargo setup'),
+    ...(hasActiveSeatBackEncroachment(zones)
+      ? [metricCard('Seat-back model', 'On', 'Sloped rear seat backs constrain upper-depth clearance')]
+      : [])
   ].join('');
   renderVisualization(vehicle, config, result);
   renderLists(result);
@@ -483,6 +523,11 @@ function bindEvents() {
   });
   configurationSelect.addEventListener('change', () => {
     state.configurationId = configurationSelect.value;
+    renderVehicleMeta();
+    renderResults();
+  });
+  seatBackEncroachmentToggle.addEventListener('change', () => {
+    state.considerSeatBackEncroachment = seatBackEncroachmentToggle.checked;
     renderVehicleMeta();
     renderResults();
   });

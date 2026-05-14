@@ -29,7 +29,11 @@
       },
       "usableFraction": 0.82,
       "confidence": "low",
-      "notes": "Manufacturer volume is sourced; rectangular dimensions are first-pass estimated cuboids for MVP packing and should be replaced by measured cargo dimensions."
+      "notes": "Manufacturer volume is sourced; rectangular dimensions are first-pass estimated cuboids for MVP packing and should be replaced by measured cargo dimensions.",
+      "seatBackEncroachment": {
+        "angleFromVerticalDegrees": 30,
+        "notes": "Default rear seat-back rake assumption for optional encroachment-aware cargo planning."
+      }
     },
     {
       "id": "boot_seats_folded",

@@ -70,6 +70,10 @@ function validateVehicle(vehicle) {
     zoneIds.add(zone.id);
     assert(Number.isFinite(zone.volumeLitres) && zone.volumeLitres > 0, `${zoneLabel}.volumeLitres must be positive`, errors);
     if (zone.dimensionsMm) validateDimensions(zone.dimensionsMm, `${zoneLabel}.dimensionsMm`, errors);
+    if (zone.seatBackEncroachment) {
+      const angle = zone.seatBackEncroachment.angleFromVerticalDegrees;
+      assert(Number.isFinite(angle) && angle >= 0 && angle < 90, `${zoneLabel}.seatBackEncroachment.angleFromVerticalDegrees must be >=0 and <90`, errors);
+    }
     if (zone.usableFraction !== undefined) assert(zone.usableFraction > 0 && zone.usableFraction <= 1, `${zoneLabel}.usableFraction must be >0 and <=1`, errors);
     assert(['high', 'medium', 'low'].includes(zone.confidence), `${zoneLabel}.confidence must be high, medium, or low`, errors);
   }
