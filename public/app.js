@@ -132,6 +132,63 @@ function projectZone(zone, view) {
   return { width: dimensions.length, height: dimensions.width, xLabel: 'length', yLabel: 'width' };
 }
 
+function seatOutlineFor2dView(projection, view, padding, scale) {
+  const seatFill = '#fef3c7';
+  const seatStroke = '#92400e';
+  const label = view === 'front' ? 'Forward seats' : 'Forward / seats';
+
+  if (view === 'side') {
+    const x = padding + projection.width * scale + 14;
+    const floorY = padding + projection.height * scale;
+    const seatWidth = Math.min(58, projection.width * scale * 0.18);
+    const seatHeight = Math.min(92, projection.height * scale * 0.7);
+    const baseHeight = Math.max(12, seatHeight * 0.28);
+    return `
+      <g class="seat-outline seat-outline--side" aria-label="${label}">
+        <path d="M ${x} ${floorY - baseHeight} h ${seatWidth} q 8 0 8 8 v ${baseHeight - 8} h ${-seatWidth - 8} z" fill="${seatFill}" stroke="${seatStroke}" />
+        <path d="M ${x + seatWidth * 0.46} ${floorY - baseHeight} l ${seatWidth * 0.18} ${-seatHeight} q 3 -10 14 -7 l ${seatWidth * 0.18} 4 l ${-seatWidth * 0.23} ${seatHeight + 3} z" fill="${seatFill}" stroke="${seatStroke}" />
+        <text x="${x + seatWidth / 2}" y="${Math.max(18, floorY - seatHeight - 14)}" text-anchor="middle" class="seat-label">front</text>
+      </g>
+    `;
+  }
+
+  if (view === 'front') {
+    const cargoX = padding;
+    const cargoY = padding;
+    const cargoWidth = projection.width * scale;
+    const seatWidth = Math.max(42, cargoWidth * 0.26);
+    const seatHeight = Math.min(54, projection.height * scale * 0.28);
+    const gap = Math.max(14, cargoWidth * 0.08);
+    const startX = cargoX + (cargoWidth - seatWidth * 2 - gap) / 2;
+    const y = Math.max(8, cargoY - seatHeight - 8);
+    return `
+      <g class="seat-outline seat-outline--front" aria-label="${label}">
+        <rect x="${startX}" y="${y}" width="${seatWidth}" height="${seatHeight}" rx="11" fill="${seatFill}" stroke="${seatStroke}" />
+        <rect x="${startX + seatWidth + gap}" y="${y}" width="${seatWidth}" height="${seatHeight}" rx="11" fill="${seatFill}" stroke="${seatStroke}" />
+        <text x="${cargoX + cargoWidth / 2}" y="${Math.max(14, y - 6)}" text-anchor="middle" class="seat-label">front</text>
+      </g>
+    `;
+  }
+
+  const cargoX = padding;
+  const cargoY = padding;
+  const cargoWidth = projection.width * scale;
+  const cargoHeight = projection.height * scale;
+  const seatDepth = Math.min(76, cargoWidth * 0.18);
+  const seatWidth = Math.max(44, cargoHeight * 0.28);
+  const gap = Math.max(12, cargoHeight * 0.08);
+  const startY = cargoY + (cargoHeight - seatWidth * 2 - gap) / 2;
+  const x = cargoX + cargoWidth + 14;
+  return `
+    <g class="seat-outline seat-outline--top" aria-label="${label}">
+      <rect x="${x}" y="${startY}" width="${seatDepth}" height="${seatWidth}" rx="12" fill="${seatFill}" stroke="${seatStroke}" />
+      <rect x="${x}" y="${startY + seatWidth + gap}" width="${seatDepth}" height="${seatWidth}" rx="12" fill="${seatFill}" stroke="${seatStroke}" />
+      <line x1="${cargoX + cargoWidth}" y1="${cargoY}" x2="${cargoX + cargoWidth}" y2="${cargoY + cargoHeight}" class="seat-back-line" />
+      <text x="${x + seatDepth / 2}" y="${Math.max(18, startY - 8)}" text-anchor="middle" class="seat-label">front</text>
+    </g>
+  `;
+}
+
 function clamp(value, min, max) {
   return Math.min(max, Math.max(min, value));
 }
@@ -147,12 +204,14 @@ function shadeColor(hex, percent) {
 
 function renderZoneSvg(zone, placements, index) {
   const projection = projectZone(zone, state.activeView);
-  const padding = 28;
+  const padding = state.activeView === 'front' ? 82 : 28;
+  const seatGutter = state.activeView === 'front' ? 0 : 112;
   const maxSvgWidth = 720;
-  const contentWidth = maxSvgWidth - padding * 2;
+  const contentWidth = maxSvgWidth - padding * 2 - seatGutter;
   const scale = Math.min(contentWidth / projection.width, 320 / projection.height);
-  const svgWidth = Math.max(360, projection.width * scale + padding * 2);
+  const svgWidth = Math.max(360, projection.width * scale + padding * 2 + seatGutter);
   const svgHeight = Math.max(220, projection.height * scale + padding * 2 + 34);
+  const seatOutline = seatOutlineFor2dView(projection, state.activeView, padding, scale);
 
   const rects = placements.map((placement) => {
     const box = projectBox(placement, state.activeView);
@@ -175,6 +234,7 @@ function renderZoneSvg(zone, placements, index) {
         <span>${dimensionsLabel(zone.dimensionsMm)} · ${zone.volumeLitres} L</span>
       </div>
       <svg viewBox="0 0 ${svgWidth} ${svgHeight}" role="img" aria-label="${zone.label} ${state.activeView} view">
+        ${seatOutline}
         <rect class="cargo-outline" x="${padding}" y="${padding}" width="${projection.width * scale}" height="${projection.height * scale}" rx="12" fill="#eff6ff" />
         ${rects}
         <text x="${padding}" y="${svgHeight - 12}" class="axis-label">${projection.xLabel}: ${projection.width} mm</text>
@@ -201,7 +261,21 @@ function createBoxVertices(position, size) {
   ];
 }
 
-function createProjector(zone, placements, canvasWidth, canvasHeight, padding) {
+function createSeatGuideVertices(zone) {
+  const dimensions = zone.dimensionsMm;
+  const seatDepth = Math.max(90, dimensions.length * 0.12);
+  const seatHeight = Math.min(Math.max(360, dimensions.height * 0.82), dimensions.height + 140);
+  const seatWidth = dimensions.width * 0.28;
+  const gap = dimensions.width * 0.08;
+  const startY = (dimensions.width - seatWidth * 2 - gap) / 2;
+
+  return [0, 1].flatMap((index) => createBoxVertices(
+    { x: dimensions.length + seatDepth * 0.15, y: startY + index * (seatWidth + gap), z: 0 },
+    { length: seatDepth, width: seatWidth, height: seatHeight }
+  ));
+}
+
+function createProjector(zone, placements, canvasWidth, canvasHeight, padding, extraPoints = []) {
   const dimensions = zone.dimensionsMm;
   const yaw = state.rotation3d.yaw * Math.PI / 180;
   const pitch = state.rotation3d.pitch * Math.PI / 180;
@@ -209,33 +283,33 @@ function createProjector(zone, placements, canvasWidth, canvasHeight, padding) {
   const sinYaw = Math.sin(yaw);
   const cosPitch = Math.cos(pitch);
   const sinPitch = Math.sin(pitch);
-  const center = { x: dimensions.length / 2, y: dimensions.width / 2 };
+  const center = { x: dimensions.length / 2, y: dimensions.width / 2, z: dimensions.height / 2 };
   const allPoints = [
     ...createBoxVertices({ x: 0, y: 0, z: 0 }, dimensions),
-    ...placements.flatMap((placement) => createBoxVertices(placement.positionMm, placement.orientationMm))
+    ...placements.flatMap((placement) => createBoxVertices(placement.positionMm, placement.orientationMm)),
+    ...extraPoints
   ];
   const raw = (point) => {
     const centeredX = point.x - center.x;
     const centeredY = point.y - center.y;
+    const centeredZ = point.z - center.z;
     const rotatedX = centeredX * cosYaw - centeredY * sinYaw;
     const rotatedY = centeredX * sinYaw + centeredY * cosYaw;
     return {
       x: rotatedX,
-      y: rotatedY * cosPitch - point.z * sinPitch,
-      depth: rotatedY * sinPitch + point.z * cosPitch
+      y: rotatedY * cosPitch - centeredZ * sinPitch,
+      depth: rotatedY * sinPitch + centeredZ * cosPitch
     };
   };
   const projected = allPoints.map(raw);
-  const minX = Math.min(...projected.map((point) => point.x));
-  const maxX = Math.max(...projected.map((point) => point.x));
-  const minY = Math.min(...projected.map((point) => point.y));
-  const maxY = Math.max(...projected.map((point) => point.y));
-  const scale = Math.min((canvasWidth - padding * 2) / Math.max(1, maxX - minX), (canvasHeight - padding * 2) / Math.max(1, maxY - minY));
+  const maxAbsX = Math.max(...projected.map((point) => Math.abs(point.x)), 1);
+  const maxAbsY = Math.max(...projected.map((point) => Math.abs(point.y)), 1);
+  const scale = Math.min((canvasWidth - padding * 2) / (maxAbsX * 2), (canvasHeight - padding * 2) / (maxAbsY * 2));
   return (point) => {
     const output = raw(point);
     return {
-      x: padding + (output.x - minX) * scale,
-      y: padding + (output.y - minY) * scale,
+      x: canvasWidth / 2 + output.x * scale,
+      y: canvasHeight / 2 + output.y * scale,
       depth: output.depth
     };
   };
@@ -254,13 +328,37 @@ function renderFace(vertices, indices, fill, className, title = '') {
   };
 }
 
+function renderSeatGuide3d(zone, project) {
+  const dimensions = zone.dimensionsMm;
+  const seatDepth = Math.max(90, dimensions.length * 0.12);
+  const seatHeight = Math.min(Math.max(360, dimensions.height * 0.82), dimensions.height + 140);
+  const seatWidth = dimensions.width * 0.28;
+  const gap = dimensions.width * 0.08;
+  const startY = (dimensions.width - seatWidth * 2 - gap) / 2;
+
+  return [0, 1].flatMap((index) => {
+    const vertices = createBoxVertices(
+      { x: dimensions.length + seatDepth * 0.15, y: startY + index * (seatWidth + gap), z: 0 },
+      { length: seatDepth, width: seatWidth, height: seatHeight }
+    ).map(project);
+
+    return [
+      renderFace(vertices, [0, 1, 2, 3], '#fde68a', 'seat-face', 'Forward seat outline'),
+      renderFace(vertices, [3, 0, 4, 7], '#fef3c7', 'seat-face', 'Forward seat outline'),
+      renderFace(vertices, [4, 5, 6, 7], '#fef3c7', 'seat-face', 'Forward seat outline')
+    ];
+  });
+}
+
 function renderZone3dSvg(zone, placements) {
   const svgWidth = 820;
   const svgHeight = 440;
   const padding = 34;
-  const project = createProjector(zone, placements, svgWidth, svgHeight, padding);
+  const seatGuidePoints = createSeatGuideVertices(zone);
+  const project = createProjector(zone, placements, svgWidth, svgHeight, padding, seatGuidePoints);
   const zoneVertices = createBoxVertices({ x: 0, y: 0, z: 0 }, zone.dimensionsMm).map(project);
   const faces = [
+    ...renderSeatGuide3d(zone, project),
     renderFace(zoneVertices, [0, 1, 2, 3], '#dbeafe', 'zone-face zone-face--floor'),
     ...placements.flatMap((placement) => {
       const color = colorForPlacement(placement);
@@ -284,7 +382,7 @@ function renderZone3dSvg(zone, placements) {
           <strong>${zone.label}</strong>
           <span>${dimensionsLabel(zone.dimensionsMm)} · ${zone.volumeLitres} L</span>
         </div>
-        <span>Drag to rotate · yaw ${Math.round(state.rotation3d.yaw)}° · pitch ${Math.round(state.rotation3d.pitch)}°</span>
+        <span>Drag to rotate around cargo centre · seats mark forward · yaw ${Math.round(state.rotation3d.yaw)}° · pitch ${Math.round(state.rotation3d.pitch)}°</span>
       </div>
       <svg class="zone-3d-svg" viewBox="0 0 ${svgWidth} ${svgHeight}" role="img" aria-label="${zone.label} rotatable 3D luggage view">
         <rect x="0" y="0" width="${svgWidth}" height="${svgHeight}" rx="18" fill="#f8fafc" />
