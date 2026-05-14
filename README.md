@@ -9,7 +9,7 @@ This repository now contains the first data, computation, and browser UI layer f
 - Common luggage presets with exact dimensions, quantities, source metadata, and a soft/free-form backpack example.
 - Regional vehicle starter sets covering European rental classes plus North American EV/crossover and pickup examples.
 - Vehicle cargo-zone configs for seats-up, rear-seats-folded, and rear-footwell overflow scenarios.
-- A first-pass greedy fit estimator that checks dimensions, rotation, approximate usable zone volume, cargo-opening constraints when present, and returns placement coordinates for visualization.
+- A multi-pass 3D fit estimator that repacks the full selected luggage set on every change, checks all allowed axis rotations, approximate usable zone volume, cargo-opening constraints when present, and returns placement coordinates for visualization.
 - A static browser app for selecting a vehicle, choosing seat/cargo configurations, tuning luggage quantities, and viewing scaled top/side/rear cargo-zone drawings.
 - A config validation script that enforces required fields and verifies each vehicle has both manufacturer and rental-market references.
 
