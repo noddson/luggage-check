@@ -6,7 +6,9 @@
   "type": "module",
   "scripts": {
     "validate:configs": "node scripts/validate-configs.mjs",
-    "check": "npm run validate:configs"
+    "check": "npm run validate:configs && npm run smoke:app",
+    "start": "node scripts/serve-app.mjs",
+    "smoke:app": "node scripts/smoke-app.mjs"
   },
   "engines": {
     "node": ">=20"
