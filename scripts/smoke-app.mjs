@@ -10,13 +10,55 @@ const [html, css, app, luggageSet, vehicles] = await Promise.all([
   loadVehicles()
 ]);
 
-for (const marker of ['vehicleSelect', 'configurationSelect', 'luggageControls', 'visualization']) {
+for (const marker of ['vehicleSelect', 'configurationSelect', 'seatBackEncroachmentToggle', 'luggageControls', 'visualization']) {
   if (!html.includes(marker)) throw new Error(`App shell missing #${marker}`);
 }
-for (const marker of ['estimateFit', 'renderVisualization', 'view-tab']) {
+for (const marker of ['estimateFit', 'renderVisualization', 'seatEncroachmentOverlay', 'view-tab']) {
   if (!app.includes(marker)) throw new Error(`Browser app missing ${marker}`);
 }
 if (!css.includes('.zone-card')) throw new Error('Styles missing visualization card rules');
+if (!css.includes('.seat-encroachment-line')) throw new Error('Styles missing seat-back encroachment rules');
+
+
+const encroachmentRegressionLuggage = {
+  items: [{
+    id: 'tall-rigid-case',
+    label: 'Tall rigid case',
+    quantity: 1,
+    shapeType: 'box',
+    dimensionsMm: { length: 650, width: 450, height: 600 },
+    rotationAllowed: false,
+    sources: []
+  }]
+};
+const encroachmentRegressionVehicle = {
+  id: 'encroachment-regression',
+  make: 'Test',
+  model: 'Seatback',
+  generation: 'Synthetic',
+  modelYears: ['2026'],
+  bodyStyle: 'test fixture',
+  rentalClasses: ['test'],
+  commonRentalAliases: ['test'],
+  cargoZones: [{
+    id: 'boot',
+    label: 'Boot',
+    volumeLitres: 600,
+    dimensionsMm: { length: 800, width: 500, height: 700 },
+    seatBackEncroachment: { angleFromVerticalDegrees: 30 },
+    usableFraction: 1,
+    confidence: 'high'
+  }],
+  seatConfigurations: [{ id: 'seats_up', label: 'Seats up', cargoZoneIds: ['boot'], seatsAvailable: 5 }],
+  sources: []
+};
+const rectangularResult = estimateFit(encroachmentRegressionLuggage, encroachmentRegressionVehicle, 'seats_up');
+const encroachedResult = estimateFit(encroachmentRegressionLuggage, encroachmentRegressionVehicle, 'seats_up', {
+  considerSeatBackEncroachment: true
+});
+if (!rectangularResult.fits || encroachedResult.fits) {
+  throw new Error('Seat-back encroachment regression failed to reject a tall case that only fits the rectangular envelope');
+}
 
 function placementsOverlap(a, b) {
   return a.positionMm.x < b.positionMm.x + b.orientationMm.length
