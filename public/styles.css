@@ -63,12 +63,16 @@ button, select, input { font: inherit; }
 .zone-card__header strong { color: var(--ink); }
 .zone-card svg { width: 100%; height: auto; display: block; border-radius: 18px; background: white; }
 .cargo-outline { stroke: #1e3a8a; stroke-width: 3.5; stroke-dasharray: 8 6; vector-effect: non-scaling-stroke; }
+.seat-outline path, .seat-outline rect { stroke-width: 2.4; stroke-linejoin: round; vector-effect: non-scaling-stroke; filter: drop-shadow(0 2px 1px rgb(146 64 14 / 0.18)); }
+.seat-back-line { stroke: #92400e; stroke-width: 3; stroke-dasharray: 5 5; vector-effect: non-scaling-stroke; }
+.seat-label { fill: #92400e; font-size: 12px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.08em; }
 .luggage-rect { opacity: 0.9; stroke: #0f172a; stroke-width: 3; vector-effect: non-scaling-stroke; paint-order: stroke fill; filter: drop-shadow(0 3px 2px rgb(15 23 42 / 0.18)); }
 .zone-card--3d .zone-card__header > div { display: grid; gap: 3px; }
 .zone-3d-svg { cursor: grab; touch-action: none; user-select: none; border: 1px solid var(--line); }
 .zone-3d-svg.is-dragging { cursor: grabbing; }
 .zone-face { opacity: 0.68; stroke: #1e40af; stroke-width: 2; vector-effect: non-scaling-stroke; }
 .bag-face { opacity: 0.96; stroke: #0f172a; stroke-width: 2.4; stroke-linejoin: round; vector-effect: non-scaling-stroke; paint-order: stroke fill; }
+.seat-face { opacity: 0.62; stroke: #92400e; stroke-width: 2.2; stroke-dasharray: 5 4; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
 .zone-wire { fill: none; stroke: #1e3a8a; stroke-width: 2.8; stroke-dasharray: 7 6; stroke-linecap: round; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
 .axis-label { fill: #64748b; font-size: 13px; font-weight: 800; }
 .empty-zone { color: var(--muted); margin: 8px 0 0; }
