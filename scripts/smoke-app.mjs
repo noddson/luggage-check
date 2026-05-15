@@ -16,9 +16,13 @@ for (const marker of ['vehicleSelect', 'configurationSelect', 'seatBackEncroachm
 for (const marker of ['estimateFit', 'renderVisualization', 'seatEncroachmentOverlay', 'view-tab', 'orientation-axis-control', "activeView: '3d'"]) {
   if (!app.includes(marker)) throw new Error(`Browser app missing ${marker}`);
 }
+for (const marker of ['Boot View', 'Side View', 'Top View', 'activeOrientationLabel']) {
+  if (!app.includes(marker)) throw new Error(`Browser app missing orientation preset label ${marker}`);
+}
 if (!css.includes('.zone-card')) throw new Error('Styles missing visualization card rules');
 if (!css.includes('.seat-encroachment-line')) throw new Error('Styles missing seat-back encroachment rules');
 if (!css.includes('.orientation-axis-button')) throw new Error('Styles missing 3D orientation axis controls');
+if (!css.includes('.orientation-axis-preset-label')) throw new Error('Styles missing 3D orientation preset label');
 
 
 const encroachmentRegressionLuggage = {

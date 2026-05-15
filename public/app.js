@@ -21,7 +21,8 @@ const state = {
   configurationId: '',
   activeView: '3d',
   considerSeatBackEncroachment: false,
-  rotation3d: { yaw: -45, pitch: 60 }
+  rotation3d: { yaw: -45, pitch: 60 },
+  activeOrientationLabel: ''
 };
 
 const $ = (selector) => document.querySelector(selector);
@@ -377,9 +378,9 @@ function renderFace(vertices, indices, fill, className, title = '') {
 }
 
 const ORIENTATION_PRESETS = {
-  x: { label: 'Rear', yaw: 270, pitch: 90 },
-  y: { label: 'Side', yaw: 0, pitch: 90 },
-  z: { label: 'Top', yaw: -90, pitch: 0 }
+  x: { label: 'Boot View', yaw: 270, pitch: 90 },
+  y: { label: 'Side View', yaw: 0, pitch: 90 },
+  z: { label: 'Top View', yaw: -90, pitch: 0 }
 };
 
 function renderOrientationAxisControl() {
@@ -387,7 +388,7 @@ function renderOrientationAxisControl() {
   const axisLength = 44;
   const center = { x: 0, y: 0, z: 0 };
   const axes = [
-    { key: 'x', label: 'X', color: '#dc2626', vector: { x: axisLength, y: 0, z: 0 }, title: 'Rear view' },
+    { key: 'x', label: 'X', color: '#dc2626', vector: { x: axisLength, y: 0, z: 0 }, title: 'Boot view' },
     { key: 'y', label: 'Y', color: '#16a34a', vector: { x: 0, y: axisLength, z: 0 }, title: 'Side view' },
     { key: 'z', label: 'Z', color: '#2563eb', vector: { x: 0, y: 0, z: axisLength }, title: 'Top-down view' }
   ];
@@ -409,11 +410,16 @@ function renderOrientationAxisControl() {
     `;
   }).join('');
 
+  const presetLabel = state.activeOrientationLabel
+    ? `<text class="orientation-axis-preset-label" x="722" y="128" text-anchor="middle">${state.activeOrientationLabel}</text>`
+    : '';
+
   return `
     <g class="orientation-axis-control" aria-label="3D orientation axis control">
-      <rect class="orientation-axis-panel" x="648" y="18" width="148" height="122" rx="16" />
+      <rect class="orientation-axis-panel" x="648" y="18" width="148" height="132" rx="16" />
       <text class="orientation-axis-heading" x="722" y="40" text-anchor="middle">orientation</text>
       ${axisMarkup}
+      ${presetLabel}
     </g>
   `;
 }
@@ -422,6 +428,7 @@ function set3dOrientation(axis) {
   const preset = ORIENTATION_PRESETS[axis];
   if (!preset) return;
   state.rotation3d = { yaw: preset.yaw, pitch: preset.pitch };
+  state.activeOrientationLabel = preset.label;
   renderResults();
 }
 
@@ -534,6 +541,7 @@ function bind3dRotation() {
         previous = { x: moveEvent.clientX, y: moveEvent.clientY };
         state.rotation3d.yaw += dx * 0.35;
         state.rotation3d.pitch = clamp(state.rotation3d.pitch - dy * 0.25, 0, 90);
+        if (dx || dy) state.activeOrientationLabel = '';
         renderResults();
       };
       const endDrag = () => {
