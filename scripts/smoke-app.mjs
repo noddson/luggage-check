@@ -10,10 +10,10 @@ const [html, css, app, luggageSet, vehicles] = await Promise.all([
   loadVehicles()
 ]);
 
-for (const marker of ['vehicleSelect', 'configurationSelect', 'seatBackEncroachmentToggle', 'luggageControls', 'visualization']) {
+for (const marker of ['vehicleSelect', 'configurationSelect', 'seatBackEncroachmentToggle', 'luggageControls', 'resetLuggageButton', 'visualization']) {
   if (!html.includes(marker)) throw new Error(`App shell missing #${marker}`);
 }
-for (const marker of ['estimateFit', 'renderVisualization', 'seatEncroachmentOverlay', 'view-tab', 'orientation-axis-control', "activeView: '3d'"]) {
+for (const marker of ['estimateFit', 'renderVisualization', 'seatEncroachmentOverlay', 'view-tab', 'orientation-axis-control', 'defaultVehicle', 'resetLuggageQuantities', "activeView: '3d'"]) {
   if (!app.includes(marker)) throw new Error(`Browser app missing ${marker}`);
 }
 for (const marker of ['Boot View', 'Side View', 'Top View', 'activeOrientationLabel']) {
@@ -23,7 +23,12 @@ if (!css.includes('.zone-card')) throw new Error('Styles missing visualization c
 if (!css.includes('.seat-encroachment-line')) throw new Error('Styles missing seat-back encroachment rules');
 if (!css.includes('.orientation-axis-button')) throw new Error('Styles missing 3D orientation axis controls');
 if (!css.includes('.orientation-axis-preset-label')) throw new Error('Styles missing 3D orientation preset label');
+if (!css.includes('.secondary-button')) throw new Error('Styles missing secondary button rules');
 
+const defaultVehicles = vehicles.filter((vehicle) => vehicle.isDefault);
+if (defaultVehicles.length !== 1 || defaultVehicles[0].id !== 'volkswagen-caddy-maxi-life') {
+  throw new Error('Expected Volkswagen Caddy Maxi Life to be the single default vehicle');
+}
 
 const encroachmentRegressionLuggage = {
   items: [{
