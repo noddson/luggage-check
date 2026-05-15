@@ -13,11 +13,12 @@ const [html, css, app, luggageSet, vehicles] = await Promise.all([
 for (const marker of ['vehicleSelect', 'configurationSelect', 'seatBackEncroachmentToggle', 'luggageControls', 'visualization']) {
   if (!html.includes(marker)) throw new Error(`App shell missing #${marker}`);
 }
-for (const marker of ['estimateFit', 'renderVisualization', 'seatEncroachmentOverlay', 'view-tab']) {
+for (const marker of ['estimateFit', 'renderVisualization', 'seatEncroachmentOverlay', 'view-tab', 'orientation-axis-control', "activeView: '3d'"]) {
   if (!app.includes(marker)) throw new Error(`Browser app missing ${marker}`);
 }
 if (!css.includes('.zone-card')) throw new Error('Styles missing visualization card rules');
 if (!css.includes('.seat-encroachment-line')) throw new Error('Styles missing seat-back encroachment rules');
+if (!css.includes('.orientation-axis-button')) throw new Error('Styles missing 3D orientation axis controls');
 
 
 const encroachmentRegressionLuggage = {
