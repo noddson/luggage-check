@@ -1,6 +1,6 @@
 const MM3_PER_LITRE = 1_000_000;
 const MIN_SPACE_MM = 1;
-const DEFAULT_SEAT_BACK_ANGLE_DEGREES = 30;
+const DEFAULT_SEAT_BACK_ANGLE_DEGREES = 20;
 
 function permutations(dimensions) {
   const { length, width, height } = dimensions;

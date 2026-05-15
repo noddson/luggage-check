@@ -225,7 +225,7 @@ This is the computational core. It is intentionally deterministic: the same lugg
 
 - `MM3_PER_LITRE = 1_000_000`: unit conversion from cubic millimetres to litres.
 - `MIN_SPACE_MM = 1`: removes zero/negative/tiny candidate free spaces after splitting.
-- `DEFAULT_SEAT_BACK_ANGLE_DEGREES = 30`: fallback slope used when a zone declares seat-back encroachment without an explicit angle.
+- `DEFAULT_SEAT_BACK_ANGLE_DEGREES = 20`: fallback slope used when a zone declares seat-back encroachment without an explicit angle.
 
 ### Overall algorithm
 
