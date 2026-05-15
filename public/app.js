@@ -434,7 +434,7 @@ const ORIENTATION_PRESETS = {
 };
 
 function renderOrientationAxisControl() {
-  const origin = { x: 710, y: 88 };
+  const origin = { x: 710, y: 96 };
   const axisLength = 44;
   const center = { x: 0, y: 0, z: 0 };
   const axes = [
@@ -461,15 +461,15 @@ function renderOrientationAxisControl() {
   }).join('');
 
   const orientationStatus = state.activeOrientationLabel
-    ? `<text class="orientation-axis-preset-label" x="722" y="128" text-anchor="middle">${state.activeOrientationLabel}</text>`
-    : `<text class="orientation-axis-angle-label" x="722" y="120" text-anchor="middle">
+    ? `<text class="orientation-axis-preset-label" x="722" y="150" text-anchor="middle">${state.activeOrientationLabel}</text>`
+    : `<text class="orientation-axis-angle-label" x="722" y="138" text-anchor="middle">
         <tspan x="722">yaw ${Math.round(state.rotation3d.yaw)}°</tspan>
         <tspan x="722" dy="16">pitch ${Math.round(state.rotation3d.pitch)}°</tspan>
       </text>`;
 
   return `
     <g class="orientation-axis-control" aria-label="3D orientation axis control">
-      <rect class="orientation-axis-panel" x="648" y="18" width="148" height="132" rx="16" />
+      <rect class="orientation-axis-panel" x="648" y="18" width="148" height="158" rx="16" />
       <text class="orientation-axis-heading" x="722" y="40" text-anchor="middle">orientation</text>
       ${axisMarkup}
       ${orientationStatus}
