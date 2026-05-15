@@ -82,6 +82,7 @@ button, select, input { font: inherit; }
 .orientation-axis-control { pointer-events: auto; }
 .orientation-axis-panel { fill: rgb(255 255 255 / 0.9); stroke: #cbd5e1; stroke-width: 1.5; filter: drop-shadow(0 8px 16px rgb(15 23 42 / 0.14)); }
 .orientation-axis-heading { fill: #64748b; font-size: 10px; font-weight: 900; letter-spacing: 0.08em; text-transform: uppercase; }
+.orientation-axis-preset-label { fill: #0f172a; font-size: 13px; font-weight: 950; letter-spacing: 0.02em; }
 .orientation-axis-button { color: var(--axis-color); cursor: pointer; outline: none; }
 .orientation-axis-line { stroke: currentColor; stroke-width: 3.4; stroke-linecap: round; vector-effect: non-scaling-stroke; }
 .orientation-axis-end { fill: currentColor; stroke: white; stroke-width: 1.6; vector-effect: non-scaling-stroke; }
