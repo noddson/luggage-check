@@ -1,0 +1,143 @@
+{
+  "id": "skoda-kodiaq",
+  "make": "Skoda",
+  "model": "Kodiaq",
+  "generation": "Second generation / 2024 European 7-seat references",
+  "modelYears": [
+    "2024-present"
+  ],
+  "bodyStyle": "7-seat midsize SUV",
+  "rentalClasses": [
+    "7-seat SUV",
+    "large SUV",
+    "full-size SUV",
+    "family SUV"
+  ],
+  "commonRentalAliases": [
+    "Skoda Kodiaq or similar",
+    "Skoda Kodiaq 7 seater or similar",
+    "7-seat SUV",
+    "SUV 7 Plazas"
+  ],
+  "cargoZones": [
+    {
+      "id": "boot_seven_seats",
+      "label": "Boot behind third row with all 7 seats in use",
+      "volumeLitres": 340,
+      "dimensionsMm": {
+        "length": 390,
+        "width": 1272,
+        "height": 686
+      },
+      "openingMm": {
+        "width": 1272,
+        "height": 820
+      },
+      "usableFraction": 0.78,
+      "confidence": "medium",
+      "notes": "Skoda technical data publishes 340 L behind the third row for 7-seat versions, measured up to headrests with the boot cover stored under the floor. The cuboid dimensions are estimated from third-row width and depth, so soft bags will fit better than rigid cases near seatbacks and tailgate trim.",
+      "seatBackEncroachment": {
+        "angleFromVerticalDegrees": 18,
+        "notes": "Default rear seat-back rake assumption for optional encroachment-aware cargo planning."
+      }
+    },
+    {
+      "id": "boot_third_row_folded",
+      "label": "Cargo area with row 2 in place and row 3 folded down",
+      "volumeLitres": 845,
+      "dimensionsMm": {
+        "length": 1060,
+        "width": 1272,
+        "height": 627
+      },
+      "openingMm": {
+        "width": 1272,
+        "height": 820
+      },
+      "usableFraction": 0.78,
+      "confidence": "medium",
+      "notes": "Skoda publishes 845 L for the 7-seater with the third row folded, depending on second-row position and backrest angle. Planning dimensions are estimated and do not account for wheel arches, seat hardware, or sloping glass.",
+      "seatBackEncroachment": {
+        "angleFromVerticalDegrees": 18,
+        "notes": "Default rear seat-back rake assumption for optional encroachment-aware cargo planning."
+      }
+    },
+    {
+      "id": "full_cargo_rear_rows_folded",
+      "label": "Maximum cargo area with rear rows folded",
+      "volumeLitres": 2035,
+      "dimensionsMm": {
+        "length": 1900,
+        "width": 1272,
+        "height": 842
+      },
+      "openingMm": {
+        "width": 1272,
+        "height": 820
+      },
+      "usableFraction": 0.72,
+      "confidence": "medium",
+      "notes": "Skoda publishes 2,035 L with rear seats folded up to the roof for the 7-seat version. This is a planning envelope for two occupants plus maximum luggage, not a guarantee of rectangular rigid-item fit."
+    }
+  ],
+  "seatConfigurations": [
+    {
+      "id": "seats_up",
+      "label": "All 7 seats in use",
+      "cargoZoneIds": [
+        "boot_seven_seats"
+      ],
+      "seatsAvailable": 7,
+      "notes": "Rental listings often show only 1 bag when all seven seats are used; plan for compact soft bags unless passenger count is reduced."
+    },
+    {
+      "id": "third_row_folded",
+      "label": "Third row folded",
+      "cargoZoneIds": [
+        "boot_third_row_folded"
+      ],
+      "seatsAvailable": 5,
+      "notes": "Assumes the third row is folded under the luggage-compartment floor while the second row remains available."
+    },
+    {
+      "id": "rear_rows_folded",
+      "label": "Rear rows folded",
+      "cargoZoneIds": [
+        "full_cargo_rear_rows_folded"
+      ],
+      "seatsAvailable": 2,
+      "notes": "For two occupants plus maximum cargo; floor flatness and cargo-cover storage depend on trim and seat setup."
+    }
+  ],
+  "sources": [
+    {
+      "sourceType": "manufacturer",
+      "publisher": "Skoda Storyboard",
+      "title": "Kodiaq technical specifications - 2024",
+      "url": "https://cdn.skoda-storyboard.com/2024/04/TD-Kodiaq-en_eda330ec.pdf",
+      "retrievedAt": "2026-05-15",
+      "fieldsCovered": [
+        "7-seat boot volume",
+        "folded-seat volume",
+        "maximum cargo volume",
+        "interior dimensions",
+        "exterior dimensions"
+      ],
+      "confidence": "high"
+    },
+    {
+      "sourceType": "rental-company",
+      "publisher": "Enterprise Rent-A-Car Ireland",
+      "title": "Automatic seven-seater SUV rental - Ireland",
+      "url": "https://www.enterprise.es/es/alquiler-de-vehiculos/ie/monovolumenes/suv-de-siete-plazas-automatico-ivar.html",
+      "retrievedAt": "2026-05-15",
+      "fieldsCovered": [
+        "rental fleet example model",
+        "rental class alias",
+        "seating capacity",
+        "rental luggage guidance"
+      ],
+      "confidence": "medium"
+    }
+  ]
+}

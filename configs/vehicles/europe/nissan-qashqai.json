@@ -1,0 +1,135 @@
+{
+  "id": "nissan-qashqai",
+  "make": "Nissan",
+  "model": "Qashqai",
+  "generation": "Third generation / 2024 European facelift references",
+  "modelYears": [
+    "2021-present"
+  ],
+  "bodyStyle": "Compact crossover SUV",
+  "rentalClasses": [
+    "compact SUV",
+    "intermediate SUV",
+    "midsize SUV"
+  ],
+  "commonRentalAliases": [
+    "Nissan Qashqai or similar",
+    "Compact SUV",
+    "Midsize SUV",
+    "Intermediate SUV"
+  ],
+  "cargoZones": [
+    {
+      "id": "boot_seats_up",
+      "label": "Boot / trunk with rear seats up",
+      "volumeLitres": 504,
+      "dimensionsMm": {
+        "length": 870,
+        "width": 1100,
+        "height": 527
+      },
+      "openingMm": {
+        "width": 1100,
+        "height": 760
+      },
+      "usableFraction": 0.82,
+      "confidence": "medium",
+      "notes": "Nissan UK publishes up to 504 L boot capacity excluding luggage boards and a technical-table luggage range of 400-455 L by version. The planning envelope uses Nissan-published maximum boot length and width with an inferred rectangular height; trim, load boards, e-POWER hardware, and wheel-arch taper can reduce usable rigid-case fit.",
+      "seatBackEncroachment": {
+        "angleFromVerticalDegrees": 20,
+        "notes": "Default rear seat-back rake assumption for optional encroachment-aware cargo planning."
+      }
+    },
+    {
+      "id": "boot_seats_folded",
+      "label": "Expanded cargo area with rear seats folded",
+      "volumeLitres": 1447,
+      "dimensionsMm": {
+        "length": 1621,
+        "width": 1100,
+        "height": 811
+      },
+      "openingMm": {
+        "width": 1100,
+        "height": 760
+      },
+      "usableFraction": 0.72,
+      "confidence": "medium",
+      "notes": "Nissan UK publishes 1,447 L VDA luggage capacity with rear seats folded plus maximum folded length and width. Height is inferred from the volume and should be treated as a planning cuboid rather than a measured box."
+    },
+    {
+      "id": "rear_seat_footwell",
+      "label": "Rear passenger footwell overflow",
+      "volumeLitres": 80,
+      "dimensionsMm": {
+        "length": 650,
+        "width": 1100,
+        "height": 180
+      },
+      "usableFraction": 0.45,
+      "confidence": "low",
+      "notes": "Generic soft-bag overflow area, enabled only when rear passenger foot space can be sacrificed."
+    }
+  ],
+  "seatConfigurations": [
+    {
+      "id": "seats_up",
+      "label": "Rear seats up",
+      "cargoZoneIds": [
+        "boot_seats_up"
+      ],
+      "seatsAvailable": 5
+    },
+    {
+      "id": "rear_folded",
+      "label": "Rear seats folded",
+      "cargoZoneIds": [
+        "boot_seats_up",
+        "boot_seats_folded"
+      ],
+      "seatsAvailable": 2,
+      "notes": "For two occupants plus cargo; exact split-fold support and floor height vary by trim."
+    },
+    {
+      "id": "seats_up_with_footwell",
+      "label": "Rear seats up with rear footwell overflow",
+      "cargoZoneIds": [
+        "boot_seats_up",
+        "rear_seat_footwell"
+      ],
+      "seatsAvailable": 4,
+      "notes": "Assumes at least one rear passenger position is sacrificed for soft bags."
+    }
+  ],
+  "sources": [
+    {
+      "sourceType": "manufacturer",
+      "publisher": "Nissan UK",
+      "title": "Nissan Qashqai dimensions",
+      "url": "https://www.nissan.co.uk/vehicles/new/qashqai/dimensions.html",
+      "retrievedAt": "2026-05-15",
+      "fieldsCovered": [
+        "boot volume",
+        "folded-seat volume",
+        "cargo length",
+        "cargo width",
+        "exterior dimensions"
+      ],
+      "confidence": "high"
+    },
+    {
+      "sourceType": "rental-company",
+      "publisher": "Malco Rent a Car",
+      "title": "Nissan Qashqai (or similar)",
+      "url": "https://www.malcorentacar.com/en/flota/nissan-qashqai-o-similar/",
+      "retrievedAt": "2026-05-15",
+      "fieldsCovered": [
+        "rental fleet example model",
+        "rental class alias",
+        "seating capacity",
+        "rental luggage guidance"
+      ],
+      "confidence": "medium"
+    }
+  ]
+}
