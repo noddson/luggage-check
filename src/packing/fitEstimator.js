@@ -1,6 +1,9 @@
 const MM3_PER_LITRE = 1_000_000;
 const MIN_SPACE_MM = 1;
 const DEFAULT_SEAT_BACK_ANGLE_DEGREES = 20;
+const DEFAULT_SUPPORT_POLICY = {
+  mergeAdjacentCoplanarSpaces: true
+};
 
 function permutations(dimensions) {
   const { length, width, height } = dimensions;
@@ -139,8 +142,84 @@ function isContainedBy(inner, outer) {
     && inner.z + inner.height <= outer.z + outer.height;
 }
 
-function normalizeSpaces(spaces) {
-  return spaces
+function effectiveSupportPolicy(options = {}) {
+  return {
+    ...DEFAULT_SUPPORT_POLICY,
+    ...(options.supportPolicy ?? {})
+  };
+}
+
+function sameNumber(...values) {
+  return values.every((value) => value === values[0]);
+}
+
+function mergePair(a, b) {
+  if (!sameNumber(a.z, b.z) || !sameNumber(a.height, b.height)) return null;
+
+  if (sameNumber(a.x, b.x) && sameNumber(a.length, b.length)) {
+    const aEnd = a.y + a.width;
+    const bEnd = b.y + b.width;
+    if (aEnd === b.y || bEnd === a.y) {
+      return {
+        x: a.x,
+        y: Math.min(a.y, b.y),
+        z: a.z,
+        length: a.length,
+        width: a.width + b.width,
+        height: a.height
+      };
+    }
+  }
+
+  if (sameNumber(a.y, b.y) && sameNumber(a.width, b.width)) {
+    const aEnd = a.x + a.length;
+    const bEnd = b.x + b.length;
+    if (aEnd === b.x || bEnd === a.x) {
+      return {
+        x: Math.min(a.x, b.x),
+        y: a.y,
+        z: a.z,
+        length: a.length + b.length,
+        width: a.width,
+        height: a.height
+      };
+    }
+  }
+
+  return null;
+}
+
+function mergeAdjacentCoplanarSpaces(spaces) {
+  let merged = [...spaces];
+  let changed = true;
+
+  while (changed) {
+    changed = false;
+    outer:
+    for (let i = 0; i < merged.length; i += 1) {
+      for (let j = i + 1; j < merged.length; j += 1) {
+        const candidate = mergePair(merged[i], merged[j]);
+        if (candidate) {
+          merged = [
+            ...merged.slice(0, i),
+            ...merged.slice(i + 1, j),
+            ...merged.slice(j + 1),
+            candidate
+          ];
+          changed = true;
+          break outer;
+        }
+      }
+    }
+  }
+
+  return merged;
+}
+
+function normalizeSpaces(spaces, options = {}) {
+  const supportPolicy = effectiveSupportPolicy(options);
+  const candidateSpaces = supportPolicy.mergeAdjacentCoplanarSpaces ? mergeAdjacentCoplanarSpaces(spaces) : spaces;
+  return candidateSpaces
     .filter((space) => space.length >= MIN_SPACE_MM && space.width >= MIN_SPACE_MM && space.height >= MIN_SPACE_MM)
     .filter((space, index, list) => list.findIndex((candidate) =>
       candidate.x === space.x
@@ -190,17 +269,76 @@ function splitSpace(space, position, orientation) {
   ];
 }
 
-function scoreCandidate(candidate) {
+function residualSpacesAfterPlacement(candidate, options = {}) {
+  const remainingSpaces = candidate.zoneState.spaces.filter((_, index) => index !== candidate.spaceIndex);
+  return normalizeSpaces([
+    ...remainingSpaces,
+    ...splitSpace(candidate.space, candidate.position, candidate.orientation)
+  ], options);
+}
+
+function effectiveSpaceLengthAtHeight(space, orientation, zone, options) {
+  if (!options.considerSeatBackEncroachment || !zone.seatBackEncroachment || !zone.dimensionsMm) return space.length;
+  const topHeightMm = space.z + orientation.height;
+  const maxLengthAtTop = zone.dimensionsMm.length - seatBackEncroachmentMmAtHeight(zone, topHeightMm, options);
+  return Math.max(0, Math.min(space.length, maxLengthAtTop - space.x));
+}
+
+function capacityForItemInSpaces(item, spaces, zone, options) {
+  let bestCapacity = 0;
+
+  for (const orientation of orientationsForZone(item, zone)) {
+    const orientationCapacity = spaces.reduce((total, space) => {
+      if (orientation.width > space.width || orientation.height > space.height) return total;
+      const effectiveLength = effectiveSpaceLengthAtHeight(space, orientation, zone, options);
+      if (orientation.length > effectiveLength) return total;
+      return total
+        + Math.floor(effectiveLength / orientation.length)
+        * Math.floor(space.width / orientation.width)
+        * Math.floor(space.height / orientation.height);
+    }, 0);
+    bestCapacity = Math.max(bestCapacity, orientationCapacity);
+  }
+
+  return bestCapacity;
+}
+
+function lookaheadCapacity(candidate, remainingItems, options = {}) {
+  if (remainingItems.length === 0) return 0;
+
+  const residualSpaces = residualSpacesAfterPlacement(candidate, options);
+  const sameSourceItems = remainingItems.filter((item) => item.sourceId === candidate.item.sourceId);
+  const candidateItems = sameSourceItems.length > 0 ? sameSourceItems : remainingItems;
+  const capacityBySource = new Map();
+
+  for (const item of candidateItems) {
+    if (!capacityBySource.has(item.sourceId)) {
+      capacityBySource.set(item.sourceId, capacityForItemInSpaces(item, residualSpaces, candidate.zoneState.zone, options));
+    }
+  }
+
+  return candidateItems.reduce((count, item) => {
+    const availableCapacity = capacityBySource.get(item.sourceId) ?? 0;
+    if (availableCapacity <= 0) return count;
+    capacityBySource.set(item.sourceId, availableCapacity - 1);
+    return count + 1;
+  }, 0);
+}
+
+function scoreCandidate(candidate, remainingItems = [], options = {}) {
   const { space, orientation, position, zoneIndex } = candidate;
   const leftover = spaceVolume(space) - volumeMm3(orientation);
   const slack = (space.length - orientation.length) + (space.width - orientation.width) + (space.height - orientation.height);
+  const surfaceArea = orientation.length * orientation.width;
   return [
     zoneIndex,
     position.z,
+    -lookaheadCapacity(candidate, remainingItems, options),
     position.y,
     position.x,
     leftover,
     slack,
+    -surfaceArea,
     orientation.height,
     Math.max(orientation.length, orientation.width, orientation.height)
   ];
@@ -213,7 +351,7 @@ function compareScores(a, b) {
   return 0;
 }
 
-function findBestCandidate(item, zoneStates, options) {
+function findBestCandidate(item, zoneStates, options, remainingItems = []) {
   const itemVolume = volumeLitres(item.dimensionsMm);
   let best;
 
@@ -225,8 +363,8 @@ function findBestCandidate(item, zoneStates, options) {
         const position = candidatePosition(space);
         if (!fitsSeatBackEncroachment(position, orientation, zoneState.zone, options)) continue;
         if (collidesWithPlacement(position, orientation, zoneState.placements)) continue;
-        const candidate = { zoneIndex, zoneState, spaceIndex, space, orientation, position };
-        const score = scoreCandidate(candidate);
+        const candidate = { zoneIndex, zoneState, spaceIndex, space, orientation, position, item };
+        const score = scoreCandidate(candidate, remainingItems, options);
         if (!best || compareScores(score, best.score) < 0) best = { ...candidate, score };
       }
     }
@@ -235,7 +373,7 @@ function findBestCandidate(item, zoneStates, options) {
   return best;
 }
 
-function placeItem(item, candidate) {
+function placeItem(item, candidate, options = {}) {
   const itemVolume = volumeLitres(item.dimensionsMm);
   const placement = {
     itemId: item.id,
@@ -252,7 +390,7 @@ function placeItem(item, candidate) {
   candidate.zoneState.spaces = normalizeSpaces([
     ...remainingSpaces,
     ...splitSpace(candidate.space, candidate.position, candidate.orientation)
-  ]);
+  ], options);
   candidate.zoneState.remainingLitres -= itemVolume;
   candidate.zoneState.placements.push(placement);
 }
@@ -321,10 +459,10 @@ function packItems(order, zones, options = {}) {
   const zoneStates = zones.filter((zone) => zone.dimensionsMm).map(initialZoneState);
   const unplacedItems = [];
 
-  for (const item of order) {
-    const candidate = findBestCandidate(item, zoneStates, options);
+  for (const [itemIndex, item] of order.entries()) {
+    const candidate = findBestCandidate(item, zoneStates, options, order.slice(itemIndex + 1));
     if (candidate) {
-      placeItem(item, candidate);
+      placeItem(item, candidate, options);
     } else {
       unplacedItems.push({
         itemId: item.id,
@@ -349,7 +487,7 @@ function packItems(order, zones, options = {}) {
  * @param {{ items: import('../domain/types.js').LuggageItem[] }} luggageSet
  * @param {import('../domain/types.js').VehicleConfig} vehicle
  * @param {string} seatConfigurationId
- * @param {{considerSeatBackEncroachment?: boolean, seatBackAngleDegrees?: number}=} options
+ * @param {{considerSeatBackEncroachment?: boolean, seatBackAngleDegrees?: number, supportPolicy?: {mergeAdjacentCoplanarSpaces?: boolean}}=} options
  */
 export function estimateFit(luggageSet, vehicle, seatConfigurationId = 'seats_up', options = {}) {
   const seatConfiguration = vehicle.seatConfigurations.find((candidate) => candidate.id === seatConfigurationId);

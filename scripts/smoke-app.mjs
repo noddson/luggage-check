@@ -78,6 +78,39 @@ if (!rectangularResult.fits || encroachedResult.fits || !customAngleResult.fits)
   throw new Error('Seat-back encroachment regression failed to apply default and overridden degree angles');
 }
 
+const traficBridgeRegressionLuggage = {
+  items: [
+    {
+      id: 'oddson-family-carry-on',
+      label: 'Oddson Family carry-on',
+      quantity: 6,
+      shapeType: 'box',
+      dimensionsMm: { length: 570, width: 360, height: 260 },
+      rotationAllowed: true,
+      sources: []
+    },
+    {
+      id: 'soft-travel-backpack',
+      label: 'Soft travel backpack',
+      quantity: 5,
+      shapeType: 'free_form',
+      dimensionsMm: { length: 520, width: 330, height: 240 },
+      compressibility: 0.25,
+      rotationAllowed: true,
+      sources: []
+    }
+  ]
+};
+const traficBridgeRegressionVehicle = vehicles.find((vehicle) => vehicle.id === 'renault-trafic');
+if (!traficBridgeRegressionVehicle) throw new Error('Renault Trafic fixture is required for coplanar support regression');
+const traficBridgeRegressionResult = estimateFit(traficBridgeRegressionLuggage, traficBridgeRegressionVehicle, 'seats_up', {
+  considerSeatBackEncroachment: true
+});
+const traficBridgeRegressionBackpacks = traficBridgeRegressionResult.placements.filter((placement) => placement.sourceId === 'soft-travel-backpack');
+if (!traficBridgeRegressionResult.fits || traficBridgeRegressionBackpacks.length !== 5 || !traficBridgeRegressionBackpacks.some((placement) => placement.orientationMm.width === 494)) {
+  throw new Error('Coplanar support regression failed to bridge adjacent carry-on surfaces for additional backpack placements');
+}
+
 function placementsOverlap(a, b) {
   return a.positionMm.x < b.positionMm.x + b.orientationMm.length
     && a.positionMm.x + a.orientationMm.length > b.positionMm.x
