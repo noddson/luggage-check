@@ -1,0 +1,182 @@
+{
+  "id": "dacia-jogger",
+  "make": "Dacia",
+  "model": "Jogger",
+  "generation": "First generation / 2026 European 7-seat references",
+  "modelYears": [
+    "2022-present"
+  ],
+  "bodyStyle": "7-seat compact MPV / estate crossover",
+  "rentalClasses": [
+    "compact van",
+    "7-seat MPV",
+    "people carrier"
+  ],
+  "commonRentalAliases": [
+    "Dacia Jogger 7 seater or similar",
+    "Dacia Jogger 7 Seats",
+    "Compact van manual 7 seats"
+  ],
+  "cargoZones": [
+    {
+      "id": "boot_seven_seats",
+      "label": "Boot behind third row with all 7 seats in use",
+      "volumeLitres": 212,
+      "dimensionsMm": {
+        "length": 270,
+        "width": 1243,
+        "height": 632
+      },
+      "openingMm": {
+        "width": 1243,
+        "height": 1000
+      },
+      "usableFraction": 0.78,
+      "confidence": "medium",
+      "notes": "Published 7-seat boot volume is 160 dm3 VDA / 212 litres ISO. Rectangular planning dimensions are estimated from the small behind-row-3 space using Dacia-published rear width references; expect soft bags to fit better than rigid cases because the third-row seatbacks, tailgate slope, and trim reduce usable shape.",
+      "seatBackEncroachment": {
+        "angleFromVerticalDegrees": 18,
+        "notes": "Default rear seat-back rake assumption for optional encroachment-aware cargo planning."
+      }
+    },
+    {
+      "id": "boot_row3_folded",
+      "label": "Cargo area with row 2 in place and row 3 folded down",
+      "volumeLitres": 699,
+      "dimensionsMm": {
+        "length": 900,
+        "width": 1243,
+        "height": 625
+      },
+      "openingMm": {
+        "width": 1243,
+        "height": 1000
+      },
+      "usableFraction": 0.76,
+      "confidence": "medium",
+      "notes": "Dacia publishes 565 dm3 VDA / 699 litres ISO with the second row in place and the third row folded. Dimensions are an estimated rectangular envelope for MVP packing and do not account for folded-seat height, wheel-arch narrowing, or side trim.",
+      "seatBackEncroachment": {
+        "angleFromVerticalDegrees": 18,
+        "notes": "Default rear seat-back rake assumption for optional encroachment-aware cargo planning."
+      }
+    },
+    {
+      "id": "boot_row3_removed",
+      "label": "Cargo area with row 2 in place and row 3 removed",
+      "volumeLitres": 820,
+      "dimensionsMm": {
+        "length": 1055,
+        "width": 1243,
+        "height": 625
+      },
+      "openingMm": {
+        "width": 1243,
+        "height": 1000
+      },
+      "usableFraction": 0.78,
+      "confidence": "medium",
+      "notes": "Dacia publishes 696 dm3 VDA / 820 litres ISO with the second row in place and the third row removed. Rental customers should confirm whether the third-row seats may be removed or must remain with the vehicle.",
+      "seatBackEncroachment": {
+        "angleFromVerticalDegrees": 18,
+        "notes": "Default rear seat-back rake assumption for optional encroachment-aware cargo planning."
+      }
+    },
+    {
+      "id": "full_cargo_rear_rows_folded",
+      "label": "Maximum cargo area with rear rows folded / removed",
+      "volumeLitres": 2085,
+      "dimensionsMm": {
+        "length": 1900,
+        "width": 1243,
+        "height": 884
+      },
+      "openingMm": {
+        "width": 1243,
+        "height": 1000
+      },
+      "usableFraction": 0.72,
+      "confidence": "medium",
+      "notes": "Dacia publishes 1,807 dm3 VDA / 2,085 litres ISO maximum boot volume for the 7-seater. Dimensions are a planning cuboid based on Dacia's 1.90 m accessory sleeping platform length and published rear-width references, so rigid-item fit still depends on interior taper, wheel arches, and seat hardware."
+    }
+  ],
+  "seatConfigurations": [
+    {
+      "id": "seats_up",
+      "label": "All 7 seats in use",
+      "cargoZoneIds": [
+        "boot_seven_seats"
+      ],
+      "seatsAvailable": 7,
+      "notes": "Use this for full-passenger rental use; rental listings commonly advertise about 3-4 luggage items, so large suitcases may require reducing passenger count."
+    },
+    {
+      "id": "third_row_folded",
+      "label": "Third row folded",
+      "cargoZoneIds": [
+        "boot_row3_folded"
+      ],
+      "seatsAvailable": 5,
+      "notes": "Assumes the two third-row seats are folded and unavailable for passengers, while the second row remains in use."
+    },
+    {
+      "id": "third_row_removed",
+      "label": "Third row removed",
+      "cargoZoneIds": [
+        "boot_row3_removed"
+      ],
+      "seatsAvailable": 5,
+      "notes": "Assumes the removable third-row seats are out of the vehicle; check rental policy before planning to remove seats."
+    },
+    {
+      "id": "rear_rows_folded",
+      "label": "Rear rows folded / removed",
+      "cargoZoneIds": [
+        "full_cargo_rear_rows_folded"
+      ],
+      "seatsAvailable": 2,
+      "notes": "For two occupants plus maximum cargo; practical floor flatness depends on whether seats are folded, tumbled, or removed."
+    }
+  ],
+  "sources": [
+    {
+      "sourceType": "manufacturer",
+      "publisher": "Dacia Ireland",
+      "title": "Jogger dimensions - length, width and boot volume",
+      "url": "https://www.dacia.ie/cars/jogger/dimensions-modularity.html",
+      "retrievedAt": "2026-05-15",
+      "fieldsCovered": [
+        "boot volume by seat configuration",
+        "VDA and ISO volume basis",
+        "7-seat cargo configurations"
+      ],
+      "confidence": "high"
+    },
+    {
+      "sourceType": "manufacturer",
+      "publisher": "Dacia UK",
+      "title": "Jogger eBrochure",
+      "url": "https://cdn.group.renault.com/dac/gb/transversal-assets/brochures/model-brochures/Jogger-eBrochure.pdf.asset.pdf/cf46d0d8ee.pdf",
+      "retrievedAt": "2026-05-15",
+      "fieldsCovered": [
+        "vehicle dimensions",
+        "maximum boot volume",
+        "removable third-row seats",
+        "cargo and seating flexibility"
+      ],
+      "confidence": "high"
+    },
+    {
+      "sourceType": "rental-company",
+      "publisher": "Caraveando",
+      "title": "Dacia Jogger 7 Seats",
+      "url": "https://www.caraveando.com/en/vehiculos/dacia-jogger-7-seats/",
+      "retrievedAt": "2026-05-15",
+      "fieldsCovered": [
+        "rental fleet example model",
+        "rental seating capacity",
+        "rental luggage guidance"
+      ],
+      "confidence": "medium"
+    }
+  ]
+}
