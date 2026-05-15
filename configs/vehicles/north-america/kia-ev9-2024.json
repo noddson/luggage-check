@@ -1,0 +1,229 @@
+{
+  "id": "kia-ev9-2024",
+  "make": "Kia",
+  "model": "EV9",
+  "generation": "First generation / MV",
+  "modelYears": [
+    "2024",
+    "2025",
+    "2026"
+  ],
+  "bodyStyle": "5-door all-electric three-row midsize SUV",
+  "rentalClasses": [
+    "large electric SUV",
+    "full-size electric SUV",
+    "three-row electric SUV",
+    "premium electric SUV"
+  ],
+  "commonRentalAliases": [
+    "Kia EV9 or similar",
+    "Large electric SUV or similar",
+    "Full-size electric SUV or similar",
+    "Premium electric SUV or similar"
+  ],
+  "cargoZones": [
+    {
+      "id": "behind_third_row",
+      "label": "Cargo area behind third row",
+      "volumeLitres": 572,
+      "dimensionsMm": {
+        "length": 520,
+        "width": 1190,
+        "height": 925
+      },
+      "openingMm": {
+        "width": 1120,
+        "height": 820
+      },
+      "usableFraction": 0.82,
+      "confidence": "low",
+      "notes": "Manufacturer volume is 20.2 cu ft behind the third row. Rectangular planning dimensions are estimates for luggage fitting and should be treated as approximate because Kia publishes volume, not detailed cargo-box measurements.",
+      "seatBackEncroachment": {
+        "angleFromVerticalDegrees": 12,
+        "notes": "Third-row seatbacks are close to upright but still reduce the top of the cargo envelope."
+      }
+    },
+    {
+      "id": "behind_second_row",
+      "label": "Cargo area with third row folded",
+      "volumeLitres": 1232,
+      "dimensionsMm": {
+        "length": 1110,
+        "width": 1190,
+        "height": 932
+      },
+      "openingMm": {
+        "width": 1120,
+        "height": 820
+      },
+      "usableFraction": 0.78,
+      "confidence": "low",
+      "notes": "Manufacturer volume is 43.5 cu ft behind the second row. Dimensions approximate the broad, flat EV9 load floor with wheel-arch and seatback intrusions reserved through the usable fraction.",
+      "seatBackEncroachment": {
+        "angleFromVerticalDegrees": 16,
+        "notes": "Second-row seatback rake and fore/aft adjustment vary by 6- or 7-passenger seating configuration."
+      }
+    },
+    {
+      "id": "behind_first_row",
+      "label": "Maximum cargo area with second and third rows folded",
+      "volumeLitres": 2314,
+      "dimensionsMm": {
+        "length": 2030,
+        "width": 1190,
+        "height": 958
+      },
+      "openingMm": {
+        "width": 1120,
+        "height": 820
+      },
+      "usableFraction": 0.72,
+      "confidence": "low",
+      "notes": "Manufacturer volume is 81.7 cu ft behind the first row. This planning envelope assumes both rear rows are folded and discounts uneven folded-seat surfaces and trim intrusions."
+    },
+    {
+      "id": "front_trunk_rwd",
+      "label": "Front trunk / charge-cable storage (RWD trims)",
+      "volumeLitres": 91,
+      "dimensionsMm": {
+        "length": 520,
+        "width": 430,
+        "height": 410
+      },
+      "usableFraction": 0.62,
+      "confidence": "low",
+      "notes": "Small front trunk capacity is up to about 3.2 cu ft on rear-wheel-drive versions; all-wheel-drive trims may have less usable front storage. Best for charge cables or small soft bags."
+    },
+    {
+      "id": "second_row_footwell_overflow",
+      "label": "Second-row footwell overflow",
+      "volumeLitres": 150,
+      "dimensionsMm": {
+        "length": 720,
+        "width": 1250,
+        "height": 220
+      },
+      "usableFraction": 0.5,
+      "confidence": "low",
+      "notes": "Generic overflow area for soft bags when second-row passenger space is partially sacrificed; not a manufacturer cargo specification."
+    }
+  ],
+  "seatConfigurations": [
+    {
+      "id": "seats_up",
+      "label": "All rows up",
+      "cargoZoneIds": [
+        "behind_third_row",
+        "front_trunk_rwd"
+      ],
+      "seatsAvailable": 6,
+      "notes": "EV9 is offered in North America with six- or seven-passenger seating depending on trim; this conservative default assumes the six-passenger captain's-chair layout."
+    },
+    {
+      "id": "seven_passenger_seats_up",
+      "label": "All rows up, seven-passenger bench model",
+      "cargoZoneIds": [
+        "behind_third_row",
+        "front_trunk_rwd"
+      ],
+      "seatsAvailable": 7,
+      "notes": "For trims equipped with a second-row bench."
+    },
+    {
+      "id": "third_row_folded",
+      "label": "Third row folded",
+      "cargoZoneIds": [
+        "behind_second_row",
+        "front_trunk_rwd"
+      ],
+      "seatsAvailable": 4,
+      "notes": "Six-passenger layout with third row folded; use seven_passenger_third_row_folded for bench-equipped trims."
+    },
+    {
+      "id": "seven_passenger_third_row_folded",
+      "label": "Third row folded, seven-passenger bench model",
+      "cargoZoneIds": [
+        "behind_second_row",
+        "front_trunk_rwd"
+      ],
+      "seatsAvailable": 5,
+      "notes": "Second-row bench remains available while the third row is folded."
+    },
+    {
+      "id": "rear_rows_folded",
+      "label": "Second and third rows folded",
+      "cargoZoneIds": [
+        "behind_first_row",
+        "front_trunk_rwd"
+      ],
+      "seatsAvailable": 2,
+      "notes": "Maximum cargo mode for two occupants."
+    },
+    {
+      "id": "seats_up_with_footwell",
+      "label": "All rows up with second-row footwell overflow",
+      "cargoZoneIds": [
+        "behind_third_row",
+        "front_trunk_rwd",
+        "second_row_footwell_overflow"
+      ],
+      "seatsAvailable": 5,
+      "notes": "Assumes one second-row seating position or footwell is used for soft luggage."
+    }
+  ],
+  "sources": [
+    {
+      "sourceType": "manufacturer",
+      "publisher": "Kia America",
+      "title": "2024 Kia EV9 brochure",
+      "url": "https://www.kia.com/content/dam/kia/us/brochures/KIA24_EV9_Brochure.pdf",
+      "retrievedAt": "2026-05-15",
+      "fieldsCovered": [
+        "North American EV9 model context",
+        "cargo volume behind first row",
+        "cargo volume behind second row",
+        "cargo volume behind third row",
+        "six- and seven-passenger seating context"
+      ],
+      "confidence": "high"
+    },
+    {
+      "sourceType": "manufacturer",
+      "publisher": "Kia America",
+      "title": "Kia America announces 2026 EV9 pricing",
+      "url": "https://www.kiamedia.com/us/en/media/pressreleases/23308/kia-america-announces-2026-ev9-pricing",
+      "retrievedAt": "2026-05-15",
+      "fieldsCovered": [
+        "2026 EV9 model-year continuity",
+        "all-electric three-row SUV context",
+        "six- and seven-passenger seating configurations"
+      ],
+      "confidence": "high"
+    },
+    {
+      "sourceType": "editorial",
+      "publisher": "Car and Driver",
+      "title": "2024 Kia EV9 Features and Specs",
+      "url": "https://www.caranddriver.com/kia/ev9/specs/2024/kia_ev9_kia-ev9_2024",
+      "retrievedAt": "2026-05-15",
+      "fieldsCovered": [
+        "cargo-area volume cross-check",
+        "exterior dimensions context",
+        "passenger capacity context"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "sourceType": "rental-company",
+      "publisher": "Hertz",
+      "title": "Electric Vehicles",
+      "url": "https://www.hertz.com/us/en/vehicles/electric-vehicles",
+      "retrievedAt": "2026-05-15",
+      "fieldsCovered": [
+        "North American electric-vehicle rental context",
+        "EV rental class context"
+      ],
+      "confidence": "medium"
+    }
+  ]
+}
