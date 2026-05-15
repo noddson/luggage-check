@@ -35,7 +35,7 @@
       "confidence": "low",
       "notes": "Manufacturer cargo volume is sourced for the cargo floor lowered position; rectangular dimensions are planning estimates based on the published volume and Soul proportions.",
       "seatBackEncroachment": {
-        "angleFromVerticalDegrees": 30,
+        "angleFromVerticalDegrees": 20,
         "notes": "Default rear seat-back rake assumption for optional encroachment-aware cargo planning."
       }
     },
@@ -56,7 +56,7 @@
       "confidence": "low",
       "notes": "Represents the flatter raised-floor setup. Cargo volume is sourced from a Canadian review/spec reference; cuboid dimensions and hatch opening are approximate for luggage planning.",
       "seatBackEncroachment": {
-        "angleFromVerticalDegrees": 30,
+        "angleFromVerticalDegrees": 20,
         "notes": "Default rear seat-back rake assumption for optional encroachment-aware cargo planning."
       }
     },

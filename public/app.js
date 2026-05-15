@@ -13,7 +13,7 @@ const VEHICLE_FILES = [
 ];
 
 const BAG_COLORS = ['#2563eb', '#16a34a', '#f97316', '#9333ea', '#0891b2', '#e11d48', '#ca8a04', '#4f46e5'];
-const DEFAULT_SEAT_BACK_ANGLE_DEGREES = 30;
+const DEFAULT_SEAT_BACK_ANGLE_DEGREES = 20;
 const state = {
   luggageSet: null,
   vehicles: [],
