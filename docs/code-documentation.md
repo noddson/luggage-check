@@ -226,6 +226,7 @@ This is the computational core. It is intentionally deterministic: the same lugg
 - `MM3_PER_LITRE = 1_000_000`: unit conversion from cubic millimetres to litres.
 - `MIN_SPACE_MM = 1`: removes zero/negative/tiny candidate free spaces after splitting.
 - `DEFAULT_SEAT_BACK_ANGLE_DEGREES = 20`: fallback slope used when a zone declares seat-back encroachment without an explicit angle.
+- `DEFAULT_SUPPORT_POLICY`: controls generalized support behavior. By default, adjacent coplanar free spaces are merged so luggage can bridge across same-height supporting surfaces.
 
 ### Overall algorithm
 
@@ -234,9 +235,10 @@ This is the computational core. It is intentionally deterministic: the same lugg
 3. Expand each luggage item by quantity into individual item instances.
 4. Apply a small effective-dimension reduction to compressible, non-box luggage.
 5. Generate several deterministic item orderings.
-6. For each ordering, greedily place items into the best scored free space across all active zones.
-7. Compare packing passes by number of unplaced items, number placed, volume used, number of zones used, and height used.
-8. Return the best result with placements, unplaced items, volume metrics, and warnings.
+6. For each ordering, greedily place items into the best scored free space across all active zones. Candidate scoring includes a one-step residual-capacity lookahead so rotations that preserve room for later same-type bags can beat locally flatter placements.
+7. Normalize free spaces after every placement, including optional merging of adjacent coplanar spaces. This lets a bag use a continuous platform made by several same-height items or cargo-floor regions instead of being restricted to a single earlier item's footprint.
+8. Compare packing passes by number of unplaced items, number placed, volume used, number of zones used, and height used.
+9. Return the best result with placements, unplaced items, volume metrics, and warnings.
 
 This is an estimator, not an exact bin-packing solver. It uses rectangular envelopes and a deterministic heuristic, so it should be treated as planning guidance rather than a physical guarantee.
 
@@ -343,6 +345,22 @@ This is an estimator, not an exact bin-packing solver. It uses rectangular envel
 
 **Testing:** A 500 L zone with `usableFraction: 0.8` should initialize to 400 L remaining.
 
+#### `effectiveSupportPolicy(options)`, `mergeAdjacentCoplanarSpaces(spaces)`, and `normalizeSpaces(spaces, options)`
+
+**Purpose:** Define and apply the estimator's support/stacking policy for free-space management. The default support policy merges adjacent free cuboids that share the same `z`, height, and aligned X/Y extent. This is a generalized vehicle-agnostic rule: a continuous same-height support surface can be created by the cargo floor, by multiple rigid bags, or by previously placed soft bags.
+
+**Input:** Candidate free spaces plus optional `options.supportPolicy`.
+
+**Output:** Deduplicated, contained-space-filtered, sorted free spaces.
+
+**Rules:**
+
+- `mergeAdjacentCoplanarSpaces: true` allows placements to bridge across adjacent coplanar spaces.
+- Set `options.supportPolicy.mergeAdjacentCoplanarSpaces` to `false` to retain the older footprint-only behavior.
+- The policy remains geometric only: it does not model weight limits, sag, friction, handles, or whether a soft bag is physically stable as a support.
+
+**Testing:** The smoke script includes a Renault Trafic regression where six carry-ons form a same-height platform and five soft backpacks fit only when adjacent coplanar support is available.
+
 #### `spaceVolume(space)` and `fitsInSpace(orientation, space)`
 
 **Purpose:** Score and validate candidate free rectangular spaces.
@@ -378,6 +396,22 @@ This is an estimator, not an exact bin-packing solver. It uses rectangular envel
 **Errors:** No explicit errors.
 
 **Testing:** The smoke script includes a regression where a tall rigid case fits the rectangular envelope but fails with seat-back encroachment enabled.
+
+#### `residualSpacesAfterPlacement(candidate, options)`, `capacityForItemInSpaces(item, spaces, zone, options)`, and `lookaheadCapacity(candidate, remainingItems, options)`
+
+**Purpose:** Estimate how much future packing capacity a candidate placement preserves before the greedy algorithm commits to it.
+
+**Input:** Candidate placement, remaining item instances, zone, and estimator options.
+
+**Output:** Residual spaces or a numeric capacity score.
+
+**Rules:**
+
+- Residual spaces use the same normalization and support policy as committed placements.
+- Lookahead first considers remaining items with the same `sourceId`, because repeated bags are where rotation choice most often affects capacity.
+- Capacity checks opening constraints, zone dimensions, residual cuboids, and the seat-back encroachment envelope when enabled.
+
+**Testing:** Use repeated same-size luggage and assert that a rotation preserving a larger repeated-item grid is preferred over a locally flatter orientation when it increases placed count.
 
 #### `candidatePosition(space)`
 
@@ -534,7 +568,11 @@ function estimateFit(
   luggageSet: { items: LuggageItem[] },
   vehicle: VehicleConfig,
   seatConfigurationId?: string,
-  options?: { considerSeatBackEncroachment?: boolean, seatBackAngleDegrees?: number }
+  options?: {
+    considerSeatBackEncroachment?: boolean,
+    seatBackAngleDegrees?: number,
+    supportPolicy?: { mergeAdjacentCoplanarSpaces?: boolean }
+  }
 ): FitEstimate
 ```
 
@@ -544,6 +582,7 @@ function estimateFit(
 - `vehicle`: vehicle config with cargo zones and seat configurations.
 - `seatConfigurationId`: id from `vehicle.seatConfigurations`; defaults to `seats_up`.
 - `options.considerSeatBackEncroachment`: when true, zones with `seatBackEncroachment` reject placements that exceed the sloped depth envelope. `options.seatBackAngleDegrees` can override the vehicle-defined default angle.
+- `options.supportPolicy.mergeAdjacentCoplanarSpaces`: when true, the estimator treats adjacent same-height free spaces as one support surface for future placements. This is enabled by default to support bridging across aligned luggage stacks and irregular cargo-floor subdivisions.
 
 **Output:** A `FitEstimate` object with placement coordinates, fit status, volume usage, unplaced item records, and warnings.
 
