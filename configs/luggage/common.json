@@ -42,6 +42,26 @@
       ]
     },
     {
+      "id": "oddson-family-carry-on",
+      "label": "Oddson Family carry-on",
+      "quantity": 1,
+      "shapeType": "box",
+      "dimensionsMm": { "length": 570, "width": 360, "height": 260 },
+      "rotationAllowed": true,
+      "sources": [
+        {
+          "sourceType": "editorial",
+          "publisher": "Nick Oddson",
+          "title": "Oddson Family carry-on measured dimensions",
+          "url": "https://github.com/example/luggage-check/configs/luggage/common.json",
+          "retrievedAt": "2026-05-15",
+          "fieldsCovered": ["carry-on dimensions"],
+          "confidence": "high",
+          "notes": "Actually measured dimensions of real their real luggage."
+        }
+      ]
+    },
+    {
       "id": "medium-checked-suitcase",
       "label": "Medium checked suitcase",
       "quantity": 1,
