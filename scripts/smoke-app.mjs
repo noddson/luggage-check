@@ -13,7 +13,7 @@ const [html, css, app, luggageSet, vehicles] = await Promise.all([
 for (const marker of ['vehicleSelect', 'configurationSelect', 'seatBackEncroachmentDegrees', 'seatBackEncroachmentNote', 'luggageControls', 'resetLuggageButton', 'visualization']) {
   if (!html.includes(marker)) throw new Error(`App shell missing #${marker}`);
 }
-for (const marker of ['estimateFit', 'renderVisualization', 'seatEncroachmentOverlay', 'renderSeatEncroachmentWedge3d', 'view-tab', 'orientation-axis-control', 'defaultVehicle', 'resetLuggageQuantities', "activeView: '3d'"]) {
+for (const marker of ['estimateFit', 'renderVisualization', 'seatEncroachmentOverlay', 'renderSeatEncroachmentWedge3d', 'view-tab', 'orientation-axis-control', 'defaultVehicle', 'resetLuggageQuantities', 'loadVehicles', 'VEHICLE_INDEX_PATH', "activeView: '3d'"]) {
   if (!app.includes(marker)) throw new Error(`Browser app missing ${marker}`);
 }
 for (const marker of ['Boot View', 'Side View', 'Top View', 'activeOrientationLabel']) {
@@ -26,6 +26,9 @@ if (!css.includes('.orientation-axis-preset-label')) throw new Error('Styles mis
 if (!css.includes('.orientation-axis-angle-label')) throw new Error('Styles missing 3D orientation angle label');
 if (!css.includes('.secondary-button')) throw new Error('Styles missing secondary button rules');
 
+if (app.includes('VEHICLE_FILES')) {
+  throw new Error('Browser app should load the generated vehicle index instead of a hard-coded VEHICLE_FILES list');
+}
 const defaultVehicles = vehicles.filter((vehicle) => vehicle.isDefault);
 if (defaultVehicles.length !== 1 || defaultVehicles[0].id !== 'volkswagen-caddy-maxi-life') {
   throw new Error('Expected Volkswagen Caddy Maxi Life to be the single default vehicle');

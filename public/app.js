@@ -1,16 +1,6 @@
 import { estimateFit } from '../src/packing/fitEstimator.js';
 
-const VEHICLE_FILES = [
-  'europe/opel-corsa.json',
-  'europe/peugeot-3008.json',
-  'europe/renault-clio.json',
-  'europe/skoda-octavia-combi.json',
-  'europe/volkswagen-caddy-maxi-life.json',
-  'europe/volkswagen-golf.json',
-  'europe/volkswagen-t-roc.json',
-  'north-america/gmc-sierra-1500-denali-4wd-crew-cab.json',
-  'north-america/kia-soul-ev-2020.json'
-];
+const VEHICLE_INDEX_PATH = '../configs/vehicles/index.json';
 
 const BAG_COLORS = ['#2563eb', '#16a34a', '#f97316', '#9333ea', '#0891b2', '#e11d48', '#ca8a04', '#4f46e5'];
 const DEFAULT_SEAT_BACK_ANGLE_DEGREES = 20;
@@ -38,6 +28,11 @@ async function readJson(path) {
   const response = await fetch(path);
   if (!response.ok) throw new Error(`Unable to load ${path}`);
   return response.json();
+}
+
+async function loadVehicles() {
+  const vehicleIndex = await readJson(VEHICLE_INDEX_PATH);
+  return Promise.all(vehicleIndex.files.map((file) => readJson(`../configs/vehicles/${file}`)));
 }
 
 function dimensionsLabel(dimensions) {
@@ -695,7 +690,7 @@ async function init() {
   try {
     const [luggageSet, vehicles] = await Promise.all([
       readJson('../configs/luggage/common.json'),
-      Promise.all(VEHICLE_FILES.map((file) => readJson(`../configs/vehicles/${file}`)))
+      loadVehicles()
     ]);
     state.luggageSet = luggageSet;
     state.vehicles = vehicles.sort((a, b) => vehicleLabel(a).localeCompare(vehicleLabel(b)));
