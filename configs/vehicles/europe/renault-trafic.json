@@ -1,0 +1,290 @@
+{
+  "id": "renault-trafic",
+  "make": "Renault",
+  "model": "Trafic Passenger",
+  "generation": "Third generation X82 / current MY26 passenger references",
+  "modelYears": [
+    "2014-present"
+  ],
+  "bodyStyle": "8/9-seat passenger van / minibus",
+  "rentalClasses": [
+    "9 passenger minibus",
+    "passenger van",
+    "large MPV",
+    "people carrier"
+  ],
+  "commonRentalAliases": [
+    "Renault Trafic or similar",
+    "Renault Traffic or similar",
+    "9 Passenger Minibus",
+    "9-seater Minivan"
+  ],
+  "cargoZones": [
+    {
+      "id": "boot_l1_nine_seats",
+      "label": "L1 boot behind third row with 8/9 seats in use",
+      "volumeLitres": 1050,
+      "dimensionsMm": {
+        "length": 736,
+        "width": 1230,
+        "height": 1160
+      },
+      "openingMm": {
+        "width": 1391,
+        "height": 1295
+      },
+      "usableFraction": 0.82,
+      "confidence": "medium",
+      "notes": "Manufacturer L1H1 8/9-seat effective volume, floor length, wheel-arch width, and rear-door opening are sourced. Height is derived as a rectangular planning envelope from sourced length, width, and VDA volume; real clearance varies near the tailgate, trim, glass, and seat backs.",
+      "seatBackEncroachment": {
+        "angleFromVerticalDegrees": 15,
+        "notes": "Passenger-van row-three seat-back rake assumption for optional encroachment-aware cargo planning."
+      }
+    },
+    {
+      "id": "boot_l1_row3_folded",
+      "label": "L1 cargo area with row 3 folded, about 6 seats available",
+      "volumeLitres": 2625,
+      "dimensionsMm": {
+        "length": 1152,
+        "width": 1230,
+        "height": 1295
+      },
+      "openingMm": {
+        "width": 1391,
+        "height": 1295
+      },
+      "usableFraction": 0.74,
+      "confidence": "medium",
+      "notes": "Manufacturer L1H1 row-three-folded effective volume and floor length are sourced. Rectangular dimensions use sourced wheel-arch width and tailgate opening height as a practical stacking envelope; folded seat hardware and trim reduce usable shape.",
+      "seatBackEncroachment": {
+        "angleFromVerticalDegrees": 15,
+        "notes": "Forward bench seat-back rake assumption for optional encroachment-aware cargo planning."
+      }
+    },
+    {
+      "id": "boot_l1_five_six_seats",
+      "label": "L1 cargo area in 5/6-seat layout",
+      "volumeLitres": 3360,
+      "dimensionsMm": {
+        "length": 1650,
+        "width": 1230,
+        "height": 1295
+      },
+      "openingMm": {
+        "width": 1391,
+        "height": 1295
+      },
+      "usableFraction": 0.72,
+      "confidence": "medium",
+      "notes": "Manufacturer L1H1 5/6-seat effective volume and floor length are sourced. Planning dimensions use sourced wheel-arch width and rear-door opening height, so the estimator ignores taper, seat mounts, and side trim.",
+      "seatBackEncroachment": {
+        "angleFromVerticalDegrees": 15,
+        "notes": "Forward bench seat-back rake assumption for optional encroachment-aware cargo planning."
+      }
+    },
+    {
+      "id": "boot_l2_nine_seats",
+      "label": "L2 boot behind third row with 8/9 seats in use",
+      "volumeLitres": 1890,
+      "dimensionsMm": {
+        "length": 1136,
+        "width": 1230,
+        "height": 1295
+      },
+      "openingMm": {
+        "width": 1391,
+        "height": 1295
+      },
+      "usableFraction": 0.80,
+      "confidence": "medium",
+      "notes": "Manufacturer L2H1 8/9-seat effective volume, floor length, wheel-arch width, and rear-door opening are sourced. Rectangular dimensions are a simplified planning envelope and do not guarantee clearance around the tailgate, glazing, and row-three seatbacks.",
+      "seatBackEncroachment": {
+        "angleFromVerticalDegrees": 15,
+        "notes": "Passenger-van row-three seat-back rake assumption for optional encroachment-aware cargo planning."
+      }
+    },
+    {
+      "id": "boot_l2_row3_folded",
+      "label": "L2 cargo area with row 3 folded, about 6 seats available",
+      "volumeLitres": 3570,
+      "dimensionsMm": {
+        "length": 1152,
+        "width": 1230,
+        "height": 1295
+      },
+      "openingMm": {
+        "width": 1391,
+        "height": 1295
+      },
+      "usableFraction": 0.74,
+      "confidence": "medium",
+      "notes": "Manufacturer L2H1 row-three-folded effective volume is sourced; Renault lists the same floor length as L1 for this row-three-folded measurement. Planning dimensions are conservative and ignore folded bench bulk, trim taper, and roof curvature.",
+      "seatBackEncroachment": {
+        "angleFromVerticalDegrees": 15,
+        "notes": "Forward bench seat-back rake assumption for optional encroachment-aware cargo planning."
+      }
+    },
+    {
+      "id": "boot_l2_five_six_seats",
+      "label": "L2 cargo area in 5/6-seat layout",
+      "volumeLitres": 4200,
+      "dimensionsMm": {
+        "length": 2050,
+        "width": 1230,
+        "height": 1295
+      },
+      "openingMm": {
+        "width": 1391,
+        "height": 1295
+      },
+      "usableFraction": 0.72,
+      "confidence": "medium",
+      "notes": "Manufacturer L2H1 5/6-seat effective volume and floor length are sourced. Planning dimensions use sourced wheel-arch width and rear-door opening height, with seat mounts, wheel arches, and trim intrusions handled only by the usable fraction.",
+      "seatBackEncroachment": {
+        "angleFromVerticalDegrees": 15,
+        "notes": "Forward bench seat-back rake assumption for optional encroachment-aware cargo planning."
+      }
+    },
+    {
+      "id": "full_cargo_l2_rear_rows_removed",
+      "label": "L2 maximum cargo area with rear rows removed, 2/3 seats available",
+      "volumeLitres": 5700,
+      "dimensionsMm": {
+        "length": 2937,
+        "width": 1230,
+        "height": 1295
+      },
+      "openingMm": {
+        "width": 1391,
+        "height": 1295
+      },
+      "usableFraction": 0.68,
+      "confidence": "medium",
+      "notes": "Maximum boot-volume marketing is sourced from Renault UK, while L2H1 floor length after rear-row removal, wheel-arch width, and rear-door opening are sourced from the technical table. This is a simplified box-like planning envelope; rental vehicles may not allow seat removal."
+    }
+  ],
+  "seatConfigurations": [
+    {
+      "id": "seats_up",
+      "label": "L1 8/9-seat layout",
+      "cargoZoneIds": [
+        "boot_l1_nine_seats"
+      ],
+      "seatsAvailable": 9,
+      "notes": "Default Trafic estimate uses the short-wheelbase L1 passenger van with all rows available, matching many European 9-seat minibus rental listings."
+    },
+    {
+      "id": "l1_row3_folded",
+      "label": "L1 row 3 folded",
+      "cargoZoneIds": [
+        "boot_l1_row3_folded"
+      ],
+      "seatsAvailable": 6,
+      "notes": "Assumes the rear bench is folded and unavailable for passengers."
+    },
+    {
+      "id": "l1_five_six_seats",
+      "label": "L1 5/6-seat layout",
+      "cargoZoneIds": [
+        "boot_l1_five_six_seats"
+      ],
+      "seatsAvailable": 6,
+      "notes": "Use when the vehicle is configured with the rear row removed or unavailable."
+    },
+    {
+      "id": "l2_seats_up",
+      "label": "L2 8/9-seat layout",
+      "cargoZoneIds": [
+        "boot_l2_nine_seats"
+      ],
+      "seatsAvailable": 9,
+      "notes": "Long-wheelbase Trafic with all passenger rows in use."
+    },
+    {
+      "id": "l2_row3_folded",
+      "label": "L2 row 3 folded",
+      "cargoZoneIds": [
+        "boot_l2_row3_folded"
+      ],
+      "seatsAvailable": 6,
+      "notes": "Assumes the rear bench is folded and unavailable for passengers."
+    },
+    {
+      "id": "l2_five_six_seats",
+      "label": "L2 5/6-seat layout",
+      "cargoZoneIds": [
+        "boot_l2_five_six_seats"
+      ],
+      "seatsAvailable": 6,
+      "notes": "Long-wheelbase layout with the rear row removed or unavailable."
+    },
+    {
+      "id": "l2_rear_rows_removed",
+      "label": "L2 rear rows removed",
+      "cargoZoneIds": [
+        "full_cargo_l2_rear_rows_removed"
+      ],
+      "seatsAvailable": 3,
+      "notes": "For two or three occupants plus maximum cargo; practical availability depends on rental policy and whether the seats can be removed."
+    }
+  ],
+  "sources": [
+    {
+      "sourceType": "manufacturer",
+      "publisher": "Renault UK",
+      "title": "Renault Trafic Passenger eBrochure",
+      "url": "https://cdn.group.renault.com/ren/gb/transversal-assets/brochures/van-ebrochures/TRAFIC-Passenger-eBrochure.pdf.asset.pdf/52fa25019a.pdf",
+      "retrievedAt": "2026-05-15",
+      "fieldsCovered": [
+        "seating capacity",
+        "boot volumes",
+        "cargo floor lengths",
+        "cargo width",
+        "rear opening dimensions"
+      ],
+      "confidence": "high",
+      "notes": "April 2026 brochure lists L1H1 and L2H1 dimensions and VDA effective volumes for the Trafic Passenger."
+    },
+    {
+      "sourceType": "manufacturer",
+      "publisher": "Renault UK",
+      "title": "Renault Trafic Passenger overview",
+      "url": "https://www.renault.co.uk/cars/trafic-passenger.html",
+      "retrievedAt": "2026-05-15",
+      "fieldsCovered": [
+        "rental-relevant seating capacity",
+        "maximum boot volume",
+        "model positioning"
+      ],
+      "confidence": "high"
+    },
+    {
+      "sourceType": "rental-company",
+      "publisher": "Enterprise Rent-A-Car France",
+      "title": "9 Passenger Minibus Rental – France",
+      "url": "https://www.enterprise.com/en/rental-cars/fr/passenger-vans/9-passenger-minibus-lvar.html",
+      "retrievedAt": "2026-05-15",
+      "fieldsCovered": [
+        "rental fleet example model",
+        "rental passenger count",
+        "rental luggage guidance"
+      ],
+      "confidence": "medium",
+      "notes": "Enterprise lists Renault Traffic or similar as a 9 Passenger Minibus class with nine people and five bags."
+    },
+    {
+      "sourceType": "rental-company",
+      "publisher": "Europcar Atlantique",
+      "title": "Car rental Renault Trafic with hitch or similar",
+      "url": "https://en.europcar-atlantique.fr/voitures/monospaces/minibus-9-places-attelage",
+      "retrievedAt": "2026-05-15",
+      "fieldsCovered": [
+        "rental fleet example model",
+        "rental passenger count",
+        "rental class context"
+      ],
+      "confidence": "medium"
+    }
+  ]
+}
