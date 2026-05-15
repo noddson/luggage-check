@@ -1,0 +1,184 @@
+{
+  "id": "toyota-rav4-hybrid-2019-2025",
+  "make": "Toyota",
+  "model": "RAV4 Hybrid",
+  "generation": "Fifth generation / XA50",
+  "modelYears": [
+    "2019",
+    "2020",
+    "2021",
+    "2022",
+    "2023",
+    "2024",
+    "2025"
+  ],
+  "bodyStyle": "5-door compact hybrid SUV",
+  "rentalClasses": [
+    "hybrid SUV",
+    "compact hybrid SUV",
+    "intermediate hybrid SUV",
+    "standard hybrid SUV"
+  ],
+  "commonRentalAliases": [
+    "Toyota RAV4 Hybrid or similar",
+    "RAV4 Hybrid or similar",
+    "Hybrid SUV or similar",
+    "Compact hybrid SUV or similar",
+    "Intermediate hybrid SUV or similar"
+  ],
+  "cargoZones": [
+    {
+      "id": "behind_second_row",
+      "label": "Cargo area behind second row",
+      "volumeLitres": 1059,
+      "dimensionsMm": {
+        "length": 1016,
+        "width": 1000,
+        "height": 876
+      },
+      "openingMm": {
+        "width": 1050,
+        "height": 760
+      },
+      "usableFraction": 0.82,
+      "confidence": "medium",
+      "notes": "Toyota Canada lists 1,059 L / 37.5 cu ft behind the second row for the 2025 RAV4 Hybrid. The 2021 Toyota U.S. brochure lists a 40.0 in cargo length behind the rear seat, 39.4/59.0 in minimum/maximum cargo width, and 34.5/36.6 in minimum/maximum cargo height across RAV4/RAV4 Hybrid trims. The cuboid uses the conservative wheel-well width and minimum height; opening dimensions are low-confidence planning estimates because Toyota publishes cargo-box measurements but not a hatch opening box.",
+      "seatBackEncroachment": {
+        "angleFromVerticalDegrees": 14,
+        "notes": "Second-row seatback rake reduces the top-front edge of the usable cargo envelope."
+      }
+    },
+    {
+      "id": "behind_first_row",
+      "label": "Maximum cargo area with second row folded",
+      "volumeLitres": 1977,
+      "dimensionsMm": {
+        "length": 1820,
+        "width": 1120,
+        "height": 876
+      },
+      "openingMm": {
+        "width": 1050,
+        "height": 760
+      },
+      "usableFraction": 0.74,
+      "confidence": "low",
+      "notes": "Toyota Canada lists 1,977 L / 69.8 cu ft behind the front seats for the 2025 RAV4 Hybrid. Toyota's published rear-seat-up length is 40.0 in; the folded-seat length is estimated for luggage planning and discounted for the upward step/rake of the folded rear seatbacks, wheel-arch intrusions, and trim taper."
+    },
+    {
+      "id": "rear_floor_overflow",
+      "label": "Rear passenger footwell overflow",
+      "volumeLitres": 95,
+      "dimensionsMm": {
+        "length": 430,
+        "width": 1220,
+        "height": 210
+      },
+      "usableFraction": 0.55,
+      "confidence": "low",
+      "notes": "Generic soft-bag overflow area for the rear passenger footwells when at least part of the second row is not occupied. This is not a Toyota cargo specification."
+    }
+  ],
+  "seatConfigurations": [
+    {
+      "id": "seats_up",
+      "label": "All seats up",
+      "cargoZoneIds": [
+        "behind_second_row"
+      ],
+      "seatsAvailable": 5,
+      "notes": "Standard five-passenger SUV seating with luggage in the hatch area."
+    },
+    {
+      "id": "rear_seats_folded",
+      "label": "Second row folded",
+      "cargoZoneIds": [
+        "behind_first_row"
+      ],
+      "seatsAvailable": 2,
+      "notes": "Maximum cargo mode for two occupants."
+    },
+    {
+      "id": "partial_rear_seat_folded",
+      "label": "One rear seat section folded",
+      "cargoZoneIds": [
+        "behind_second_row",
+        "rear_floor_overflow"
+      ],
+      "seatsAvailable": 4,
+      "notes": "Represents using one rear seating position or footwell area for soft luggage while retaining most passenger seating."
+    }
+  ],
+  "sources": [
+    {
+      "sourceType": "manufacturer",
+      "publisher": "Toyota Canada",
+      "title": "2025 RAV4 Hybrid Product Information",
+      "url": "https://toyotacanada.scene7.com/is/content/toyotacanada/2025%20RAV4%20Hybrid%20Product%20Informationpdf?%24%3Fcdh=attachment&bfc=off",
+      "retrievedAt": "2026-05-15",
+      "fieldsCovered": [
+        "North American RAV4 Hybrid context",
+        "cargo volume behind front seats",
+        "cargo volume behind second row",
+        "seating capacity",
+        "overall dimensions"
+      ],
+      "confidence": "high"
+    },
+    {
+      "sourceType": "manufacturer",
+      "publisher": "Toyota Motor Sales, U.S.A.",
+      "title": "2021 RAV4 eBrochure",
+      "url": "https://engage.toyota.com/static/files/ebrochures/2021_rav4_eBrochure.pdf",
+      "retrievedAt": "2026-05-15",
+      "fieldsCovered": [
+        "cargo length behind rear seat",
+        "cargo minimum and maximum width",
+        "cargo minimum and maximum height",
+        "cargo volume cross-check",
+        "hybrid trim context"
+      ],
+      "confidence": "high"
+    },
+    {
+      "sourceType": "manufacturer",
+      "publisher": "Toyota USA Newsroom",
+      "title": "2025 Toyota RAV4 Hybrid",
+      "url": "https://pressroom.toyota.com/vehicle/2025-toyota-rav4-hybrid/",
+      "retrievedAt": "2026-05-15",
+      "fieldsCovered": [
+        "2025 RAV4 Hybrid North American model context",
+        "standard AWD hybrid positioning",
+        "compact SUV body context"
+      ],
+      "confidence": "high"
+    },
+    {
+      "sourceType": "rental-company",
+      "publisher": "Enterprise Rent-A-Car",
+      "title": "Hybrid SUV Rental – United States",
+      "url": "https://www.enterprise.com/en/rental-cars/us/suvs/hybrid-suv-sfah.html",
+      "retrievedAt": "2026-05-15",
+      "fieldsCovered": [
+        "North American rental-market availability",
+        "Toyota RAV4 Hybrid or similar alias",
+        "hybrid SUV rental class",
+        "five-passenger rental listing"
+      ],
+      "confidence": "high"
+    },
+    {
+      "sourceType": "rental-company",
+      "publisher": "Avis",
+      "title": "Toyota RAV4 Rental",
+      "url": "https://www.avis.com/en/cars/toyota/rav4",
+      "retrievedAt": "2026-05-15",
+      "fieldsCovered": [
+        "RAV4 North American rental-market context",
+        "intermediate SUV rental class context",
+        "five-seat rental listing"
+      ],
+      "confidence": "medium"
+    }
+  ]
+}
