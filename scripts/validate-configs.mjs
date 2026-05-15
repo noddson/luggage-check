@@ -55,6 +55,7 @@ function validateVehicle(vehicle) {
   for (const field of ['id', 'make', 'model', 'generation', 'bodyStyle']) {
     assert(typeof vehicle[field] === 'string' && vehicle[field].length > 0, `${label}.${field} is required`, errors);
   }
+  if (vehicle.isDefault !== undefined) assert(typeof vehicle.isDefault === 'boolean', `${label}.isDefault must be a boolean when provided`, errors);
   for (const field of ['modelYears', 'rentalClasses', 'commonRentalAliases', 'cargoZones', 'seatConfigurations']) {
     assert(Array.isArray(vehicle[field]) && vehicle[field].length > 0, `${label}.${field} must be a non-empty array`, errors);
   }
@@ -92,6 +93,9 @@ const europeFiles = (await readdir('configs/vehicles/europe')).filter((file) => 
 const northAmericaFiles = (await readdir('configs/vehicles/north-america')).filter((file) => file.endsWith('.json'));
 assert(europeFiles.length >= 6, 'expected at least six starter European vehicle configs', errors);
 assert(northAmericaFiles.length >= 2, 'expected at least two North American vehicle configs', errors);
+const defaultVehicles = vehicles.filter((vehicle) => vehicle.isDefault);
+assert(defaultVehicles.length === 1, 'expected exactly one default vehicle config', errors);
+assert(defaultVehicles[0]?.id === 'volkswagen-caddy-maxi-life', 'expected Volkswagen Caddy Maxi Life to be the default vehicle', errors);
 
 for (const vehicle of vehicles) {
   const result = estimateFit(luggageSet, vehicle, 'seats_up');

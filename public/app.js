@@ -30,6 +30,7 @@ const vehicleSelect = $('#vehicleSelect');
 const configurationSelect = $('#configurationSelect');
 const seatBackEncroachmentToggle = $('#seatBackEncroachmentToggle');
 const luggageControls = $('#luggageControls');
+const resetLuggageButton = $('#resetLuggageButton');
 const visualization = $('#visualization');
 
 async function readJson(path) {
@@ -68,8 +69,12 @@ function cloneLuggageWithQuantities() {
   };
 }
 
+function defaultVehicle() {
+  return state.vehicles.find((vehicle) => vehicle.isDefault) ?? state.vehicles[0];
+}
+
 function selectedVehicle() {
-  return state.vehicles.find((vehicle) => vehicle.id === state.vehicleId) ?? state.vehicles[0];
+  return state.vehicles.find((vehicle) => vehicle.id === state.vehicleId) ?? defaultVehicle();
 }
 
 function selectedConfiguration(vehicle = selectedVehicle()) {
@@ -106,6 +111,13 @@ function renderVehicleMeta() {
     ${encroachmentZones.length ? `<span>Seat-back encroachment model: ${encroachmentZones.map((zone) => `${seatBackAngleDegrees(zone)}° for ${zone.label}`).join(' · ')}</span>` : ''}
     ${config.notes ? `<em>${config.notes}</em>` : ''}
   `;
+}
+
+function resetLuggageQuantities() {
+  luggageControls.querySelectorAll('input').forEach((input) => {
+    input.value = 0;
+  });
+  renderResults();
 }
 
 function renderLuggageControls() {
@@ -614,6 +626,7 @@ function bindEvents() {
     renderVehicleMeta();
     renderResults();
   });
+  resetLuggageButton.addEventListener('click', resetLuggageQuantities);
   document.querySelectorAll('.view-tab').forEach((button) => button.addEventListener('click', () => {
     state.activeView = button.dataset.view;
     document.querySelectorAll('.view-tab').forEach((tab) => tab.classList.toggle('active', tab === button));
@@ -629,8 +642,9 @@ async function init() {
     ]);
     state.luggageSet = luggageSet;
     state.vehicles = vehicles.sort((a, b) => vehicleLabel(a).localeCompare(vehicleLabel(b)));
-    state.vehicleId = state.vehicles[0].id;
-    state.configurationId = state.vehicles[0].seatConfigurations[0].id;
+    const initialVehicle = defaultVehicle();
+    state.vehicleId = initialVehicle.id;
+    state.configurationId = initialVehicle.seatConfigurations[0].id;
     renderVehicleOptions();
     renderConfigurationOptions();
     renderVehicleMeta();

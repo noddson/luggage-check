@@ -11,6 +11,7 @@
     "generation": { "type": "string" },
     "modelYears": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
     "bodyStyle": { "type": "string" },
+    "isDefault": { "type": "boolean", "default": false },
     "rentalClasses": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
     "commonRentalAliases": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
     "cargoZones": { "type": "array", "items": { "$ref": "#/$defs/cargoZone" }, "minItems": 1 },
