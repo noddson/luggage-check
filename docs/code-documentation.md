@@ -359,7 +359,7 @@ This is an estimator, not an exact bin-packing solver. It uses rectangular envel
 
 **Purpose:** Model a sloped seat-back constraint as depth lost with height.
 
-**Inputs:** Cargo zone and height in mm.
+**Inputs:** Cargo zone, height in mm, and optional estimator override angle.
 
 **Outputs:** Angle in degrees or length/depth encroachment in mm.
 
@@ -371,7 +371,7 @@ This is an estimator, not an exact bin-packing solver. It uses rectangular envel
 
 **Purpose:** Reject placements whose top rear corner would intersect the sloped rear-seat envelope.
 
-**Input:** Candidate position, orientation, zone, and `{ considerSeatBackEncroachment?: boolean }`.
+**Input:** Candidate position, orientation, zone, and `{ considerSeatBackEncroachment?: boolean, seatBackAngleDegrees?: number }`.
 
 **Output:** Boolean. Returns true unless the option is enabled and the zone defines seat-back encroachment.
 
@@ -534,7 +534,7 @@ function estimateFit(
   luggageSet: { items: LuggageItem[] },
   vehicle: VehicleConfig,
   seatConfigurationId?: string,
-  options?: { considerSeatBackEncroachment?: boolean }
+  options?: { considerSeatBackEncroachment?: boolean, seatBackAngleDegrees?: number }
 ): FitEstimate
 ```
 
@@ -543,7 +543,7 @@ function estimateFit(
 - `luggageSet.items`: quantity-bearing luggage definitions. Quantities may be zero in UI-generated clones.
 - `vehicle`: vehicle config with cargo zones and seat configurations.
 - `seatConfigurationId`: id from `vehicle.seatConfigurations`; defaults to `seats_up`.
-- `options.considerSeatBackEncroachment`: when true, zones with `seatBackEncroachment` reject placements that exceed the sloped depth envelope.
+- `options.considerSeatBackEncroachment`: when true, zones with `seatBackEncroachment` reject placements that exceed the sloped depth envelope. `options.seatBackAngleDegrees` can override the vehicle-defined default angle.
 
 **Output:** A `FitEstimate` object with placement coordinates, fit status, volume usage, unplaced item records, and warnings.
 
@@ -555,7 +555,7 @@ function estimateFit(
 **Warnings returned, not thrown:**
 
 - Low-confidence cargo dimensions.
-- Seat-back encroachment enabled for one or more active zones.
+- Seat-back encroachment enabled for one or more active zones, using the vehicle default angle unless the UI degrees field overrides it.
 - Active cargo zones missing rectangular dimensions and skipped by the stacking estimator.
 
 **Correctness tests:**
@@ -582,7 +582,7 @@ This file owns client-side state, DOM updates, user events, and SVG visualizatio
   vehicleId: undefined | string,
   configurationId: undefined | string,
   activeView: 'top' | 'side' | 'front' | '3d',
-  considerSeatBackEncroachment: false,
+  seatBackEncroachmentAngleDegrees: 30,
   rotation3d: { yaw: -35, pitch: 28 },
   activeOrientationLabel: 'front-left'
 }
@@ -618,9 +618,9 @@ This file owns client-side state, DOM updates, user events, and SVG visualizatio
 
 #### `hasActiveSeatBackEncroachment(zones)`
 
-**Purpose:** Return true only when the user enabled the option and at least one active zone declares encroachment.
+**Purpose:** Return true when at least one active zone declares seat-back encroachment.
 
-**Testing:** Toggle the option and provide zones with/without `seatBackEncroachment`.
+**Testing:** Provide zones with/without `seatBackEncroachment` and assert the UI enables or disables the degrees input accordingly.
 
 #### `vehicleLabel(vehicle)`
 
@@ -780,11 +780,19 @@ The 3D view is SVG-based, not WebGL. It creates cuboid vertices, rotates them, p
 
 #### `createSeatGuideVertices(zone)`
 
-**Purpose:** Create a sloped translucent guide prism for zones with seat-back encroachment.
+**Purpose:** Create vertices for the forward-seat outline that gives the 3D cargo view spatial context.
 
-**Output:** Vertices for the available/lost envelope guide. Returns `[]` when no guide applies.
+**Output:** Vertices for the paired forward-seat guide boxes.
 
-**Testing:** Active encroachment zone should return vertices; no encroachment should return empty array.
+**Testing:** Assert generated vertices remain outside the cargo box and scale with zone dimensions.
+
+#### `createSeatEncroachmentWedgeVertices(zone)`
+
+**Purpose:** Create a triangular-prism wedge showing the cargo depth lost to a sloped rear seat back at the active degree angle.
+
+**Output:** Vertices for the lost-clearance wedge, or `[]` when the active zone has no seat-back encroachment definition.
+
+**Testing:** Active encroachment zone should return wedge vertices derived from the selected angle; no encroachment should return an empty array.
 
 #### `current3dAngles()`
 
@@ -828,13 +836,13 @@ The 3D view is SVG-based, not WebGL. It creates cuboid vertices, rotates them, p
 
 **Testing:** Click or call each preset and assert `state.rotation3d` and active label update.
 
-#### `renderSeatGuide3d(zone, project)`
+#### `renderSeatGuide3d(zone, project)` and `renderSeatEncroachmentWedge3d(zone, project)`
 
-**Purpose:** Render the 3D sloped seat-back guide when active.
+**Purpose:** Render the 3D forward-seat context guide and the active sloped seat-back encroachment wedge.
 
-**Output:** SVG markup or empty string.
+**Output:** SVG face records for depth sorting.
 
-**Testing:** Active encroachment should include `seat-guide-face`; inactive should be empty.
+**Testing:** Active encroachment should include the sloped `seat-encroachment-face` wedge along with the forward-seat guide; inactive should omit the wedge.
 
 #### `renderZone3dSvg(zone, placements)`
 
@@ -880,7 +888,7 @@ The 3D view is SVG-based, not WebGL. It creates cuboid vertices, rotates them, p
 
 **Purpose:** Wire UI controls to state changes and re-rendering.
 
-**Controls:** Vehicle select, configuration select, seat-back toggle, reset button, and view tabs.
+**Controls:** Vehicle select, configuration select, seat-back degrees input, reset button, and view tabs.
 
 **Testing:** Browser/e2e tests should dispatch change/click events and assert state plus DOM updates.
 
@@ -906,7 +914,7 @@ The 3D view is SVG-based, not WebGL. It creates cuboid vertices, rotates them, p
 The HTML file provides the semantic structure and DOM ids/classes consumed by `public/app.js`:
 
 - Vehicle/configuration selectors.
-- Seat-back encroachment toggle.
+- Seat-back encroachment degrees input with vehicle-default initialization.
 - Luggage controls container.
 - View tabs for top, side, rear/front, and 3D views.
 - Hero result, metrics, visualization, placed/unplaced lists, and warnings containers.
@@ -990,7 +998,7 @@ This script combines static asset checks with estimator regression checks.
 It reads `public/index.html`, `public/styles.css`, and `public/app.js` and asserts that important UI markers exist:
 
 - App shell ids/classes.
-- Seat-back encroachment controls.
+- Seat-back encroachment degrees controls.
 - 3D view tab and orientation controls.
 - CSS classes used by zone cards and overlays.
 - Reset/secondary button styling.
@@ -1129,7 +1137,7 @@ Then open `http://localhost:4173` and manually check:
 - Quantity inputs update fit metrics and lists.
 - Reset restores default quantities.
 - Top, side, rear/front, and 3D tabs render expected placement views.
-- Seat-back encroachment toggle changes warnings/metrics when active zones support it.
+- Seat-back encroachment degree changes warnings, fit calculations, and wedge visualization when active zones support it.
 - 3D drag and orientation presets update the view.
 
 ## Suggested future unit tests
