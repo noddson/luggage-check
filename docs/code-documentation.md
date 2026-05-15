@@ -6,12 +6,12 @@ This document explains the luggage-check codebase at the level needed to maintai
 
 | Area | Files | Purpose |
 | --- | --- | --- |
-| Browser UI | `public/index.html`, `public/styles.css`, `public/app.js` | Static single-page app that loads configuration JSON, lets users choose a vehicle/seat setup/luggage quantities, runs the fit estimator, and renders 2D/3D SVG visualizations. |
+| Browser UI | `public/index.html`, `public/styles.css`, `public/app.js` | Static single-page app that loads luggage plus the generated vehicle index, lets users choose a vehicle/seat setup/luggage quantities, runs the fit estimator, and renders 2D/3D SVG visualizations. |
 | Fit estimation | `src/packing/fitEstimator.js` | Deterministic multi-pass rectangular packing estimator. Expands luggage quantities, applies soft-bag compression, tests rotations/opening constraints/seat-back encroachment, and returns placements plus warnings. |
 | Config loading | `src/config/loadConfigs.js` | Node-side JSON readers used by validation and smoke scripts. |
 | Domain documentation | `src/domain/types.js` | JSDoc typedefs for luggage, vehicles, cargo zones, seat configurations, and estimator result shapes. |
-| Config data | `configs/luggage/*.json`, `configs/vehicles/**/*.json` | Source-backed luggage and vehicle cargo data. Schema files document the expected JSON shapes. |
-| Developer scripts | `scripts/validate-configs.mjs`, `scripts/smoke-app.mjs`, `scripts/serve-app.mjs` | Dataset validation, app/estimator smoke checks, and a zero-dependency static file server. |
+| Config data | `configs/luggage/*.json`, `configs/vehicles/**/*.json` | Source-backed luggage and vehicle cargo data. `configs/vehicles/index.json` is generated from regional vehicle files for browser loading. Schema files document the expected JSON shapes. |
+| Developer scripts | `scripts/generate-vehicle-index.mjs`, `scripts/validate-configs.mjs`, `scripts/smoke-app.mjs`, `scripts/serve-app.mjs` | Vehicle-index generation/staleness checks, dataset validation, app/estimator smoke checks, and a zero-dependency static file server. |
 
 ## Data and units model
 
@@ -383,7 +383,7 @@ This is an estimator, not an exact bin-packing solver. It uses rectangular envel
 
 **Errors:** No explicit errors. Validation ensures configured angles are `>= 0` and `< 90`.
 
-**Testing:** A 0-degree angle should produce 0 encroachment; the default 30-degree angle at 1000 mm should be about 577 mm.
+**Testing:** A 0-degree angle should produce 0 encroachment; the default 20-degree angle at 1000 mm should be about 364 mm.
 
 #### `fitsSeatBackEncroachment(position, orientation, zone, options)`
 
@@ -599,8 +599,8 @@ function estimateFit(
 
 **Correctness tests:**
 
-- `npm run validate:configs` smoke-runs the estimator over every vehicle and every seat configuration.
-- `npm run smoke:app` verifies complete placement coordinates, rejects overlap/out-of-bounds placements, checks deterministic results under reversed luggage input order, and covers seat-back encroachment regression.
+- `npm run validate:configs` smoke-runs the estimator over every vehicle's `seats_up` configuration.
+- `npm run smoke:app` verifies complete placement coordinates, rejects overlap/out-of-bounds placements, checks deterministic results under reversed luggage input order, and covers seat-back encroachment plus coplanar support regressions.
 - Add focused unit tests for unknown seat configuration, opening constraints, and zero-quantity UI clones if a unit test framework is introduced.
 
 ## `public/app.js` — browser application
@@ -609,21 +609,21 @@ This file owns client-side state, DOM updates, user events, and SVG visualizatio
 
 ### Top-level state and constants
 
-- `VEHICLE_FILES`: explicit list of JSON vehicle configs loaded by the browser. New browser-visible vehicle files must be added here.
+- `VEHICLE_INDEX_PATH`: points to `../configs/vehicles/index.json`, the generated manifest of browser-visible vehicle config files. New vehicle files are discovered by `scripts/generate-vehicle-index.mjs` rather than hard-coded in the browser.
 - `BAG_COLORS`: palette used to color placements by source luggage item.
 - `DEFAULT_SEAT_BACK_ANGLE_DEGREES`: UI copy/visual default matching the estimator fallback.
 - `state`: current app state:
 
 ```js
 {
-  luggageSet: undefined | LuggageSet,
+  luggageSet: null | LuggageSet,
   vehicles: [],
-  vehicleId: undefined | string,
-  configurationId: undefined | string,
+  vehicleId: string,
+  configurationId: string,
   activeView: 'top' | 'side' | 'front' | '3d',
-  seatBackEncroachmentAngleDegrees: 30,
-  rotation3d: { yaw: -35, pitch: 28 },
-  activeOrientationLabel: 'front-left'
+  seatBackEncroachmentAngleDegrees: 20,
+  rotation3d: { yaw: -45, pitch: 60 },
+  activeOrientationLabel: string
 }
 ```
 
@@ -641,6 +641,16 @@ This file owns client-side state, DOM updates, user events, and SVG visualizatio
 
 **Testing:** `npm run smoke:app` checks static file markers, but a browser/e2e test would be needed to fully exercise failed network responses.
 
+#### `loadVehicles()`
+
+**Purpose:** Load `configs/vehicles/index.json` and then fetch every vehicle JSON path listed in its `files` array.
+
+**Output:** Promise resolving to an array of parsed `VehicleConfig` objects.
+
+**Errors:** Propagates `readJson` failures for a missing/stale index, missing vehicle file, HTTP error, or malformed JSON. `init()` catches these errors and shows the app-load failure state.
+
+**Testing:** `npm run smoke:app` asserts the browser code uses `VEHICLE_INDEX_PATH` and no longer contains the removed hard-coded `VEHICLE_FILES` list. `npm run validate:vehicle-index` checks that the generated index matches the files on disk.
+
 #### `dimensionsLabel(dimensions)`
 
 **Purpose:** Format dimensions as `L×W×H mm`.
@@ -649,9 +659,15 @@ This file owns client-side state, DOM updates, user events, and SVG visualizatio
 
 **Testing:** Assert known formatting for a sample dimension object.
 
+#### `defaultSeatBackAngleDegrees(zones)`
+
+**Purpose:** Return the first active zone's configured seat-back angle, falling back to the shared 20° default. This lets vehicle selection/configuration changes reset the editable angle field to the relevant vehicle default.
+
+**Testing:** Provide active zones with and without `seatBackEncroachment.angleFromVerticalDegrees` and assert the returned default.
+
 #### `seatBackAngleDegrees(zone)` and `seatBackEncroachmentMmAtHeight(zone, heightMm)`
 
-**Purpose:** UI-side equivalents for drawing the seat-back envelope.
+**Purpose:** UI-side equivalents for drawing the seat-back envelope. `seatBackAngleDegrees` uses the editable state angle for zones with encroachment and otherwise falls back to the zone/default value.
 
 **Errors/Testing:** Same conceptual tests as the estimator helpers.
 
@@ -663,13 +679,13 @@ This file owns client-side state, DOM updates, user events, and SVG visualizatio
 
 #### `vehicleLabel(vehicle)`
 
-**Purpose:** Produce the select-option label: `Make Model (first rental class)`.
+**Purpose:** Produce the select-option label: `Make Model (body style)`.
 
 **Testing:** Assert label output for a representative vehicle config.
 
 #### `cloneLuggageWithQuantities()`
 
-**Purpose:** Create the estimator input by copying the loaded luggage set and replacing each quantity with the current numeric input value.
+**Purpose:** Create the estimator input by copying the loaded luggage set, replacing each quantity with the current numeric input value, and filtering zero-quantity items before estimation.
 
 **Input source:** DOM inputs with ids `qty-${item.id}`.
 
@@ -677,7 +693,7 @@ This file owns client-side state, DOM updates, user events, and SVG visualizatio
 
 **Errors:** Relies on `state.luggageSet` and existing DOM inputs. `Number(input.value)` can produce `NaN` if a browser allows invalid text; number inputs and min/max constraints reduce this risk.
 
-**Testing:** Render controls, change a quantity input, call the function, and assert only quantity changed.
+**Testing:** Render controls, change a quantity input, call the function, and assert quantities changed and zero-quantity rows are omitted.
 
 #### `defaultVehicle()`, `selectedVehicle()`, `selectedConfiguration(vehicle)`
 
@@ -715,11 +731,21 @@ This file owns client-side state, DOM updates, user events, and SVG visualizatio
 
 #### `renderVehicleMeta()`
 
-**Purpose:** Render selected vehicle details, rental aliases, and active cargo-zone summaries.
+**Purpose:** Render selected vehicle details, rental classes, active cargo-zone count, seat count, optional configuration notes, and per-zone seat-back default-angle summaries. It also calls `renderSeatBackEncroachmentControl(zones)` so the angle input stays in sync with active zones.
 
-**Special behavior:** Shows seat-back encroachment notes only when the option is active and a zone supports it.
+**Testing:** Switch configurations and assert metadata, seat-back defaults, and the angle-control enabled state update.
 
-**Testing:** Toggle encroachment and assert note text appears/disappears.
+#### `renderSeatBackEncroachmentControl(zones)`
+
+**Purpose:** Enable/disable the editable seat-back angle field and write helper copy. Active encroachment zones show the vehicle default angle and allow the user to override it; configurations without encroachment disable the input.
+
+**Testing:** Switch between configurations with and without encroachment and assert disabled state plus helper text.
+
+#### `syncSeatBackEncroachmentDefault()`
+
+**Purpose:** Reset `state.seatBackEncroachmentAngleDegrees` to the selected vehicle/configuration's default angle. This is called during app startup and whenever vehicle or seat configuration changes.
+
+**Testing:** Select a vehicle/configuration with a custom angle and assert the input/state reset to that angle.
 
 #### `resetLuggageQuantities()`
 
@@ -937,7 +963,7 @@ The 3D view is SVG-based, not WebGL. It creates cuboid vertices, rotates them, p
 
 **Flow:**
 
-1. Fetch luggage config and all listed vehicle configs.
+1. Fetch luggage config, then fetch `configs/vehicles/index.json` and all vehicle configs listed by the generated index.
 2. Sort vehicles by display label.
 3. Select default vehicle and its first configuration.
 4. Render controls and initial results.
@@ -967,6 +993,52 @@ The HTML file provides the semantic structure and DOM ids/classes consumed by `p
 The stylesheet defines responsive layout, form controls, result cards, warning/list styles, 2D SVG placement styles, 3D SVG cuboid styles, seat-back overlays, and orientation controls.
 
 **Testing:** `npm run smoke:app` checks for key CSS selectors, including visualization cards, seat-back encroachment lines, 3D orientation controls, and secondary button styles. Visual regression screenshots would be useful for future UI changes.
+
+## `scripts/generate-vehicle-index.mjs` — vehicle manifest generation
+
+This script keeps browser vehicle loading data-driven. It discovers vehicle JSON files under region directories and writes or checks `configs/vehicles/index.json`.
+
+### Constants
+
+- `VEHICLES_DIR = 'configs/vehicles'`: root directory scanned for regional vehicle config folders.
+- `INDEX_PATH = 'configs/vehicles/index.json'`: generated manifest consumed by `public/app.js`.
+- `GENERATED_NOTE`: text stored in the manifest to discourage manual edits.
+
+### `discoverVehicleFiles(dir = VEHICLES_DIR)`
+
+**Purpose:** Discover all `.json` files one level below region folders, such as `europe/*.json` and `north-america/*.json`.
+
+**Output:** Sorted relative paths like `europe/renault-trafic.json`. Region folders and files are sorted to produce deterministic output.
+
+**Errors:** Propagates `readdir` errors if the vehicle root or a region directory is missing/unreadable.
+
+**Testing:** Add/remove a temporary vehicle fixture in a region folder and assert the rendered file list changes deterministically if unit tests are introduced.
+
+### `renderIndex(files)`
+
+**Purpose:** Render the manifest as pretty-printed JSON with a trailing newline.
+
+**Output shape:**
+
+```json
+{
+  "generatedBy": "Generated by scripts/generate-vehicle-index.mjs. Do not edit by hand.",
+  "files": ["europe/example.json"]
+}
+```
+
+**Testing:** Assert stable string output for a known file list.
+
+### Script modes
+
+- Default mode writes `configs/vehicles/index.json` and logs the number of vehicle config files.
+- `--check` mode recomputes expected contents and throws if the manifest is missing or stale.
+
+**Correctness checks:**
+
+- `npm run generate:vehicle-index` updates the manifest after adding/removing vehicle files.
+- `npm run validate:vehicle-index` fails when the manifest is stale.
+- `npm run check` runs the staleness check before config validation and smoke tests.
 
 ## `scripts/validate-configs.mjs` — dataset and estimator validation
 
@@ -1021,10 +1093,9 @@ This script is the main CI-style data check.
 
 After loading configs, the script also checks:
 
-- Europe and North America starter vehicle directories are non-empty.
-- Exactly one default vehicle exists.
-- `estimateFit` runs for every vehicle and seat configuration.
-- At least one vehicle should not fit the starter luggage set, preserving a useful negative case.
+- Europe has at least six starter vehicle configs and North America has at least two.
+- Exactly one default vehicle exists and it is `volkswagen-caddy-maxi-life`.
+- `estimateFit` returns a boolean for every vehicle's `seats_up` configuration.
 
 **Errors:** If any validation errors are accumulated, the script prints them and exits with code `1`. Unexpected loader/parser errors also fail the process.
 
@@ -1038,6 +1109,7 @@ It reads `public/index.html`, `public/styles.css`, and `public/app.js` and asser
 
 - App shell ids/classes.
 - Seat-back encroachment degrees controls.
+- Generated vehicle-index loading hooks (`VEHICLE_INDEX_PATH`, `loadVehicles`) and absence of the removed hard-coded `VEHICLE_FILES` list.
 - 3D view tab and orientation controls.
 - CSS classes used by zone cards and overlays.
 - Reset/secondary button styling.
@@ -1050,7 +1122,11 @@ The script asserts that exactly one default vehicle exists and that it is `volks
 
 ### Seat-back encroachment regression
 
-A synthetic luggage/vehicle fixture verifies that a tall rigid case fits the plain rectangular zone but fails when seat-back encroachment is enabled.
+A synthetic luggage/vehicle fixture verifies that a tall rigid case fits the plain rectangular zone, fails when seat-back encroachment is enabled at the vehicle's default angle, and fits again when the override angle is relaxed.
+
+### Coplanar support regression
+
+A Renault Trafic fixture verifies that the generalized support policy can bridge adjacent carry-on surfaces: six rigid carry-ons create a platform that allows five soft backpacks to be placed when adjacent coplanar free-space merging is enabled.
 
 ### `placementsOverlap(a, b)`
 
@@ -1131,11 +1207,11 @@ This script serves the static app without external dependencies.
 
 ### Vehicle configs
 
-Vehicle configs are split by region under `configs/vehicles/europe` and `configs/vehicles/north-america`. `configs/vehicles/schema.json` documents the intended schema.
+Vehicle configs are split by region under `configs/vehicles/europe` and `configs/vehicles/north-america`. `configs/vehicles/index.json` is generated from those regional JSON files and is consumed by the browser. `configs/vehicles/schema.json` documents the intended schema.
 
 **Correctness checklist for changes:**
 
-- Add browser-visible files to `VEHICLE_FILES` in `public/app.js`.
+- Run `npm run generate:vehicle-index` after adding, removing, or renaming vehicle JSON files, and commit the updated `configs/vehicles/index.json`.
 - Include at least one manufacturer source and one rental-company or rental-broker source.
 - Keep cargo-zone ids unique per vehicle.
 - Ensure every `seatConfigurations[].cargoZoneIds[]` value references an existing cargo zone.
@@ -1159,6 +1235,8 @@ When extending the app, prefer validation errors for bad config data, returned w
 Run these checks before merging code or config changes:
 
 ```bash
+npm run generate:vehicle-index
+npm run validate:vehicle-index
 npm run validate:configs
 npm run smoke:app
 npm run check
