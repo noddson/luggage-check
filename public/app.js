@@ -422,16 +422,19 @@ function renderOrientationAxisControl() {
     `;
   }).join('');
 
-  const presetLabel = state.activeOrientationLabel
+  const orientationStatus = state.activeOrientationLabel
     ? `<text class="orientation-axis-preset-label" x="722" y="128" text-anchor="middle">${state.activeOrientationLabel}</text>`
-    : '';
+    : `<text class="orientation-axis-angle-label" x="722" y="120" text-anchor="middle">
+        <tspan x="722">yaw ${Math.round(state.rotation3d.yaw)}°</tspan>
+        <tspan x="722" dy="16">pitch ${Math.round(state.rotation3d.pitch)}°</tspan>
+      </text>`;
 
   return `
     <g class="orientation-axis-control" aria-label="3D orientation axis control">
       <rect class="orientation-axis-panel" x="648" y="18" width="148" height="132" rx="16" />
       <text class="orientation-axis-heading" x="722" y="40" text-anchor="middle">orientation</text>
       ${axisMarkup}
-      ${presetLabel}
+      ${orientationStatus}
     </g>
   `;
 }
@@ -498,7 +501,7 @@ function renderZone3dSvg(zone, placements) {
           <strong>${zone.label}</strong>
           <span>${dimensionsLabel(zone.dimensionsMm)} · ${zone.volumeLitres} L</span>
         </div>
-        <span>Drag to pivot around cargo centre · click X/Y/Z for axis presets · yaw ${Math.round(state.rotation3d.yaw)}° · pitch ${Math.round(state.rotation3d.pitch)}°</span>
+        <span>Drag to pivot around cargo centre · click X/Y/Z for axis presets</span>
       </div>
       <svg class="zone-3d-svg" viewBox="0 0 ${svgWidth} ${svgHeight}" role="img" aria-label="${zone.label} rotatable 3D luggage view">
         <rect x="0" y="0" width="${svgWidth}" height="${svgHeight}" rx="18" fill="#f8fafc" />
