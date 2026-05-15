@@ -1,0 +1,166 @@
+{
+  "id": "tesla-model-3-2024",
+  "make": "Tesla",
+  "model": "Model 3",
+  "generation": "2024+ North America refresh",
+  "modelYears": [
+    "2024+"
+  ],
+  "bodyStyle": "4-door electric midsize sedan",
+  "rentalClasses": [
+    "midsize electric car",
+    "electric sedan",
+    "premium electric car"
+  ],
+  "commonRentalAliases": [
+    "Tesla Model 3 or similar",
+    "Tesla Short Range Model 3 or similar",
+    "Midsize Electric Car or similar",
+    "Premium electric sedan or similar"
+  ],
+  "cargoZones": [
+    {
+      "id": "rear_trunk",
+      "label": "Rear trunk behind second row",
+      "volumeLitres": 594,
+      "dimensionsMm": {
+        "length": 1040,
+        "width": 1000,
+        "height": 571
+      },
+      "openingMm": {
+        "width": 940,
+        "height": 460
+      },
+      "usableFraction": 0.68,
+      "confidence": "low",
+      "notes": "Tesla publishes 21 cu ft (594 L) behind the second row for North American 2024+ Model 3. Rectangular planning dimensions and opening estimates are intentionally conservative because the sedan trunk includes non-rectangular side pockets and under-floor space.",
+      "seatBackEncroachment": {
+        "angleFromVerticalDegrees": 18,
+        "notes": "Default rear seat-back rake assumption for optional encroachment-aware cargo planning."
+      }
+    },
+    {
+      "id": "front_trunk",
+      "label": "Front trunk / frunk",
+      "volumeLitres": 88,
+      "dimensionsMm": {
+        "length": 620,
+        "width": 430,
+        "height": 330
+      },
+      "openingMm": {
+        "width": 560,
+        "height": 310
+      },
+      "usableFraction": 0.65,
+      "confidence": "low",
+      "notes": "Tesla publishes 3.1 cu ft (88 L) for the front trunk. Planning dimensions are approximate and favor soft bags, backpacks, and charge-cable storage."
+    },
+    {
+      "id": "rear_seats_folded_extension",
+      "label": "Rear seat folded cabin extension",
+      "volumeLitres": 360,
+      "dimensionsMm": {
+        "length": 900,
+        "width": 950,
+        "height": 421
+      },
+      "openingMm": {
+        "width": 780,
+        "height": 360
+      },
+      "usableFraction": 0.55,
+      "confidence": "low",
+      "notes": "Planning-only estimate for the additional pass-through area available when the split-fold rear seatbacks are folded. Tesla's published cargo-volume table for the current North American manual does not list a seats-folded cargo volume."
+    },
+    {
+      "id": "rear_seat_footwell_overflow",
+      "label": "Rear passenger footwell overflow",
+      "volumeLitres": 95,
+      "dimensionsMm": {
+        "length": 650,
+        "width": 1050,
+        "height": 140
+      },
+      "usableFraction": 0.45,
+      "confidence": "low",
+      "notes": "Generic overflow area for soft bags when one rear passenger position or footwell can be sacrificed; not a manufacturer cargo specification."
+    }
+  ],
+  "seatConfigurations": [
+    {
+      "id": "seats_up",
+      "label": "Rear seats up",
+      "cargoZoneIds": [
+        "rear_trunk",
+        "front_trunk"
+      ],
+      "seatsAvailable": 5,
+      "notes": "Uses Tesla's current North American published rear trunk and front trunk cargo volumes."
+    },
+    {
+      "id": "rear_folded",
+      "label": "Rear seats folded",
+      "cargoZoneIds": [
+        "rear_trunk",
+        "front_trunk",
+        "rear_seats_folded_extension"
+      ],
+      "seatsAvailable": 2,
+      "notes": "For two occupants plus cargo; folded-seat and pass-through geometry varies by trim and cargo shape."
+    },
+    {
+      "id": "seats_up_with_footwell",
+      "label": "Rear seats up with rear footwell overflow",
+      "cargoZoneIds": [
+        "rear_trunk",
+        "front_trunk",
+        "rear_seat_footwell_overflow"
+      ],
+      "seatsAvailable": 4,
+      "notes": "Assumes at least one rear passenger position is used for soft luggage."
+    }
+  ],
+  "sources": [
+    {
+      "sourceType": "manufacturer",
+      "publisher": "Tesla",
+      "title": "Model 3 Owner's Manual: Dimensions",
+      "url": "https://www.tesla.com/ownersmanual/model3/en_us/GUID-56562137-FC31-4110-A13C-9A9FC6657BF0.html",
+      "retrievedAt": "2026-05-15",
+      "fieldsCovered": [
+        "North American 2024+ Model 3 model context",
+        "front trunk cargo volume",
+        "cargo volume behind second row",
+        "maximum total cargo volume with five passengers",
+        "exterior and passenger dimensions context"
+      ],
+      "confidence": "high"
+    },
+    {
+      "sourceType": "rental-company",
+      "publisher": "Avis",
+      "title": "Tesla Model 3 Rental | Midsize Electric Car",
+      "url": "https://www.avis.com/en/cars/vehicles/us/xb",
+      "retrievedAt": "2026-05-15",
+      "fieldsCovered": [
+        "North American rental-market alias",
+        "midsize electric car rental class",
+        "five-seat and luggage-count rental context"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "sourceType": "rental-company",
+      "publisher": "Avis",
+      "title": "Rent a Tesla Model 3 at These Avis Locations",
+      "url": "https://www.avis.com/en/cars/electric-car-rentals/ev-locations",
+      "retrievedAt": "2026-05-15",
+      "fieldsCovered": [
+        "North American Tesla Model 3 rental availability context"
+      ],
+      "confidence": "medium"
+    }
+  ]
+}
