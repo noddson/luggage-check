@@ -19,7 +19,7 @@ const state = {
   vehicles: [],
   vehicleId: '',
   configurationId: '',
-  activeView: 'top',
+  activeView: '3d',
   considerSeatBackEncroachment: false,
   rotation3d: { yaw: -38, pitch: 58 }
 };
@@ -312,36 +312,47 @@ function createSeatGuideVertices(zone) {
   ));
 }
 
+function current3dAngles() {
+  return {
+    yaw: state.rotation3d.yaw * Math.PI / 180,
+    pitch: state.rotation3d.pitch * Math.PI / 180
+  };
+}
+
+function rotatePoint3d(point, center, angles = current3dAngles()) {
+  const cosYaw = Math.cos(angles.yaw);
+  const sinYaw = Math.sin(angles.yaw);
+  const cosPitch = Math.cos(angles.pitch);
+  const sinPitch = Math.sin(angles.pitch);
+  const centeredX = point.x - center.x;
+  const centeredY = point.y - center.y;
+  const centeredZ = point.z - center.z;
+  const rotatedX = centeredX * cosYaw - centeredY * sinYaw;
+  const rotatedY = centeredX * sinYaw + centeredY * cosYaw;
+
+  return {
+    x: rotatedX,
+    y: rotatedY * cosPitch - centeredZ * sinPitch,
+    depth: rotatedY * sinPitch + centeredZ * cosPitch
+  };
+}
+
 function createProjector(zone, placements, canvasWidth, canvasHeight, padding, extraPoints = []) {
   const dimensions = zone.dimensionsMm;
-  const yaw = state.rotation3d.yaw * Math.PI / 180;
-  const pitch = state.rotation3d.pitch * Math.PI / 180;
-  const cosYaw = Math.cos(yaw);
-  const sinYaw = Math.sin(yaw);
-  const cosPitch = Math.cos(pitch);
-  const sinPitch = Math.sin(pitch);
   const center = { x: dimensions.length / 2, y: dimensions.width / 2, z: dimensions.height / 2 };
   const allPoints = [
     ...createBoxVertices({ x: 0, y: 0, z: 0 }, dimensions),
     ...placements.flatMap((placement) => createBoxVertices(placement.positionMm, placement.orientationMm)),
     ...extraPoints
   ];
-  const raw = (point) => {
+  const raw = (point) => rotatePoint3d(point, center);
+  const maxRadius = Math.max(...allPoints.map((point) => {
     const centeredX = point.x - center.x;
     const centeredY = point.y - center.y;
     const centeredZ = point.z - center.z;
-    const rotatedX = centeredX * cosYaw - centeredY * sinYaw;
-    const rotatedY = centeredX * sinYaw + centeredY * cosYaw;
-    return {
-      x: rotatedX,
-      y: rotatedY * cosPitch - centeredZ * sinPitch,
-      depth: rotatedY * sinPitch + centeredZ * cosPitch
-    };
-  };
-  const projected = allPoints.map(raw);
-  const maxAbsX = Math.max(...projected.map((point) => Math.abs(point.x)), 1);
-  const maxAbsY = Math.max(...projected.map((point) => Math.abs(point.y)), 1);
-  const scale = Math.min((canvasWidth - padding * 2) / (maxAbsX * 2), (canvasHeight - padding * 2) / (maxAbsY * 2));
+    return Math.hypot(centeredX, centeredY, centeredZ);
+  }), 1);
+  const scale = Math.min((canvasWidth - padding * 2) / (maxRadius * 2), (canvasHeight - padding * 2) / (maxRadius * 2));
   return (point) => {
     const output = raw(point);
     return {
@@ -363,6 +374,55 @@ function renderFace(vertices, indices, fill, className, title = '') {
     depth,
     markup: `<polygon class="${className}" points="${polygonPoints(points)}" fill="${fill}">${title ? `<title>${title}</title>` : ''}</polygon>`
   };
+}
+
+const ORIENTATION_PRESETS = {
+  x: { label: 'Rear', yaw: 90, pitch: 90 },
+  y: { label: 'Side', yaw: 0, pitch: 90 },
+  z: { label: 'Top', yaw: 0, pitch: 0 }
+};
+
+function renderOrientationAxisControl() {
+  const origin = { x: 710, y: 88 };
+  const axisLength = 44;
+  const center = { x: 0, y: 0, z: 0 };
+  const axes = [
+    { key: 'x', label: 'X', color: '#dc2626', vector: { x: axisLength, y: 0, z: 0 }, title: 'Rear view' },
+    { key: 'y', label: 'Y', color: '#16a34a', vector: { x: 0, y: axisLength, z: 0 }, title: 'Side view' },
+    { key: 'z', label: 'Z', color: '#2563eb', vector: { x: 0, y: 0, z: axisLength }, title: 'Top-down view' }
+  ];
+
+  const axisMarkup = axes.map((axis) => {
+    const endpoint = rotatePoint3d(axis.vector, center);
+    const x = origin.x + endpoint.x;
+    const y = origin.y + endpoint.y;
+    const labelX = origin.x + endpoint.x * 1.18;
+    const labelY = origin.y + endpoint.y * 1.18;
+
+    return `
+      <g class="orientation-axis-button" role="button" tabindex="0" data-axis="${axis.key}" aria-label="Switch to ${axis.title}" style="--axis-color:${axis.color}">
+        <line class="orientation-axis-line" x1="${origin.x}" y1="${origin.y}" x2="${x.toFixed(1)}" y2="${y.toFixed(1)}" />
+        <circle class="orientation-axis-end" cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="4" />
+        <text class="orientation-axis-label" x="${labelX.toFixed(1)}" y="${labelY.toFixed(1)}" text-anchor="middle" dominant-baseline="middle">${axis.label}</text>
+        <title>${axis.label} axis · ${axis.title}</title>
+      </g>
+    `;
+  }).join('');
+
+  return `
+    <g class="orientation-axis-control" aria-label="3D orientation axis control">
+      <rect class="orientation-axis-panel" x="648" y="18" width="148" height="122" rx="16" />
+      <text class="orientation-axis-heading" x="722" y="40" text-anchor="middle">orientation</text>
+      ${axisMarkup}
+    </g>
+  `;
+}
+
+function set3dOrientation(axis) {
+  const preset = ORIENTATION_PRESETS[axis];
+  if (!preset) return;
+  state.rotation3d = { yaw: preset.yaw, pitch: preset.pitch };
+  renderResults();
 }
 
 function renderSeatGuide3d(zone, project) {
@@ -419,7 +479,7 @@ function renderZone3dSvg(zone, placements) {
           <strong>${zone.label}</strong>
           <span>${dimensionsLabel(zone.dimensionsMm)} · ${zone.volumeLitres} L</span>
         </div>
-        <span>Drag to rotate around cargo centre · seats mark forward · yaw ${Math.round(state.rotation3d.yaw)}° · pitch ${Math.round(state.rotation3d.pitch)}°</span>
+        <span>Drag to pivot around cargo centre · click X/Y/Z for rear/side/top · yaw ${Math.round(state.rotation3d.yaw)}° · pitch ${Math.round(state.rotation3d.pitch)}°</span>
       </div>
       <svg class="zone-3d-svg" viewBox="0 0 ${svgWidth} ${svgHeight}" role="img" aria-label="${zone.label} rotatable 3D luggage view">
         <rect x="0" y="0" width="${svgWidth}" height="${svgHeight}" rx="18" fill="#f8fafc" />
@@ -430,6 +490,7 @@ function renderZone3dSvg(zone, placements) {
         <line class="zone-wire" x1="${zoneVertices[2].x}" y1="${zoneVertices[2].y}" x2="${zoneVertices[6].x}" y2="${zoneVertices[6].y}" />
         <line class="zone-wire" x1="${zoneVertices[3].x}" y1="${zoneVertices[3].y}" x2="${zoneVertices[7].x}" y2="${zoneVertices[7].y}" />
         <polyline class="zone-wire" points="${polygonPoints([zoneVertices[4], zoneVertices[5], zoneVertices[6], zoneVertices[7], zoneVertices[4]])}" />
+        ${renderOrientationAxisControl()}
       </svg>
       ${placements.length === 0 ? '<p class="empty-zone">No bags placed in this zone.</p>' : ''}
     </article>
@@ -448,7 +509,21 @@ function renderVisualization(vehicle, config, result) {
 function bind3dRotation() {
   if (state.activeView !== '3d') return;
   visualization.querySelectorAll('.zone-3d-svg').forEach((svg) => {
+    svg.querySelectorAll('.orientation-axis-button').forEach((button) => {
+      button.addEventListener('click', (event) => {
+        event.stopPropagation();
+        set3dOrientation(button.dataset.axis);
+      });
+      button.addEventListener('keydown', (event) => {
+        if (event.key !== 'Enter' && event.key !== ' ') return;
+        event.preventDefault();
+        event.stopPropagation();
+        set3dOrientation(button.dataset.axis);
+      });
+    });
+
     svg.addEventListener('pointerdown', (event) => {
+      if (event.target.closest('.orientation-axis-control')) return;
       event.preventDefault();
       let previous = { x: event.clientX, y: event.clientY };
       svg.classList.add('is-dragging');
@@ -458,7 +533,7 @@ function bind3dRotation() {
         const dy = moveEvent.clientY - previous.y;
         previous = { x: moveEvent.clientX, y: moveEvent.clientY };
         state.rotation3d.yaw += dx * 0.35;
-        state.rotation3d.pitch = clamp(state.rotation3d.pitch - dy * 0.25, 18, 78);
+        state.rotation3d.pitch = clamp(state.rotation3d.pitch - dy * 0.25, 0, 90);
         renderResults();
       };
       const endDrag = () => {
