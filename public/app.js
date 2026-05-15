@@ -21,7 +21,7 @@ const state = {
   configurationId: '',
   activeView: '3d',
   considerSeatBackEncroachment: false,
-  rotation3d: { yaw: -38, pitch: 58 }
+  rotation3d: { yaw: -45, pitch: 60 }
 };
 
 const $ = (selector) => document.querySelector(selector);
@@ -377,9 +377,9 @@ function renderFace(vertices, indices, fill, className, title = '') {
 }
 
 const ORIENTATION_PRESETS = {
-  x: { label: 'Rear', yaw: 90, pitch: 90 },
+  x: { label: 'Rear', yaw: 270, pitch: 90 },
   y: { label: 'Side', yaw: 0, pitch: 90 },
-  z: { label: 'Top', yaw: 0, pitch: 0 }
+  z: { label: 'Top', yaw: -90, pitch: 0 }
 };
 
 function renderOrientationAxisControl() {
@@ -479,7 +479,7 @@ function renderZone3dSvg(zone, placements) {
           <strong>${zone.label}</strong>
           <span>${dimensionsLabel(zone.dimensionsMm)} · ${zone.volumeLitres} L</span>
         </div>
-        <span>Drag to pivot around cargo centre · click X/Y/Z for rear/side/top · yaw ${Math.round(state.rotation3d.yaw)}° · pitch ${Math.round(state.rotation3d.pitch)}°</span>
+        <span>Drag to pivot around cargo centre · click X/Y/Z for axis presets · yaw ${Math.round(state.rotation3d.yaw)}° · pitch ${Math.round(state.rotation3d.pitch)}°</span>
       </div>
       <svg class="zone-3d-svg" viewBox="0 0 ${svgWidth} ${svgHeight}" role="img" aria-label="${zone.label} rotatable 3D luggage view">
         <rect x="0" y="0" width="${svgWidth}" height="${svgHeight}" rx="18" fill="#f8fafc" />
