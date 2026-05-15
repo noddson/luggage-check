@@ -20,7 +20,7 @@ const state = {
   vehicleId: '',
   configurationId: '',
   activeView: '3d',
-  considerSeatBackEncroachment: false,
+  seatBackEncroachmentAngleDegrees: DEFAULT_SEAT_BACK_ANGLE_DEGREES,
   rotation3d: { yaw: -45, pitch: 60 },
   activeOrientationLabel: ''
 };
@@ -28,7 +28,8 @@ const state = {
 const $ = (selector) => document.querySelector(selector);
 const vehicleSelect = $('#vehicleSelect');
 const configurationSelect = $('#configurationSelect');
-const seatBackEncroachmentToggle = $('#seatBackEncroachmentToggle');
+const seatBackEncroachmentDegreesInput = $('#seatBackEncroachmentDegrees');
+const seatBackEncroachmentNote = $('#seatBackEncroachmentNote');
 const luggageControls = $('#luggageControls');
 const resetLuggageButton = $('#resetLuggageButton');
 const visualization = $('#visualization');
@@ -43,8 +44,12 @@ function dimensionsLabel(dimensions) {
   return `${Math.round(dimensions.length)} × ${Math.round(dimensions.width)} × ${Math.round(dimensions.height)} mm`;
 }
 
+function defaultSeatBackAngleDegrees(zones) {
+  return zones.find((zone) => zone.seatBackEncroachment)?.seatBackEncroachment?.angleFromVerticalDegrees ?? DEFAULT_SEAT_BACK_ANGLE_DEGREES;
+}
+
 function seatBackAngleDegrees(zone) {
-  return zone.seatBackEncroachment?.angleFromVerticalDegrees ?? DEFAULT_SEAT_BACK_ANGLE_DEGREES;
+  return zone.seatBackEncroachment ? state.seatBackEncroachmentAngleDegrees : (zone.seatBackEncroachment?.angleFromVerticalDegrees ?? DEFAULT_SEAT_BACK_ANGLE_DEGREES);
 }
 
 function seatBackEncroachmentMmAtHeight(zone, heightMm) {
@@ -52,7 +57,7 @@ function seatBackEncroachmentMmAtHeight(zone, heightMm) {
 }
 
 function hasActiveSeatBackEncroachment(zones) {
-  return state.considerSeatBackEncroachment && zones.some((zone) => zone.seatBackEncroachment);
+  return zones.some((zone) => zone.seatBackEncroachment);
 }
 
 function vehicleLabel(vehicle) {
@@ -104,13 +109,31 @@ function renderVehicleMeta() {
   const config = selectedConfiguration(vehicle);
   const zones = config.cargoZoneIds.map((id) => vehicle.cargoZones.find((zone) => zone.id === id)).filter(Boolean);
   const encroachmentZones = zones.filter((zone) => zone.seatBackEncroachment);
+  renderSeatBackEncroachmentControl(zones);
   $('#vehicleMeta').innerHTML = `
     <strong>${vehicle.generation}</strong>
     <span>${vehicle.rentalClasses.join(' · ')}</span>
     <span>${zones.length} cargo zone${zones.length === 1 ? '' : 's'} active · ${config.seatsAvailable} seats available</span>
-    ${encroachmentZones.length ? `<span>Seat-back encroachment model: ${encroachmentZones.map((zone) => `${seatBackAngleDegrees(zone)}° for ${zone.label}`).join(' · ')}</span>` : ''}
+    ${encroachmentZones.length ? `<span>Seat-back encroachment defaults: ${encroachmentZones.map((zone) => `${zone.seatBackEncroachment.angleFromVerticalDegrees}° for ${zone.label}`).join(' · ')}</span>` : ''}
     ${config.notes ? `<em>${config.notes}</em>` : ''}
   `;
+}
+
+function renderSeatBackEncroachmentControl(zones) {
+  const defaultAngle = defaultSeatBackAngleDegrees(zones);
+  const hasEncroachment = hasActiveSeatBackEncroachment(zones);
+  seatBackEncroachmentDegreesInput.value = state.seatBackEncroachmentAngleDegrees;
+  seatBackEncroachmentDegreesInput.disabled = !hasEncroachment;
+  seatBackEncroachmentNote.textContent = hasEncroachment
+    ? `Sloped rear seat backs constrain upper-depth clearance. Vehicle default: ${defaultAngle}°; edit the degree angle to override it.`
+    : 'No active cargo zone defines sloped rear seat-back encroachment.';
+}
+
+function syncSeatBackEncroachmentDefault() {
+  const vehicle = selectedVehicle();
+  const config = selectedConfiguration(vehicle);
+  const zones = config.cargoZoneIds.map((id) => vehicle.cargoZones.find((zone) => zone.id === id)).filter(Boolean);
+  state.seatBackEncroachmentAngleDegrees = defaultSeatBackAngleDegrees(zones);
 }
 
 function resetLuggageQuantities() {
@@ -166,7 +189,7 @@ function projectZone(zone, view) {
 }
 
 function seatEncroachmentOverlay(zone, projection, view, padding, scale) {
-  if (view !== 'side' || !state.considerSeatBackEncroachment || !zone.seatBackEncroachment || !zone.dimensionsMm) return '';
+  if (view !== 'side' || !hasActiveSeatBackEncroachment([zone]) || !zone.dimensionsMm) return '';
 
   const floorX = padding + projection.width * scale;
   const topX = padding + Math.max(0, projection.width - seatBackEncroachmentMmAtHeight(zone, zone.dimensionsMm.height)) * scale;
@@ -325,6 +348,21 @@ function createSeatGuideVertices(zone) {
   ));
 }
 
+function createSeatEncroachmentWedgeVertices(zone) {
+  if (!hasActiveSeatBackEncroachment([zone]) || !zone.dimensionsMm) return [];
+  const dimensions = zone.dimensionsMm;
+  const topEncroachment = clamp(seatBackEncroachmentMmAtHeight(zone, dimensions.height), 0, dimensions.length);
+  const topX = dimensions.length - topEncroachment;
+  return [
+    { x: dimensions.length, y: 0, z: 0 },
+    { x: dimensions.length, y: 0, z: dimensions.height },
+    { x: topX, y: 0, z: dimensions.height },
+    { x: dimensions.length, y: dimensions.width, z: 0 },
+    { x: dimensions.length, y: dimensions.width, z: dimensions.height },
+    { x: topX, y: dimensions.width, z: dimensions.height }
+  ];
+}
+
 function current3dAngles() {
   return {
     yaw: state.rotation3d.yaw * Math.PI / 180,
@@ -447,6 +485,20 @@ function set3dOrientation(axis) {
   renderResults();
 }
 
+function renderSeatEncroachmentWedge3d(zone, project) {
+  const rawVertices = createSeatEncroachmentWedgeVertices(zone);
+  if (rawVertices.length === 0) return [];
+  const vertices = rawVertices.map(project);
+  const title = `Seat-back encroachment wedge: ${seatBackAngleDegrees(zone)}°`;
+  return [
+    renderFace(vertices, [0, 1, 2], '#fecaca', 'seat-encroachment-face', title),
+    renderFace(vertices, [3, 5, 4], '#fecaca', 'seat-encroachment-face', title),
+    renderFace(vertices, [1, 4, 5, 2], '#fee2e2', 'seat-encroachment-face', title),
+    renderFace(vertices, [0, 3, 4, 1], '#fecaca', 'seat-encroachment-face', title),
+    renderFace(vertices, [0, 2, 5, 3], '#fee2e2', 'seat-encroachment-face', title)
+  ];
+}
+
 function renderSeatGuide3d(zone, project) {
   const dimensions = zone.dimensionsMm;
   const seatDepth = Math.max(90, dimensions.length * 0.12);
@@ -474,10 +526,12 @@ function renderZone3dSvg(zone, placements) {
   const svgHeight = 440;
   const padding = 34;
   const seatGuidePoints = createSeatGuideVertices(zone);
-  const project = createProjector(zone, placements, svgWidth, svgHeight, padding, seatGuidePoints);
+  const seatEncroachmentWedgePoints = createSeatEncroachmentWedgeVertices(zone);
+  const project = createProjector(zone, placements, svgWidth, svgHeight, padding, [...seatGuidePoints, ...seatEncroachmentWedgePoints]);
   const zoneVertices = createBoxVertices({ x: 0, y: 0, z: 0 }, zone.dimensionsMm).map(project);
   const faces = [
     ...renderSeatGuide3d(zone, project),
+    ...renderSeatEncroachmentWedge3d(zone, project),
     renderFace(zoneVertices, [0, 1, 2, 3], '#dbeafe', 'zone-face zone-face--floor'),
     ...placements.flatMap((placement) => {
       const color = colorForPlacement(placement);
@@ -589,7 +643,8 @@ function renderResults() {
   const zones = config.cargoZoneIds.map((id) => vehicle.cargoZones.find((zone) => zone.id === id)).filter(Boolean);
   const luggageSet = cloneLuggageWithQuantities();
   const result = estimateFit(luggageSet, vehicle, config.id, {
-    considerSeatBackEncroachment: state.considerSeatBackEncroachment
+    considerSeatBackEncroachment: hasActiveSeatBackEncroachment(zones),
+    seatBackAngleDegrees: state.seatBackEncroachmentAngleDegrees
   });
   const percent = Math.round(result.fitScore * 100);
   const volumePercent = Math.round((result.usedVolumeLitres / Math.max(1, result.usableVolumeLitres)) * 100);
@@ -602,10 +657,7 @@ function renderResults() {
   $('#metrics').innerHTML = [
     metricCard('Fit score', `${percent}%`, `${result.placements.length}/${result.placements.length + result.unplacedItems.length} bags placed`),
     metricCard('Usable volume', `${result.usableVolumeLitres} L`, `${result.usedVolumeLitres} L used`),
-    metricCard('Seats available', config.seatsAvailable, config.notes ?? 'Based on selected cargo setup'),
-    ...(hasActiveSeatBackEncroachment(zones)
-      ? [metricCard('Seat-back model', 'On', 'Sloped rear seat backs constrain upper-depth clearance')]
-      : [])
+    metricCard('Seats available', config.seatsAvailable, config.notes ?? 'Based on selected cargo setup')
   ].join('');
   renderVisualization(vehicle, config, result);
   renderLists(result);
@@ -616,17 +668,19 @@ function bindEvents() {
   vehicleSelect.addEventListener('change', () => {
     state.vehicleId = vehicleSelect.value;
     renderConfigurationOptions();
+    syncSeatBackEncroachmentDefault();
     renderVehicleMeta();
     renderResults();
   });
   configurationSelect.addEventListener('change', () => {
     state.configurationId = configurationSelect.value;
+    syncSeatBackEncroachmentDefault();
     renderVehicleMeta();
     renderResults();
   });
-  seatBackEncroachmentToggle.addEventListener('change', () => {
-    state.considerSeatBackEncroachment = seatBackEncroachmentToggle.checked;
-    renderVehicleMeta();
+  seatBackEncroachmentDegreesInput.addEventListener('input', () => {
+    state.seatBackEncroachmentAngleDegrees = clamp(Number(seatBackEncroachmentDegreesInput.value) || 0, 0, 89);
+    seatBackEncroachmentDegreesInput.value = state.seatBackEncroachmentAngleDegrees;
     renderResults();
   });
   resetLuggageButton.addEventListener('click', resetLuggageQuantities);
@@ -648,6 +702,7 @@ async function init() {
     const initialVehicle = defaultVehicle();
     state.vehicleId = initialVehicle.id;
     state.configurationId = initialVehicle.seatConfigurations[0].id;
+    syncSeatBackEncroachmentDefault();
     renderVehicleOptions();
     renderConfigurationOptions();
     renderVehicleMeta();

@@ -10,17 +10,17 @@ const [html, css, app, luggageSet, vehicles] = await Promise.all([
   loadVehicles()
 ]);
 
-for (const marker of ['vehicleSelect', 'configurationSelect', 'seatBackEncroachmentToggle', 'luggageControls', 'resetLuggageButton', 'visualization']) {
+for (const marker of ['vehicleSelect', 'configurationSelect', 'seatBackEncroachmentDegrees', 'seatBackEncroachmentNote', 'luggageControls', 'resetLuggageButton', 'visualization']) {
   if (!html.includes(marker)) throw new Error(`App shell missing #${marker}`);
 }
-for (const marker of ['estimateFit', 'renderVisualization', 'seatEncroachmentOverlay', 'view-tab', 'orientation-axis-control', 'defaultVehicle', 'resetLuggageQuantities', "activeView: '3d'"]) {
+for (const marker of ['estimateFit', 'renderVisualization', 'seatEncroachmentOverlay', 'renderSeatEncroachmentWedge3d', 'view-tab', 'orientation-axis-control', 'defaultVehicle', 'resetLuggageQuantities', "activeView: '3d'"]) {
   if (!app.includes(marker)) throw new Error(`Browser app missing ${marker}`);
 }
 for (const marker of ['Boot View', 'Side View', 'Top View', 'activeOrientationLabel']) {
   if (!app.includes(marker)) throw new Error(`Browser app missing orientation preset label ${marker}`);
 }
 if (!css.includes('.zone-card')) throw new Error('Styles missing visualization card rules');
-if (!css.includes('.seat-encroachment-line')) throw new Error('Styles missing seat-back encroachment rules');
+if (!css.includes('.seat-encroachment-line') || !css.includes('.seat-encroachment-face')) throw new Error('Styles missing seat-back encroachment rules');
 if (!css.includes('.orientation-axis-button')) throw new Error('Styles missing 3D orientation axis controls');
 if (!css.includes('.orientation-axis-preset-label')) throw new Error('Styles missing 3D orientation preset label');
 if (!css.includes('.orientation-axis-angle-label')) throw new Error('Styles missing 3D orientation angle label');
@@ -67,8 +67,12 @@ const rectangularResult = estimateFit(encroachmentRegressionLuggage, encroachmen
 const encroachedResult = estimateFit(encroachmentRegressionLuggage, encroachmentRegressionVehicle, 'seats_up', {
   considerSeatBackEncroachment: true
 });
-if (!rectangularResult.fits || encroachedResult.fits) {
-  throw new Error('Seat-back encroachment regression failed to reject a tall case that only fits the rectangular envelope');
+const customAngleResult = estimateFit(encroachmentRegressionLuggage, encroachmentRegressionVehicle, 'seats_up', {
+  considerSeatBackEncroachment: true,
+  seatBackAngleDegrees: 10
+});
+if (!rectangularResult.fits || encroachedResult.fits || !customAngleResult.fits) {
+  throw new Error('Seat-back encroachment regression failed to apply default and overridden degree angles');
 }
 
 function placementsOverlap(a, b) {

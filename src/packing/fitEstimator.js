@@ -96,12 +96,12 @@ function fitsInSpace(orientation, space) {
     && orientation.height <= space.height;
 }
 
-function seatBackAngleDegrees(zone) {
-  return zone.seatBackEncroachment?.angleFromVerticalDegrees ?? DEFAULT_SEAT_BACK_ANGLE_DEGREES;
+function seatBackAngleDegrees(zone, options = {}) {
+  return options.seatBackAngleDegrees ?? zone.seatBackEncroachment?.angleFromVerticalDegrees ?? DEFAULT_SEAT_BACK_ANGLE_DEGREES;
 }
 
-function seatBackEncroachmentMmAtHeight(zone, heightMm) {
-  const angleDegrees = seatBackAngleDegrees(zone);
+function seatBackEncroachmentMmAtHeight(zone, heightMm, options = {}) {
+  const angleDegrees = seatBackAngleDegrees(zone, options);
   const angleRadians = angleDegrees * (Math.PI / 180);
   return heightMm * Math.tan(angleRadians);
 }
@@ -109,7 +109,7 @@ function seatBackEncroachmentMmAtHeight(zone, heightMm) {
 function fitsSeatBackEncroachment(position, orientation, zone, options) {
   if (!options.considerSeatBackEncroachment || !zone.seatBackEncroachment || !zone.dimensionsMm) return true;
   const topHeightMm = position.z + orientation.height;
-  const maxLengthAtTop = zone.dimensionsMm.length - seatBackEncroachmentMmAtHeight(zone, topHeightMm);
+  const maxLengthAtTop = zone.dimensionsMm.length - seatBackEncroachmentMmAtHeight(zone, topHeightMm, options);
   return position.x + orientation.length <= maxLengthAtTop;
 }
 
@@ -349,7 +349,7 @@ function packItems(order, zones, options = {}) {
  * @param {{ items: import('../domain/types.js').LuggageItem[] }} luggageSet
  * @param {import('../domain/types.js').VehicleConfig} vehicle
  * @param {string} seatConfigurationId
- * @param {{considerSeatBackEncroachment?: boolean}=} options
+ * @param {{considerSeatBackEncroachment?: boolean, seatBackAngleDegrees?: number}=} options
  */
 export function estimateFit(luggageSet, vehicle, seatConfigurationId = 'seats_up', options = {}) {
   const seatConfiguration = vehicle.seatConfigurations.find((candidate) => candidate.id === seatConfigurationId);
@@ -360,7 +360,7 @@ export function estimateFit(luggageSet, vehicle, seatConfigurationId = 'seats_up
   const warnings = zones.flatMap((zone) => zone.confidence === 'low' ? [`${vehicle.id}/${zone.id}: cargo dimensions are estimated; result is a planning approximation.`] : []);
   const encroachmentZones = options.considerSeatBackEncroachment ? zones.filter((zone) => zone.seatBackEncroachment) : [];
   if (encroachmentZones.length > 0) {
-    warnings.push(`${vehicle.id}: rear seat-back encroachment is enabled for ${encroachmentZones.map((zone) => `${zone.label} (${seatBackAngleDegrees(zone)}°)`).join(', ')}.`);
+    warnings.push(`${vehicle.id}: rear seat-back encroachment is enabled for ${encroachmentZones.map((zone) => `${zone.label} (${seatBackAngleDegrees(zone, options)}°)`).join(', ')}.`);
   }
   const unsupportedZones = zones.filter((zone) => !zone.dimensionsMm);
   if (unsupportedZones.length > 0) {

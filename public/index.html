@@ -41,9 +41,10 @@
             <select id="configurationSelect"></select>
           </label>
 
-          <label class="toggle-field">
-            <input id="seatBackEncroachmentToggle" type="checkbox" />
-            <span>Account for sloped rear seat-back encroachment</span>
+          <label class="field degree-field">
+            <span>Rear seat-back encroachment angle</span>
+            <input id="seatBackEncroachmentDegrees" type="number" min="0" max="89" step="1" inputmode="decimal" />
+            <small id="seatBackEncroachmentNote">Sloped rear seat backs constrain upper-depth clearance.</small>
           </label>
 
           <div id="vehicleMeta" class="vehicle-meta"></div>
