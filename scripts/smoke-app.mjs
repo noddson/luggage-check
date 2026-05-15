@@ -23,6 +23,7 @@ if (!css.includes('.zone-card')) throw new Error('Styles missing visualization c
 if (!css.includes('.seat-encroachment-line')) throw new Error('Styles missing seat-back encroachment rules');
 if (!css.includes('.orientation-axis-button')) throw new Error('Styles missing 3D orientation axis controls');
 if (!css.includes('.orientation-axis-preset-label')) throw new Error('Styles missing 3D orientation preset label');
+if (!css.includes('.orientation-axis-angle-label')) throw new Error('Styles missing 3D orientation angle label');
 if (!css.includes('.secondary-button')) throw new Error('Styles missing secondary button rules');
 
 const defaultVehicles = vehicles.filter((vehicle) => vehicle.isDefault);
