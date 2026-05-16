@@ -19,15 +19,11 @@ button, select, input { font: inherit; }
 button { cursor: pointer; }
 
 .app-shell { width: min(1440px, calc(100% - 32px)); margin: 0 auto; padding: 32px 0; }
-.hero { display: grid; grid-template-columns: minmax(0, 1fr) 340px; gap: 24px; align-items: end; margin-bottom: 24px; }
+.hero { display: grid; gap: 24px; margin-bottom: 24px; }
 .hero h1 { font-size: clamp(2.2rem, 6vw, 5.2rem); line-height: 0.94; margin: 0; letter-spacing: -0.07em; max-width: 980px; }
 .hero-copy { color: var(--muted); font-size: 1.1rem; line-height: 1.65; max-width: 760px; }
 .eyebrow { margin: 0 0 10px; text-transform: uppercase; letter-spacing: 0.16em; font-weight: 800; color: var(--brand); font-size: 0.76rem; }
-.hero-card, .panel { background: rgb(255 255 255 / 0.92); border: 1px solid rgb(219 227 239 / 0.92); box-shadow: var(--shadow); backdrop-filter: blur(14px); }
-.hero-card { border-radius: 28px; padding: 24px; display: grid; gap: 8px; }
-.hero-card__label { color: var(--muted); font-weight: 700; }
-.hero-card strong { font-size: 2.2rem; }
-.hero-card span:last-child { color: var(--muted); line-height: 1.5; }
+.panel { background: rgb(255 255 255 / 0.92); border: 1px solid rgb(219 227 239 / 0.92); box-shadow: var(--shadow); backdrop-filter: blur(14px); }
 
 .workspace { display: grid; grid-template-columns: 380px minmax(0, 1fr); gap: 24px; align-items: start; }
 .panel { border-radius: 30px; padding: 24px; }
@@ -58,8 +54,10 @@ button { cursor: pointer; }
 .fit-badge--bad { background: #ffe4e6; color: var(--bad); }
 .metrics { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 12px; margin-bottom: 18px; }
 .metric { border: 1px solid var(--line); border-radius: 20px; padding: 16px; background: #f8fafc; display: grid; gap: 5px; }
+.metric--fit-result { background: linear-gradient(180deg, #eff6ff, #f8fafc); border-color: #bfdbfe; }
 .metric span, .metric small { color: var(--muted); }
 .metric strong { font-size: 1.6rem; }
+.metric--fit-result strong { font-size: 1.9rem; }
 .view-tabs { display: flex; gap: 8px; padding: 6px; border: 1px solid var(--line); background: #f8fafc; border-radius: 18px; margin-bottom: 18px; }
 .view-tab { flex: 1; border: 0; border-radius: 13px; background: transparent; color: var(--muted); padding: 10px 12px; font-weight: 900; cursor: pointer; }
 .view-tab.active { background: var(--brand); color: white; }
@@ -118,7 +116,7 @@ button { cursor: pointer; }
 
 @media (max-width: 720px) {
   .app-shell { width: min(100% - 20px, 1440px); padding: 18px 0; }
-  .panel, .hero-card { border-radius: 22px; padding: 18px; }
+  .panel { border-radius: 22px; padding: 18px; }
   .metrics, .details-grid { grid-template-columns: 1fr; }
   .results-header, .zone-card__header { display: grid; }
   .view-tabs { display: grid; grid-template-columns: 1fr; }
