@@ -154,8 +154,9 @@ function renderLuggageControls() {
   luggageControls.querySelectorAll('input').forEach((input) => input.addEventListener('input', renderResults));
 }
 
-function metricCard(label, value, detail = '') {
-  return `<article class="metric"><span>${label}</span><strong>${value}</strong>${detail ? `<small>${detail}</small>` : ''}</article>`;
+function metricCard(label, value, detail = '', className = '') {
+  const classes = ['metric', className].filter(Boolean).join(' ');
+  return `<article class="${classes}"><span>${label}</span><strong>${value}</strong>${detail ? `<small>${detail}</small>` : ''}</article>`;
 }
 
 function colorForPlacement(placement) {
@@ -644,15 +645,16 @@ function renderResults() {
   const percent = Math.round(result.fitScore * 100);
   const volumePercent = Math.round((result.usedVolumeLitres / Math.max(1, result.usableVolumeLitres)) * 100);
 
-  $('#heroResult').textContent = result.fits ? 'Fits' : 'Does not fully fit';
-  $('#heroDetail').textContent = `${result.placements.length} placed · ${result.unplacedItems.length} unplaced · ${volumePercent}% usable volume used`;
+  const fitResultLabel = result.fits ? 'Fits' : 'Does not fully fit';
+  const fitResultDetail = `${result.placements.length} placed · ${result.unplacedItems.length} unplaced · ${volumePercent}% usable volume used`;
+
   $('#resultTitle').textContent = `${vehicle.make} ${vehicle.model} · ${config.label}`;
   $('#fitBadge').className = `fit-badge ${result.fits ? 'fit-badge--ok' : 'fit-badge--bad'}`;
   $('#fitBadge').textContent = result.fits ? 'All bags fit' : 'Some bags unplaced';
   $('#metrics').innerHTML = [
     metricCard('Fit score', `${percent}%`, `${result.placements.length}/${result.placements.length + result.unplacedItems.length} bags placed`),
     metricCard('Usable volume', `${result.usableVolumeLitres} L`, `${result.usedVolumeLitres} L used`),
-    metricCard('Seats available', config.seatsAvailable, config.notes ?? 'Based on selected cargo setup')
+    metricCard('Fit result', fitResultLabel, fitResultDetail, 'metric--fit-result')
   ].join('');
   renderVisualization(vehicle, config, result);
   renderLists(result);
@@ -705,8 +707,7 @@ async function init() {
     bindEvents();
     renderResults();
   } catch (error) {
-    $('#heroResult').textContent = 'Unable to load app';
-    $('#heroDetail').textContent = error.message;
+    $('#metrics').innerHTML = metricCard('Fit result', 'Unable to load app', error.message, 'metric--fit-result');
     console.error(error);
   }
 }
