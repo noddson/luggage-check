@@ -645,8 +645,8 @@ function renderResults() {
   const percent = Math.round(result.fitScore * 100);
   const volumePercent = Math.round((result.usedVolumeLitres / Math.max(1, result.usableVolumeLitres)) * 100);
 
-  const fitResultLabel = result.fits ? 'Fits' : 'Does not fully fit';
-  const fitResultDetail = `${result.placements.length} placed · ${result.unplacedItems.length} unplaced · ${volumePercent}% usable volume used`;
+  const fitResultLabel = `${result.placements.length} placed · ${result.unplacedItems.length} unplaced`;
+  const fitResultDetail = `${volumePercent}% usable volume used`;
 
   $('#resultTitle').textContent = `${vehicle.make} ${vehicle.model} · ${config.label}`;
   $('#fitBadge').className = `fit-badge ${result.fits ? 'fit-badge--ok' : 'fit-badge--bad'}`;
