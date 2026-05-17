@@ -1,0 +1,241 @@
+{
+  "id": "hyundai-ioniq-9-2026",
+  "make": "Hyundai",
+  "model": "IONIQ 9",
+  "generation": "First generation / ME1",
+  "modelYears": [
+    "2026"
+  ],
+  "bodyStyle": "5-door all-electric three-row midsize SUV",
+  "rentalClasses": [
+    "large electric SUV",
+    "full-size electric SUV",
+    "three-row electric SUV",
+    "premium electric SUV"
+  ],
+  "commonRentalAliases": [
+    "Hyundai IONIQ 9 or similar",
+    "Hyundai Ioniq 9 or similar",
+    "Large electric SUV or similar",
+    "Full-size electric SUV or similar",
+    "Premium electric SUV or similar"
+  ],
+  "cargoZones": [
+    {
+      "id": "behind_third_row",
+      "label": "Cargo area behind third row",
+      "volumeLitres": 620,
+      "dimensionsMm": {
+        "length": 545,
+        "width": 1215,
+        "height": 935
+      },
+      "openingMm": {
+        "width": 1100,
+        "height": 790
+      },
+      "usableFraction": 0.8,
+      "confidence": "low",
+      "notes": "Hyundai USA publishes 21.9 cu ft of luggage capacity behind the third row. Rectangular planning dimensions are estimates for luggage fitting and should be treated as approximate because Hyundai publishes volume, not detailed cargo-box measurements; the rounded rear opening may be more limiting for rigid luggage.",
+      "seatBackEncroachment": {
+        "angleFromVerticalDegrees": 12,
+        "notes": "Third-row seatbacks are close to upright but still reduce the upper cargo envelope."
+      }
+    },
+    {
+      "id": "behind_second_row",
+      "label": "Cargo area with third row folded",
+      "volumeLitres": 1323,
+      "dimensionsMm": {
+        "length": 1145,
+        "width": 1215,
+        "height": 950
+      },
+      "openingMm": {
+        "width": 1100,
+        "height": 790
+      },
+      "usableFraction": 0.77,
+      "confidence": "low",
+      "notes": "Hyundai USA publishes 46.7 cu ft of luggage capacity behind the second row. Planning dimensions approximate the long, flat E-GMP load floor with allowances for wheel-arch, trim, and seatback intrusions.",
+      "seatBackEncroachment": {
+        "angleFromVerticalDegrees": 16,
+        "notes": "Second-row seatback rake and fore/aft adjustment vary by six- or seven-passenger seating configuration."
+      }
+    },
+    {
+      "id": "behind_first_row",
+      "label": "Maximum cargo area with second and third rows folded",
+      "volumeLitres": 2461,
+      "dimensionsMm": {
+        "length": 2090,
+        "width": 1215,
+        "height": 970
+      },
+      "openingMm": {
+        "width": 1100,
+        "height": 790
+      },
+      "usableFraction": 0.71,
+      "confidence": "low",
+      "notes": "Hyundai USA publishes 86.9 cu ft of luggage capacity behind the first row. This planning envelope assumes both rear rows are folded and discounts uneven folded-seat surfaces, rounded bodywork, and trim intrusions."
+    },
+    {
+      "id": "front_trunk_rwd",
+      "label": "Front trunk / charge-cable storage (RWD trims)",
+      "volumeLitres": 88,
+      "dimensionsMm": {
+        "length": 510,
+        "width": 430,
+        "height": 400
+      },
+      "usableFraction": 0.62,
+      "confidence": "low",
+      "notes": "Global Hyundai specifications list 88 litres of front-trunk storage on rear-wheel-drive models; all-wheel-drive models are listed at 52 litres. Best for charge cables or small soft bags."
+    },
+    {
+      "id": "second_row_footwell_overflow",
+      "label": "Second-row footwell overflow",
+      "volumeLitres": 155,
+      "dimensionsMm": {
+        "length": 740,
+        "width": 1260,
+        "height": 220
+      },
+      "usableFraction": 0.5,
+      "confidence": "low",
+      "notes": "Generic overflow area for soft bags when second-row passenger space is partially sacrificed; not a manufacturer cargo specification."
+    }
+  ],
+  "seatConfigurations": [
+    {
+      "id": "seats_up",
+      "label": "All rows up",
+      "cargoZoneIds": [
+        "behind_third_row",
+        "front_trunk_rwd"
+      ],
+      "seatsAvailable": 6,
+      "notes": "IONIQ 9 is offered in North America with six- or seven-passenger seating depending on trim; this conservative default assumes a six-passenger captain's-chair layout."
+    },
+    {
+      "id": "seven_passenger_seats_up",
+      "label": "All rows up, seven-passenger bench model",
+      "cargoZoneIds": [
+        "behind_third_row",
+        "front_trunk_rwd"
+      ],
+      "seatsAvailable": 7,
+      "notes": "For trims equipped with a second-row bench."
+    },
+    {
+      "id": "third_row_folded",
+      "label": "Third row folded",
+      "cargoZoneIds": [
+        "behind_second_row",
+        "front_trunk_rwd"
+      ],
+      "seatsAvailable": 4,
+      "notes": "Six-passenger layout with third row folded; use seven_passenger_third_row_folded for bench-equipped trims."
+    },
+    {
+      "id": "seven_passenger_third_row_folded",
+      "label": "Third row folded, seven-passenger bench model",
+      "cargoZoneIds": [
+        "behind_second_row",
+        "front_trunk_rwd"
+      ],
+      "seatsAvailable": 5,
+      "notes": "Second-row bench remains available while the third row is folded."
+    },
+    {
+      "id": "rear_rows_folded",
+      "label": "Second and third rows folded",
+      "cargoZoneIds": [
+        "behind_first_row",
+        "front_trunk_rwd"
+      ],
+      "seatsAvailable": 2,
+      "notes": "Maximum cargo mode for two occupants."
+    },
+    {
+      "id": "seats_up_with_footwell",
+      "label": "All rows up with second-row footwell overflow",
+      "cargoZoneIds": [
+        "behind_third_row",
+        "front_trunk_rwd",
+        "second_row_footwell_overflow"
+      ],
+      "seatsAvailable": 5,
+      "notes": "Assumes one second-row seating position or footwell is used for soft luggage."
+    }
+  ],
+  "sources": [
+    {
+      "sourceType": "manufacturer",
+      "publisher": "Hyundai Motor America",
+      "title": "2026 IONIQ 9 Overview | Three-Row Electric SUV",
+      "url": "https://www.hyundaiusa.com/us/en/vehicles/ioniq-9",
+      "retrievedAt": "2026-05-17",
+      "fieldsCovered": [
+        "North American IONIQ 9 model context",
+        "cargo volume behind first row",
+        "cargo volume behind second row",
+        "cargo volume behind third row",
+        "six- and seven-passenger seating context"
+      ],
+      "confidence": "high"
+    },
+    {
+      "sourceType": "manufacturer",
+      "publisher": "Hyundai Motor Company",
+      "title": "Hyundai IONIQ 9: Game-changing Electric SUV Offers Long Range and Next-level Comfort, Features and Capabilities",
+      "url": "https://www.hyundai.com/worldwide/en/newsroom/detail/hyundai-ioniq-9-game-changing-electric-suv-offers-long-range-and-next-level-comfort%25252C-features-and-capabilities-0000000912",
+      "retrievedAt": "2026-05-17",
+      "fieldsCovered": [
+        "all-electric three-row SUV context",
+        "exterior dimensions context",
+        "EPA range context"
+      ],
+      "confidence": "high"
+    },
+    {
+      "sourceType": "manufacturer",
+      "publisher": "Hyundai Motor Company Middle East",
+      "title": "IONIQ 9 brochure",
+      "url": "https://www.hyundai.com/content/dam/hyundai/middle-east/en/data/marketing/brochure/product/ioniq9/IONIQ-9_ME1_ENG.pdf",
+      "retrievedAt": "2026-05-17",
+      "fieldsCovered": [
+        "front-trunk capacity cross-check",
+        "luggage capacity cross-check",
+        "six- and seven-passenger seating context"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "sourceType": "editorial",
+      "publisher": "Car and Driver",
+      "title": "2026 Hyundai Ioniq 9 Features and Specs",
+      "url": "https://www.caranddriver.com/hyundai/ioniq-9/specs/2026/hyundai_ioniq-9_hyundai-ioniq-9_2026",
+      "retrievedAt": "2026-05-17",
+      "fieldsCovered": [
+        "cargo-area volume cross-check",
+        "exterior dimensions context",
+        "passenger capacity context"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "sourceType": "rental-company",
+      "publisher": "Hertz",
+      "title": "Electric Vehicles",
+      "url": "https://www.hertz.com/us/en/vehicles/electric-vehicles",
+      "retrievedAt": "2026-05-17",
+      "fieldsCovered": [
+        "North American electric-vehicle rental context",
+        "EV rental class context"
+      ],
+      "confidence": "medium"
+    }
+  ]
+}
