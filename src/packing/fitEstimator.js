@@ -7,6 +7,7 @@ const DEFAULT_SUPPORT_POLICY = {
 };
 const DEFAULT_MAX_PACKING_BRANCHES = 8;
 const DEFAULT_MAX_PACKING_STATES = 1500;
+const DEFAULT_MAX_PLANNING_SURPLUS_PER_SOURCE = 3;
 
 function permutations(dimensions) {
   const { length, width, height } = dimensions;
@@ -571,6 +572,7 @@ function comparePackingScores(a, b) {
 function unplacedItem(item) {
   return {
     itemId: item.id,
+    sourceId: item.sourceId,
     label: item.label,
     dimensionsMm: item.dimensionsMm,
     volumeLitres: Number(volumeLitres(item.dimensionsMm).toFixed(1))
@@ -665,6 +667,127 @@ function packItems(order, zones, options = {}) {
   return bestResult;
 }
 
+function bestPackingForItems(expandedItems, zones, options = {}) {
+  let bestResult = { placements: [], unplacedItems: expandedItems.map((item) => unplacedItem(item)) };
+  let bestScore = packingScore(bestResult, zones, options);
+
+  for (const order of itemOrders(expandedItems)) {
+    const result = packItems(order, zones, options);
+    const score = packingScore(result, zones, options);
+    if (comparePackingScores(score, bestScore) < 0) {
+      bestResult = result;
+      bestScore = score;
+    }
+  }
+
+  return bestResult;
+}
+
+function itemsBySource(items) {
+  return items.reduce((groups, item) => {
+    if (!groups.has(item.sourceId)) groups.set(item.sourceId, []);
+    groups.get(item.sourceId).push(item);
+    return groups;
+  }, new Map());
+}
+
+function placementRemovalOrder(a, b) {
+  return (b.positionMm.z + b.orientationMm.height) - (a.positionMm.z + a.orientationMm.height)
+    || b.positionMm.z - a.positionMm.z
+    || b.positionMm.y - a.positionMm.y
+    || b.positionMm.x - a.positionMm.x;
+}
+
+function normalizeResultToActualItems(result, actualItems) {
+  const actualGroups = itemsBySource(actualItems);
+  const keepBySource = new Map();
+
+  for (const [sourceId, sourceItems] of actualGroups.entries()) {
+    const sourcePlacements = result.placements
+      .map((placement, index) => ({ ...placement, index }))
+      .filter((placement) => placement.sourceId === sourceId);
+    const removedIndexes = new Set([...sourcePlacements]
+      .sort(placementRemovalOrder)
+      .slice(sourceItems.length)
+      .map((placement) => placement.index));
+    keepBySource.set(sourceId, sourcePlacements.filter((placement) => !removedIndexes.has(placement.index)));
+  }
+
+  const assignedBySource = new Map([...actualGroups].map(([sourceId]) => [sourceId, 0]));
+  const placements = result.placements.flatMap((placement, index) => {
+    const sourcePlacements = keepBySource.get(placement.sourceId) ?? [];
+    if (!sourcePlacements.some((candidate) => candidate.index === index)) return [];
+
+    const sourceItems = actualGroups.get(placement.sourceId) ?? [];
+    const assignmentIndex = assignedBySource.get(placement.sourceId) ?? 0;
+    const actualItem = sourceItems[assignmentIndex];
+    if (!actualItem) return [];
+    assignedBySource.set(placement.sourceId, assignmentIndex + 1);
+
+    return [{
+      ...placement,
+      itemId: actualItem.id,
+      label: actualItem.label
+    }];
+  });
+
+  const placedIds = new Set(placements.map((placement) => placement.itemId));
+  return {
+    placements,
+    unplacedItems: actualItems.filter((item) => !placedIds.has(item.id)).map((item) => unplacedItem(item))
+  };
+}
+
+function hasStablePlacementSupport(result, options = {}) {
+  return result.placements.every((placement) => {
+    const supportingPlacements = result.placements.filter((candidate) => candidate !== placement);
+    return hasSufficientSupport(placement.positionMm, placement.orientationMm, supportingPlacements, options);
+  });
+}
+
+// Repeated identical bags can expose better layer patterns when the bounded search sees one
+// extra future item. Use temporary surplus copies as planning-only probes, then normalize
+// the winning geometry back to the actual selected luggage count.
+function planningSurplusItems(expandedItems, bestResult, options = {}) {
+  const maxSurplusPerSource = options.maxPlanningSurplusPerSource ?? DEFAULT_MAX_PLANNING_SURPLUS_PER_SOURCE;
+  if (maxSurplusPerSource <= 0) return [];
+
+  const groups = itemsBySource(expandedItems);
+  const unplacedSources = new Set(bestResult.unplacedItems.map((item) => item.sourceId));
+  return [...groups.entries()].flatMap(([sourceId, sourceItems]) => {
+    if (sourceItems.length < 2 || !unplacedSources.has(sourceId)) return [];
+    const template = sourceItems[0];
+    return Array.from({ length: maxSurplusPerSource }, (_, index) => ({
+      ...cloneItem(template),
+      id: `${sourceId}#planning-surplus-${index + 1}`,
+      label: `${template.label} planning surplus ${index + 1}`
+    }));
+  });
+}
+
+function improvePackingWithPlanningSurplus(bestResult, expandedItems, zones, options = {}) {
+  if (bestResult.unplacedItems.length === 0) return bestResult;
+  const surplusItems = planningSurplusItems(expandedItems, bestResult, options);
+  if (surplusItems.length === 0) return bestResult;
+
+  let improvedResult = bestResult;
+  let improvedScore = packingScore(bestResult, zones, options);
+
+  for (let surplusCount = 1; surplusCount <= surplusItems.length; surplusCount += 1) {
+    const surplusResult = bestPackingForItems([...expandedItems, ...surplusItems.slice(0, surplusCount)], zones, options);
+    const normalizedResult = normalizeResultToActualItems(surplusResult, expandedItems);
+    if (!hasStablePlacementSupport(normalizedResult, options)) continue;
+    const normalizedScore = packingScore(normalizedResult, zones, options);
+    if (comparePackingScores(normalizedScore, improvedScore) < 0) {
+      improvedResult = normalizedResult;
+      improvedScore = normalizedScore;
+    }
+    if (improvedResult.unplacedItems.length === 0) break;
+  }
+
+  return improvedResult;
+}
+
 /**
  * Multi-pass 3D fit estimator. Each estimate rebuilds the full packing plan from the currently selected
  * luggage set, tries every valid axis rotation for each bag, and compares several deterministic item orderings so
@@ -673,7 +796,7 @@ function packItems(order, zones, options = {}) {
  * @param {{ items: import('../domain/types.js').LuggageItem[] }} luggageSet
  * @param {import('../domain/types.js').VehicleConfig} vehicle
  * @param {string} seatConfigurationId
- * @param {{considerSeatBackEncroachment?: boolean, seatBackAngleDegrees?: number, supportPolicy?: {mergeAdjacentCoplanarSpaces?: boolean, minimumSupportedFootprintRatio?: number}, maxPackingBranches?: number, maxPackingStates?: number}=} options
+ * @param {{considerSeatBackEncroachment?: boolean, seatBackAngleDegrees?: number, supportPolicy?: {mergeAdjacentCoplanarSpaces?: boolean, minimumSupportedFootprintRatio?: number}, maxPackingBranches?: number, maxPackingStates?: number, maxPlanningSurplusPerSource?: number}=} options
  */
 export function estimateFit(luggageSet, vehicle, seatConfigurationId = 'seats_up', options = {}) {
   const seatConfiguration = vehicle.seatConfigurations.find((candidate) => candidate.id === seatConfigurationId);
@@ -691,22 +814,12 @@ export function estimateFit(luggageSet, vehicle, seatConfigurationId = 'seats_up
     warnings.push(`${vehicle.id}: ${unsupportedZones.map((zone) => zone.label).join(', ')} missing rectangular dimensions and were skipped by the stacking estimator.`);
   }
 
-  let bestResult = { placements: [], unplacedItems: expandedItems.map((item) => ({
-    itemId: item.id,
-    label: item.label,
-    dimensionsMm: item.dimensionsMm,
-    volumeLitres: Number(volumeLitres(item.dimensionsMm).toFixed(1))
-  })) };
-  let bestScore = packingScore(bestResult, zones, options);
-
-  for (const order of itemOrders(expandedItems)) {
-    const result = packItems(order, zones, options);
-    const score = packingScore(result, zones, options);
-    if (comparePackingScores(score, bestScore) < 0) {
-      bestResult = result;
-      bestScore = score;
-    }
-  }
+  const bestResult = improvePackingWithPlanningSurplus(
+    bestPackingForItems(expandedItems, zones, options),
+    expandedItems,
+    zones,
+    options
+  );
 
   const totalItemVolume = bestResult.placements.reduce((sum, placement) => sum + placement.volumeLitres, 0);
   const totalUsableVolume = zones.reduce((sum, zone) => sum + usableZoneVolumeLitres(zone, options), 0);
