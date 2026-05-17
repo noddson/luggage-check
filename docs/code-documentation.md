@@ -322,11 +322,23 @@ This is an estimator, not an exact bin-packing solver. It uses rectangular envel
 
 **Testing:** Use `rotationAllowed: false` and assert only the original orientation is considered. Use a zone smaller than the item and assert no orientations.
 
-#### `initialZoneState(zone)`
+#### `seatBackEncroachmentPrismVolumeLitres(zone, options)` and `usableZoneVolumeLitres(zone, options)`
+
+**Purpose:** Convert an enabled seat-back angle into the triangular-prism cargo volume lost to the sloped seat-back envelope, then subtract that prism from the zone's fractional usable volume.
+
+**Input:** Cargo zone plus estimator options. The prism is only subtracted when `options.considerSeatBackEncroachment` is true and the zone defines both `seatBackEncroachment` and rectangular `dimensionsMm`.
+
+**Output:** Litres. The prism uses the zone width, height, and top-depth encroachment (`height * tan(angle)`) capped to the zone length; usable zone volume is clamped to zero.
+
+**Errors:** No explicit errors. Malformed dimensions or angles can produce invalid volume math and should be prevented by schema/config validation.
+
+**Testing:** The smoke script asserts that a 600 L synthetic zone with 800 × 500 × 700 mm dimensions and a 30° enabled encroachment reports 529.3 L usable volume.
+
+#### `initialZoneState(zone, options)`
 
 **Purpose:** Initialize mutable packing state for a cargo zone.
 
-**Input:** `CargoZone`.
+**Input:** `CargoZone` and estimator options.
 
 **Output:**
 
@@ -339,11 +351,11 @@ This is an estimator, not an exact bin-packing solver. It uses rectangular envel
 }
 ```
 
-`remainingLitres` is `zone.volumeLitres * (zone.usableFraction ?? 0.75)`.
+`remainingLitres` is `usableZoneVolumeLitres(zone, options)`, which starts with `zone.volumeLitres * (zone.usableFraction ?? 0.75)` and subtracts the enabled seat-back triangular-prism encroachment volume when defined.
 
 **Errors:** No explicit errors. Missing dimensions create an initial zero-sized space, but callers filter out dimensionless zones before initialization.
 
-**Testing:** A 500 L zone with `usableFraction: 0.8` should initialize to 400 L remaining.
+**Testing:** A 500 L zone with `usableFraction: 0.8` should initialize to 400 L remaining when encroachment is not enabled; an enabled encroachment fixture should initialize lower by the triangular-prism volume.
 
 #### `effectiveSupportPolicy(options)`, `mergeAdjacentCoplanarSpaces(spaces)`, and `normalizeSpaces(spaces, options)`
 
@@ -581,7 +593,7 @@ function estimateFit(
 - `luggageSet.items`: quantity-bearing luggage definitions. Quantities may be zero in UI-generated clones.
 - `vehicle`: vehicle config with cargo zones and seat configurations.
 - `seatConfigurationId`: id from `vehicle.seatConfigurations`; defaults to `seats_up`.
-- `options.considerSeatBackEncroachment`: when true, zones with `seatBackEncroachment` reject placements that exceed the sloped depth envelope. `options.seatBackAngleDegrees` can override the vehicle-defined default angle.
+- `options.considerSeatBackEncroachment`: when true, zones with `seatBackEncroachment` reject placements that exceed the sloped depth envelope and subtract the sloped triangular-prism volume from usable volume. `options.seatBackAngleDegrees` can override the vehicle-defined default angle.
 - `options.supportPolicy.mergeAdjacentCoplanarSpaces`: when true, the estimator treats adjacent same-height free spaces as one support surface for future placements. This is enabled by default to support bridging across aligned luggage stacks and irregular cargo-floor subdivisions.
 
 **Output:** A `FitEstimate` object with placement coordinates, fit status, volume usage, unplaced item records, and warnings.

@@ -73,10 +73,24 @@ function orientationsForZone(item, zone) {
   );
 }
 
-function initialZoneState(zone) {
+function seatBackEncroachmentPrismVolumeLitres(zone, options = {}) {
+  if (!options.considerSeatBackEncroachment || !zone.seatBackEncroachment || !zone.dimensionsMm) return 0;
+  const encroachmentDepthMm = Math.min(
+    zone.dimensionsMm.length,
+    seatBackEncroachmentMmAtHeight(zone, zone.dimensionsMm.height, options)
+  );
+  return (encroachmentDepthMm * zone.dimensionsMm.width * zone.dimensionsMm.height) / (2 * MM3_PER_LITRE);
+}
+
+function usableZoneVolumeLitres(zone, options = {}) {
+  const rectangularUsableVolumeLitres = zone.volumeLitres * (zone.usableFraction ?? 0.75);
+  return Math.max(0, rectangularUsableVolumeLitres - seatBackEncroachmentPrismVolumeLitres(zone, options));
+}
+
+function initialZoneState(zone, options = {}) {
   return {
     zone,
-    remainingLitres: zone.volumeLitres * (zone.usableFraction ?? 0.75),
+    remainingLitres: usableZoneVolumeLitres(zone, options),
     spaces: [{
       x: 0,
       y: 0,
@@ -434,10 +448,10 @@ function itemOrders(items) {
   return orderings.map((comparator) => items.map(cloneItem).sort(comparator));
 }
 
-function packingScore(result, zones) {
+function packingScore(result, zones, options = {}) {
   const zoneCount = new Set(result.placements.map((placement) => placement.zoneId)).size;
   const usedVolume = result.placements.reduce((sum, placement) => sum + placement.volumeLitres, 0);
-  const totalUsableVolume = zones.reduce((sum, zone) => sum + (zone.volumeLitres * (zone.usableFraction ?? 0.75)), 0);
+  const totalUsableVolume = zones.reduce((sum, zone) => sum + usableZoneVolumeLitres(zone, options), 0);
   const heightUsed = result.placements.reduce((max, placement) => Math.max(max, placement.positionMm.z + placement.orientationMm.height), 0);
   return [
     -result.unplacedItems.length,
@@ -456,7 +470,7 @@ function comparePackingScores(a, b) {
 }
 
 function packItems(order, zones, options = {}) {
-  const zoneStates = zones.filter((zone) => zone.dimensionsMm).map(initialZoneState);
+  const zoneStates = zones.filter((zone) => zone.dimensionsMm).map((zone) => initialZoneState(zone, options));
   const unplacedItems = [];
 
   for (const [itemIndex, item] of order.entries()) {
@@ -511,11 +525,11 @@ export function estimateFit(luggageSet, vehicle, seatConfigurationId = 'seats_up
     dimensionsMm: item.dimensionsMm,
     volumeLitres: Number(volumeLitres(item.dimensionsMm).toFixed(1))
   })) };
-  let bestScore = packingScore(bestResult, zones);
+  let bestScore = packingScore(bestResult, zones, options);
 
   for (const order of itemOrders(expandedItems)) {
     const result = packItems(order, zones, options);
-    const score = packingScore(result, zones);
+    const score = packingScore(result, zones, options);
     if (comparePackingScores(score, bestScore) < 0) {
       bestResult = result;
       bestScore = score;
@@ -523,7 +537,7 @@ export function estimateFit(luggageSet, vehicle, seatConfigurationId = 'seats_up
   }
 
   const totalItemVolume = bestResult.placements.reduce((sum, placement) => sum + placement.volumeLitres, 0);
-  const totalUsableVolume = zones.reduce((sum, zone) => sum + (zone.volumeLitres * (zone.usableFraction ?? 0.75)), 0);
+  const totalUsableVolume = zones.reduce((sum, zone) => sum + usableZoneVolumeLitres(zone, options), 0);
   const fitScore = bestResult.placements.length / Math.max(1, bestResult.placements.length + bestResult.unplacedItems.length);
 
   return {

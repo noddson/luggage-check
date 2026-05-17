@@ -77,6 +77,9 @@ const customAngleResult = estimateFit(encroachmentRegressionLuggage, encroachmen
 if (!rectangularResult.fits || encroachedResult.fits || !customAngleResult.fits) {
   throw new Error('Seat-back encroachment regression failed to apply default and overridden degree angles');
 }
+if (rectangularResult.usableVolumeLitres !== 600 || encroachedResult.usableVolumeLitres !== 529.3 || customAngleResult.usableVolumeLitres !== 578.4) {
+  throw new Error(`Seat-back encroachment usable volume regression failed: ${rectangularResult.usableVolumeLitres}/${encroachedResult.usableVolumeLitres}/${customAngleResult.usableVolumeLitres}`);
+}
 
 const traficBridgeRegressionLuggage = {
   items: [
