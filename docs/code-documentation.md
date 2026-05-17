@@ -226,7 +226,8 @@ This is the computational core. It is intentionally deterministic: the same lugg
 - `MM3_PER_LITRE = 1_000_000`: unit conversion from cubic millimetres to litres.
 - `MIN_SPACE_MM = 1`: removes zero/negative/tiny candidate free spaces after splitting.
 - `DEFAULT_SEAT_BACK_ANGLE_DEGREES = 20`: fallback slope used when a zone declares seat-back encroachment without an explicit angle.
-- `DEFAULT_SUPPORT_POLICY`: controls generalized support behavior. By default, adjacent coplanar free spaces are merged so luggage can bridge across same-height supporting surfaces.
+- `DEFAULT_SUPPORT_POLICY`: controls generalized support behavior. By default, adjacent coplanar free spaces are merged and stacked luggage may overhang open space by up to 25% of its footprint (`minimumSupportedFootprintRatio: 0.75`).
+- `DEFAULT_MAX_PACKING_BRANCHES` and `DEFAULT_MAX_PACKING_STATES`: bound the deterministic search so the estimator can explore alternate rotations/offsets without becoming an unbounded bin-packing solver.
 
 ### Overall algorithm
 
@@ -235,10 +236,11 @@ This is the computational core. It is intentionally deterministic: the same lugg
 3. Expand each luggage item by quantity into individual item instances.
 4. Apply a small effective-dimension reduction to compressible, non-box luggage.
 5. Generate several deterministic item orderings.
-6. For each ordering, greedily place items into the best scored free space across all active zones. Candidate scoring includes a one-step residual-capacity lookahead so rotations that preserve room for later same-type bags can beat locally flatter placements.
-7. Normalize free spaces after every placement, including optional merging of adjacent coplanar spaces. This lets a bag use a continuous platform made by several same-height items or cargo-floor regions instead of being restricted to a single earlier item's footprint.
-8. Compare packing passes by number of unplaced items, number placed, volume used, number of zones used, and height used.
-9. Return the best result with placements, unplaced items, volume metrics, and warnings.
+6. For each ordering, build a greedy baseline, then run a bounded branch search over the best-scored candidate placements. This lets the estimator reconsider early rotations and offsets that affect the final item count.
+7. Generate multiple deterministic X/Y anchors inside each free space, including origin, far edge, and centered positions.
+8. Normalize free spaces after every placement, including optional merging of adjacent coplanar spaces and a full-envelope layer at each new stack height. Stacked candidates are then validated by a support-coverage rule instead of being restricted to a single lower item's exact footprint.
+9. Compare packing passes by number of unplaced items, number placed, volume used, number of zones used, and height used.
+10. Return the best result with placements, unplaced items, volume metrics, and warnings.
 
 This is an estimator, not an exact bin-packing solver. It uses rectangular envelopes and a deterministic heuristic, so it should be treated as planning guidance rather than a physical guarantee.
 
@@ -359,7 +361,7 @@ This is an estimator, not an exact bin-packing solver. It uses rectangular envel
 
 #### `effectiveSupportPolicy(options)`, `mergeAdjacentCoplanarSpaces(spaces)`, and `normalizeSpaces(spaces, options)`
 
-**Purpose:** Define and apply the estimator's support/stacking policy for free-space management. The default support policy merges adjacent free cuboids that share the same `z`, height, and aligned X/Y extent. This is a generalized vehicle-agnostic rule: a continuous same-height support surface can be created by the cargo floor, by multiple rigid bags, or by previously placed soft bags.
+**Purpose:** Define and apply the estimator's support/stacking policy for free-space management and stacked-luggage stability. The default support policy merges adjacent free cuboids that share the same `z`, height, and aligned X/Y extent, and requires at least 75% of a stacked item's bottom footprint to be supported by items directly below it.
 
 **Input:** Candidate free spaces plus optional `options.supportPolicy`.
 
@@ -368,10 +370,11 @@ This is an estimator, not an exact bin-packing solver. It uses rectangular envel
 **Rules:**
 
 - `mergeAdjacentCoplanarSpaces: true` allows placements to bridge across adjacent coplanar spaces.
-- Set `options.supportPolicy.mergeAdjacentCoplanarSpaces` to `false` to retain the older footprint-only behavior.
+- `minimumSupportedFootprintRatio: 0.75` allows practical stacking with up to 25% footprint overhang over open space. Use `1` for strict full-footprint support.
+- Floor placements (`z === 0`) are always supported; stacked placements are supported only by top faces whose height exactly matches the candidate bottom height.
 - The policy remains geometric only: it does not model weight limits, sag, friction, handles, or whether a soft bag is physically stable as a support.
 
-**Testing:** The smoke script includes a Renault Trafic regression where six carry-ons form a same-height platform and five soft backpacks fit only when adjacent coplanar support is available.
+**Testing:** The smoke script includes a Renault Trafic regression where six carry-ons form a same-height platform and five soft backpacks fit only when adjacent coplanar support is available, plus a Caddy Maxi Life regression where two upper carry-ons fit with less than 25% unsupported footprint overhang.
 
 #### `spaceVolume(space)` and `fitsInSpace(orientation, space)`
 
@@ -425,27 +428,27 @@ This is an estimator, not an exact bin-packing solver. It uses rectangular envel
 
 **Testing:** Use repeated same-size luggage and assert that a rotation preserving a larger repeated-item grid is preferred over a locally flatter orientation when it increases placed count.
 
-#### `candidatePosition(space)`
+#### `candidatePositions(space, orientation)` and `fitsAtPositionInSpace(position, orientation, space)`
 
-**Purpose:** Choose the origin for a placement candidate inside a free space.
+**Purpose:** Generate and validate deterministic candidate offsets inside a free space instead of only trying the free-space origin.
 
-**Input:** Free space.
+**Input:** Free space plus item orientation.
 
-**Output:** `{ x, y, z }` equal to the free space origin.
+**Output:** Unique `{ x, y, z }` anchors using near edge, far edge, and centered X/Y positions, plus a boolean bounds check for a specific position.
 
 **Errors:** No explicit errors.
 
-**Testing:** Direct input/output equality test.
+**Testing:** Use a space wider than an item and assert origin, far-edge, and centered positions are generated without duplicates.
 
-#### `boxesOverlap(aPosition, aSize, bPosition, bSize)` and `collidesWithPlacement(position, orientation, placements)`
+#### `boxesOverlap(aPosition, aSize, bPosition, bSize)`, `collidesWithPlacement(position, orientation, placements)`, `rectangleIntersectionArea(...)`, `supportedFootprintRatio(...)`, and `hasSufficientSupport(...)`
 
-**Purpose:** Detect strict 3D overlap between rectangular placements.
+**Purpose:** Detect strict 3D overlap between rectangular placements and validate whether stacked placements have enough directly supported bottom-footprint area.
 
 **Inputs:** Positions and sizes, or a candidate and existing placements.
 
 **Output:** Boolean.
 
-**Rules:** Touching faces are not considered overlap because strict `<`/`>` comparisons are used.
+**Rules:** Touching faces are not considered overlap because strict `<`/`>` comparisons are used. Floor-level placements are fully supported; stacked placements must meet `supportPolicy.minimumSupportedFootprintRatio` using 2D intersections with same-height top faces below.
 
 **Errors:** No explicit errors.
 
@@ -470,13 +473,13 @@ This is an estimator, not an exact bin-packing solver. It uses rectangular envel
 
 **Testing:** Feed duplicate/contained/zero-sized spaces and assert only useful spaces remain in expected order.
 
-#### `splitSpace(space, position, orientation)`
+#### `layerSpaceAbovePlacement(zone, position, orientation)`, `splitSpace(space, position, orientation)`, and `spacesAfterPlacement(candidate, options)`
 
-**Purpose:** After placing an item, split the consumed free space into three non-overlapping residual spaces: right/forward in `x`, beside in `y`, and above in `z`.
+**Purpose:** After placing an item, split the consumed free space into three non-overlapping residual spaces and add a full cargo-envelope layer at the new stack height so later candidates can use the physical boot envelope while support is checked separately.
 
 **Input:** Original free space, placement position, and orientation.
 
-**Output:** Three raw spaces. Some may have zero or negative dimensions and are removed later by `normalizeSpaces`.
+**Output:** Raw residual spaces. Some may have zero or negative dimensions and are removed later by `normalizeSpaces`.
 
 **Errors:** No explicit errors.
 
@@ -484,18 +487,20 @@ This is an estimator, not an exact bin-packing solver. It uses rectangular envel
 
 #### `scoreCandidate(candidate)` and `compareScores(a, b)`
 
-**Purpose:** Rank valid placements within one greedy packing pass.
+**Purpose:** Rank valid placements within the greedy baseline and bounded branch search.
 
 **Candidate score priority:**
 
 1. Lower zone index.
 2. Lower `z` position.
-3. Lower `y` position.
-4. Lower `x` position.
-5. Less leftover volume in the chosen space.
-6. Less total slack.
-7. Lower orientation height.
-8. Lower maximum item axis.
+3. Higher one-step lookahead capacity.
+4. Lower `y` position.
+5. Lower `x` position.
+6. Less leftover volume in the chosen space.
+7. Less total slack.
+8. Larger support surface area.
+9. Lower orientation height.
+10. Lower maximum item axis.
 
 **Output:** Score tuple and comparator result.
 
@@ -503,15 +508,15 @@ This is an estimator, not an exact bin-packing solver. It uses rectangular envel
 
 **Testing:** Construct two candidates and verify lower/bottom/less-waste candidates are preferred.
 
-#### `findBestCandidate(item, zoneStates, options)`
+#### `candidatePlacements(item, zoneStates, options)` and `findBestCandidate(item, zoneStates, options)`
 
-**Purpose:** Find the best valid placement for one item across all current zones and free spaces.
+**Purpose:** Generate all valid placements for one item across all current zones/free spaces, sorted by score; `findBestCandidate` returns the first candidate for the greedy baseline.
 
 **Input:** Expanded item, mutable zone states, and estimator options.
 
 **Output:** Candidate object or `undefined`.
 
-**Behavior:** Skips a zone if the item's volume exceeds that zone's remaining usable litres. Tests each valid orientation and each free space for dimensions, seat-back encroachment, and collision.
+**Behavior:** Skips a zone if the item's volume exceeds that zone's remaining usable litres. Tests each valid orientation, free space, and generated offset for dimensions, seat-back encroachment, collision, and support coverage.
 
 **Errors:** No explicit errors.
 
@@ -557,9 +562,9 @@ This is an estimator, not an exact bin-packing solver. It uses rectangular envel
 
 **Testing:** Compare synthetic results where one has fewer unplaced items and assert it wins even if another uses less height.
 
-#### `packItems(order, zones, options = {})`
+#### `packItemsGreedy(order, zones, options = {})`, `cloneZoneStates(zoneStates)`, `resultFromState(zoneStates, unplacedItems)`, and `packItems(order, zones, options = {})`
 
-**Purpose:** Run one greedy packing pass with a specific item order.
+**Purpose:** Build a greedy baseline and then run a bounded deterministic branch search for a specific item order.
 
 **Input:** Expanded item order, active cargo zones, and estimator options.
 
@@ -567,7 +572,7 @@ This is an estimator, not an exact bin-packing solver. It uses rectangular envel
 
 **Errors:** No explicit errors.
 
-**Testing:** Use a one-zone one-item exact fit fixture and assert one placement and no unplaced items.
+**Testing:** Use a one-zone one-item exact fit fixture and assert one placement and no unplaced items. Use repeated same-size luggage to assert branch search can prefer a globally better mixed-orientation layout over the single greedy path.
 
 ### Public API: `estimateFit(luggageSet, vehicle, seatConfigurationId = 'seats_up', options = {})`
 
@@ -583,7 +588,12 @@ function estimateFit(
   options?: {
     considerSeatBackEncroachment?: boolean,
     seatBackAngleDegrees?: number,
-    supportPolicy?: { mergeAdjacentCoplanarSpaces?: boolean }
+    supportPolicy?: {
+      mergeAdjacentCoplanarSpaces?: boolean,
+      minimumSupportedFootprintRatio?: number
+    },
+    maxPackingBranches?: number,
+    maxPackingStates?: number
   }
 ): FitEstimate
 ```
@@ -595,6 +605,8 @@ function estimateFit(
 - `seatConfigurationId`: id from `vehicle.seatConfigurations`; defaults to `seats_up`.
 - `options.considerSeatBackEncroachment`: when true, zones with `seatBackEncroachment` reject placements that exceed the sloped depth envelope and subtract the sloped triangular-prism volume from usable volume. `options.seatBackAngleDegrees` can override the vehicle-defined default angle.
 - `options.supportPolicy.mergeAdjacentCoplanarSpaces`: when true, the estimator treats adjacent same-height free spaces as one support surface for future placements. This is enabled by default to support bridging across aligned luggage stacks and irregular cargo-floor subdivisions.
+- `options.supportPolicy.minimumSupportedFootprintRatio`: minimum bottom-footprint area that must be supported for stacked placements. The default is `0.75`, allowing up to 25% overhang.
+- `options.maxPackingBranches` / `options.maxPackingStates`: optional performance bounds for the branch search.
 
 **Output:** A `FitEstimate` object with placement coordinates, fit status, volume usage, unplaced item records, and warnings.
 
@@ -612,7 +624,7 @@ function estimateFit(
 **Correctness tests:**
 
 - `npm run validate:configs` smoke-runs the estimator over every vehicle's `seats_up` configuration.
-- `npm run smoke:app` verifies complete placement coordinates, rejects overlap/out-of-bounds placements, checks deterministic results under reversed luggage input order, and covers seat-back encroachment plus coplanar support regressions.
+- `npm run smoke:app` verifies complete placement coordinates, rejects overlap/out-of-bounds placements, checks deterministic results under reversed luggage input order, and covers seat-back encroachment, coplanar support, and supported-overhang regressions.
 - Add focused unit tests for unknown seat configuration, opening constraints, and zero-quantity UI clones if a unit test framework is introduced.
 
 ## `public/app.js` — browser application
