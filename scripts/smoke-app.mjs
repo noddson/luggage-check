@@ -114,6 +114,34 @@ if (!traficBridgeRegressionResult.fits || traficBridgeRegressionBackpacks.length
   throw new Error('Coplanar support regression failed to bridge adjacent carry-on surfaces for additional backpack placements');
 }
 
+
+const caddyCarryOnOverhangLuggage = {
+  items: [{
+    id: 'oddson-family-carry-on',
+    label: 'Oddson Family carry-on',
+    quantity: 6,
+    shapeType: 'box',
+    dimensionsMm: { length: 570, width: 360, height: 260 },
+    rotationAllowed: true,
+    sources: []
+  }]
+};
+const caddyCarryOnOverhangVehicle = vehicles.find((vehicle) => vehicle.id === 'volkswagen-caddy-maxi-life');
+if (!caddyCarryOnOverhangVehicle) throw new Error('Volkswagen Caddy Maxi Life fixture is required for supported-overhang regression');
+const caddyCarryOnOverhangResult = estimateFit(caddyCarryOnOverhangLuggage, caddyCarryOnOverhangVehicle, 'seats_up', {
+  considerSeatBackEncroachment: true,
+  seatBackAngleDegrees: 12
+});
+const caddyCarryOnOverhangUpperCases = caddyCarryOnOverhangResult.placements.filter((placement) =>
+  placement.sourceId === 'oddson-family-carry-on'
+  && placement.positionMm.z === 260
+  && placement.orientationMm.length === 360
+  && placement.orientationMm.width === 570
+);
+if (caddyCarryOnOverhangResult.placements.length < 5 || caddyCarryOnOverhangUpperCases.length < 2) {
+  throw new Error('Supported-overhang regression failed to place a fifth Caddy/Oddson carry-on with 75% footprint support');
+}
+
 function placementsOverlap(a, b) {
   return a.positionMm.x < b.positionMm.x + b.orientationMm.length
     && a.positionMm.x + a.orientationMm.length > b.positionMm.x
