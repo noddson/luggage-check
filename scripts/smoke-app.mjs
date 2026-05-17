@@ -114,6 +114,28 @@ if (!traficBridgeRegressionResult.fits || traficBridgeRegressionBackpacks.length
   throw new Error('Coplanar support regression failed to bridge adjacent carry-on surfaces for additional backpack placements');
 }
 
+const traficOddsonMonotonicCounts = [10, 11, 12].map((quantity) => {
+  const result = estimateFit({
+    items: [{
+      id: 'oddson-family-carry-on',
+      label: 'Oddson Family carry-on',
+      quantity,
+      shapeType: 'box',
+      dimensionsMm: { length: 570, width: 360, height: 260 },
+      rotationAllowed: true,
+      sources: []
+    }]
+  }, traficBridgeRegressionVehicle, 'seats_up', {
+    considerSeatBackEncroachment: true,
+    seatBackAngleDegrees: 15
+  });
+  return { quantity, placed: result.placements.length };
+});
+const traficOddsonEleven = traficOddsonMonotonicCounts.find((entry) => entry.quantity === 11);
+const traficOddsonTwelve = traficOddsonMonotonicCounts.find((entry) => entry.quantity === 12);
+if (traficOddsonEleven.placed !== 11 || traficOddsonTwelve.placed < traficOddsonEleven.placed) {
+  throw new Error(`Planning-surplus regression failed to avoid a lower-count Trafic/Oddson packing regression: ${JSON.stringify(traficOddsonMonotonicCounts)}`);
+}
 
 const caddyCarryOnOverhangLuggage = {
   items: [{
