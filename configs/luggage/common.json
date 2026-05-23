@@ -6,7 +6,11 @@
       "label": "IATA-style cabin bag",
       "quantity": 1,
       "shapeType": "box",
-      "dimensionsMm": { "length": 550, "width": 350, "height": 200 },
+      "dimensionsMm": {
+        "length": 550,
+        "width": 350,
+        "height": 200
+      },
       "rotationAllowed": true,
       "sources": [
         {
@@ -15,18 +19,25 @@
           "title": "Cabin OK initiative size reference",
           "url": "https://www.iata.org/en/pressroom/2015-releases/2015-06-09-02/",
           "retrievedAt": "2026-05-13",
-          "fieldsCovered": ["cabin bag dimensions"],
+          "fieldsCovered": [
+            "cabin bag dimensions"
+          ],
           "confidence": "medium",
           "notes": "IATA withdrew the Cabin OK initiative, but its 55 x 35 x 20 cm reference remains useful as a common cabin-size preset."
         }
-      ]
+      ],
+      "maxQuantity": 24
     },
     {
       "id": "us-carry-on",
       "label": "US airline carry-on",
       "quantity": 1,
       "shapeType": "box",
-      "dimensionsMm": { "length": 559, "width": 356, "height": 229 },
+      "dimensionsMm": {
+        "length": 559,
+        "width": 356,
+        "height": 229
+      },
       "rotationAllowed": true,
       "sources": [
         {
@@ -35,18 +46,25 @@
           "title": "Carry-on bags",
           "url": "https://www.aa.com/i18n/travel-info/baggage/carry-on-baggage.jsp",
           "retrievedAt": "2026-05-13",
-          "fieldsCovered": ["carry-on dimensions"],
+          "fieldsCovered": [
+            "carry-on dimensions"
+          ],
           "confidence": "high",
           "notes": "22 x 14 x 9 inches converted to millimetres and rounded."
         }
-      ]
+      ],
+      "maxQuantity": 24
     },
     {
       "id": "oddson-family-carry-on",
       "label": "Oddson Family carry-on",
       "quantity": 1,
       "shapeType": "box",
-      "dimensionsMm": { "length": 570, "width": 360, "height": 260 },
+      "dimensionsMm": {
+        "length": 570,
+        "width": 360,
+        "height": 260
+      },
       "rotationAllowed": true,
       "sources": [
         {
@@ -55,18 +73,25 @@
           "title": "Oddson Family carry-on measured dimensions",
           "url": "https://github.com/example/luggage-check/configs/luggage/common.json",
           "retrievedAt": "2026-05-15",
-          "fieldsCovered": ["carry-on dimensions"],
+          "fieldsCovered": [
+            "carry-on dimensions"
+          ],
           "confidence": "high",
           "notes": "Actually measured dimensions of real their real luggage."
         }
-      ]
+      ],
+      "maxQuantity": 24
     },
     {
       "id": "medium-checked-suitcase",
       "label": "Medium checked suitcase",
       "quantity": 1,
       "shapeType": "box",
-      "dimensionsMm": { "length": 660, "width": 470, "height": 280 },
+      "dimensionsMm": {
+        "length": 660,
+        "width": 470,
+        "height": 280
+      },
       "rotationAllowed": true,
       "sources": [
         {
@@ -75,18 +100,25 @@
           "title": "Ultimate luggage guide",
           "url": "https://shop.samsonite.com/ultimate-luggage-guide.html",
           "retrievedAt": "2026-05-13",
-          "fieldsCovered": ["checked suitcase size bands"],
+          "fieldsCovered": [
+            "checked suitcase size bands"
+          ],
           "confidence": "medium",
           "notes": "Representative midpoint derived from common medium checked luggage size ranges."
         }
-      ]
+      ],
+      "maxQuantity": 12
     },
     {
       "id": "large-checked-suitcase",
       "label": "Large checked suitcase",
       "quantity": 1,
       "shapeType": "box",
-      "dimensionsMm": { "length": 760, "width": 520, "height": 310 },
+      "dimensionsMm": {
+        "length": 760,
+        "width": 520,
+        "height": 310
+      },
       "rotationAllowed": true,
       "sources": [
         {
@@ -95,23 +127,44 @@
           "title": "Ultimate luggage guide",
           "url": "https://shop.samsonite.com/ultimate-luggage-guide.html",
           "retrievedAt": "2026-05-13",
-          "fieldsCovered": ["checked suitcase size bands"],
+          "fieldsCovered": [
+            "checked suitcase size bands"
+          ],
           "confidence": "medium",
           "notes": "Representative midpoint derived from common large checked luggage size ranges."
         }
-      ]
+      ],
+      "maxQuantity": 12
     },
     {
       "id": "soft-travel-backpack",
       "label": "Soft travel backpack",
       "quantity": 1,
       "shapeType": "free_form",
-      "dimensionsMm": { "length": 520, "width": 330, "height": 240 },
+      "dimensionsMm": {
+        "length": 520,
+        "width": 330,
+        "height": 240
+      },
       "compressibility": 0.25,
       "rotationAllowed": true,
       "boundingBoxes": [
-        { "label": "main compartment", "dimensionsMm": { "length": 460, "width": 320, "height": 210 } },
-        { "label": "front pocket bulge", "dimensionsMm": { "length": 260, "width": 280, "height": 70 } }
+        {
+          "label": "main compartment",
+          "dimensionsMm": {
+            "length": 460,
+            "width": 320,
+            "height": 210
+          }
+        },
+        {
+          "label": "front pocket bulge",
+          "dimensionsMm": {
+            "length": 260,
+            "width": 280,
+            "height": 70
+          }
+        }
       ],
       "sources": [
         {
@@ -120,31 +173,68 @@
           "title": "Default soft backpack approximation",
           "url": "https://github.com/example/luggage-check/configs/luggage/common.json",
           "retrievedAt": "2026-05-13",
-          "fieldsCovered": ["free-form luggage approximation"],
+          "fieldsCovered": [
+            "free-form luggage approximation"
+          ],
           "confidence": "low",
           "notes": "Placeholder approximation for irregular/compressible bags until a user enters measured dimensions or scans."
         }
-      ]
+      ],
+      "maxQuantity": 24
     },
     {
-      "id": "golf-balls-tiny-boxes",
-      "label": "Golf Balls (in tiny boxes)",
+      "id": "golf-clubs-bag",
+      "label": "Golf Clubs",
       "quantity": 1,
+      "maxQuantity": 12,
       "shapeType": "box",
-      "dimensionsMm": { "length": 45, "width": 45, "height": 45 },
+      "dimensionsMm": {
+        "length": 1400,
+        "width": 400,
+        "height": 400
+      },
       "rotationAllowed": true,
       "sources": [
         {
           "sourceType": "editorial",
           "publisher": "Luggage Check",
-          "title": "Requested tiny golf-ball box preset",
+          "title": "Requested golf clubs bag preset",
           "url": "https://github.com/example/luggage-check/configs/luggage/common.json",
           "retrievedAt": "2026-05-23",
-          "fieldsCovered": ["box dimensions"],
+          "fieldsCovered": [
+            "box dimensions"
+          ],
           "confidence": "high",
-          "notes": "Rounded from 1.75 inches per side (44.45 mm) to 45 mm per side for this preset."
+          "notes": "Preset added per request with dimensions 1400 mm x 400 mm x 400 mm."
         }
       ]
+    },
+    {
+      "id": "golf-balls-tiny-boxes",
+      "label": "Golf balls (box of 12)",
+      "quantity": 1,
+      "shapeType": "box",
+      "dimensionsMm": {
+        "length": 192,
+        "width": 140,
+        "height": 46
+      },
+      "rotationAllowed": true,
+      "sources": [
+        {
+          "sourceType": "editorial",
+          "publisher": "Luggage Check",
+          "title": "Requested golf ball 12-pack box preset",
+          "url": "https://github.com/example/luggage-check/configs/luggage/common.json",
+          "retrievedAt": "2026-05-23",
+          "fieldsCovered": [
+            "box dimensions"
+          ],
+          "confidence": "high",
+          "notes": "Preset updated to 192 mm x 140 mm x 46 mm (7.5 in x 5.5 in x 1.8 in) for a box of 12 golf balls."
+        }
+      ],
+      "maxQuantity": 50
     }
   ]
 }

@@ -4,6 +4,12 @@ const VEHICLE_INDEX_PATH = './configs/vehicles/index.json';
 
 const BAG_COLORS = ['#2563eb', '#16a34a', '#f97316', '#9333ea', '#0891b2', '#e11d48', '#ca8a04', '#4f46e5'];
 const DEFAULT_SEAT_BACK_ANGLE_DEGREES = 20;
+const DEFAULT_MAX_QUANTITY_BY_SIZE = {
+  large: 12,
+  medium: 24,
+  small: 36,
+  verySmall: 50
+};
 const state = {
   luggageSet: null,
   vehicles: [],
@@ -51,6 +57,18 @@ function dimensionsLabel(dimensions) {
   return `${Math.round(dimensions.length)} × ${Math.round(dimensions.width)} × ${Math.round(dimensions.height)} mm`;
 }
 
+function defaultMaxQuantity(item) {
+  const volumeMm3 = item.dimensionsMm.length * item.dimensionsMm.width * item.dimensionsMm.height;
+  if (volumeMm3 >= 60_000_000) return DEFAULT_MAX_QUANTITY_BY_SIZE.large;
+  if (volumeMm3 >= 20_000_000) return DEFAULT_MAX_QUANTITY_BY_SIZE.medium;
+  if (volumeMm3 >= 3_000_000) return DEFAULT_MAX_QUANTITY_BY_SIZE.small;
+  return DEFAULT_MAX_QUANTITY_BY_SIZE.verySmall;
+}
+
+function maxQuantityForItem(item) {
+  return Math.max(1, Number(item.maxQuantity) || defaultMaxQuantity(item));
+}
+
 function defaultSeatBackAngleDegrees(zones) {
   return zones.find((zone) => zone.seatBackEncroachment)?.seatBackEncroachment?.angleFromVerticalDegrees ?? DEFAULT_SEAT_BACK_ANGLE_DEGREES;
 }
@@ -76,7 +94,7 @@ function cloneLuggageWithQuantities() {
     ...state.luggageSet,
     items: state.luggageSet.items.map((item) => ({
       ...item,
-      quantity: Number($(`#qty-${item.id}`).value)
+      quantity: Math.min(maxQuantityForItem(item), Math.max(0, Number($(`#qty-${item.id}`).value)))
     })).filter((item) => item.quantity > 0)
   };
 }
@@ -167,7 +185,7 @@ function renderLuggageControls() {
     const label = createEl('label');
     label.append(
       createEl('span', { className: 'sr-only', text: `Quantity for ${item.label}` }),
-      createEl('input', { attrs: { id: `qty-${item.id}`, type: 'number', min: '0', max: '12', step: '1', value: item.quantity } })
+      createEl('input', { attrs: { id: `qty-${item.id}`, type: 'number', min: '0', max: String(maxQuantityForItem(item)), step: '1', value: item.quantity } })
     );
     article.append(meta, label);
     return article;

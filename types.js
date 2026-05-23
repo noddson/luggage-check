@@ -22,6 +22,7 @@
  * @property {string} id
  * @property {string} label
  * @property {number} quantity
+ * @property {number=} maxQuantity
  * @property {LuggageShapeType} shapeType
  * @property {DimensionsMm} dimensionsMm
  * @property {number=} compressibility
