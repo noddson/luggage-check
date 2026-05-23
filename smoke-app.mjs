@@ -1,11 +1,11 @@
 import { readFile } from 'node:fs/promises';
-import { loadLuggageSet, loadVehicles } from '../src/config/loadConfigs.js';
-import { estimateFit } from '../src/packing/fitEstimator.js';
+import { loadLuggageSet, loadVehicles } from './loadConfigs.js';
+import { estimateFit } from './fitEstimator.node.js';
 
 const [html, css, app, luggageSet, vehicles] = await Promise.all([
-  readFile('public/index.html', 'utf8'),
-  readFile('public/styles.css', 'utf8'),
-  readFile('public/app.js', 'utf8'),
+  readFile('index.html', 'utf8'),
+  readFile('styles.css', 'utf8'),
+  readFile('app.js', 'utf8'),
   loadLuggageSet(),
   loadVehicles()
 ]);
