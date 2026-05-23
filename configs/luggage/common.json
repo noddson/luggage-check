@@ -125,6 +125,26 @@
           "notes": "Placeholder approximation for irregular/compressible bags until a user enters measured dimensions or scans."
         }
       ]
+    },
+    {
+      "id": "golf-balls-tiny-boxes",
+      "label": "Golf Balls (in tiny boxes)",
+      "quantity": 1,
+      "shapeType": "box",
+      "dimensionsMm": { "length": 45, "width": 45, "height": 45 },
+      "rotationAllowed": true,
+      "sources": [
+        {
+          "sourceType": "editorial",
+          "publisher": "Luggage Check",
+          "title": "Requested tiny golf-ball box preset",
+          "url": "https://github.com/example/luggage-check/configs/luggage/common.json",
+          "retrievedAt": "2026-05-23",
+          "fieldsCovered": ["box dimensions"],
+          "confidence": "high",
+          "notes": "Rounded from 1.75 inches per side (44.45 mm) to 45 mm per side for this preset."
+        }
+      ]
     }
   ]
 }
