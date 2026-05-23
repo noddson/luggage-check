@@ -1,7 +1,7 @@
 import { readdir } from 'node:fs/promises';
 import path from 'node:path';
-import { loadLuggageSet, loadVehicles } from '../src/config/loadConfigs.js';
-import { estimateFit } from '../src/packing/fitEstimator.js';
+import { loadLuggageSet, loadVehicles } from './loadConfigs.js';
+import { estimateFit } from './fitEstimator.node.js';
 
 const ISO_DATE = /^\d{4}-\d{2}-\d{2}$/;
 const URL_LIKE = /^https?:\/\//;
