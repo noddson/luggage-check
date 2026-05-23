@@ -44,7 +44,7 @@ const I18N = {
     fitScore: 'Score de compatibilité',
     usableVolume: 'Volume utilisable',
     fitResult: 'Résultat',
-    configuration: 'Configuration', tripSetup: 'Préparation du trajet', vehicle: 'Véhicule', seatCargoConfig: 'Configuration sièges / coffre', rearAngle: 'Angle d’inclinaison du dossier arrière', seatBackNote: 'Les dossiers arrière inclinés réduisent la profondeur disponible en hauteur.', luggage: 'Bagages', bagList: 'Liste des bagages', reset: 'Réinitialiser', visualization: 'Visualisation', bootViz: 'Visualisation de l’ajustement des bagages du coffre', placedLuggage: 'Bagages placés', needsAnotherPlan: 'À replacer', workspaceAria: 'Espace de vérification des bagages', orientation: 'Orientation', pitch: 'Tangage', yaw: 'Lacet', dragHint: 'Faites glisser pour pivoter autour du centre de chargement · cliquez sur X/Y/Z pour les axes prédéfinis', noBagsInZone: 'Aucun bagage placé dans cette zone.', nothingPlacedYet: 'Rien n’est placé pour le moment. Ajoutez des quantités pour commencer.', allPlaced: 'Tous les bagages sélectionnés sont placés dans la configuration active.'
+    configuration: 'Configuration', tripSetup: 'Préparation du trajet', vehicle: 'Véhicule', seatCargoConfig: 'Configuration sièges / coffre', rearAngle: 'Angle d’inclinaison du dossier arrière', seatBackNote: 'Les dossiers arrière inclinés réduisent la profondeur disponible en hauteur.', luggage: 'Bagages', bagList: 'Liste des bagages', reset: 'Réinitialiser', visualization: 'Visualisation', bootViz: 'Visualisation de l’ajustement des bagages du coffre', placedLuggage: 'Bagages placés', needsAnotherPlan: 'À replacer', workspaceAria: 'Espace de vérification des bagages', orientation: 'Orientation', pitch: 'Angle de tangage', yaw: 'Angle de lacet', dragHint: 'Faites glisser pour pivoter autour du centre de chargement · cliquez sur X/Y/Z pour les axes prédéfinis', noBagsInZone: 'Aucun bagage placé dans cette zone.', nothingPlacedYet: 'Rien n’est placé pour le moment. Ajoutez des quantités pour commencer.', allPlaced: 'Tous les bagages sélectionnés sont placés dans la configuration active.'
   }
 };
 const t = (key) => I18N[state.language][key] ?? key;
@@ -178,13 +178,7 @@ function renderVehicleMeta() {
   const encroachmentZones = zones.filter((zone) => zone.seatBackEncroachment);
   renderSeatBackEncroachmentControl(zones);
   const vehicleMeta = $('#vehicleMeta');
-  const nodes = [
-    createEl('strong', { text: localizeEntity(vehicle, 'generation') }),
-    createEl('span', { text: vehicle.rentalClasses.join(' · ') }),
-    createEl('span', { text: `${zones.length} cargo zone${zones.length === 1 ? '' : 's'} active · ${config.seatsAvailable} seats available` })
-  ];
-    if (config.notes) nodes.push(createEl('em', { text: localizeEntity(config, 'notes') }));
-  vehicleMeta.replaceChildren(...nodes);
+  vehicleMeta.replaceChildren();
 }
 
 function renderSeatBackEncroachmentControl(zones) {
@@ -797,7 +791,7 @@ function renderResults() {
   ]);
   renderVisualization(vehicle, config, result);
   renderLists(result);
-  $('#warnings').replaceChildren(...result.warnings.map((warning) => createEl('p', { text: warning })));
+  $('#warnings').replaceChildren();
 }
 
 function bindEvents() {

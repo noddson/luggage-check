@@ -175,7 +175,7 @@
       "rotationAllowed": true,
       "boundingBoxes": [
         {
-          "label": "main compartment",
+          "label": "compartiment principal",
           "dimensionsMm": {
             "length": 460,
             "width": 320,
@@ -183,7 +183,7 @@
           }
         },
         {
-          "label": "front pocket bulge",
+          "label": "renflement de la poche avant",
           "dimensionsMm": {
             "length": 260,
             "width": 280,
@@ -240,7 +240,7 @@
       ],
       "translations": {
         "fr": {
-          "label": "Clubs de golf"
+          "label": "Sac de clubs de golf"
         }
       }
     },
