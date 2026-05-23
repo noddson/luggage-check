@@ -32,7 +32,7 @@ const I18N = {
     fitScore: 'Fit score',
     usableVolume: 'Usable volume',
     fitResult: 'Fit result'
-    ,configuration: 'Configuration', tripSetup: 'Trip setup', vehicle: 'Vehicle', seatCargoConfig: 'Seat / cargo configuration', rearAngle: 'Rear seat-back encroachment angle', seatBackNote: 'Sloped rear seat backs constrain upper-depth clearance.', luggage: 'Luggage', bagList: 'Bag list', reset: 'Reset', visualization: 'Visualization', bootViz: 'Boot Luggage Fit Visualization', placedLuggage: 'Placed luggage', needsAnotherPlan: 'Needs another plan', workspaceAria: 'Luggage fit workspace'
+    ,configuration: 'Configuration', tripSetup: 'Trip setup', vehicle: 'Vehicle', seatCargoConfig: 'Seat / cargo configuration', rearAngle: 'Rear seat-back encroachment angle', seatBackNote: 'Sloped rear seat backs constrain upper-depth clearance.', luggage: 'Luggage', bagList: 'Bag list', reset: 'Reset', visualization: 'Visualization', bootViz: 'Boot Luggage Fit Visualization', placedLuggage: 'Placed luggage', needsAnotherPlan: 'Needs another plan', workspaceAria: 'Luggage fit workspace', orientation: 'Orientation', pitch: 'Pitch', yaw: 'Yaw', dragHint: 'Drag to pivot around cargo centre · click X/Y/Z for axis presets', noBagsInZone: 'No bags placed in this zone.', nothingPlacedYet: 'Nothing placed yet. Add luggage quantities to begin.', allPlaced: 'Every selected bag is placed in the active configuration.'
   },
   fr: {
     pageTitle: 'Vérification des bagages',
@@ -44,10 +44,19 @@ const I18N = {
     fitScore: 'Score de compatibilité',
     usableVolume: 'Volume utilisable',
     fitResult: 'Résultat',
-    configuration: 'Configuration', tripSetup: 'Préparation du trajet', vehicle: 'Véhicule', seatCargoConfig: 'Configuration sièges / coffre', rearAngle: 'Angle d’inclinaison du dossier arrière', seatBackNote: 'Les dossiers arrière inclinés réduisent la profondeur disponible en hauteur.', luggage: 'Bagages', bagList: 'Liste des bagages', reset: 'Réinitialiser', visualization: 'Visualisation', bootViz: 'Visualisation de l’ajustement des bagages du coffre', placedLuggage: 'Bagages placés', needsAnotherPlan: 'À replacer', workspaceAria: 'Espace de vérification des bagages'
+    configuration: 'Configuration', tripSetup: 'Préparation du trajet', vehicle: 'Véhicule', seatCargoConfig: 'Configuration sièges / coffre', rearAngle: 'Angle d’inclinaison du dossier arrière', seatBackNote: 'Les dossiers arrière inclinés réduisent la profondeur disponible en hauteur.', luggage: 'Bagages', bagList: 'Liste des bagages', reset: 'Réinitialiser', visualization: 'Visualisation', bootViz: 'Visualisation de l’ajustement des bagages du coffre', placedLuggage: 'Bagages placés', needsAnotherPlan: 'À replacer', workspaceAria: 'Espace de vérification des bagages', orientation: 'Orientation', pitch: 'Tangage', yaw: 'Lacet', dragHint: 'Faites glisser pour pivoter autour du centre de chargement · cliquez sur X/Y/Z pour les axes prédéfinis', noBagsInZone: 'Aucun bagage placé dans cette zone.', nothingPlacedYet: 'Rien n’est placé pour le moment. Ajoutez des quantités pour commencer.', allPlaced: 'Tous les bagages sélectionnés sont placés dans la configuration active.'
   }
 };
 const t = (key) => I18N[state.language][key] ?? key;
+
+function localizeText(text, localized = null) {
+  if (state.language !== 'en' && localized && localized[state.language]) return localized[state.language];
+  return text;
+}
+
+function localizeEntity(entity, key) {
+  return entity?.translations?.[state.language]?.[key] ?? entity?.[key];
+}
 
 const $ = (selector) => document.querySelector(selector);
 function createEl(tag, { className = '', text = '', attrs = {} } = {}) {
@@ -114,7 +123,10 @@ function hasActiveSeatBackEncroachment(zones) {
 }
 
 function vehicleLabel(vehicle) {
-  return `${vehicle.make} ${vehicle.model} (${vehicle.bodyStyle})`;
+  const make = localizeEntity(vehicle, 'make');
+  const model = localizeEntity(vehicle, 'model');
+  const bodyStyle = localizeEntity(vehicle, 'bodyStyle');
+  return `${make} ${model} (${bodyStyle})`;
 }
 
 function cloneLuggageWithQuantities() {
@@ -150,7 +162,7 @@ function renderVehicleOptions() {
 function renderConfigurationOptions() {
   const vehicle = selectedVehicle();
   configurationSelect.replaceChildren(...vehicle.seatConfigurations.map((config) => createEl('option', {
-    text: `${config.label} · ${config.seatsAvailable} ${state.language === 'fr' ? 'sièges' : 'seats'}`,
+    text: `${localizeEntity(config, 'label')} · ${config.seatsAvailable} ${state.language === 'fr' ? 'sièges' : 'seats'}`,
     attrs: { value: config.id }
   })));
   if (!vehicle.seatConfigurations.some((config) => config.id === state.configurationId)) {
@@ -167,14 +179,11 @@ function renderVehicleMeta() {
   renderSeatBackEncroachmentControl(zones);
   const vehicleMeta = $('#vehicleMeta');
   const nodes = [
-    createEl('strong', { text: vehicle.generation }),
+    createEl('strong', { text: localizeEntity(vehicle, 'generation') }),
     createEl('span', { text: vehicle.rentalClasses.join(' · ') }),
     createEl('span', { text: `${zones.length} cargo zone${zones.length === 1 ? '' : 's'} active · ${config.seatsAvailable} seats available` })
   ];
-  if (encroachmentZones.length) {
-    nodes.push(createEl('span', { text: `Seat-back encroachment defaults: ${encroachmentZones.map((zone) => `${zone.seatBackEncroachment.angleFromVerticalDegrees}° for ${zone.label}`).join(' · ')}` }));
-  }
-  if (config.notes) nodes.push(createEl('em', { text: config.notes }));
+    if (config.notes) nodes.push(createEl('em', { text: localizeEntity(config, 'notes') }));
   vehicleMeta.replaceChildren(...nodes);
 }
 
@@ -212,12 +221,12 @@ function renderLuggageControls() {
     const article = createEl('article', { className: 'luggage-item', attrs: { style: `--bag-tint:${color};--bag-panel-bg:${mixWithWhite(color, 0.9)}` } });
     const meta = createEl('div');
     meta.append(
-      createEl('strong', { text: item.label }),
+      createEl('strong', { text: localizeEntity(item, 'label') }),
       createEl('span', { text: `${dimensionsLabel(item.dimensionsMm)} · ${item.shapeType.replace('_', ' ')}` })
     );
     const label = createEl('label');
     label.append(
-      createEl('span', { className: 'sr-only', text: `Quantity for ${item.label}` }),
+      createEl('span', { className: 'sr-only', text: `Quantity for ${localizeEntity(item, 'label')}` }),
       createEl('input', { attrs: { id: `qty-${item.id}`, type: 'number', min: '0', max: String(maxQuantityForItem(item)), step: '1', value: item.quantity } })
     );
     article.append(meta, label);
@@ -243,6 +252,14 @@ function colorForSourceId(sourceId) {
 function colorForPlacement(placement) {
   const source = placement.sourceId ?? placement.itemId.split('#')[0];
   return colorForSourceId(source);
+}
+
+
+function localizedPlacementLabel(entry) {
+  const sourceId = entry.sourceId ?? (entry.itemId ? entry.itemId.split('#')[0] : null);
+  const item = state.luggageSet?.items?.find((candidate) => candidate.id === sourceId);
+  if (item) return localizeEntity(item, 'label');
+  return entry.label;
 }
 
 function estimateSources() {
@@ -378,7 +395,7 @@ function renderZoneSvg(zone, placements, index) {
     return `
       <g>
         <rect class="luggage-rect" x="${x}" y="${y}" width="${width}" height="${height}" rx="7" fill="${colorForPlacement(placement)}" />
-        <title>${placement.label}: ${dimensionsLabel(placement.orientationMm)}</title>
+        <title>${localizedPlacementLabel(placement)}: ${dimensionsLabel(placement.orientationMm)}</title>
       </g>
     `;
   }).join('');
@@ -386,10 +403,10 @@ function renderZoneSvg(zone, placements, index) {
   return `
     <article class="zone-card">
       <div class="zone-card__header">
-        <strong>${zone.label}</strong>
+        <strong>${localizeEntity(zone, 'label')}</strong>
         <span>${dimensionsLabel(zone.dimensionsMm)} · ${zone.volumeLitres} L</span>
       </div>
-      <svg viewBox="0 0 ${svgWidth} ${svgHeight}" role="img" aria-label="${zone.label} ${state.activeView} view">
+      <svg viewBox="0 0 ${svgWidth} ${svgHeight}" role="img" aria-label="${localizeEntity(zone, 'label')} ${state.activeView} view">
         ${seatOutline}
         <rect class="cargo-outline" x="${padding}" y="${padding}" width="${projection.width * scale}" height="${projection.height * scale}" rx="12" fill="#eff6ff" />
         ${encroachmentOverlay}
@@ -397,7 +414,7 @@ function renderZoneSvg(zone, placements, index) {
         <text x="${padding}" y="${svgHeight - 12}" class="axis-label">${projection.xLabel}: ${projection.width} mm</text>
         <text x="${svgWidth - padding}" y="${svgHeight - 12}" text-anchor="end" class="axis-label">${projection.yLabel}: ${projection.height} mm</text>
       </svg>
-      ${placements.length === 0 ? '<p class="empty-zone">No bags placed in this zone.</p>' : ''}
+      ${placements.length === 0 ? `<p class="empty-zone">${t('noBagsInZone')}</p>` : ''}
     </article>
   `;
 }
@@ -620,7 +637,7 @@ function renderZone3dSvg(zone, placements) {
     ...placements.flatMap((placement) => {
       const color = colorForPlacement(placement);
       const vertices = createBoxVertices(placement.positionMm, placement.orientationMm).map(project);
-      const title = `${placement.label}: ${dimensionsLabel(placement.orientationMm)}`;
+      const title = `${localizedPlacementLabel(placement)}: ${dimensionsLabel(placement.orientationMm)}`;
       return [
         renderFace(vertices, [0, 1, 2, 3], shadeColor(color, -18), 'bag-face', title),
         renderFace(vertices, [0, 1, 5, 4], shadeColor(color, -8), 'bag-face', title),
@@ -636,12 +653,12 @@ function renderZone3dSvg(zone, placements) {
     <article class="zone-card zone-card--3d">
       <div class="zone-card__header">
         <div>
-          <strong>${zone.label}</strong>
+          <strong>${localizeEntity(zone, 'label')}</strong>
           <span>${dimensionsLabel(zone.dimensionsMm)} · ${zone.volumeLitres} L</span>
         </div>
-        <span>Drag to pivot around cargo centre · click X/Y/Z for axis presets</span>
+        <span>${t('dragHint')}</span>
       </div>
-      <svg class="zone-3d-svg" viewBox="0 0 ${svgWidth} ${svgHeight}" role="img" aria-label="${zone.label} rotatable 3D luggage view">
+      <svg class="zone-3d-svg" viewBox="0 0 ${svgWidth} ${svgHeight}" role="img" aria-label="${localizeEntity(zone, 'label')} rotatable 3D luggage view">
         <rect x="0" y="0" width="${svgWidth}" height="${svgHeight}" rx="18" fill="#f8fafc" />
         ${faces}
         <polyline class="zone-wire" points="${polygonPoints([zoneVertices[0], zoneVertices[1], zoneVertices[2], zoneVertices[3], zoneVertices[0]])}" />
@@ -652,7 +669,7 @@ function renderZone3dSvg(zone, placements) {
         <polyline class="zone-wire" points="${polygonPoints([zoneVertices[4], zoneVertices[5], zoneVertices[6], zoneVertices[7], zoneVertices[4]])}" />
         ${renderOrientationAxisControl()}
       </svg>
-      ${placements.length === 0 ? '<p class="empty-zone">No bags placed in this zone.</p>' : ''}
+      ${placements.length === 0 ? `<p class="empty-zone">${t('noBagsInZone')}</p>` : ''}
     </article>
   `;
 }
@@ -720,7 +737,7 @@ function renderLists(result) {
       const li = createEl('li', { className: 'placed-item', attrs: { 'data-source-id': sourceId } });
       li.append(
         createEl('span', { className: 'item-status item-status--placed', text: '✓', attrs: { 'aria-hidden': 'true' } }),
-        createEl('button', { className: 'placed-delete', text: '✕', attrs: { type: 'button', title: `Remove one ${placement.label}`, 'aria-label': `Remove one ${placement.label}` } }),
+        createEl('button', { className: 'placed-delete', text: '✕', attrs: { type: 'button', title: `Remove one ${localizedPlacementLabel(placement)}`, 'aria-label': `Remove one ${localizedPlacementLabel(placement)}` } }),
         createEl('strong', { text: placement.label }),
         createEl('small', { text: `${placement.zoneLabel} · ${dimensionsLabel(placement.orientationMm)}` })
       );
@@ -728,7 +745,7 @@ function renderLists(result) {
       return li;
     }));
   } else {
-    placedList.replaceChildren(createEl('li', { className: 'muted', text: 'Nothing placed yet. Add luggage quantities to begin.' }));
+    placedList.replaceChildren(createEl('li', { className: 'muted', text: t('nothingPlacedYet') }));
   }
 
   const unplacedList = $('#unplacedList');
@@ -739,15 +756,15 @@ function renderLists(result) {
       const li = createEl('li', { className: 'problem placed-item', attrs: { 'data-source-id': sourceId } });
       li.append(
         createEl('span', { className: 'item-status item-status--unplaced', text: '⊘', attrs: { 'aria-hidden': 'true' } }),
-        createEl('button', { className: 'placed-delete', text: '✕', attrs: { type: 'button', title: `Remove one ${item.label}`, 'aria-label': `Remove one ${item.label}` } }),
-        createEl('strong', { text: item.label }),
+        createEl('button', { className: 'placed-delete', text: '✕', attrs: { type: 'button', title: `Remove one ${localizedPlacementLabel(item)}`, 'aria-label': `Remove one ${localizedPlacementLabel(item)}` } }),
+        createEl('strong', { text: localizeEntity(item, 'label') }),
         createEl('small', { text: `${dimensionsLabel(item.dimensionsMm)} · ${item.volumeLitres} L` })
       );
       li.style.setProperty('--bag-panel-bg', mixWithWhite(tint, 0.9));
       return li;
     }));
   } else {
-    unplacedList.replaceChildren(createEl('li', { className: 'success', text: 'Every selected bag is placed in the active configuration.' }));
+    unplacedList.replaceChildren(createEl('li', { className: 'success', text: t('allPlaced') }));
   }
 }
 

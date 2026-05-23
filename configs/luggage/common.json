@@ -26,7 +26,12 @@
           "notes": "IATA withdrew the Cabin OK initiative, but its 55 x 35 x 20 cm reference remains useful as a common cabin-size preset."
         }
       ],
-      "maxQuantity": 24
+      "maxQuantity": 24,
+      "translations": {
+        "fr": {
+          "label": "Bagage cabine style IATA"
+        }
+      }
     },
     {
       "id": "us-carry-on",
@@ -53,7 +58,12 @@
           "notes": "22 x 14 x 9 inches converted to millimetres and rounded."
         }
       ],
-      "maxQuantity": 24
+      "maxQuantity": 24,
+      "translations": {
+        "fr": {
+          "label": "Bagage cabine compagnie US"
+        }
+      }
     },
     {
       "id": "oddson-family-carry-on",
@@ -80,7 +90,12 @@
           "notes": "Actually measured dimensions of real their real luggage."
         }
       ],
-      "maxQuantity": 24
+      "maxQuantity": 24,
+      "translations": {
+        "fr": {
+          "label": "Bagage cabine Oddson Family"
+        }
+      }
     },
     {
       "id": "medium-checked-suitcase",
@@ -107,7 +122,12 @@
           "notes": "Representative midpoint derived from common medium checked luggage size ranges."
         }
       ],
-      "maxQuantity": 12
+      "maxQuantity": 12,
+      "translations": {
+        "fr": {
+          "label": "Valise en soute moyenne"
+        }
+      }
     },
     {
       "id": "large-checked-suitcase",
@@ -134,7 +154,12 @@
           "notes": "Representative midpoint derived from common large checked luggage size ranges."
         }
       ],
-      "maxQuantity": 12
+      "maxQuantity": 12,
+      "translations": {
+        "fr": {
+          "label": "Grande valise en soute"
+        }
+      }
     },
     {
       "id": "soft-travel-backpack",
@@ -180,7 +205,12 @@
           "notes": "Placeholder approximation for irregular/compressible bags until a user enters measured dimensions or scans."
         }
       ],
-      "maxQuantity": 24
+      "maxQuantity": 24,
+      "translations": {
+        "fr": {
+          "label": "Sac à dos de voyage souple"
+        }
+      }
     },
     {
       "id": "golf-clubs-bag",
@@ -207,7 +237,12 @@
           "confidence": "high",
           "notes": "Preset added per request with dimensions 1400 mm x 400 mm x 400 mm."
         }
-      ]
+      ],
+      "translations": {
+        "fr": {
+          "label": "Clubs de golf"
+        }
+      }
     },
     {
       "id": "golf-balls-tiny-boxes",
@@ -234,7 +269,12 @@
           "notes": "Preset updated to 192 mm x 140 mm x 46 mm (7.5 in x 5.5 in x 1.8 in) for a box of 12 golf balls."
         }
       ],
-      "maxQuantity": 50
+      "maxQuantity": 50,
+      "translations": {
+        "fr": {
+          "label": "Balles de golf (boîte de 12)"
+        }
+      }
     }
   ]
 }

@@ -39,6 +39,11 @@
       "seatBackEncroachment": {
         "angleFromVerticalDegrees": 18,
         "notes": "Default rear seat-back rake assumption for optional encroachment-aware cargo planning."
+      },
+      "translations": {
+        "fr": {
+          "label": "Coffre derrière la troisième rangée (7 sièges en usage)"
+        }
       }
     },
     {
@@ -139,5 +144,10 @@
       ],
       "confidence": "medium"
     }
-  ]
+  ],
+  "translations": {
+    "fr": {
+      "bodyStyle": "7-seat midsize SUV"
+    }
+  }
 }
