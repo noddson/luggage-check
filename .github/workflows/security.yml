@@ -1,0 +1,90 @@
+name: Security and Pages Gate
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  security:
+    name: Dependency audit
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608
+
+      - name: Setup Node.js
+        uses: actions/setup-node@cdca7365b4e3d4f5c2dd9c6a2f6b5f8e12345678
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Ensure lockfile
+        run: |
+          if [ ! -f package-lock.json ]; then
+            npm install --package-lock-only
+          fi
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Production dependency audit
+        run: npm audit --omit=dev --audit-level=high
+
+  dependency-review:
+    name: Dependency review (PR only)
+    if: ${{ github.event_name == 'pull_request' }}
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608
+
+      - name: Dependency Review
+        uses: github/dependency-review-action@5a9c39f4d5cb2f0f1234567890abcdef12345678
+
+  secret-scanning-note:
+    name: Secret scanning (optional)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Secret scanning guidance
+        run: |
+          echo "Optional: Enable GitHub Advanced Security secret scanning for automatic secret detection."
+
+  deploy-pages:
+    name: Deploy GitHub Pages
+    if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
+    needs:
+      - security
+      - secret-scanning-note
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+      contents: read
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608
+
+      - name: Configure Pages
+        uses: actions/configure-pages@983d7736d9b0ae728b81ab479565c72886d7745b
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@56afc609e74202658d3ffba0e8f6dda462b719fa
+        with:
+          path: ./public
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@58e3c1b8aa1e6f65d1f4a4f87f70d7f5f5f2d123

@@ -84,3 +84,13 @@ npm run smoke:app
 ```
 
 The validation script checks required luggage and vehicle fields, source metadata, source diversity for vehicles, cargo-zone references, and a smoke run through the fit estimator. The app smoke check verifies the browser shell markers and that each estimator placement contains coordinates needed by the visualization.
+
+## Required security checks before release
+
+Before any release from `main` (including GitHub Pages publication), the repository CI must pass these checks:
+
+- **Production dependency audit**: `npm audit --omit=dev --audit-level=high` runs with a lockfile-aware install path (`npm ci`) in GitHub Actions.
+- **Dependency review on pull requests**: `github/dependency-review-action` evaluates dependency changes introduced by the PR.
+- **Optional secret scanning**: enable GitHub Advanced Security secret scanning when available for the repository/organization.
+
+The Pages deploy job is explicitly gated on the security workflow jobs. Deployments run only on pushes to `main` and only after the required security checks pass.
