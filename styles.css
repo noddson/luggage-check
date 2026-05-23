@@ -43,7 +43,7 @@ button { cursor: pointer; }
 .vehicle-meta strong { color: var(--ink); }
 .vehicle-meta em { color: #475569; }
 .luggage-list { display: grid; gap: 12px; }
-.luggage-item { display: grid; grid-template-columns: minmax(0, 1fr) 82px; gap: 12px; align-items: center; padding: 14px; border: 1px solid var(--line); border-radius: 18px; background: #fff; }
+.luggage-item { display: grid; grid-template-columns: minmax(0, 1fr) 82px; gap: 12px; align-items: center; padding: 14px; border: 1px solid var(--line); border-radius: 18px; background: color-mix(in srgb, var(--bag-tint, #fff) 8%, #fff); }
 .luggage-item strong, .luggage-item span { display: block; }
 .luggage-item span { color: var(--muted); margin-top: 4px; font-size: 0.88rem; line-height: 1.35; }
 .luggage-item input { text-align: center; font-weight: 900; }
@@ -103,6 +103,12 @@ button { cursor: pointer; }
 .status-list li > span { width: 12px; height: 12px; border-radius: 999px; background: var(--dot, var(--brand)); }
 .status-list small { grid-column: 2; color: var(--muted); }
 .status-list .problem > span { background: var(--bad); }
+.status-list li.placed-item { grid-template-columns: 12px 20px minmax(0, 1fr); align-items: start; }
+.status-list li.placed-item > span { grid-column: 1; grid-row: 1 / span 2; margin-top: 4px; }
+.placed-delete { grid-column: 2; grid-row: 2; width: 18px; height: 18px; border: 1px solid #fecaca; border-radius: 999px; background: #fff1f2; color: #be123c; font-size: 12px; line-height: 1; font-weight: 900; display: none; place-items: center; padding: 0; }
+.status-list li.placed-item:hover .placed-delete, .status-list li.placed-item:focus-within .placed-delete { display: grid; }
+.status-list li.placed-item strong { grid-column: 3; }
+.status-list li.placed-item small { grid-column: 3; }
 .status-list .success, .status-list .muted { display: block; color: var(--muted); }
 .status-list .success { color: var(--ok); }
 .warnings { margin-top: 18px; display: grid; gap: 8px; }

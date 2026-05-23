@@ -176,7 +176,7 @@ function resetLuggageQuantities() {
 
 function renderLuggageControls() {
   const controls = state.luggageSet.items.map((item) => {
-    const article = createEl('article', { className: 'luggage-item' });
+    const article = createEl('article', { className: 'luggage-item', attrs: { style: `--bag-tint:${colorForSourceId(item.id)}` } });
     const meta = createEl('div');
     meta.append(
       createEl('strong', { text: item.label }),
@@ -201,11 +201,15 @@ function metricCard(label, value, detail = '', className = '') {
   return card;
 }
 
+function colorForSourceId(sourceId) {
+  const uniqueSources = [...new Set(estimateSources().map((item) => item.id))];
+  const index = uniqueSources.indexOf(sourceId);
+  return BAG_COLORS[(index < 0 ? 0 : index) % BAG_COLORS.length];
+}
+
 function colorForPlacement(placement) {
   const source = placement.sourceId ?? placement.itemId.split('#')[0];
-  const uniqueSources = [...new Set(estimateSources().map((item) => item.id))];
-  const index = uniqueSources.indexOf(source);
-  return BAG_COLORS[(index < 0 ? 0 : index) % BAG_COLORS.length];
+  return colorForSourceId(source);
 }
 
 function estimateSources() {
@@ -669,9 +673,11 @@ function renderLists(result) {
   const placedList = $('#placedList');
   if (result.placements.length) {
     placedList.replaceChildren(...result.placements.map((placement) => {
-      const li = createEl('li');
+      const sourceId = placement.sourceId ?? placement.itemId.split('#')[0];
+      const li = createEl('li', { className: 'placed-item', attrs: { 'data-source-id': sourceId } });
       li.append(
         createEl('span', { attrs: { style: `--dot:${colorForPlacement(placement)}` } }),
+        createEl('button', { className: 'placed-delete', text: '✕', attrs: { type: 'button', title: `Remove one ${placement.label}`, 'aria-label': `Remove one ${placement.label}` } }),
         createEl('strong', { text: placement.label }),
         createEl('small', { text: `${placement.zoneLabel} · ${dimensionsLabel(placement.orientationMm)}` })
       );
@@ -750,6 +756,18 @@ function bindEvents() {
     document.querySelectorAll('.view-tab').forEach((tab) => tab.classList.toggle('active', tab === button));
     renderResults();
   }));
+  $('#placedList').addEventListener('click', (event) => {
+    const deleteButton = event.target.closest('.placed-delete');
+    if (!deleteButton) return;
+    const row = deleteButton.closest('.placed-item');
+    const sourceId = row?.dataset.sourceId;
+    if (!sourceId) return;
+    const quantityInput = $(`#qty-${sourceId}`);
+    if (!quantityInput) return;
+    const current = Math.max(0, Number(quantityInput.value) || 0);
+    quantityInput.value = String(Math.max(0, current - 1));
+    renderResults();
+  });
 }
 
 export async function initApp() {
