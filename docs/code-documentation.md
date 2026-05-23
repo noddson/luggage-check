@@ -13,6 +13,12 @@ This document explains the luggage-check codebase at the level needed to maintai
 | Config data | `configs/luggage/*.json`, `configs/vehicles/**/*.json` | Source-backed luggage and vehicle cargo data. `configs/vehicles/index.json` is generated from regional vehicle files for browser loading. Schema files document the expected JSON shapes. |
 | Developer scripts | `scripts/generate-vehicle-index.mjs`, `scripts/validate-configs.mjs`, `scripts/smoke-app.mjs`, `scripts/serve-app.mjs` | Vehicle-index generation/staleness checks, dataset validation, app/estimator smoke checks, and a zero-dependency static file server. |
 
+## Safe rendering policy
+
+- Never insert config/user data using raw `innerHTML`.
+- Prefer DOM construction (`document.createElement`), assign user/config strings with `textContent`, and set attributes via `setAttribute`.
+- If rich markup is genuinely required, sanitize with an allowlist-based sanitizer before insertion.
+
 ## Data and units model
 
 All physical dimensions use millimetres (`length`, `width`, `height`) and volumes are reported in litres unless a helper explicitly says `Mm3`.
