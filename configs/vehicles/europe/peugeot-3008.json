@@ -29,10 +29,10 @@
       },
       "usableFraction": 0.82,
       "confidence": "low",
-      "notes": "Manufacturer volume is sourced; rectangular dimensions are first-pass estimated cuboids for MVP packing and should be replaced by measured cargo dimensions.",
+      "notes": "Le volume constructeur est sourcé ; les dimensions rectangulaires sont des cuboïdes estimés en première approximation pour le MVP et doivent être remplacées par des mesures réelles du coffre.",
       "seatBackEncroachment": {
         "angleFromVerticalDegrees": 20,
-        "notes": "Default rear seat-back rake assumption for optional encroachment-aware cargo planning."
+        "notes": "Hypothèse par défaut de l’inclinaison du dossier arrière pour une planification du coffre tenant compte de l’empiètement."
       }
     },
     {

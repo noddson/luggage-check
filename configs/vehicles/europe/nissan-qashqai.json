@@ -37,7 +37,7 @@
       "notes": "Nissan UK publishes up to 504 L boot capacity excluding luggage boards and a technical-table luggage range of 400-455 L by version. The planning envelope uses Nissan-published maximum boot length and width with an inferred rectangular height; trim, load boards, e-POWER hardware, and wheel-arch taper can reduce usable rigid-case fit.",
       "seatBackEncroachment": {
         "angleFromVerticalDegrees": 20,
-        "notes": "Default rear seat-back rake assumption for optional encroachment-aware cargo planning."
+        "notes": "Hypothèse par défaut de l’inclinaison du dossier arrière pour une planification du coffre tenant compte de l’empiètement."
       }
     },
     {

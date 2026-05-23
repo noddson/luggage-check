@@ -37,7 +37,7 @@
       "notes": "Tesla publishes 21 cu ft (594 L) behind the second row for North American 2024+ Model 3. Rectangular planning dimensions and opening estimates are intentionally conservative because the sedan trunk includes non-rectangular side pockets and under-floor space.",
       "seatBackEncroachment": {
         "angleFromVerticalDegrees": 18,
-        "notes": "Default rear seat-back rake assumption for optional encroachment-aware cargo planning."
+        "notes": "Hypothèse par défaut de l’inclinaison du dossier arrière pour une planification du coffre tenant compte de l’empiètement."
       }
     },
     {
@@ -55,7 +55,7 @@
       },
       "usableFraction": 0.65,
       "confidence": "low",
-      "notes": "Tesla publishes 3.1 cu ft (88 L) for the front trunk. Planning dimensions are approximate and favor soft bags, backpacks, and charge-cable storage."
+      "notes": "Tesla publishes 3.1 cu ft (88 L) for the front trunk. Les dimensions de planification sont approximatives et favorisent les sacs souples, les sacs à dos et le rangement des câbles de recharge."
     },
     {
       "id": "rear_seats_folded_extension",
