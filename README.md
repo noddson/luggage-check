@@ -52,7 +52,7 @@ Future app milestones should replace estimated cuboids with measured dimensions,
 Current policy:
 
 - `default-src 'self'`
-- `script-src 'self' https://cdn.jsdelivr.net` (permits local `./app.js` module script and the DOMPurify CDN script used by the UI)
+- `script-src 'self'` (permits only same-origin scripts)
 - `style-src 'self'` (permits local `./styles.css`)
 - `img-src 'self' data:` (permits same-origin images plus inline data URLs)
 - `object-src 'none'`
