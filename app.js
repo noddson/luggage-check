@@ -758,3 +758,8 @@ export async function initApp() {
   }
 }
 
+if (typeof window !== 'undefined' && typeof document !== 'undefined') {
+  initApp().catch((error) => {
+    console.error('Failed to initialize app', error);
+  });
+}
