@@ -44,6 +44,30 @@ Vehicle manufacturers commonly publish cargo capacity in litres, but they often 
 
 Future app milestones should replace estimated cuboids with measured dimensions, scanned meshes, or user-entered cargo measurements where available.
 
+
+## Security headers and CSP expectations
+
+`public/index.html` sets a document-level Content Security Policy via `<meta http-equiv="Content-Security-Policy" ...>` for static hosting scenarios where response headers are not configurable.
+
+Current policy:
+
+- `default-src 'self'`
+- `script-src 'self' https://cdn.jsdelivr.net` (permits local `./app.js` module script and the DOMPurify CDN script used by the UI)
+- `style-src 'self'` (permits local `./styles.css`)
+- `img-src 'self' data:` (permits same-origin images plus inline data URLs)
+- `object-src 'none'`
+- `base-uri 'none'`
+- `frame-ancestors 'none'`
+
+Additional hardening in HTML:
+
+- `Referrer-Policy` equivalent via `<meta name="referrer" content="no-referrer">`.
+
+Hosting limitation to document for deployments:
+
+- `X-Content-Type-Options: nosniff` cannot be enforced by a `<meta>` tag and must be set as an HTTP response header by the hosting platform / CDN.
+- If your host supports response headers, prefer setting CSP and Referrer-Policy as headers too, and keep the HTML meta policy aligned.
+
 ## Run the app locally
 
 ```bash
