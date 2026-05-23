@@ -18,8 +18,36 @@ const state = {
   activeView: '3d',
   seatBackEncroachmentAngleDegrees: DEFAULT_SEAT_BACK_ANGLE_DEGREES,
   rotation3d: { yaw: -45, pitch: 60 },
-  activeOrientationLabel: ''
+  activeOrientationLabel: '',
+  language: 'en'
 };
+const I18N = {
+  en: {
+    pageTitle: 'Luggage Check',
+    eyebrow: 'Rental car luggage planner',
+    heroTitle: 'Pick a vehicle setup and see whether your bags fit.',
+    heroCopy: 'Compare European rental-car cargo configurations, tune the luggage list, and visualize the estimated placement in each cargo zone before you book.',
+    bagsFit: 'All bags fit',
+    bagsUnplaced: 'Some bags unplaced',
+    fitScore: 'Fit score',
+    usableVolume: 'Usable volume',
+    fitResult: 'Fit result'
+    ,configuration: 'Configuration', tripSetup: 'Trip setup', vehicle: 'Vehicle', seatCargoConfig: 'Seat / cargo configuration', rearAngle: 'Rear seat-back encroachment angle', seatBackNote: 'Sloped rear seat backs constrain upper-depth clearance.', luggage: 'Luggage', bagList: 'Bag list', reset: 'Reset', visualization: 'Visualization', bootViz: 'Boot Luggage Fit Visualization', placedLuggage: 'Placed luggage', needsAnotherPlan: 'Needs another plan', workspaceAria: 'Luggage fit workspace'
+  },
+  fr: {
+    pageTitle: 'Vérification des bagages',
+    eyebrow: 'Planificateur de bagages pour voiture de location',
+    heroTitle: 'Choisissez une configuration de véhicule et vérifiez si vos bagages rentrent.',
+    heroCopy: 'Comparez les configurations de coffre des voitures de location européennes, ajustez la liste des bagages et visualisez leur placement estimé dans chaque zone du coffre avant de réserver.',
+    bagsFit: 'Tous les bagages rentrent',
+    bagsUnplaced: 'Certains bagages ne rentrent pas',
+    fitScore: 'Score de compatibilité',
+    usableVolume: 'Volume utilisable',
+    fitResult: 'Résultat',
+    configuration: 'Configuration', tripSetup: 'Préparation du trajet', vehicle: 'Véhicule', seatCargoConfig: 'Configuration sièges / coffre', rearAngle: 'Angle d’inclinaison du dossier arrière', seatBackNote: 'Les dossiers arrière inclinés réduisent la profondeur disponible en hauteur.', luggage: 'Bagages', bagList: 'Liste des bagages', reset: 'Réinitialiser', visualization: 'Visualisation', bootViz: 'Visualisation de l’ajustement des bagages du coffre', placedLuggage: 'Bagages placés', needsAnotherPlan: 'À replacer', workspaceAria: 'Espace de vérification des bagages'
+  }
+};
+const t = (key) => I18N[state.language][key] ?? key;
 
 const $ = (selector) => document.querySelector(selector);
 function createEl(tag, { className = '', text = '', attrs = {} } = {}) {
@@ -122,7 +150,7 @@ function renderVehicleOptions() {
 function renderConfigurationOptions() {
   const vehicle = selectedVehicle();
   configurationSelect.replaceChildren(...vehicle.seatConfigurations.map((config) => createEl('option', {
-    text: `${config.label} · ${config.seatsAvailable} seats`,
+    text: `${config.label} · ${config.seatsAvailable} ${state.language === 'fr' ? 'sièges' : 'seats'}`,
     attrs: { value: config.id }
   })));
   if (!vehicle.seatConfigurations.some((config) => config.id === state.configurationId)) {
@@ -156,8 +184,12 @@ function renderSeatBackEncroachmentControl(zones) {
   seatBackEncroachmentDegreesInput.value = state.seatBackEncroachmentAngleDegrees;
   seatBackEncroachmentDegreesInput.disabled = !hasEncroachment;
   seatBackEncroachmentNote.textContent = hasEncroachment
-    ? `Sloped rear seat backs constrain upper-depth clearance. Vehicle default: ${defaultAngle}°; edit the degree angle to override it.`
-    : 'No active cargo zone defines sloped rear seat-back encroachment.';
+    ? (state.language === 'fr'
+      ? `Les dossiers arrière inclinés réduisent la profondeur disponible en hauteur. Valeur par défaut du véhicule : ${defaultAngle}° ; modifiez l’angle pour la remplacer.`
+      : `Sloped rear seat backs constrain upper-depth clearance. Vehicle default: ${defaultAngle}°; edit the degree angle to override it.`)
+    : (state.language === 'fr'
+      ? 'Aucune zone de chargement active ne définit d’inclinaison de dossier arrière.'
+      : 'No active cargo zone defines sloped rear seat-back encroachment.');
 }
 
 function syncSeatBackEncroachmentDefault() {
@@ -731,16 +763,20 @@ function renderResults() {
   const percent = Math.round(result.fitScore * 100);
   const volumePercent = Math.round((result.usedVolumeLitres / Math.max(1, result.usableVolumeLitres)) * 100);
 
-  const fitResultLabel = `${result.placements.length} placed · ${result.unplacedItems.length} unplaced`;
-  const fitResultDetail = `${volumePercent}% usable volume used`;
+  const fitResultLabel = state.language === 'fr'
+    ? `${result.placements.length} placés · ${result.unplacedItems.length} non placés`
+    : `${result.placements.length} placed · ${result.unplacedItems.length} unplaced`;
+  const fitResultDetail = state.language === 'fr'
+    ? `${volumePercent}% du volume utilisable utilisé`
+    : `${volumePercent}% usable volume used`;
 
   $('#resultTitle').textContent = `${vehicle.make} ${vehicle.model} · ${config.label}`;
   $('#fitBadge').className = `fit-badge ${result.fits ? 'fit-badge--ok' : 'fit-badge--bad'}`;
-  $('#fitBadge').textContent = result.fits ? 'All bags fit' : 'Some bags unplaced';
+  $('#fitBadge').textContent = result.fits ? t('bagsFit') : t('bagsUnplaced');
   $('#metrics').replaceChildren(...[
-    metricCard('Fit score', `${percent}%`, `${result.placements.length}/${result.placements.length + result.unplacedItems.length} bags placed`),
-    metricCard('Usable volume', `${result.usableVolumeLitres} L`, `${result.usedVolumeLitres} L used`),
-    metricCard('Fit result', fitResultLabel, fitResultDetail, 'metric--fit-result')
+    metricCard(t('fitScore'), `${percent}%`, state.language === 'fr' ? `${result.placements.length}/${result.placements.length + result.unplacedItems.length} bagages placés` : `${result.placements.length}/${result.placements.length + result.unplacedItems.length} bags placed`),
+    metricCard(t('usableVolume'), `${result.usableVolumeLitres} L`, state.language === 'fr' ? `${result.usedVolumeLitres} L utilisés` : `${result.usedVolumeLitres} L used`),
+    metricCard(t('fitResult'), fitResultLabel, fitResultDetail, 'metric--fit-result')
   ]);
   renderVisualization(vehicle, config, result);
   renderLists(result);
@@ -796,6 +832,29 @@ function bindEvents() {
     quantityInput.value = String(Math.max(0, current - 1));
     renderResults();
   });
+  $('#langEn').addEventListener('click', () => setLanguage('en'));
+  $('#langFr').addEventListener('click', () => setLanguage('fr'));
+}
+
+function applyStaticTranslations() {
+  document.title = t('pageTitle');
+  document.querySelectorAll('[data-i18n]').forEach((el) => {
+    const key = el.dataset.i18n;
+    el.textContent = t(key);
+  });
+  document.querySelectorAll('[data-i18n-aria-label]').forEach((el) => {
+    const key = el.dataset.i18nAriaLabel;
+    el.setAttribute('aria-label', t(key));
+  });
+}
+
+function setLanguage(language) {
+  state.language = language;
+  $('#langEn').classList.toggle('active', language === 'en');
+  $('#langFr').classList.toggle('active', language === 'fr');
+  applyStaticTranslations();
+  renderConfigurationOptions();
+  renderResults();
 }
 
 export async function initApp() {
@@ -815,6 +874,7 @@ export async function initApp() {
     renderVehicleMeta();
     renderLuggageControls();
     bindEvents();
+    applyStaticTranslations();
     renderResults();
   } catch (error) {
     $('#metrics').replaceChildren(metricCard('Fit result', 'Unable to load app', error.message, 'metric--fit-result'));

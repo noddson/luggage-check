@@ -11,47 +11,51 @@
   <body>
     <main class="app-shell">
       <section class="hero">
+        <div class="language-switcher" aria-label="Language selector">
+          <button id="langEn" class="lang-button active" type="button">🇺🇸 EN</button>
+          <button id="langFr" class="lang-button" type="button">🇫🇷 FR</button>
+        </div>
         <div>
-          <p class="eyebrow">Rental car luggage planner</p>
-          <h1>Pick a vehicle setup and see whether your bags fit.</h1>
-          <p class="hero-copy">
+          <p class="eyebrow" data-i18n="eyebrow">Rental car luggage planner</p>
+          <h1 data-i18n="heroTitle">Pick a vehicle setup and see whether your bags fit.</h1>
+          <p class="hero-copy" data-i18n="heroCopy">
             Compare European rental-car cargo configurations, tune the luggage list, and visualize the
             estimated placement in each cargo zone before you book.
           </p>
         </div>
       </section>
 
-      <section class="workspace" aria-label="Luggage fit workspace">
+      <section class="workspace" aria-label="Luggage fit workspace" data-i18n-aria-label="workspaceAria">
         <aside class="panel controls-panel">
           <div class="panel-heading">
-            <p class="eyebrow">Configuration</p>
-            <h2>Trip setup</h2>
+            <p class="eyebrow" data-i18n="configuration">Configuration</p>
+            <h2 data-i18n="tripSetup">Trip setup</h2>
           </div>
 
           <label class="field">
-            <span>Vehicle</span>
+            <span data-i18n="vehicle">Vehicle</span>
             <select id="vehicleSelect"></select>
           </label>
 
           <label class="field">
-            <span>Seat / cargo configuration</span>
+            <span data-i18n="seatCargoConfig">Seat / cargo configuration</span>
             <select id="configurationSelect"></select>
           </label>
 
           <label class="field degree-field">
-            <span>Rear seat-back encroachment angle</span>
+            <span data-i18n="rearAngle">Rear seat-back encroachment angle</span>
             <input id="seatBackEncroachmentDegrees" type="number" min="0" max="89" step="1" inputmode="decimal" />
-            <small id="seatBackEncroachmentNote">Sloped rear seat backs constrain upper-depth clearance.</small>
+            <small id="seatBackEncroachmentNote" data-i18n="seatBackNote">Sloped rear seat backs constrain upper-depth clearance.</small>
           </label>
 
           <div id="vehicleMeta" class="vehicle-meta"></div>
 
           <div class="panel-heading compact luggage-heading">
             <div>
-              <p class="eyebrow">Luggage</p>
-              <h2>Bag list</h2>
+              <p class="eyebrow" data-i18n="luggage">Luggage</p>
+              <h2 data-i18n="bagList">Bag list</h2>
             </div>
-            <button id="resetLuggageButton" class="secondary-button" type="button">Reset</button>
+            <button id="resetLuggageButton" class="secondary-button" type="button" data-i18n="reset">Reset</button>
           </div>
           <div id="luggageControls" class="luggage-list"></div>
         </aside>
@@ -59,7 +63,7 @@
         <section class="panel results-panel">
           <div class="results-header">
             <div>
-              <p class="eyebrow">Visualization</p>
+              <p class="eyebrow" data-i18n="visualization">Visualization</p>
               <h2 id="resultTitle">Estimated cargo fit</h2>
             </div>
             <div id="fitBadge" class="fit-badge">Loading</div>
@@ -68,18 +72,18 @@
           <div class="metrics" id="metrics"></div>
 
           <div class="view-tabs" role="tablist" aria-label="Visualization view">
-            <button class="view-tab active" type="button" data-view="3d">Boot Luggage Fit Visualization</button>
+            <button class="view-tab active" type="button" data-view="3d" data-i18n="bootViz">Boot Luggage Fit Visualization</button>
           </div>
 
           <div id="visualization" class="visualization" aria-label="Scaled luggage placement drawing"></div>
 
           <div class="details-grid">
             <section>
-              <h3>Placed luggage</h3>
+              <h3 data-i18n="placedLuggage">Placed luggage</h3>
               <ul id="placedList" class="status-list"></ul>
             </section>
             <section>
-              <h3>Needs another plan</h3>
+              <h3 data-i18n="needsAnotherPlan">Needs another plan</h3>
               <ul id="unplacedList" class="status-list"></ul>
             </section>
           </div>
