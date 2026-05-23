@@ -16,6 +16,21 @@ const state = {
 };
 
 const $ = (selector) => document.querySelector(selector);
+function createEl(tag, { className = '', text = '', attrs = {} } = {}) {
+  const el = document.createElement(tag);
+  if (className) el.className = className;
+  if (text !== '') el.textContent = text;
+  Object.entries(attrs).forEach(([key, value]) => el.setAttribute(key, String(value)));
+  return el;
+}
+function setSanitizedMarkup(element, markup) {
+  const sanitized = window.DOMPurify.sanitize(markup, {
+    USE_PROFILES: { html: true, svg: true, svgFilters: false },
+    ALLOWED_TAGS: ['article', 'div', 'strong', 'span', 'svg', 'g', 'polygon', 'line', 'text', 'tspan', 'rect', 'title', 'polyline', 'path', 'circle', 'small', 'p', 'em'],
+    ALLOWED_ATTR: ['class', 'viewBox', 'role', 'aria-label', 'x', 'y', 'width', 'height', 'rx', 'fill', 'stroke', 'x1', 'y1', 'x2', 'y2', 'points', 'text-anchor', 'dominant-baseline', 'd', 'cx', 'cy', 'r', 'tabindex', 'data-axis', 'style', 'dy']
+  });
+  element.innerHTML = sanitized;
+}
 const vehicleSelect = $('#vehicleSelect');
 const configurationSelect = $('#configurationSelect');
 const seatBackEncroachmentDegreesInput = $('#seatBackEncroachmentDegrees');
@@ -82,17 +97,19 @@ function selectedConfiguration(vehicle = selectedVehicle()) {
 }
 
 function renderVehicleOptions() {
-  vehicleSelect.innerHTML = state.vehicles.map((vehicle) =>
-    `<option value="${vehicle.id}">${vehicleLabel(vehicle)}</option>`
-  ).join('');
+  vehicleSelect.replaceChildren(...state.vehicles.map((vehicle) => createEl('option', {
+    text: vehicleLabel(vehicle),
+    attrs: { value: vehicle.id }
+  })));
   vehicleSelect.value = state.vehicleId;
 }
 
 function renderConfigurationOptions() {
   const vehicle = selectedVehicle();
-  configurationSelect.innerHTML = vehicle.seatConfigurations.map((config) =>
-    `<option value="${config.id}">${config.label} · ${config.seatsAvailable} seats</option>`
-  ).join('');
+  configurationSelect.replaceChildren(...vehicle.seatConfigurations.map((config) => createEl('option', {
+    text: `${config.label} · ${config.seatsAvailable} seats`,
+    attrs: { value: config.id }
+  })));
   if (!vehicle.seatConfigurations.some((config) => config.id === state.configurationId)) {
     state.configurationId = vehicle.seatConfigurations[0].id;
   }
@@ -105,13 +122,17 @@ function renderVehicleMeta() {
   const zones = config.cargoZoneIds.map((id) => vehicle.cargoZones.find((zone) => zone.id === id)).filter(Boolean);
   const encroachmentZones = zones.filter((zone) => zone.seatBackEncroachment);
   renderSeatBackEncroachmentControl(zones);
-  $('#vehicleMeta').innerHTML = `
-    <strong>${vehicle.generation}</strong>
-    <span>${vehicle.rentalClasses.join(' · ')}</span>
-    <span>${zones.length} cargo zone${zones.length === 1 ? '' : 's'} active · ${config.seatsAvailable} seats available</span>
-    ${encroachmentZones.length ? `<span>Seat-back encroachment defaults: ${encroachmentZones.map((zone) => `${zone.seatBackEncroachment.angleFromVerticalDegrees}° for ${zone.label}`).join(' · ')}</span>` : ''}
-    ${config.notes ? `<em>${config.notes}</em>` : ''}
-  `;
+  const vehicleMeta = $('#vehicleMeta');
+  const nodes = [
+    createEl('strong', { text: vehicle.generation }),
+    createEl('span', { text: vehicle.rentalClasses.join(' · ') }),
+    createEl('span', { text: `${zones.length} cargo zone${zones.length === 1 ? '' : 's'} active · ${config.seatsAvailable} seats available` })
+  ];
+  if (encroachmentZones.length) {
+    nodes.push(createEl('span', { text: `Seat-back encroachment defaults: ${encroachmentZones.map((zone) => `${zone.seatBackEncroachment.angleFromVerticalDegrees}° for ${zone.label}`).join(' · ')}` }));
+  }
+  if (config.notes) nodes.push(createEl('em', { text: config.notes }));
+  vehicleMeta.replaceChildren(...nodes);
 }
 
 function renderSeatBackEncroachmentControl(zones) {
@@ -139,24 +160,30 @@ function resetLuggageQuantities() {
 }
 
 function renderLuggageControls() {
-  luggageControls.innerHTML = state.luggageSet.items.map((item) => `
-    <article class="luggage-item">
-      <div>
-        <strong>${item.label}</strong>
-        <span>${dimensionsLabel(item.dimensionsMm)} · ${item.shapeType.replace('_', ' ')}</span>
-      </div>
-      <label>
-        <span class="sr-only">Quantity for ${item.label}</span>
-        <input id="qty-${item.id}" type="number" min="0" max="12" step="1" value="${item.quantity}" />
-      </label>
-    </article>
-  `).join('');
+  const controls = state.luggageSet.items.map((item) => {
+    const article = createEl('article', { className: 'luggage-item' });
+    const meta = createEl('div');
+    meta.append(
+      createEl('strong', { text: item.label }),
+      createEl('span', { text: `${dimensionsLabel(item.dimensionsMm)} · ${item.shapeType.replace('_', ' ')}` })
+    );
+    const label = createEl('label');
+    label.append(
+      createEl('span', { className: 'sr-only', text: `Quantity for ${item.label}` }),
+      createEl('input', { attrs: { id: `qty-${item.id}`, type: 'number', min: '0', max: '12', step: '1', value: item.quantity } })
+    );
+    article.append(meta, label);
+    return article;
+  });
+  luggageControls.replaceChildren(...controls);
   luggageControls.querySelectorAll('input').forEach((input) => input.addEventListener('input', renderResults));
 }
 
 function metricCard(label, value, detail = '', className = '') {
-  const classes = ['metric', className].filter(Boolean).join(' ');
-  return `<article class="${classes}"><span>${label}</span><strong>${value}</strong>${detail ? `<small>${detail}</small>` : ''}</article>`;
+  const card = createEl('article', { className: ['metric', className].filter(Boolean).join(' ') });
+  card.append(createEl('span', { text: label }), createEl('strong', { text: value }));
+  if (detail) card.append(createEl('small', { text: detail }));
+  return card;
 }
 
 function colorForPlacement(placement) {
@@ -571,10 +598,10 @@ function renderZone3dSvg(zone, placements) {
 
 function renderVisualization(vehicle, config, result) {
   const zones = config.cargoZoneIds.map((id) => vehicle.cargoZones.find((zone) => zone.id === id)).filter(Boolean);
-  visualization.innerHTML = zones.map((zone, index) => {
+  setSanitizedMarkup(visualization, zones.map((zone, index) => {
     const placements = result.placements.filter((placement) => placement.zoneId === zone.id);
     return state.activeView === '3d' ? renderZone3dSvg(zone, placements) : renderZoneSvg(zone, placements, index);
-  }).join('');
+  }).join(''));
   bind3dRotation();
 }
 
@@ -624,13 +651,35 @@ function bind3dRotation() {
 }
 
 function renderLists(result) {
-  $('#placedList').innerHTML = result.placements.length ? result.placements.map((placement) => `
-    <li><span style="--dot:${colorForPlacement(placement)}"></span><strong>${placement.label}</strong><small>${placement.zoneLabel} · ${dimensionsLabel(placement.orientationMm)}</small></li>
-  `).join('') : '<li class="muted">Nothing placed yet. Add luggage quantities to begin.</li>';
+  const placedList = $('#placedList');
+  if (result.placements.length) {
+    placedList.replaceChildren(...result.placements.map((placement) => {
+      const li = createEl('li');
+      li.append(
+        createEl('span', { attrs: { style: `--dot:${colorForPlacement(placement)}` } }),
+        createEl('strong', { text: placement.label }),
+        createEl('small', { text: `${placement.zoneLabel} · ${dimensionsLabel(placement.orientationMm)}` })
+      );
+      return li;
+    }));
+  } else {
+    placedList.replaceChildren(createEl('li', { className: 'muted', text: 'Nothing placed yet. Add luggage quantities to begin.' }));
+  }
 
-  $('#unplacedList').innerHTML = result.unplacedItems.length ? result.unplacedItems.map((item) => `
-    <li class="problem"><span></span><strong>${item.label}</strong><small>${dimensionsLabel(item.dimensionsMm)} · ${item.volumeLitres} L</small></li>
-  `).join('') : '<li class="success">Every selected bag is placed in the active configuration.</li>';
+  const unplacedList = $('#unplacedList');
+  if (result.unplacedItems.length) {
+    unplacedList.replaceChildren(...result.unplacedItems.map((item) => {
+      const li = createEl('li', { className: 'problem' });
+      li.append(
+        createEl('span'),
+        createEl('strong', { text: item.label }),
+        createEl('small', { text: `${dimensionsLabel(item.dimensionsMm)} · ${item.volumeLitres} L` })
+      );
+      return li;
+    }));
+  } else {
+    unplacedList.replaceChildren(createEl('li', { className: 'success', text: 'Every selected bag is placed in the active configuration.' }));
+  }
 }
 
 function renderResults() {
@@ -651,14 +700,14 @@ function renderResults() {
   $('#resultTitle').textContent = `${vehicle.make} ${vehicle.model} · ${config.label}`;
   $('#fitBadge').className = `fit-badge ${result.fits ? 'fit-badge--ok' : 'fit-badge--bad'}`;
   $('#fitBadge').textContent = result.fits ? 'All bags fit' : 'Some bags unplaced';
-  $('#metrics').innerHTML = [
+  $('#metrics').replaceChildren(...[
     metricCard('Fit score', `${percent}%`, `${result.placements.length}/${result.placements.length + result.unplacedItems.length} bags placed`),
     metricCard('Usable volume', `${result.usableVolumeLitres} L`, `${result.usedVolumeLitres} L used`),
     metricCard('Fit result', fitResultLabel, fitResultDetail, 'metric--fit-result')
-  ].join('');
+  ]);
   renderVisualization(vehicle, config, result);
   renderLists(result);
-  $('#warnings').innerHTML = result.warnings.map((warning) => `<p>${warning}</p>`).join('');
+  $('#warnings').replaceChildren(...result.warnings.map((warning) => createEl('p', { text: warning })));
 }
 
 function bindEvents() {
@@ -707,7 +756,7 @@ async function init() {
     bindEvents();
     renderResults();
   } catch (error) {
-    $('#metrics').innerHTML = metricCard('Fit result', 'Unable to load app', error.message, 'metric--fit-result');
+    $('#metrics').replaceChildren(metricCard('Fit result', 'Unable to load app', error.message, 'metric--fit-result'));
     console.error(error);
   }
 }
