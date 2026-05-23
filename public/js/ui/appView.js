@@ -1,6 +1,6 @@
-import { estimateFit } from './js/estimator/fitEstimator.js';
+import { estimateFit } from '../estimator/fitEstimator.js';
 
-const VEHICLE_INDEX_PATH = '../configs/vehicles/index.json';
+const VEHICLE_INDEX_PATH = '../../../configs/vehicles/index.json';
 
 const BAG_COLORS = ['#2563eb', '#16a34a', '#f97316', '#9333ea', '#0891b2', '#e11d48', '#ca8a04', '#4f46e5'];
 const DEFAULT_SEAT_BACK_ANGLE_DEGREES = 20;
@@ -44,7 +44,7 @@ async function readJson(path) {
 
 async function loadVehicles() {
   const vehicleIndex = await readJson(VEHICLE_INDEX_PATH);
-  return Promise.all(vehicleIndex.files.map((file) => readJson(`../configs/vehicles/${file}`)));
+  return Promise.all(vehicleIndex.files.map((file) => readJson(`../../../configs/vehicles/${file}`)));
 }
 
 function dimensionsLabel(dimensions) {
@@ -737,7 +737,7 @@ function bindEvents() {
 export async function initApp() {
   try {
     const [luggageSet, vehicles] = await Promise.all([
-      readJson('../configs/luggage/common.json'),
+      readJson('../../../configs/luggage/common.json'),
       loadVehicles()
     ]);
     state.luggageSet = luggageSet;
