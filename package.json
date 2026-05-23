@@ -5,12 +5,12 @@
   "description": "A tool for estimating and visualizing luggage fit in common European rental cars.",
   "type": "module",
   "scripts": {
-    "validate:configs": "node scripts/validate-configs.mjs",
+    "validate:configs": "node validate-configs.mjs",
     "check": "npm run validate:vehicle-index && npm run validate:configs && npm run smoke:app",
-    "start": "npm run generate:vehicle-index && node scripts/serve-app.mjs",
-    "smoke:app": "node scripts/smoke-app.mjs",
-    "generate:vehicle-index": "node scripts/generate-vehicle-index.mjs",
-    "validate:vehicle-index": "node scripts/generate-vehicle-index.mjs --check"
+    "start": "npm run generate:vehicle-index && node serve-app.mjs",
+    "smoke:app": "node smoke-app.mjs",
+    "generate:vehicle-index": "node generate-vehicle-index.mjs",
+    "validate:vehicle-index": "node generate-vehicle-index.mjs --check"
   },
   "engines": {
     "node": ">=20"

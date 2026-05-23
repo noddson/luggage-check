@@ -4,7 +4,7 @@ import { createServer } from 'node:http';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
+const root = path.resolve(path.dirname(fileURLToPath(import.meta.url))); 
 const port = Number(process.env.PORT ?? 4173);
 const contentTypes = new Map([
   ['.html', 'text/html; charset=utf-8'],
@@ -15,8 +15,7 @@ const contentTypes = new Map([
 
 function safePath(urlPath) {
   const normalized = path.normalize(decodeURIComponent(urlPath.split('?')[0]));
-  let relativePath = normalized === '/' ? 'public/index.html' : normalized.replace(/^\/+/, '');
-  if (!relativePath.includes('/')) relativePath = `public/${relativePath}`;
+  let relativePath = normalized === '/' ? 'index.html' : normalized.replace(/^\/+/, '');
   const absolutePath = path.resolve(root, relativePath);
   if (!absolutePath.startsWith(root)) return undefined;
   return absolutePath;
