@@ -42,6 +42,7 @@
         "id": { "type": "string" },
         "label": { "type": "string" },
         "quantity": { "type": "integer", "minimum": 1 },
+        "maxQuantity": { "type": "integer", "minimum": 1 },
         "shapeType": { "enum": ["box", "soft_box", "ellipsoid", "cylinder", "free_form"] },
         "dimensionsMm": { "$ref": "#/$defs/dimensionsMm" },
         "compressibility": { "type": "number", "minimum": 0, "maximum": 1 },
