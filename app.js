@@ -176,7 +176,8 @@ function resetLuggageQuantities() {
 
 function renderLuggageControls() {
   const controls = state.luggageSet.items.map((item) => {
-    const article = createEl('article', { className: 'luggage-item', attrs: { style: `--bag-tint:${colorForSourceId(item.id)}` } });
+    const color = colorForSourceId(item.id);
+    const article = createEl('article', { className: 'luggage-item', attrs: { style: `--bag-tint:${color};--bag-panel-bg:${mixWithWhite(color, 0.9)}` } });
     const meta = createEl('div');
     meta.append(
       createEl('strong', { text: item.label }),
@@ -313,6 +314,15 @@ function shadeColor(hex, percent) {
   const green = clamp(((number >> 8) & 0x00ff) + amount, 0, 255);
   const blue = clamp((number & 0x0000ff) + amount, 0, 255);
   return `#${((1 << 24) + (red << 16) + (green << 8) + blue).toString(16).slice(1)}`;
+}
+
+function mixWithWhite(hex, ratio = 0.9) {
+  const number = Number.parseInt(hex.replace('#', ''), 16);
+  const red = (number >> 16) & 0xff;
+  const green = (number >> 8) & 0xff;
+  const blue = number & 0xff;
+  const blend = (channel) => clamp(Math.round(channel * (1 - ratio) + 255 * ratio), 0, 255);
+  return `#${((1 << 24) + (blend(red) << 16) + (blend(green) << 8) + blend(blue)).toString(16).slice(1)}`;
 }
 
 function renderZoneSvg(zone, placements, index) {
@@ -674,13 +684,15 @@ function renderLists(result) {
   if (result.placements.length) {
     placedList.replaceChildren(...result.placements.map((placement) => {
       const sourceId = placement.sourceId ?? placement.itemId.split('#')[0];
+      const tint = colorForSourceId(sourceId);
       const li = createEl('li', { className: 'placed-item', attrs: { 'data-source-id': sourceId } });
       li.append(
-        createEl('span', { attrs: { style: `--dot:${colorForPlacement(placement)}` } }),
+        createEl('span', { className: 'item-status item-status--placed', text: '✓', attrs: { 'aria-hidden': 'true' } }),
         createEl('button', { className: 'placed-delete', text: '✕', attrs: { type: 'button', title: `Remove one ${placement.label}`, 'aria-label': `Remove one ${placement.label}` } }),
         createEl('strong', { text: placement.label }),
         createEl('small', { text: `${placement.zoneLabel} · ${dimensionsLabel(placement.orientationMm)}` })
       );
+      li.style.setProperty('--bag-panel-bg', mixWithWhite(tint, 0.9));
       return li;
     }));
   } else {
@@ -690,12 +702,16 @@ function renderLists(result) {
   const unplacedList = $('#unplacedList');
   if (result.unplacedItems.length) {
     unplacedList.replaceChildren(...result.unplacedItems.map((item) => {
-      const li = createEl('li', { className: 'problem' });
+      const sourceId = item.sourceId ?? item.id?.split('#')[0] ?? item.id;
+      const tint = colorForSourceId(sourceId);
+      const li = createEl('li', { className: 'problem placed-item', attrs: { 'data-source-id': sourceId } });
       li.append(
-        createEl('span'),
+        createEl('span', { className: 'item-status item-status--unplaced', text: '⊘', attrs: { 'aria-hidden': 'true' } }),
+        createEl('button', { className: 'placed-delete', text: '✕', attrs: { type: 'button', title: `Remove one ${item.label}`, 'aria-label': `Remove one ${item.label}` } }),
         createEl('strong', { text: item.label }),
         createEl('small', { text: `${dimensionsLabel(item.dimensionsMm)} · ${item.volumeLitres} L` })
       );
+      li.style.setProperty('--bag-panel-bg', mixWithWhite(tint, 0.9));
       return li;
     }));
   } else {
@@ -757,6 +773,18 @@ function bindEvents() {
     renderResults();
   }));
   $('#placedList').addEventListener('click', (event) => {
+    const deleteButton = event.target.closest('.placed-delete');
+    if (!deleteButton) return;
+    const row = deleteButton.closest('.placed-item');
+    const sourceId = row?.dataset.sourceId;
+    if (!sourceId) return;
+    const quantityInput = $(`#qty-${sourceId}`);
+    if (!quantityInput) return;
+    const current = Math.max(0, Number(quantityInput.value) || 0);
+    quantityInput.value = String(Math.max(0, current - 1));
+    renderResults();
+  });
+  $('#unplacedList').addEventListener('click', (event) => {
     const deleteButton = event.target.closest('.placed-delete');
     if (!deleteButton) return;
     const row = deleteButton.closest('.placed-item');
