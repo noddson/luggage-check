@@ -6,12 +6,12 @@ This document explains the luggage-check codebase at the level needed to maintai
 
 | Area | Files | Purpose |
 | --- | --- | --- |
-| Browser UI | `public/index.html`, `public/styles.css`, `public/app.js` | Static single-page app that loads luggage plus the generated vehicle index, lets users choose a vehicle/seat setup/luggage quantities, runs the fit estimator, and renders 2D/3D SVG visualizations. |
-| Fit estimation | `src/packing/fitEstimator.js` | Deterministic multi-pass rectangular packing estimator. Expands luggage quantities, applies soft-bag compression, tests rotations/opening constraints/seat-back encroachment, and returns placements plus warnings. |
-| Config loading | `src/config/loadConfigs.js` | Node-side JSON readers used by validation and smoke scripts. |
-| Domain documentation | `src/domain/types.js` | JSDoc typedefs for luggage, vehicles, cargo zones, seat configurations, and estimator result shapes. |
+| Browser UI | `index.html`, `styles.css`, `app.js` | Static single-page app that loads luggage plus the generated vehicle index, lets users choose a vehicle/seat setup/luggage quantities, runs the fit estimator, and renders 2D/3D SVG visualizations. |
+| Fit estimation | `fitEstimator.js` | Deterministic multi-pass rectangular packing estimator. Expands luggage quantities, applies soft-bag compression, tests rotations/opening constraints/seat-back encroachment, and returns placements plus warnings. |
+| Config loading | `loadConfigs.js` | Node-side JSON readers used by validation and smoke scripts. |
+| Domain documentation | `types.js` | JSDoc typedefs for luggage, vehicles, cargo zones, seat configurations, and estimator result shapes. |
 | Config data | `configs/luggage/*.json`, `configs/vehicles/**/*.json` | Source-backed luggage and vehicle cargo data. `configs/vehicles/index.json` is generated from regional vehicle files for browser loading. Schema files document the expected JSON shapes. |
-| Developer scripts | `scripts/generate-vehicle-index.mjs`, `scripts/validate-configs.mjs`, `scripts/smoke-app.mjs`, `scripts/serve-app.mjs` | Vehicle-index generation/staleness checks, dataset validation, app/estimator smoke checks, and a zero-dependency static file server. |
+| Developer scripts | `generate-vehicle-index.mjs`, `validate-configs.mjs`, `smoke-app.mjs`, `serve-app.mjs` | Vehicle-index generation/staleness checks, dataset validation, app/estimator smoke checks, and a zero-dependency static file server. |
 
 ## Safe rendering policy
 
@@ -35,7 +35,7 @@ The packing estimator and visualization use the same coordinate model:
 
 ### Important domain interfaces
 
-The canonical shape documentation is in `src/domain/types.js`. In prose, the key interfaces are:
+The canonical shape documentation is in `types.js`. In prose, the key interfaces are:
 
 #### `DimensionsMm`
 
@@ -142,9 +142,9 @@ Each vehicle has one or more cargo zones and one or more seat configurations tha
 
 `fitScore` is the fraction of selected individual luggage instances placed, rounded to two decimals.
 
-## `src/config/loadConfigs.js` — configuration loading
+## `loadConfigs.js` — configuration loading
 
-This module is used by Node scripts, not by the browser. The browser uses its own `fetch`-based loader in `public/app.js`.
+This module is used by Node scripts, not by the browser. The browser uses its own `fetch`-based loader in `app.js`.
 
 ### `readJson(filePath)`
 
@@ -223,7 +223,7 @@ async function loadEuropeanVehicles(dir?: string): Promise<VehicleConfig[]>
 
 **Correctness tests:** Load the default directory and assert each returned vehicle has a `rentalClasses` array and `cargoZones`.
 
-## `src/packing/fitEstimator.js` — packing estimator
+## `fitEstimator.js` — packing estimator
 
 This is the computational core. It is intentionally deterministic: the same luggage set, vehicle, seat configuration, and options produce the same estimate.
 
@@ -550,7 +550,7 @@ This is an estimator, not an exact bin-packing solver. It uses rectangular envel
 
 **Errors:** No explicit errors.
 
-**Testing:** Reverse the input luggage array and assert `estimateFit` places the same number of items. This is already covered by `scripts/smoke-app.mjs`.
+**Testing:** Reverse the input luggage array and assert `estimateFit` places the same number of items. This is already covered by `smoke-app.mjs`.
 
 #### `packingScore(result, zones)` and `comparePackingScores(a, b)`
 
@@ -633,13 +633,13 @@ function estimateFit(
 - `npm run smoke:app` verifies complete placement coordinates, rejects overlap/out-of-bounds placements, checks deterministic results under reversed luggage input order, and covers seat-back encroachment, coplanar support, and supported-overhang regressions.
 - Add focused unit tests for unknown seat configuration, opening constraints, and zero-quantity UI clones if a unit test framework is introduced.
 
-## `public/app.js` — browser application
+## `app.js` — browser application
 
-This file owns client-side state, DOM updates, user events, and SVG visualization. It imports only the estimator from `src/packing/fitEstimator.js`.
+This file owns client-side state, DOM updates, user events, and SVG visualization. It imports only the estimator from `fitEstimator.js`.
 
 ### Top-level state and constants
 
-- `VEHICLE_INDEX_PATH`: points to `../configs/vehicles/index.json`, the generated manifest of browser-visible vehicle config files. New vehicle files are discovered by `scripts/generate-vehicle-index.mjs` rather than hard-coded in the browser.
+- `VEHICLE_INDEX_PATH`: points to `./configs/vehicles/index.json`, the generated manifest of browser-visible vehicle config files. New vehicle files are discovered by `generate-vehicle-index.mjs` rather than hard-coded in the browser.
 - `BAG_COLORS`: palette used to color placements by source luggage item.
 - `DEFAULT_SEAT_BACK_ANGLE_DEGREES`: UI copy/visual default matching the estimator fallback.
 - `state`: current app state:
@@ -1004,9 +1004,9 @@ The 3D view is SVG-based, not WebGL. It creates cuboid vertices, rotates them, p
 
 **Testing:** `npm start` plus a browser check should confirm the page loads. A mocked fetch test can assert the failure path.
 
-## `public/index.html` — app shell
+## `index.html` — app shell
 
-The HTML file provides the semantic structure and DOM ids/classes consumed by `public/app.js`:
+The HTML file provides the semantic structure and DOM ids/classes consumed by `app.js`:
 
 - Vehicle/configuration selectors.
 - Seat-back encroachment degrees input with vehicle-default initialization.
@@ -1014,24 +1014,24 @@ The HTML file provides the semantic structure and DOM ids/classes consumed by `p
 - View tabs for top, side, rear/front, and 3D views.
 - Hero result, metrics, visualization, placed/unplaced lists, and warnings containers.
 
-**Errors:** If IDs expected by `public/app.js` are renamed or removed, top-level DOM lookups can return `null`, causing event binding or rendering failures.
+**Errors:** If IDs expected by `app.js` are renamed or removed, top-level DOM lookups can return `null`, causing event binding or rendering failures.
 
 **Testing:** `npm run smoke:app` checks for required app-shell markers.
 
-## `public/styles.css` — styling
+## `styles.css` — styling
 
 The stylesheet defines responsive layout, form controls, result cards, warning/list styles, 2D SVG placement styles, 3D SVG cuboid styles, seat-back overlays, and orientation controls.
 
 **Testing:** `npm run smoke:app` checks for key CSS selectors, including visualization cards, seat-back encroachment lines, 3D orientation controls, and secondary button styles. Visual regression screenshots would be useful for future UI changes.
 
-## `scripts/generate-vehicle-index.mjs` — vehicle manifest generation
+## `generate-vehicle-index.mjs` — vehicle manifest generation
 
 This script keeps browser vehicle loading data-driven. It discovers vehicle JSON files under region directories and writes or checks `configs/vehicles/index.json`.
 
 ### Constants
 
 - `VEHICLES_DIR = 'configs/vehicles'`: root directory scanned for regional vehicle config folders.
-- `INDEX_PATH = 'configs/vehicles/index.json'`: generated manifest consumed by `public/app.js`.
+- `INDEX_PATH = 'configs/vehicles/index.json'`: generated manifest consumed by `app.js`.
 - `GENERATED_NOTE`: text stored in the manifest to discourage manual edits.
 
 ### `discoverVehicleFiles(dir = VEHICLES_DIR)`
@@ -1052,7 +1052,7 @@ This script keeps browser vehicle loading data-driven. It discovers vehicle JSON
 
 ```json
 {
-  "generatedBy": "Generated by scripts/generate-vehicle-index.mjs. Do not edit by hand.",
+  "generatedBy": "Generated by generate-vehicle-index.mjs. Do not edit by hand.",
   "files": ["europe/example.json"]
 }
 ```
@@ -1070,7 +1070,7 @@ This script keeps browser vehicle loading data-driven. It discovers vehicle JSON
 - `npm run validate:vehicle-index` fails when the manifest is stale.
 - `npm run check` runs the staleness check before config validation and smoke tests.
 
-## `scripts/validate-configs.mjs` — dataset and estimator validation
+## `validate-configs.mjs` — dataset and estimator validation
 
 This script is the main CI-style data check.
 
@@ -1129,13 +1129,13 @@ After loading configs, the script also checks:
 
 **Errors:** If any validation errors are accumulated, the script prints them and exits with code `1`. Unexpected loader/parser errors also fail the process.
 
-## `scripts/smoke-app.mjs` — app shell and estimator smoke tests
+## `smoke-app.mjs` — app shell and estimator smoke tests
 
 This script combines static asset checks with estimator regression checks.
 
 ### Static checks
 
-It reads `public/index.html`, `public/styles.css`, and `public/app.js` and asserts that important UI markers exist:
+It reads `index.html`, `styles.css`, and `app.js` and asserts that important UI markers exist:
 
 - App shell ids/classes.
 - Seat-back encroachment degrees controls.
@@ -1175,7 +1175,7 @@ For every vehicle and seat configuration, the script asserts:
 
 **Errors:** Throws on the first failed invariant, producing a non-zero exit.
 
-## `scripts/serve-app.mjs` — local static server
+## `serve-app.mjs` — local static server
 
 This script serves the static app without external dependencies.
 
@@ -1191,9 +1191,9 @@ This script serves the static app without external dependencies.
 
 **Behavior:**
 
-- `/` maps to `public/index.html`.
-- Single-segment paths like `/styles.css` map to `public/styles.css`.
-- Multi-segment paths can access repository assets such as `/configs/...` and `/src/...`, which the browser needs for JSON and module imports.
+- `/` maps to `index.html`.
+- Single-segment paths like `/styles.css` map to `styles.css`.
+- Multi-segment paths can access repository assets such as `/configs/...` JSON and root-level JS modules (for example `/fitEstimator.js`), which the browser needs for JSON and module imports.
 - Path traversal is blocked by resolving and requiring the absolute path to start with the repository root.
 
 **Input:** Raw request URL path, possibly with query string.
@@ -1204,8 +1204,8 @@ This script serves the static app without external dependencies.
 
 **Testing:**
 
-- `/` resolves to `public/index.html`.
-- `/app.js` resolves to `public/app.js`.
+- `/` resolves to `index.html`.
+- `/app.js` resolves to `app.js`.
 - `/configs/luggage/common.json` resolves under the repo.
 - `/../package.json` or encoded traversal should return `undefined` or fail safely.
 
@@ -1225,7 +1225,7 @@ This script serves the static app without external dependencies.
 
 ### Luggage config
 
-`configs/luggage/common.json` contains starter luggage presets. `configs/luggage/schema.json` documents the intended schema. Validation currently happens in `scripts/validate-configs.mjs`, not through a JSON Schema validator.
+`configs/luggage/common.json` contains starter luggage presets. `configs/luggage/schema.json` documents the intended schema. Validation currently happens in `validate-configs.mjs`, not through a JSON Schema validator.
 
 **Correctness checklist for changes:**
 
@@ -1255,7 +1255,7 @@ Vehicle configs are split by region under `configs/vehicles/europe` and `configs
 The codebase uses three different error patterns:
 
 1. **Throwing runtime errors:** Examples include invalid JSON, failed file reads/fetches, and unknown seat configuration in `estimateFit`.
-2. **Accumulated validation errors:** `scripts/validate-configs.mjs` collects many config issues before failing, which makes dataset fixes easier.
+2. **Accumulated validation errors:** `validate-configs.mjs` collects many config issues before failing, which makes dataset fixes easier.
 3. **Returned warnings:** `estimateFit` returns non-fatal warnings for low-confidence/dimensionless/encroached zones so the UI can display caveats without blocking results.
 
 When extending the app, prefer validation errors for bad config data, returned warnings for user-visible caveats, and thrown errors for programmer mistakes or unrecoverable load failures.
