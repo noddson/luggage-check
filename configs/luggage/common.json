@@ -42,6 +42,9 @@
         },
         "is": {
           "label": "IATA-staðlaður handfarangurstaska"
+        },
+        "jp": {
+          "label": "IATA規格キャビンバッグ"
         }
       }
     },
@@ -86,6 +89,9 @@
         },
         "is": {
           "label": "Handfarangur samkvæmt bandarískum flugfélagastaðli"
+        },
+        "jp": {
+          "label": "米国航空会社機内持ち込み"
         }
       }
     },
@@ -130,6 +136,9 @@
         },
         "is": {
           "label": "Oddson Family handfarangur"
+        },
+        "jp": {
+          "label": "Oddson Family機内持ち込み"
         }
       }
     },
@@ -174,6 +183,9 @@
         },
         "is": {
           "label": "Meðalstór innritað ferðataska"
+        },
+        "jp": {
+          "label": "中型受託手荷物スーツケース"
         }
       }
     },
@@ -218,6 +230,9 @@
         },
         "is": {
           "label": "Stór innritað ferðataska"
+        },
+        "jp": {
+          "label": "大型受託手荷物スーツケース"
         }
       }
     },
@@ -281,6 +296,9 @@
         },
         "is": {
           "label": "Mjúkur ferðabakpoki"
+        },
+        "jp": {
+          "label": "ソフトトラベルバックパック"
         }
       }
     },
@@ -325,6 +343,9 @@
         },
         "is": {
           "label": "Golfkylfur"
+        },
+        "jp": {
+          "label": "ゴルフクラブ"
         }
       }
     },
@@ -369,6 +390,9 @@
         },
         "is": {
           "label": "Golfboltar (kassi með 12)"
+        },
+        "jp": {
+          "label": "ゴルフボール（12個入り）"
         }
       }
     }

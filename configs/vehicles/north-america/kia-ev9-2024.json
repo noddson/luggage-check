@@ -57,6 +57,9 @@
         },
         "is": {
           "label": "Farangursrými aftan við 3. röð"
+        },
+        "jp": {
+          "label": "3列目後方ラゲッジスペース"
         }
       }
     },
@@ -95,6 +98,9 @@
         },
         "is": {
           "label": "Farangursrými með 3. röð fellda"
+        },
+        "jp": {
+          "label": "3列目折りたたみ時ラゲッジスペース"
         }
       }
     },
@@ -129,6 +135,9 @@
         },
         "is": {
           "label": "Hámarksfarangursrými með 2. og 3. röð felldar"
+        },
+        "jp": {
+          "label": "2列目・3列目折りたたみ時の最大ラゲッジスペース"
         }
       }
     },
@@ -159,6 +168,9 @@
         },
         "is": {
           "label": "Framfarangursrými / geymsla fyrir hleðslukapal (afturhjóladrifsútgáfur)"
+        },
+        "jp": {
+          "label": "フロントトランク／充電ケーブル収納（RWDグレード）"
         }
       }
     },
@@ -189,6 +201,9 @@
         },
         "is": {
           "label": "Yfirflæði í fótarými 2. raðar"
+        },
+        "jp": {
+          "label": "2列目足元オーバーフロー"
         }
       }
     }
@@ -218,6 +233,9 @@
         },
         "is": {
           "label": "Allar raðir uppi"
+        },
+        "jp": {
+          "label": "全列使用"
         }
       }
     },
@@ -245,6 +263,9 @@
         },
         "is": {
           "label": "Allar raðir uppi, sjö farþega bekkjasætaútgáfa"
+        },
+        "jp": {
+          "label": "全列使用（7人乗りベンチシート仕様）"
         }
       }
     },
@@ -272,6 +293,9 @@
         },
         "is": {
           "label": "3. röð felld"
+        },
+        "jp": {
+          "label": "3列目折りたたみ"
         }
       }
     },
@@ -299,6 +323,9 @@
         },
         "is": {
           "label": "3. röð felld, sjö farþega bekkjasætaútgáfa"
+        },
+        "jp": {
+          "label": "3列目折りたたみ（7人乗りベンチシート仕様）"
         }
       }
     },
@@ -326,6 +353,9 @@
         },
         "is": {
           "label": "2. og 3. röð felldar"
+        },
+        "jp": {
+          "label": "2列目・3列目折りたたみ"
         }
       }
     },
@@ -354,6 +384,9 @@
         },
         "is": {
           "label": "Allar raðir uppi með yfirflæði í fótarými 2. raðar"
+        },
+        "jp": {
+          "label": "全列使用＋2列目足元オーバーフロー"
         }
       }
     }
@@ -428,6 +461,9 @@
     },
     "is": {
       "bodyStyle": "5 dyra alrafknúinn meðalstór jepplingur með þremur sætaröðum"
+    },
+    "jp": {
+      "bodyStyle": "5ドア電動3列ミッドサイズSUV"
     }
   }
 }

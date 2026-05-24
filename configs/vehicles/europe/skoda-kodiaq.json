@@ -55,6 +55,9 @@
         },
         "is": {
           "label": "Farangursrými aftan við 3. röð með öll 7 sæti í notkun"
+        },
+        "jp": {
+          "label": "7人乗車時の3列目後方トランク"
         }
       }
     },
@@ -93,6 +96,9 @@
         },
         "is": {
           "label": "Farangursrými með 2. röð á sínum stað og 3. röð fellda niður"
+        },
+        "jp": {
+          "label": "2列目使用・3列目格納時ラゲッジスペース"
         }
       }
     },
@@ -127,6 +133,9 @@
         },
         "is": {
           "label": "Hámarksfarangursrými með aftari raðir felldar"
+        },
+        "jp": {
+          "label": "後列折りたたみ時の最大ラゲッジスペース"
         }
       }
     }
@@ -155,6 +164,9 @@
         },
         "is": {
           "label": "Öll 7 sæti í notkun"
+        },
+        "jp": {
+          "label": "7席すべて使用"
         }
       }
     },
@@ -181,6 +193,9 @@
         },
         "is": {
           "label": "3. röð felld"
+        },
+        "jp": {
+          "label": "3列目折りたたみ"
         }
       }
     },
@@ -207,6 +222,9 @@
         },
         "is": {
           "label": "Aftari raðir felldar"
+        },
+        "jp": {
+          "label": "後列折りたたみ"
         }
       }
     }
@@ -257,6 +275,9 @@
     },
     "is": {
       "bodyStyle": "7 sæta meðalstór jepplingur"
+    },
+    "jp": {
+      "bodyStyle": "7人乗りミッドサイズSUV"
     }
   }
 }
