@@ -53,7 +53,7 @@ const I18N = {
     length: 'length', width: 'width', height: 'height', seatEncroachmentEnvelope: 'Seat-back encroachment envelope', forwardSeats: 'Forward seats', front: 'front',
     bootView: 'Boot view', sideView: 'Side view', topView: 'Top view', switchTo: 'Switch to {view}', axisTitle: '{axis} axis · {view}', orientationAxisControl: '3D orientation axis control', yawLabel: 'yaw', pitchLabel: 'pitch',
     zone3dAria: 'rotatable 3D luggage view', removeOne: 'Remove one {item}', placedSummary: '{placed}/{total} bags placed', usedVolume: '{used} L used', placedCount: '{placed} placed · {unplaced} unplaced', volumeUsedPercent: '{percent}% usable volume used',
-    loadErrorTitle: 'Unable to load app', fitResultTitle: 'Estimated cargo fit', loading: 'Loading', languageSelector: 'Language selector', visualizationView: 'Visualization view', scaledDrawing: 'Scaled luggage placement drawing', seatWedgeTitle: 'Seat-back encroachment wedge: {angle}°', zoneViewAria: '{zone} · {view} view', seatGuideTitle: 'Forward seat outline'
+    loadErrorTitle: 'Unable to load app', fitResultTitle: 'Estimated cargo fit', loading: 'Loading', languageSelector: 'Language selector', visualizationView: 'Visualization view', scaledDrawing: 'Scaled luggage placement drawing', seatWedgeTitle: 'Seat-back encroachment wedge: {angle}°', zoneViewAria: '{zone} · {view} view', seatGuideTitle: 'Forward seat outline', disclaimerLabel: 'Disclaimer:', disclaimerText: 'This luggage fit result is an estimate only and may be wrong. Real-world cargo geometry and loading conditions vary, so no accuracy or fit guarantee is provided.', copyrightRights: 'All rights reserved.'
   },
   xx: {
     pageTitle: "Captain's Cargo Check",
@@ -118,7 +118,10 @@ const I18N = {
     scaledDrawing: "Scaled plunder placement chart",
     seatWedgeTitle: "Aft seat-back wedge: {angle}°",
     zoneViewAria: "{zone} · {view} view",
-    seatGuideTitle: "Forward berth outline"
+    seatGuideTitle: "Forward berth outline",
+    disclaimerLabel: "Cap'n warnin':",
+    disclaimerText: "This cargo stow result be but an estimate an' may be wrong. Real-world hold geometry an' loadin' conditions vary, so no accuracy or fit guarantee be offered.",
+    copyrightRights: "All plunderin' rights reserved."
   },
   el: {
     pageTitle: 'Έλεγχος Αποσκευών',
@@ -135,7 +138,7 @@ const I18N = {
     length: 'μήκος', width: 'πλάτος', height: 'ύψος', seatEncroachmentEnvelope: 'Ζώνη κλίσης πλάτης πίσω καθισμάτων', forwardSeats: 'Μπροστινά καθίσματα', front: 'μπροστά',
     bootView: 'Πίσω χώρος', sideView: 'Πλάγια όψη', topView: 'Κάτοψη', switchTo: 'Μετάβαση σε {view}', axisTitle: 'Άξονας {axis} · {view}', orientationAxisControl: 'Έλεγχος αξόνων προσανατολισμού 3D', yawLabel: 'περιστροφή', pitchLabel: 'κλίση',
     zone3dAria: 'περιστρεφόμενη προβολή αποσκευών 3D', removeOne: 'Αφαίρεση ενός {item}', placedSummary: '{placed}/{total} αποσκευές τοποθετημένες', usedVolume: '{used} L χρησιμοποιούνται', placedCount: '{placed} τοποθετημένες · {unplaced} μη τοποθετημένες', volumeUsedPercent: '{percent}% του χρήσιμου όγκου χρησιμοποιείται',
-    loadErrorTitle: 'Αδυναμία φόρτωσης εφαρμογής', fitResultTitle: 'Εκτιμώμενη εφαρμογή χώρου αποσκευών', loading: 'Φόρτωση', languageSelector: 'Επιλογή γλώσσας', visualizationView: 'Προβολή οπτικοποίησης', scaledDrawing: 'Σχεδίαση κλίμακας τοποθέτησης αποσκευών', seatWedgeTitle: 'Σφήνα κλίσης πλάτης καθίσματος: {angle}°', zoneViewAria: '{zone} · προβολή {view}', seatGuideTitle: 'Περίγραμμα μπροστινών καθισμάτων'
+    loadErrorTitle: 'Αδυναμία φόρτωσης εφαρμογής', fitResultTitle: 'Εκτιμώμενη εφαρμογή χώρου αποσκευών', loading: 'Φόρτωση', languageSelector: 'Επιλογή γλώσσας', visualizationView: 'Προβολή οπτικοποίησης', scaledDrawing: 'Σχεδίαση κλίμακας τοποθέτησης αποσκευών', seatWedgeTitle: 'Σφήνα κλίσης πλάτης καθίσματος: {angle}°', zoneViewAria: '{zone} · προβολή {view}', seatGuideTitle: 'Περίγραμμα μπροστινών καθισμάτων', disclaimerLabel: 'Αποποίηση ευθύνης:', disclaimerText: 'Το αποτέλεσμα εφαρμογής αποσκευών είναι μόνο εκτίμηση και μπορεί να είναι λανθασμένο. Η πραγματική γεωμετρία του χώρου φόρτωσης και οι συνθήκες φόρτωσης διαφέρουν, επομένως δεν παρέχεται εγγύηση ακρίβειας ή εφαρμογής.', copyrightRights: 'Με επιφύλαξη παντός δικαιώματος.'
   },
   de: {
     pageTitle: 'Gepäck-Check',
@@ -152,7 +155,7 @@ const I18N = {
     length: 'Länge', width: 'Breite', height: 'Höhe', seatEncroachmentEnvelope: 'Rücksitzlehnen-Einengungsbereich', forwardSeats: 'Vordersitze', front: 'vorne',
     bootView: 'Kofferraumansicht', sideView: 'Seitenansicht', topView: 'Draufsicht', switchTo: 'Wechseln zu {view}', axisTitle: '{axis}-Achse · {view}', orientationAxisControl: '3D-Ausrichtungsachsensteuerung', yawLabel: 'Drehung', pitchLabel: 'Neigung',
     zone3dAria: 'Drehbare 3D-Gepäckansicht', removeOne: 'Eins entfernen: {item}', placedSummary: '{placed}/{total} Gepäckstücke platziert', usedVolume: '{used} L genutzt', placedCount: '{placed} platziert · {unplaced} nicht platziert', volumeUsedPercent: '{percent}% des nutzbaren Volumens verwendet',
-    loadErrorTitle: 'App konnte nicht geladen werden', fitResultTitle: 'Geschätzte Laderaumpassung', loading: 'Lädt', languageSelector: 'Sprachauswahl', visualizationView: 'Visualisierungsansicht', scaledDrawing: 'Skalierte Zeichnung der Gepäckplatzierung', seatWedgeTitle: 'Rücksitzlehnen-Einengungskeil: {angle}°', zoneViewAria: '{zone} · Ansicht {view}', seatGuideTitle: 'Kontur der Vordersitze'
+    loadErrorTitle: 'App konnte nicht geladen werden', fitResultTitle: 'Geschätzte Laderaumpassung', loading: 'Lädt', languageSelector: 'Sprachauswahl', visualizationView: 'Visualisierungsansicht', scaledDrawing: 'Skalierte Zeichnung der Gepäckplatzierung', seatWedgeTitle: 'Rücksitzlehnen-Einengungskeil: {angle}°', zoneViewAria: '{zone} · Ansicht {view}', seatGuideTitle: 'Kontur der Vordersitze', disclaimerLabel: 'Hinweis:', disclaimerText: 'Dieses Ergebnis zur Gepäckpassung ist nur eine Schätzung und kann falsch sein. Reale Laderaumgeometrie und Beladungsbedingungen variieren; daher wird keine Genauigkeits- oder Passgarantie gegeben.', copyrightRights: 'Alle Rechte vorbehalten.'
   },
   fr: {
     pageTitle: 'Vérification des bagages',
@@ -169,7 +172,7 @@ const I18N = {
     length: 'longueur', width: 'largeur', height: 'hauteur', seatEncroachmentEnvelope: 'Zone d’inclinaison du dossier arrière', forwardSeats: 'Sièges avant', front: 'avant',
     bootView: 'Vue du coffre', sideView: 'Vue latérale', topView: 'Vue du dessus', switchTo: 'Basculer vers {view}', axisTitle: 'Axe {axis} · {view}', orientationAxisControl: 'Contrôle de l’axe d’orientation 3D', yawLabel: 'lacet', pitchLabel: 'tangage',
     zone3dAria: 'vue 3D rotative des bagages', removeOne: 'Retirer un {item}', placedSummary: '{placed}/{total} bagages placés', usedVolume: '{used} L utilisés', placedCount: '{placed} placés · {unplaced} non placés', volumeUsedPercent: '{percent}% du volume utilisable utilisé',
-    loadErrorTitle: 'Impossible de charger l’application', fitResultTitle: 'Ajustement estimé du coffre', loading: 'Chargement', languageSelector: 'Sélecteur de langue', visualizationView: 'Vue de visualisation', scaledDrawing: 'Dessin à l’échelle du placement des bagages', seatWedgeTitle: 'Coin d’inclinaison du dossier arrière : {angle}°', zoneViewAria: '{zone} · vue {view}', seatGuideTitle: 'Contour des sièges avant'
+    loadErrorTitle: 'Impossible de charger l’application', fitResultTitle: 'Ajustement estimé du coffre', loading: 'Chargement', languageSelector: 'Sélecteur de langue', visualizationView: 'Vue de visualisation', scaledDrawing: 'Dessin à l’échelle du placement des bagages', seatWedgeTitle: 'Coin d’inclinaison du dossier arrière : {angle}°', zoneViewAria: '{zone} · vue {view}', seatGuideTitle: 'Contour des sièges avant', disclaimerLabel: 'Avertissement :', disclaimerText: 'Ce résultat d’ajustement des bagages est uniquement une estimation et peut être erroné. La géométrie réelle du coffre et les conditions de chargement varient, donc aucune garantie de précision ou d’ajustement n’est fournie.', copyrightRights: 'Tous droits réservés.'
   },
   it: {
     pageTitle: 'Verifica bagagli',
@@ -186,7 +189,7 @@ const I18N = {
     length: 'lunghezza', width: 'larghezza', height: 'altezza', seatEncroachmentEnvelope: 'Area di ingombro dello schienale posteriore', forwardSeats: 'Sedili anteriori', front: 'davanti',
     bootView: 'Vista bagagliaio', sideView: 'Vista laterale', topView: 'Vista dall’alto', switchTo: 'Passa a {view}', axisTitle: 'Asse {axis} · {view}', orientationAxisControl: 'Controllo assi orientamento 3D', yawLabel: 'rotazione', pitchLabel: 'inclinazione',
     zone3dAria: 'vista 3D ruotabile dei bagagli', removeOne: 'Rimuovi un {item}', placedSummary: '{placed}/{total} bagagli posizionati', usedVolume: '{used} L usati', placedCount: '{placed} posizionati · {unplaced} non posizionati', volumeUsedPercent: '{percent}% del volume utile utilizzato',
-    loadErrorTitle: 'Impossibile caricare l’app', fitResultTitle: 'Stima di carico bagagliaio', loading: 'Caricamento', languageSelector: 'Selettore lingua', visualizationView: 'Vista visualizzazione', scaledDrawing: 'Disegno in scala del posizionamento bagagli', seatWedgeTitle: 'Cuneo di ingombro dello schienale: {angle}°', zoneViewAria: '{zone} · vista {view}', seatGuideTitle: 'Profilo dei sedili anteriori'
+    loadErrorTitle: 'Impossibile caricare l’app', fitResultTitle: 'Stima di carico bagagliaio', loading: 'Caricamento', languageSelector: 'Selettore lingua', visualizationView: 'Vista visualizzazione', scaledDrawing: 'Disegno in scala del posizionamento bagagli', seatWedgeTitle: 'Cuneo di ingombro dello schienale: {angle}°', zoneViewAria: '{zone} · vista {view}', seatGuideTitle: 'Profilo dei sedili anteriori', disclaimerLabel: 'Avvertenza:', disclaimerText: 'Questo risultato di carico bagagli è solo una stima e potrebbe essere errato. La geometria reale del vano di carico e le condizioni di carico variano, quindi non viene fornita alcuna garanzia di accuratezza o di effettiva compatibilità.', copyrightRights: 'Tutti i diritti riservati.'
   },
   es: {
     pageTitle: 'Comprobación de equipaje',
@@ -203,7 +206,7 @@ const I18N = {
     length: 'largo', width: 'ancho', height: 'alto', seatEncroachmentEnvelope: 'Zona de invasión del respaldo trasero', forwardSeats: 'Asientos delanteros', front: 'frente',
     bootView: 'Vista del maletero', sideView: 'Vista lateral', topView: 'Vista superior', switchTo: 'Cambiar a {view}', axisTitle: 'Eje {axis} · {view}', orientationAxisControl: 'Control de ejes de orientación 3D', yawLabel: 'giro', pitchLabel: 'inclinación',
     zone3dAria: 'vista 3D giratoria del equipaje', removeOne: 'Quitar una unidad de {item}', placedSummary: '{placed}/{total} equipajes colocados', usedVolume: '{used} L usados', placedCount: '{placed} colocados · {unplaced} sin colocar', volumeUsedPercent: '{percent}% del volumen útil utilizado',
-    loadErrorTitle: 'No se pudo cargar la aplicación', fitResultTitle: 'Ajuste estimado de carga', loading: 'Cargando', languageSelector: 'Selector de idioma', visualizationView: 'Vista de visualización', scaledDrawing: 'Dibujo a escala de la colocación del equipaje', seatWedgeTitle: 'Cuña de invasión del respaldo: {angle}°', zoneViewAria: '{zone} · vista {view}', seatGuideTitle: 'Contorno de los asientos delanteros'
+    loadErrorTitle: 'No se pudo cargar la aplicación', fitResultTitle: 'Ajuste estimado de carga', loading: 'Cargando', languageSelector: 'Selector de idioma', visualizationView: 'Vista de visualización', scaledDrawing: 'Dibujo a escala de la colocación del equipaje', seatWedgeTitle: 'Cuña de invasión del respaldo: {angle}°', zoneViewAria: '{zone} · vista {view}', seatGuideTitle: 'Contorno de los asientos delanteros', disclaimerLabel: 'Aviso legal:', disclaimerText: 'Este resultado de ajuste de equipaje es solo una estimación y puede ser incorrecto. La geometría real del maletero y las condiciones de carga varían, por lo que no se ofrece ninguna garantía de precisión o de encaje.', copyrightRights: 'Todos los derechos reservados.'
   },
   is: {
     pageTitle: 'Farangurstékk',
@@ -220,7 +223,7 @@ const I18N = {
     length: 'lengd', width: 'breidd', height: 'hæð', seatEncroachmentEnvelope: 'Skörunarsvæði aftursætisbaks', forwardSeats: 'Framsæti', front: 'framan',
     bootView: 'Skottsýn', sideView: 'Hliðarsýn', topView: 'Ofansýn', switchTo: 'Skipta í {view}', axisTitle: '{axis}-ás · {view}', orientationAxisControl: 'Stýring fyrir 3D stefnuása', yawLabel: 'snúningur', pitchLabel: 'halli',
     zone3dAria: 'snúanleg 3D sýn á farangur', removeOne: 'Fjarlægja eitt af {item}', placedSummary: '{placed}/{total} farangurseiningar komnar fyrir', usedVolume: '{used} L notað', placedCount: '{placed} komið fyrir · {unplaced} óstaðsett', volumeUsedPercent: '{percent}% af nýtanlegu rúmmáli notað',
-    loadErrorTitle: 'Ekki tókst að hlaða forriti', fitResultTitle: 'Áætluð farangurspassun', loading: 'Hleð', languageSelector: 'Val á tungumáli', visualizationView: 'Sýn á framsetningu', scaledDrawing: 'Skölunarteikning af staðsetningu farangurs', seatWedgeTitle: 'Skörunarfleygur aftursætisbaks: {angle}°', zoneViewAria: '{zone} · {view} sýn', seatGuideTitle: 'Útlínur framsæta'
+    loadErrorTitle: 'Ekki tókst að hlaða forriti', fitResultTitle: 'Áætluð farangurspassun', loading: 'Hleð', languageSelector: 'Val á tungumáli', visualizationView: 'Sýn á framsetningu', scaledDrawing: 'Skölunarteikning af staðsetningu farangurs', seatWedgeTitle: 'Skörunarfleygur aftursætisbaks: {angle}°', zoneViewAria: '{zone} · {view} sýn', seatGuideTitle: 'Útlínur framsæta', disclaimerLabel: 'Fyrirvari:', disclaimerText: 'Þessi niðurstaða um farangurspassun er aðeins mat og getur verið röng. Raunveruleg rúmfræði farangursrýmis og hleðsluaðstæður eru breytilegar, því er engin trygging veitt um nákvæmni eða passun.', copyrightRights: 'Öll réttindi áskilin.'
   },
   jp: {
     pageTitle: '荷物チェック',
@@ -237,7 +240,7 @@ const I18N = {
     length: '長さ', width: '幅', height: '高さ', seatEncroachmentEnvelope: '背もたれ張り出し領域', forwardSeats: '前席', front: '前方',
     bootView: '荷室ビュー', sideView: '側面ビュー', topView: '上面ビュー', switchTo: '{view} に切り替え', axisTitle: '{axis} 軸 · {view}', orientationAxisControl: '3D 向き軸コントロール', yawLabel: 'ヨー', pitchLabel: 'ピッチ',
     zone3dAria: '回転可能な3D荷物ビュー', removeOne: '{item} を1つ削除', placedSummary: '{total} 個中 {placed} 個を配置', usedVolume: '{used} L 使用', placedCount: '配置済み {placed} · 未配置 {unplaced}', volumeUsedPercent: '使用可能容量の {percent}% を使用',
-    loadErrorTitle: 'アプリを読み込めませんでした', fitResultTitle: '推定積載結果', loading: '読み込み中', languageSelector: '言語セレクター', visualizationView: '可視化ビュー', scaledDrawing: '荷物配置の縮尺図', seatWedgeTitle: '背もたれ張り出しウェッジ: {angle}°', zoneViewAria: '{zone} · {view} ビュー', seatGuideTitle: '前席の輪郭'
+    loadErrorTitle: 'アプリを読み込めませんでした', fitResultTitle: '推定積載結果', loading: '読み込み中', languageSelector: '言語セレクター', visualizationView: '可視化ビュー', scaledDrawing: '荷物配置の縮尺図', seatWedgeTitle: '背もたれ張り出しウェッジ: {angle}°', zoneViewAria: '{zone} · {view} ビュー', seatGuideTitle: '前席の輪郭', disclaimerLabel: '免責事項:', disclaimerText: 'この荷物積載結果はあくまで推定であり、誤っている可能性があります。実際の荷室形状や積載条件は異なるため、精度や積載適合を保証するものではありません。', copyrightRights: '無断転載を禁じます。'
   }};
 const localeBundle = () => I18N[state.language] ?? I18N.en;
 const t = (key) => localeBundle()[key] ?? I18N.en[key] ?? key;
