@@ -19,6 +19,9 @@ for (const marker of ['estimateFit', 'renderVisualization', 'seatEncroachmentOve
 for (const marker of ['bootView', 'sideView', 'topView', 'activeOrientationLabel']) {
   if (!app.includes(marker)) throw new Error(`Browser app missing orientation preset label ${marker}`);
 }
+for (const marker of ["es: {", "zoneViewAria", "seatGuideTitle"]) {
+  if (!app.includes(marker)) throw new Error(`Browser app missing localization marker ${marker}`);
+}
 if (!css.includes('.zone-card')) throw new Error('Styles missing visualization card rules');
 if (!css.includes('.seat-encroachment-line') || !css.includes('.seat-encroachment-face')) throw new Error('Styles missing seat-back encroachment rules');
 if (!css.includes('.orientation-axis-button')) throw new Error('Styles missing 3D orientation axis controls');
