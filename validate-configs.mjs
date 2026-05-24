@@ -5,6 +5,7 @@ import { estimateFit } from './fitEstimator.node.js';
 
 const ISO_DATE = /^\d{4}-\d{2}-\d{2}$/;
 const URL_LIKE = /^https?:\/\//;
+const MAX_DIMENSIONAL_OVERSHOOT_RATIO = 1.03;
 
 function assert(condition, message, errors) {
   if (!condition) errors.push(message);
@@ -70,7 +71,15 @@ function validateVehicle(vehicle) {
     assert(!zoneIds.has(zone.id), `${zoneLabel}.id must be unique`, errors);
     zoneIds.add(zone.id);
     assert(Number.isFinite(zone.volumeLitres) && zone.volumeLitres > 0, `${zoneLabel}.volumeLitres must be positive`, errors);
-    if (zone.dimensionsMm) validateDimensions(zone.dimensionsMm, `${zoneLabel}.dimensionsMm`, errors);
+    if (zone.dimensionsMm) {
+      validateDimensions(zone.dimensionsMm, `${zoneLabel}.dimensionsMm`, errors);
+      const rectangularVolumeLitres = (zone.dimensionsMm.length * zone.dimensionsMm.width * zone.dimensionsMm.height) / 1_000_000;
+      assert(
+        rectangularVolumeLitres <= zone.volumeLitres * MAX_DIMENSIONAL_OVERSHOOT_RATIO,
+        `${zoneLabel}.dimensionsMm volume ${rectangularVolumeLitres.toFixed(1)}L exceeds stated volume ${zone.volumeLitres.toFixed(1)}L by more than ${(MAX_DIMENSIONAL_OVERSHOOT_RATIO - 1) * 100}%`,
+        errors
+      );
+    }
     if (zone.seatBackEncroachment) {
       const angle = zone.seatBackEncroachment.angleFromVerticalDegrees;
       assert(Number.isFinite(angle) && angle >= 0 && angle < 90, `${zoneLabel}.seatBackEncroachment.angleFromVerticalDegrees must be >=0 and <90`, errors);

@@ -204,47 +204,6 @@
           "label": "Front trunk / charge-cable storage (RWD trims)"
         }
       }
-    },
-    {
-      "id": "second_row_footwell_overflow",
-      "label": "@i18n:label",
-      "volumeLitres": 155,
-      "dimensionsMm": {
-        "length": 740,
-        "width": 1260,
-        "height": 220
-      },
-      "confidence": "low",
-      "notes": "Generic overflow area for soft bags when second-row passenger space is partially sacrificed; not a manufacturer cargo specification.",
-      "translations": {
-        "en": {
-          "label": "Second-row footwell overflow"
-        },
-        "fr": {
-          "label": "Espace supplémentaire au plancher de la 2e rangée"
-        },
-        "de": {
-          "label": "Zusätzlicher Stauraum im Fußraum der zweiten Reihe"
-        },
-        "es": {
-          "label": "Desbordamiento en el espacio para pies de la segunda fila"
-        },
-        "is": {
-          "label": "Yfirflæði í fótarými 2. raðar"
-        },
-        "jp": {
-          "label": "2列目足元オーバーフロー"
-        },
-        "it": {
-          "label": "Spazio extra nel vano piedi della seconda fila"
-        },
-        "el": {
-          "label": "Υπερχείλιση χώρου ποδιών 2ης σειράς"
-        },
-        "xx": {
-          "label": "Second-row footwell overflow"
-        }
-      }
     }
   ],
   "seatConfigurations": [
@@ -440,46 +399,6 @@
         },
         "xx": {
           "label": "Second and third rows folded"
-        }
-      }
-    },
-    {
-      "id": "seats_up_with_footwell",
-      "label": "@i18n:label",
-      "cargoZoneIds": [
-        "behind_third_row",
-        "front_trunk_rwd",
-        "second_row_footwell_overflow"
-      ],
-      "seatsAvailable": 5,
-      "notes": "Assumes one second-row seating position or footwell is used for soft luggage.",
-      "translations": {
-        "en": {
-          "label": "All rows up with second-row footwell overflow"
-        },
-        "fr": {
-          "label": "Toutes les rangées relevées avec espace supplémentaire au plancher de la 2e rangée"
-        },
-        "de": {
-          "label": "Alle Reihen aufgestellt mit zusätzlichem Stauraum im Fußraum der zweiten Reihe"
-        },
-        "es": {
-          "label": "Todas las filas levantadas con desbordamiento en el espacio para pies de la segunda fila"
-        },
-        "is": {
-          "label": "Allar raðir uppi með yfirflæði í fótarými 2. raðar"
-        },
-        "jp": {
-          "label": "全列使用＋2列目足元オーバーフロー"
-        },
-        "it": {
-          "label": "Tutte le file in uso con spazio extra nel vano piedi della seconda fila"
-        },
-        "el": {
-          "label": "Όλες οι σειρές όρθιες με υπερχείλιση χώρου ποδιών 2ης σειράς"
-        },
-        "xx": {
-          "label": "All rows up with second-row footwell overflow"
         }
       }
     }
