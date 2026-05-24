@@ -59,6 +59,33 @@ npm run check
 - Keep `configs/` as the source of truth for luggage and vehicle definitions.
 - `docs/` remains unchanged for project documentation.
 
+## Estimation limitations (important context)
+
+This app is a **planning estimator**, not a physical fit guarantee. Even with strong volume and dimension modeling, real-world loading outcomes can still differ.
+
+### Why discrepancies can still happen
+
+- **Volume does not fully describe shape.**  
+  Two cargo spaces can have the same litres but very different usable geometry. Real trunks often include taper, wheel-arch intrusion, seat hardware, trim contours, and sloped surfaces that are not perfectly cuboid.
+
+- **Rectangular envelopes are simplifications.**  
+  The estimator uses rectangular dimensions (`length × width × height`) as a practical model of each cargo zone. This is intentionally simplified to make consistent comparisons across many vehicles.
+
+- **Opening/access constraints can dominate fit.**  
+  A bag may fit inside a zone in theory but still fail to pass through the hatch or trunk opening at a usable orientation.
+
+- **Seat-back geometry changes usable space.**  
+  Seat angle and seat-back encroachment reduce top-front cargo depth. The app can model this, but actual seat posture and trim details vary by trim/year and can still affect outcomes.
+
+- **Data confidence varies by source quality.**  
+  Some values are sourced directly from manufacturer material; others are inferred for planning when complete geometric data is unavailable. Lower-confidence zones should be treated as approximate.
+
+### How to interpret results
+
+- Treat results as a **decision aid** (screening and comparison), not a guarantee.
+- Use a margin of safety for rigid or borderline-fit luggage.
+- Expect higher uncertainty when shape/access details are likely to matter (large rigid bags, diagonal loading, mixed-height stacks, or highly tapered cargo areas).
+
 ## Attribution
 
 This project was created by Nick Oddson.
