@@ -862,10 +862,9 @@ function bindEvents() {
     quantityInput.value = String(Math.max(0, current - 1));
     renderResults();
   });
-  $('#langEn').addEventListener('click', () => setLanguage('en'));
-  $('#langFr').addEventListener('click', () => setLanguage('fr'));
-  $('#langDe').addEventListener('click', () => setLanguage('de'));
-  $('#langEs').addEventListener('click', () => setLanguage('es'));
+  $('#languageSelect').addEventListener('change', (event) => {
+    setLanguage(event.target.value);
+  });
 }
 
 function applyStaticTranslations() {
@@ -882,9 +881,10 @@ function applyStaticTranslations() {
 
 function setLanguage(language) {
   state.language = language;
-  document.querySelectorAll('.lang-button').forEach((button) => {
-    button.classList.toggle('active', button.id === `lang${language[0].toUpperCase()}${language.slice(1)}`);
-  });
+  const languageSelect = $('#languageSelect');
+  if (languageSelect && languageSelect.value !== language) {
+    languageSelect.value = language;
+  }
   applyStaticTranslations();
   renderVehicleOptions();
   renderConfigurationOptions();
