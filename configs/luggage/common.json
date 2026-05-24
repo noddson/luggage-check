@@ -495,31 +495,31 @@
       ],
       "translations": {
         "fr": {
-          "label": "Custom bag"
+          "label": "Sac personnalisé"
         },
         "en": {
           "label": "Custom bag"
         },
         "de": {
-          "label": "Custom bag"
+          "label": "Benutzerdefinierte Tasche"
         },
         "es": {
-          "label": "Custom bag"
+          "label": "Bolsa personalizada"
         },
         "is": {
-          "label": "Custom bag"
+          "label": "Sérsniðin taska"
         },
         "jp": {
-          "label": "Custom bag"
+          "label": "カスタムバッグ"
         },
         "it": {
-          "label": "Custom bag"
+          "label": "Borsa personalizzata"
         },
         "el": {
-          "label": "Custom bag"
+          "label": "Προσαρμοσμένη τσάντα"
         },
         "xx": {
-          "label": "Custom bag"
+          "label": "Custom plunder sack"
         }
       }
     }
