@@ -59,13 +59,13 @@
           <label class="field degree-field">
             <span><span data-i18n="rearAngle">Rear seat-back encroachment angle</span><span aria-hidden="true"> (°)</span></span>
             <input id="seatBackEncroachmentDegrees" type="number" min="0" max="45" step="1" inputmode="decimal" />
-            <small id="seatBackEncroachmentNote" data-i18n="seatBackNote">Sloped rear seat backs constrain upper-depth clearance.</small>
+            <small id="seatBackEncroachmentNote">Sloped rear seat backs constrain upper-depth clearance. (max 45°)</small>
           </label>
 
           <label class="field degree-field">
             <span><span data-i18n="safetyMargin">Cargo safety margin</span><span aria-hidden="true"> (%)</span></span>
             <input id="usableVolumeBufferPercent" type="number" min="5" max="50" step="1" inputmode="decimal" />
-            <small id="usableVolumeBufferNote" data-i18n="safetyMarginNote">Planning-only buffer subtracted from published cargo volume. No fit guarantee.</small>
+            <small id="usableVolumeBufferNote">Planning-only buffer subtracted from published cargo volume. No fit guarantee. (min 5%, max 50%)</small>
           </label>
 
           <div class="panel-heading compact luggage-heading">
@@ -109,6 +109,12 @@
           <div id="warnings" class="warnings"></div>
         </section>
       </section>
+
+
+      <footer class="app-footer">
+        <p><strong>Disclaimer:</strong> This luggage fit result is an estimate only and may be wrong. Real-world cargo geometry and loading conditions vary, so no accuracy or fit guarantee is provided.</p>
+        <p>© 2026 Nick Oddson. All rights reserved.</p>
+      </footer>
     </main>
 
     <script type="module" src="./app.js"></script>

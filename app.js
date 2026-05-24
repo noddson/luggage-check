@@ -3,6 +3,7 @@ import { estimateFit } from './fitEstimator.js';
 const VEHICLE_INDEX_PATH = './configs/vehicles/index.json';
 
 const BAG_COLORS = ['#2563eb', '#16a34a', '#f97316', '#9333ea', '#0891b2', '#e11d48', '#ca8a04', '#4f46e5'];
+const CUSTOM_BAG_COLOR = '#facc15';
 const DEFAULT_SEAT_BACK_ANGLE_DEGREES = 20;
 const MAX_SEAT_BACK_ANGLE_DEGREES = 45;
 const DEFAULT_USABLE_VOLUME_BUFFER_PERCENT = 10;
@@ -524,6 +525,7 @@ function metricCard(label, value, detail = '', className = '') {
 }
 
 function colorForSourceId(sourceId) {
+  if (sourceId === CUSTOM_BAG_ID) return CUSTOM_BAG_COLOR;
   const uniqueSources = [...new Set(estimateSources().map((item) => item.id))];
   const index = uniqueSources.indexOf(sourceId);
   return BAG_COLORS[(index < 0 ? 0 : index) % BAG_COLORS.length];
@@ -1323,6 +1325,7 @@ export async function initApp() {
       return;
     }
     applyStaticTranslations();
+    renderSeatBackEncroachmentState();
     renderResults();
   } catch (error) {
     $('#metrics').replaceChildren(metricCard(t('fitResult'), t('loadErrorTitle'), error.message, 'metric--fit-result'));
