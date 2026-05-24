@@ -17,7 +17,7 @@ const state = {
   configurationId: '',
   activeView: '3d',
   seatBackEncroachmentAngleDegrees: DEFAULT_SEAT_BACK_ANGLE_DEGREES,
-  rotation3d: { yaw: -45, pitch: 60 },
+  rotation3d: { yaw: 315, pitch: 60 },
   activeOrientationLabel: '',
   language: 'en'
 };
@@ -579,9 +579,13 @@ function createSeatEncroachmentWedgeVertices(zone) {
   ];
 }
 
+function normalizeYaw(yaw) {
+  return ((yaw % 360) + 360) % 360;
+}
+
 function current3dAngles() {
   return {
-    yaw: state.rotation3d.yaw * Math.PI / 180,
+    yaw: normalizeYaw(state.rotation3d.yaw) * Math.PI / 180,
     pitch: state.rotation3d.pitch * Math.PI / 180
   };
 }
@@ -698,7 +702,7 @@ function renderOrientationAxisControl() {
 function set3dOrientation(axis) {
   const preset = orientationPresets()[axis];
   if (!preset) return;
-  state.rotation3d = { yaw: preset.yaw, pitch: preset.pitch };
+  state.rotation3d = { yaw: normalizeYaw(preset.yaw), pitch: preset.pitch };
   state.activeOrientationLabel = preset.label;
   renderResults();
 }
@@ -826,7 +830,7 @@ function bind3dRotation() {
         const dx = moveEvent.clientX - previous.x;
         const dy = moveEvent.clientY - previous.y;
         previous = { x: moveEvent.clientX, y: moveEvent.clientY };
-        state.rotation3d.yaw += dx * 0.35;
+        state.rotation3d.yaw = normalizeYaw(state.rotation3d.yaw - dx * 0.35);
         state.rotation3d.pitch = clamp(state.rotation3d.pitch - dy * 0.25, 0, 90);
         if (dx || dy) state.activeOrientationLabel = '';
         renderResults();
