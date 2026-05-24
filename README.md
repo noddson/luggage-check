@@ -49,6 +49,7 @@ Open <http://localhost:4173>.
 ```bash
 npm run validate:vehicle-index
 npm run validate:configs
+npm run validate:version
 npm run smoke:app
 npm run check
 ```
