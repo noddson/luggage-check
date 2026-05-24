@@ -120,47 +120,6 @@
           "label": "Maximum cargo area with second row folded"
         }
       }
-    },
-    {
-      "id": "rear_floor_overflow",
-      "label": "@i18n:label",
-      "volumeLitres": 95,
-      "dimensionsMm": {
-        "length": 430,
-        "width": 1220,
-        "height": 210
-      },
-      "confidence": "low",
-      "notes": "Generic soft-bag overflow area for the rear passenger footwells when at least part of the second row is not occupied. This is not a Toyota cargo specification.",
-      "translations": {
-        "en": {
-          "label": "Rear passenger footwell overflow"
-        },
-        "fr": {
-          "label": "Espace supplémentaire au niveau du plancher arrière"
-        },
-        "de": {
-          "label": "Zusätzlicher Stauraum im hinteren Fußraum"
-        },
-        "es": {
-          "label": "Desbordamiento en el espacio para pies de pasajeros traseros"
-        },
-        "is": {
-          "label": "Yfirflæði í fótarými aftari farþega"
-        },
-        "jp": {
-          "label": "後席足元オーバーフロー"
-        },
-        "it": {
-          "label": "Spazio extra nel vano piedi dei passeggeri posteriori"
-        },
-        "el": {
-          "label": "Υπερχείλιση χώρου ποδιών πίσω επιβατών"
-        },
-        "xx": {
-          "label": "Aft passenger footwell overflow"
-        }
-      }
     }
   ],
   "seatConfigurations": [
@@ -237,45 +196,6 @@
         },
         "xx": {
           "label": "Second row folded"
-        }
-      }
-    },
-    {
-      "id": "partial_rear_seat_folded",
-      "label": "@i18n:label",
-      "cargoZoneIds": [
-        "behind_second_row",
-        "rear_floor_overflow"
-      ],
-      "seatsAvailable": 4,
-      "notes": "Represents using one rear seating position or footwell area for soft luggage while retaining most passenger seating.",
-      "translations": {
-        "en": {
-          "label": "One rear seat section folded"
-        },
-        "fr": {
-          "label": "Une section de siège arrière rabattue"
-        },
-        "de": {
-          "label": "Ein Teil der Rücksitzbank umgeklappt"
-        },
-        "es": {
-          "label": "Una sección del asiento trasero abatida"
-        },
-        "is": {
-          "label": "Einn hluti aftursætis felldur"
-        },
-        "jp": {
-          "label": "後席片側折りたたみ"
-        },
-        "it": {
-          "label": "Una sezione del sedile posteriore abbattuta"
-        },
-        "el": {
-          "label": "Μία ενότητα πίσω καθίσματος αναδιπλωμένη"
-        },
-        "xx": {
-          "label": "One rear seat section folded"
         }
       }
     }

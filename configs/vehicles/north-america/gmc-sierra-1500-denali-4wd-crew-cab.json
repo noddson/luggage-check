@@ -152,47 +152,6 @@
           "label": "Open cargo bed — standard box (Crew Cab 157 in wheelbase)"
         }
       }
-    },
-    {
-      "id": "rear_cabin_floor",
-      "label": "@i18n:label",
-      "volumeLitres": 180,
-      "dimensionsMm": {
-        "length": 740,
-        "width": 1500,
-        "height": 300
-      },
-      "confidence": "low",
-      "notes": "Generic interior overflow area for soft bags when rear seating is sacrificed; not a manufacturer cargo specification.",
-      "translations": {
-        "en": {
-          "label": "Rear cabin floor / seat overflow"
-        },
-        "fr": {
-          "label": "Espace supplémentaire sur plancher/siège arrière"
-        },
-        "de": {
-          "label": "Hinterer Kabinenboden / Sitz-Überlauf"
-        },
-        "es": {
-          "label": "Desbordamiento en piso de cabina trasera / asiento"
-        },
-        "is": {
-          "label": "Gólf afturskála / yfirflæði við sæti"
-        },
-        "jp": {
-          "label": "後部キャビン床／シートオーバーフロー"
-        },
-        "it": {
-          "label": "Pavimento cabina posteriore / spazio extra sedili"
-        },
-        "el": {
-          "label": "Πίσω δάπεδο καμπίνας / υπερχείλιση καθισμάτων"
-        },
-        "xx": {
-          "label": "Aft cabin floor / seat overflow"
-        }
-      }
     }
   ],
   "seatConfigurations": [
@@ -307,45 +266,6 @@
         },
         "xx": {
           "label": "Crew cab, standard bed"
-        }
-      }
-    },
-    {
-      "id": "short_bed_with_cabin_overflow",
-      "label": "@i18n:label",
-      "cargoZoneIds": [
-        "short_bed",
-        "rear_cabin_floor"
-      ],
-      "seatsAvailable": 2,
-      "notes": "Assumes rear passenger seating is used for additional soft luggage.",
-      "translations": {
-        "en": {
-          "label": "Short bed with rear cabin overflow"
-        },
-        "fr": {
-          "label": "Benne courte avec extension dans l’habitacle arrière"
-        },
-        "de": {
-          "label": "Kurze Ladefläche mit zusätzlichem Stauraum in der hinteren Kabine"
-        },
-        "es": {
-          "label": "Caja corta con desbordamiento en cabina trasera"
-        },
-        "is": {
-          "label": "Stutt pallrými með yfirflæði í afturskála"
-        },
-        "jp": {
-          "label": "後部キャビンオーバーフロー付きショートベッド"
-        },
-        "it": {
-          "label": "Cassone corto con spazio extra in cabina posteriore"
-        },
-        "el": {
-          "label": "Κοντή καρότσα με υπερχείλιση πίσω καμπίνας"
-        },
-        "xx": {
-          "label": "Short bed with rear cabin overflow"
         }
       }
     }
