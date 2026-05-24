@@ -8,6 +8,7 @@ const DEFAULT_SUPPORT_POLICY = {
 const DEFAULT_MAX_PACKING_BRANCHES = 8;
 const DEFAULT_MAX_PACKING_STATES = 1500;
 const DEFAULT_MAX_PLANNING_SURPLUS_PER_SOURCE = 3;
+const MAX_SEAT_BACK_ANGLE_DEGREES = 45;
 
 function permutations(dimensions) {
   const { length, width, height } = dimensions;
@@ -87,8 +88,11 @@ function seatBackEncroachmentPrismVolumeLitres(zone, options = {}) {
 }
 
 function usableZoneVolumeLitres(zone, options = {}) {
-  const rectangularUsableVolumeLitres = zone.volumeLitres * (zone.usableFraction ?? options.defaultUsableFraction ?? 0.75);
-  return Math.max(0, rectangularUsableVolumeLitres - seatBackEncroachmentPrismVolumeLitres(zone, options));
+  const rectangularVolumeLitres = zone.volumeLitres;
+  const wedgeVolumeLitres = seatBackEncroachmentPrismVolumeLitres(zone, options);
+  const remainingAfterWedgeLitres = Math.max(0, rectangularVolumeLitres - wedgeVolumeLitres);
+  const usableFraction = zone.usableFraction ?? options.defaultUsableFraction ?? 0.75;
+  return Math.max(0, remainingAfterWedgeLitres * usableFraction);
 }
 
 function initialZoneState(zone, options = {}) {
@@ -118,7 +122,8 @@ function fitsInSpace(orientation, space) {
 }
 
 function seatBackAngleDegrees(zone, options = {}) {
-  return options.seatBackAngleDegrees ?? zone.seatBackEncroachment?.angleFromVerticalDegrees ?? DEFAULT_SEAT_BACK_ANGLE_DEGREES;
+  const requested = options.seatBackAngleDegrees ?? zone.seatBackEncroachment?.angleFromVerticalDegrees ?? DEFAULT_SEAT_BACK_ANGLE_DEGREES;
+  return Math.max(0, Math.min(MAX_SEAT_BACK_ANGLE_DEGREES, requested));
 }
 
 function seatBackEncroachmentMmAtHeight(zone, heightMm, options = {}) {
