@@ -87,7 +87,7 @@ function seatBackEncroachmentPrismVolumeLitres(zone, options = {}) {
 }
 
 function usableZoneVolumeLitres(zone, options = {}) {
-  const rectangularUsableVolumeLitres = zone.volumeLitres * (zone.usableFraction ?? 0.75);
+  const rectangularUsableVolumeLitres = zone.volumeLitres * (zone.usableFraction ?? options.defaultUsableFraction ?? 0.75);
   return Math.max(0, rectangularUsableVolumeLitres - seatBackEncroachmentPrismVolumeLitres(zone, options));
 }
 
@@ -796,7 +796,7 @@ function improvePackingWithPlanningSurplus(bestResult, expandedItems, zones, opt
  * @param {{ items: import('../domain/types.js').LuggageItem[] }} luggageSet
  * @param {import('../domain/types.js').VehicleConfig} vehicle
  * @param {string} seatConfigurationId
- * @param {{considerSeatBackEncroachment?: boolean, seatBackAngleDegrees?: number, supportPolicy?: {mergeAdjacentCoplanarSpaces?: boolean, minimumSupportedFootprintRatio?: number}, maxPackingBranches?: number, maxPackingStates?: number, maxPlanningSurplusPerSource?: number}=} options
+ * @param {{considerSeatBackEncroachment?: boolean, seatBackAngleDegrees?: number, defaultUsableFraction?: number, supportPolicy?: {mergeAdjacentCoplanarSpaces?: boolean, minimumSupportedFootprintRatio?: number}, maxPackingBranches?: number, maxPackingStates?: number, maxPlanningSurplusPerSource?: number}=} options
  */
 export function estimateFit(luggageSet, vehicle, seatConfigurationId = 'seats_up', options = {}) {
   const seatConfiguration = vehicle.seatConfigurations.find((candidate) => candidate.id === seatConfigurationId);

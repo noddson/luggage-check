@@ -31,7 +31,6 @@
         "width": 1243,
         "height": 1000
       },
-      "usableFraction": 0.78,
       "confidence": "medium",
       "notes": "Published 7-seat boot volume is 160 dm3 VDA / 212 litres ISO. Rectangular planning dimensions are estimated from the small behind-row-3 space using Dacia-published rear width references; expect soft bags to fit better than rigid cases because the third-row seatbacks, tailgate slope, and trim reduce usable shape.",
       "seatBackEncroachment": {
@@ -81,7 +80,6 @@
         "width": 1243,
         "height": 1000
       },
-      "usableFraction": 0.76,
       "confidence": "medium",
       "notes": "Dacia publishes 565 dm3 VDA / 699 litres ISO with the second row in place and the third row folded. Dimensions are an estimated rectangular envelope for MVP packing and do not account for folded-seat height, wheel-arch narrowing, or side trim.",
       "seatBackEncroachment": {
@@ -131,7 +129,6 @@
         "width": 1243,
         "height": 1000
       },
-      "usableFraction": 0.78,
       "confidence": "medium",
       "notes": "Dacia publishes 696 dm3 VDA / 820 litres ISO with the second row in place and the third row removed. Rental customers should confirm whether the third-row seats may be removed or must remain with the vehicle.",
       "seatBackEncroachment": {
@@ -181,7 +178,6 @@
         "width": 1243,
         "height": 1000
       },
-      "usableFraction": 0.72,
       "confidence": "medium",
       "notes": "Dacia publishes 1,807 dm3 VDA / 2,085 litres ISO maximum boot volume for the 7-seater. Dimensions are a planning cuboid based on Dacia's 1.90 m accessory sleeping platform length and published rear-width references, so rigid-item fit still depends on interior taper, wheel arches, and seat hardware.",
       "translations": {

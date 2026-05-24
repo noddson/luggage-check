@@ -34,7 +34,6 @@
         "width": 1100,
         "height": 790
       },
-      "usableFraction": 0.8,
       "confidence": "low",
       "notes": "Hyundai USA publishes 21.9 cu ft of luggage capacity behind the third row. Rectangular planning dimensions are estimates for luggage fitting and should be treated as approximate because Hyundai publishes volume, not detailed cargo-box measurements; the rounded rear opening may be more limiting for rigid luggage.",
       "seatBackEncroachment": {
@@ -84,7 +83,6 @@
         "width": 1100,
         "height": 790
       },
-      "usableFraction": 0.77,
       "confidence": "low",
       "notes": "Hyundai USA publishes 46.7 cu ft of luggage capacity behind the second row. Planning dimensions approximate the long, flat E-GMP load floor with allowances for wheel-arch, trim, and seatback intrusions.",
       "seatBackEncroachment": {
@@ -134,7 +132,6 @@
         "width": 1100,
         "height": 790
       },
-      "usableFraction": 0.71,
       "confidence": "low",
       "notes": "Hyundai USA publishes 86.9 cu ft of luggage capacity behind the first row. This planning envelope assumes both rear rows are folded and discounts uneven folded-seat surfaces, rounded bodywork, and trim intrusions.",
       "translations": {
@@ -176,7 +173,6 @@
         "width": 430,
         "height": 400
       },
-      "usableFraction": 0.62,
       "confidence": "low",
       "notes": "Global Hyundai specifications list 88 litres of front-trunk storage on rear-wheel-drive models; all-wheel-drive models are listed at 52 litres. Best for charge cables or small soft bags.",
       "translations": {
@@ -218,7 +214,6 @@
         "width": 1260,
         "height": 220
       },
-      "usableFraction": 0.5,
       "confidence": "low",
       "notes": "Generic overflow area for soft bags when second-row passenger space is partially sacrificed; not a manufacturer cargo specification.",
       "translations": {

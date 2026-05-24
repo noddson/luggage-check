@@ -35,7 +35,6 @@
         "width": 1120,
         "height": 820
       },
-      "usableFraction": 0.82,
       "confidence": "low",
       "notes": "Manufacturer volume is 20.2 cu ft behind the third row. Rectangular planning dimensions are estimates for luggage fitting and should be treated as approximate because Kia publishes volume, not detailed cargo-box measurements.",
       "seatBackEncroachment": {
@@ -85,7 +84,6 @@
         "width": 1120,
         "height": 820
       },
-      "usableFraction": 0.78,
       "confidence": "low",
       "notes": "Manufacturer volume is 43.5 cu ft behind the second row. Dimensions approximate the broad, flat EV9 load floor with wheel-arch and seatback intrusions reserved through the usable fraction.",
       "seatBackEncroachment": {
@@ -135,7 +133,6 @@
         "width": 1120,
         "height": 820
       },
-      "usableFraction": 0.72,
       "confidence": "low",
       "notes": "Manufacturer volume is 81.7 cu ft behind the first row. This planning envelope assumes both rear rows are folded and discounts uneven folded-seat surfaces and trim intrusions.",
       "translations": {
@@ -177,7 +174,6 @@
         "width": 430,
         "height": 410
       },
-      "usableFraction": 0.62,
       "confidence": "low",
       "notes": "Small front trunk capacity is up to about 3.2 cu ft on rear-wheel-drive versions; all-wheel-drive trims may have less usable front storage. Best for charge cables or small soft bags.",
       "translations": {
@@ -219,7 +215,6 @@
         "width": 1250,
         "height": 220
       },
-      "usableFraction": 0.5,
       "confidence": "low",
       "notes": "Generic overflow area for soft bags when second-row passenger space is partially sacrificed; not a manufacturer cargo specification.",
       "translations": {

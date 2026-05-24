@@ -33,7 +33,6 @@
         "width": 1391,
         "height": 1295
       },
-      "usableFraction": 0.82,
       "confidence": "medium",
       "notes": "Manufacturer L1H1 8/9-seat effective volume, floor length, wheel-arch width, and rear-door opening are sourced. Height is derived as a rectangular planning envelope from sourced length, width, and VDA volume; real clearance varies near the tailgate, trim, glass, and seat backs.",
       "seatBackEncroachment": {
@@ -83,7 +82,6 @@
         "width": 1391,
         "height": 1295
       },
-      "usableFraction": 0.74,
       "confidence": "medium",
       "notes": "Manufacturer L1H1 row-three-folded effective volume and floor length are sourced. Rectangular dimensions use sourced wheel-arch width and tailgate opening height as a practical stacking envelope; folded seat hardware and trim reduce usable shape.",
       "seatBackEncroachment": {
@@ -133,7 +131,6 @@
         "width": 1391,
         "height": 1295
       },
-      "usableFraction": 0.72,
       "confidence": "medium",
       "notes": "Manufacturer L1H1 5/6-seat effective volume and floor length are sourced. Planning dimensions use sourced wheel-arch width and rear-door opening height, so the estimator ignores taper, seat mounts, and side trim.",
       "seatBackEncroachment": {
@@ -183,7 +180,6 @@
         "width": 1391,
         "height": 1295
       },
-      "usableFraction": 0.8,
       "confidence": "medium",
       "notes": "Manufacturer L2H1 8/9-seat effective volume, floor length, wheel-arch width, and rear-door opening are sourced. Rectangular dimensions are a simplified planning envelope and do not guarantee clearance around the tailgate, glazing, and row-three seatbacks.",
       "seatBackEncroachment": {
@@ -233,7 +229,6 @@
         "width": 1391,
         "height": 1295
       },
-      "usableFraction": 0.74,
       "confidence": "medium",
       "notes": "Manufacturer L2H1 row-three-folded effective volume is sourced; Renault lists the same floor length as L1 for this row-three-folded measurement. Planning dimensions are conservative and ignore folded bench bulk, trim taper, and roof curvature.",
       "seatBackEncroachment": {
@@ -283,7 +278,6 @@
         "width": 1391,
         "height": 1295
       },
-      "usableFraction": 0.72,
       "confidence": "medium",
       "notes": "Manufacturer L2H1 5/6-seat effective volume and floor length are sourced. Planning dimensions use sourced wheel-arch width and rear-door opening height, with seat mounts, wheel arches, and trim intrusions handled only by the usable fraction.",
       "seatBackEncroachment": {
@@ -333,7 +327,6 @@
         "width": 1391,
         "height": 1295
       },
-      "usableFraction": 0.68,
       "confidence": "medium",
       "notes": "Maximum boot-volume marketing is sourced from Renault UK, while L2H1 floor length after rear-row removal, wheel-arch width, and rear-door opening are sourced from the technical table. This is a simplified box-like planning envelope; rental vehicles may not allow seat removal.",
       "translations": {

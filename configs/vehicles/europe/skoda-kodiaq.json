@@ -33,7 +33,6 @@
         "width": 1272,
         "height": 820
       },
-      "usableFraction": 0.78,
       "confidence": "medium",
       "notes": "Skoda technical data publishes 340 L behind the third row for 7-seat versions, measured up to headrests with the boot cover stored under the floor. The cuboid dimensions are estimated from third-row width and depth, so soft bags will fit better than rigid cases near seatbacks and tailgate trim.",
       "seatBackEncroachment": {
@@ -83,7 +82,6 @@
         "width": 1272,
         "height": 820
       },
-      "usableFraction": 0.78,
       "confidence": "medium",
       "notes": "Skoda publishes 845 L for the 7-seater with the third row folded, depending on second-row position and backrest angle. Planning dimensions are estimated and do not account for wheel arches, seat hardware, or sloping glass.",
       "seatBackEncroachment": {
@@ -133,7 +131,6 @@
         "width": 1272,
         "height": 820
       },
-      "usableFraction": 0.72,
       "confidence": "medium",
       "notes": "Skoda publishes 2,035 L with rear seats folded up to the roof for the 7-seat version. This is a planning envelope for two occupants plus maximum luggage, not a guarantee of rectangular rigid-item fit.",
       "translations": {

@@ -33,7 +33,6 @@
         "width": 1200,
         "height": 1180
       },
-      "usableFraction": 0.82,
       "confidence": "low",
       "notes": "All-seats luggage volume is based on third-party dimensional references for the medium Zafira Life / sibling passenger van layout. Treat as a planning estimate because seating rails, removable seats, and rental-specific 8- or 9-seat layouts change the remaining boot length.",
       "seatBackEncroachment": {
@@ -83,7 +82,6 @@
         "width": 1200,
         "height": 1180
       },
-      "usableFraction": 0.78,
       "confidence": "low",
       "notes": "Planning estimate for six-seat use with the rear seating row removed or folded. Confirm with the rental company before assuming seats may be removed from the vehicle or that folded seats do not occupy cargo floor space.",
       "seatBackEncroachment": {
@@ -133,7 +131,6 @@
         "width": 1200,
         "height": 1180
       },
-      "usableFraction": 0.74,
       "confidence": "medium",
       "notes": "Opel publishes 4.2 m3 luggage/cargo volume for the current M-length Zafira and a brochure maximum load length of 2.76 m for the large variant with front seats in place. This zone represents maximum load planning for two or three front occupants, not normal passenger rental use.",
       "translations": {

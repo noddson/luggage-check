@@ -40,7 +40,6 @@
         "width": 1050,
         "height": 760
       },
-      "usableFraction": 0.82,
       "confidence": "medium",
       "notes": "Toyota Canada lists 1,059 L / 37.5 cu ft behind the second row for the 2025 RAV4 Hybrid. The 2021 Toyota U.S. brochure lists a 40.0 in cargo length behind the rear seat, 39.4/59.0 in minimum/maximum cargo width, and 34.5/36.6 in minimum/maximum cargo height across RAV4/RAV4 Hybrid trims. The cuboid uses the conservative wheel-well width and minimum height; opening dimensions are low-confidence planning estimates because Toyota publishes cargo-box measurements but not a hatch opening box.",
       "seatBackEncroachment": {
@@ -90,7 +89,6 @@
         "width": 1050,
         "height": 760
       },
-      "usableFraction": 0.74,
       "confidence": "low",
       "notes": "Toyota Canada lists 1,977 L / 69.8 cu ft behind the front seats for the 2025 RAV4 Hybrid. Toyota's published rear-seat-up length is 40.0 in; the folded-seat length is estimated for luggage planning and discounted for the upward step/rake of the folded rear seatbacks, wheel-arch intrusions, and trim taper.",
       "translations": {
@@ -132,7 +130,6 @@
         "width": 1220,
         "height": 210
       },
-      "usableFraction": 0.55,
       "confidence": "low",
       "notes": "Generic soft-bag overflow area for the rear passenger footwells when at least part of the second row is not occupied. This is not a Toyota cargo specification.",
       "translations": {

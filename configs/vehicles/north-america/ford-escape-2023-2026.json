@@ -35,7 +35,6 @@
         "width": 1080,
         "height": 760
       },
-      "usableFraction": 0.82,
       "confidence": "medium",
       "notes": "Ford media specifications list 37.5 cu ft (1,062 L) behind the second row. Manufacturer sources do not provide a full hatch-opening box; dimensions and opening values are conservative planning estimates aligned to class-typical compact SUV cargo geometry.",
       "seatBackEncroachment": {
@@ -43,15 +42,33 @@
         "notes": "Second-row seatback rake reduces top-front usable volume."
       },
       "translations": {
-        "en": { "label": "Cargo area behind second row" },
-        "fr": { "label": "Espace de chargement derrière la deuxième rangée" },
-        "de": { "label": "Laderaum hinter der zweiten Reihe" },
-        "es": { "label": "Área de carga detrás de la segunda fila" },
-        "is": { "label": "Farangursrými aftan við 2. röð" },
-        "jp": { "label": "2列目後方ラゲッジスペース" },
-        "it": { "label": "Vano di carico dietro la seconda fila" },
-        "el": { "label": "Χώρος φόρτωσης πίσω από τη 2η σειρά" },
-        "xx": { "label": "Cargo area behind second row" }
+        "en": {
+          "label": "Cargo area behind second row"
+        },
+        "fr": {
+          "label": "Espace de chargement derrière la deuxième rangée"
+        },
+        "de": {
+          "label": "Laderaum hinter der zweiten Reihe"
+        },
+        "es": {
+          "label": "Área de carga detrás de la segunda fila"
+        },
+        "is": {
+          "label": "Farangursrými aftan við 2. röð"
+        },
+        "jp": {
+          "label": "2列目後方ラゲッジスペース"
+        },
+        "it": {
+          "label": "Vano di carico dietro la seconda fila"
+        },
+        "el": {
+          "label": "Χώρος φόρτωσης πίσω από τη 2η σειρά"
+        },
+        "xx": {
+          "label": "Cargo area behind second row"
+        }
       }
     },
     {
@@ -67,19 +84,36 @@
         "width": 1080,
         "height": 760
       },
-      "usableFraction": 0.74,
       "confidence": "low",
       "notes": "Ford media specifications list 65.4 cu ft (1,852 L) with second-row seats folded. The simple cuboid is discounted for folded-seat angle, wheel-arch intrusions, and side-trim taper.",
       "translations": {
-        "en": { "label": "Maximum cargo area with second row folded" },
-        "fr": { "label": "Espace de chargement maximal avec deuxième rangée rabattue" },
-        "de": { "label": "Maximaler Laderaum bei umgeklappter zweiter Reihe" },
-        "es": { "label": "Área de carga máxima con segunda fila abatida" },
-        "is": { "label": "Hámarksfarangursrými með 2. röð fellda" },
-        "jp": { "label": "2列目折りたたみ時の最大ラゲッジスペース" },
-        "it": { "label": "Vano di carico massimo con seconda fila abbattuta" },
-        "el": { "label": "Μέγιστος χώρος φόρτωσης με 2η σειρά αναδιπλωμένη" },
-        "xx": { "label": "Maximum cargo area with second row folded" }
+        "en": {
+          "label": "Maximum cargo area with second row folded"
+        },
+        "fr": {
+          "label": "Espace de chargement maximal avec deuxième rangée rabattue"
+        },
+        "de": {
+          "label": "Maximaler Laderaum bei umgeklappter zweiter Reihe"
+        },
+        "es": {
+          "label": "Área de carga máxima con segunda fila abatida"
+        },
+        "is": {
+          "label": "Hámarksfarangursrými með 2. röð fellda"
+        },
+        "jp": {
+          "label": "2列目折りたたみ時の最大ラゲッジスペース"
+        },
+        "it": {
+          "label": "Vano di carico massimo con seconda fila abbattuta"
+        },
+        "el": {
+          "label": "Μέγιστος χώρος φόρτωσης με 2η σειρά αναδιπλωμένη"
+        },
+        "xx": {
+          "label": "Maximum cargo area with second row folded"
+        }
       }
     },
     {
@@ -91,19 +125,36 @@
         "width": 1220,
         "height": 210
       },
-      "usableFraction": 0.55,
       "confidence": "low",
       "notes": "Generic soft-bag overflow zone for rear footwells when a rear seating position is unused.",
       "translations": {
-        "en": { "label": "Rear passenger footwell overflow" },
-        "fr": { "label": "Espace supplémentaire au niveau du plancher arrière" },
-        "de": { "label": "Zusätzlicher Stauraum im hinteren Fußraum" },
-        "es": { "label": "Desbordamiento en el espacio para pies de pasajeros traseros" },
-        "is": { "label": "Yfirflæði í fótarými aftari farþega" },
-        "jp": { "label": "後席足元オーバーフロー" },
-        "it": { "label": "Spazio extra nel vano piedi dei passeggeri posteriori" },
-        "el": { "label": "Υπερχείλιση χώρου ποδιών πίσω επιβατών" },
-        "xx": { "label": "Aft passenger footwell overflow" }
+        "en": {
+          "label": "Rear passenger footwell overflow"
+        },
+        "fr": {
+          "label": "Espace supplémentaire au niveau du plancher arrière"
+        },
+        "de": {
+          "label": "Zusätzlicher Stauraum im hinteren Fußraum"
+        },
+        "es": {
+          "label": "Desbordamiento en el espacio para pies de pasajeros traseros"
+        },
+        "is": {
+          "label": "Yfirflæði í fótarými aftari farþega"
+        },
+        "jp": {
+          "label": "後席足元オーバーフロー"
+        },
+        "it": {
+          "label": "Spazio extra nel vano piedi dei passeggeri posteriori"
+        },
+        "el": {
+          "label": "Υπερχείλιση χώρου ποδιών πίσω επιβατών"
+        },
+        "xx": {
+          "label": "Aft passenger footwell overflow"
+        }
       }
     }
   ],
@@ -111,55 +162,116 @@
     {
       "id": "seats_up",
       "label": "@i18n:label",
-      "cargoZoneIds": ["behind_second_row"],
+      "cargoZoneIds": [
+        "behind_second_row"
+      ],
       "seatsAvailable": 5,
       "notes": "Standard five-passenger SUV seating with luggage in the rear cargo hold.",
       "translations": {
-        "en": { "label": "All seats up" },
-        "fr": { "label": "Tous les sièges relevés" },
-        "de": { "label": "Alle Sitze aufgestellt" },
-        "es": { "label": "Todos los asientos levantados" },
-        "is": { "label": "Öll sæti uppi" },
-        "jp": { "label": "全席使用" },
-        "it": { "label": "Tutti i sedili in uso" },
-        "el": { "label": "Όλα τα καθίσματα όρθια" },
-        "xx": { "label": "All seats up" }
+        "en": {
+          "label": "All seats up"
+        },
+        "fr": {
+          "label": "Tous les sièges relevés"
+        },
+        "de": {
+          "label": "Alle Sitze aufgestellt"
+        },
+        "es": {
+          "label": "Todos los asientos levantados"
+        },
+        "is": {
+          "label": "Öll sæti uppi"
+        },
+        "jp": {
+          "label": "全席使用"
+        },
+        "it": {
+          "label": "Tutti i sedili in uso"
+        },
+        "el": {
+          "label": "Όλα τα καθίσματα όρθια"
+        },
+        "xx": {
+          "label": "All seats up"
+        }
       }
     },
     {
       "id": "rear_seats_folded",
       "label": "@i18n:label",
-      "cargoZoneIds": ["behind_first_row"],
+      "cargoZoneIds": [
+        "behind_first_row"
+      ],
       "seatsAvailable": 2,
       "notes": "Maximum cargo mode for two occupants.",
       "translations": {
-        "en": { "label": "Second row folded" },
-        "fr": { "label": "Deuxième rangée rabattue" },
-        "de": { "label": "Zweite Reihe umgeklappt" },
-        "es": { "label": "Segunda fila abatida" },
-        "is": { "label": "2. röð felld" },
-        "jp": { "label": "2列目折りたたみ" },
-        "it": { "label": "Seconda fila abbattuta" },
-        "el": { "label": "2η σειρά αναδιπλωμένη" },
-        "xx": { "label": "Second row folded" }
+        "en": {
+          "label": "Second row folded"
+        },
+        "fr": {
+          "label": "Deuxième rangée rabattue"
+        },
+        "de": {
+          "label": "Zweite Reihe umgeklappt"
+        },
+        "es": {
+          "label": "Segunda fila abatida"
+        },
+        "is": {
+          "label": "2. röð felld"
+        },
+        "jp": {
+          "label": "2列目折りたたみ"
+        },
+        "it": {
+          "label": "Seconda fila abbattuta"
+        },
+        "el": {
+          "label": "2η σειρά αναδιπλωμένη"
+        },
+        "xx": {
+          "label": "Second row folded"
+        }
       }
     },
     {
       "id": "partial_rear_seat_folded",
       "label": "@i18n:label",
-      "cargoZoneIds": ["behind_second_row", "rear_floor_overflow"],
+      "cargoZoneIds": [
+        "behind_second_row",
+        "rear_floor_overflow"
+      ],
       "seatsAvailable": 4,
       "notes": "Represents partial second-row folding or one unused rear seating position for soft luggage.",
       "translations": {
-        "en": { "label": "One rear seat section folded" },
-        "fr": { "label": "Une section de siège arrière rabattue" },
-        "de": { "label": "Ein Teil der Rücksitzbank umgeklappt" },
-        "es": { "label": "Una sección del asiento trasero abatida" },
-        "is": { "label": "Einn hluti aftursætis felldur" },
-        "jp": { "label": "後席片側折りたたみ" },
-        "it": { "label": "Una sezione del sedile posteriore abbattuta" },
-        "el": { "label": "Μία ενότητα πίσω καθίσματος αναδιπλωμένη" },
-        "xx": { "label": "One rear seat section folded" }
+        "en": {
+          "label": "One rear seat section folded"
+        },
+        "fr": {
+          "label": "Une section de siège arrière rabattue"
+        },
+        "de": {
+          "label": "Ein Teil der Rücksitzbank umgeklappt"
+        },
+        "es": {
+          "label": "Una sección del asiento trasero abatida"
+        },
+        "is": {
+          "label": "Einn hluti aftursætis felldur"
+        },
+        "jp": {
+          "label": "後席片側折りたたみ"
+        },
+        "it": {
+          "label": "Una sezione del sedile posteriore abbattuta"
+        },
+        "el": {
+          "label": "Μία ενότητα πίσω καθίσματος αναδιπλωμένη"
+        },
+        "xx": {
+          "label": "One rear seat section folded"
+        }
       }
     }
   ],
@@ -219,14 +331,32 @@
     }
   ],
   "translations": {
-    "en": { "bodyStyle": "5-door compact SUV" },
-    "fr": { "bodyStyle": "SUV compact 5 portes" },
-    "de": { "bodyStyle": "5-türiges kompaktes SUV" },
-    "es": { "bodyStyle": "SUV compacto de 5 puertas" },
-    "is": { "bodyStyle": "5 dyra nettur jeppi" },
-    "jp": { "bodyStyle": "5ドアコンパクトSUV" },
-    "it": { "bodyStyle": "SUV compatto a 5 porte" },
-    "el": { "bodyStyle": "Συμπαγές SUV 5 θυρών" },
-    "xx": { "bodyStyle": "5-door compact SUV" }
+    "en": {
+      "bodyStyle": "5-door compact SUV"
+    },
+    "fr": {
+      "bodyStyle": "SUV compact 5 portes"
+    },
+    "de": {
+      "bodyStyle": "5-türiges kompaktes SUV"
+    },
+    "es": {
+      "bodyStyle": "SUV compacto de 5 puertas"
+    },
+    "is": {
+      "bodyStyle": "5 dyra nettur jeppi"
+    },
+    "jp": {
+      "bodyStyle": "5ドアコンパクトSUV"
+    },
+    "it": {
+      "bodyStyle": "SUV compatto a 5 porte"
+    },
+    "el": {
+      "bodyStyle": "Συμπαγές SUV 5 θυρών"
+    },
+    "xx": {
+      "bodyStyle": "5-door compact SUV"
+    }
   }
 }
