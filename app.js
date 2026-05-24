@@ -21,6 +21,9 @@ const state = {
   activeOrientationLabel: '',
   language: 'en'
 };
+
+const LANGUAGE_COOKIE_NAME = 'preferredLanguage';
+const LANGUAGE_COOKIE_MAX_AGE_SECONDS = 60 * 60 * 24 * 365;
 const I18N = {
   en: {
     pageTitle: 'Luggage Check',
@@ -1000,11 +1003,32 @@ function setLanguage(language) {
   if (languageSelect && languageSelect.value !== language) {
     languageSelect.value = language;
   }
+  persistLanguagePreference(language);
   applyStaticTranslations();
   renderVehicleOptions();
   renderConfigurationOptions();
   renderLuggageControls();
   renderResults();
+}
+
+function persistLanguagePreference(language) {
+  if (typeof document === 'undefined') return;
+  if (language === 'en') {
+    document.cookie = `${LANGUAGE_COOKIE_NAME}=; path=/; max-age=0; SameSite=Lax`;
+    return;
+  }
+  document.cookie = `${LANGUAGE_COOKIE_NAME}=${encodeURIComponent(language)}; path=/; max-age=${LANGUAGE_COOKIE_MAX_AGE_SECONDS}; SameSite=Lax`;
+}
+
+function getPersistedLanguagePreference() {
+  if (typeof document === 'undefined') return null;
+  const languageCookie = document.cookie
+    .split(';')
+    .map((segment) => segment.trim())
+    .find((segment) => segment.startsWith(`${LANGUAGE_COOKIE_NAME}=`));
+  if (!languageCookie) return null;
+  const cookieLanguage = decodeURIComponent(languageCookie.split('=').slice(1).join('='));
+  return I18N[cookieLanguage] ? cookieLanguage : null;
 }
 
 export async function initApp() {
@@ -1024,6 +1048,11 @@ export async function initApp() {
     renderVehicleMeta();
     renderLuggageControls();
     bindEvents();
+    const persistedLanguage = getPersistedLanguagePreference();
+    if (persistedLanguage && persistedLanguage !== state.language) {
+      setLanguage(persistedLanguage);
+      return;
+    }
     applyStaticTranslations();
     renderResults();
   } catch (error) {
