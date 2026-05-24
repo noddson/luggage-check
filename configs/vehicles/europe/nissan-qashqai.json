@@ -44,7 +44,7 @@
           "label": "Boot / trunk with rear seats up"
         },
         "fr": {
-          "label": "Boot / trunk with rear seats up"
+          "label": "Coffre avec sièges arrière relevés"
         }
       }
     },
@@ -69,7 +69,7 @@
           "label": "Expanded cargo area with rear seats folded"
         },
         "fr": {
-          "label": "Expanded cargo area with rear seats folded"
+          "label": "Espace de chargement étendu avec sièges arrière rabattus"
         }
       }
     },
@@ -90,7 +90,7 @@
           "label": "Rear passenger footwell overflow"
         },
         "fr": {
-          "label": "Rear passenger footwell overflow"
+          "label": "Espace supplémentaire au niveau du plancher arrière"
         }
       }
     }
@@ -108,7 +108,7 @@
           "label": "Rear seats up"
         },
         "fr": {
-          "label": "Rear seats up"
+          "label": "Sièges arrière relevés"
         }
       }
     },
@@ -126,7 +126,7 @@
           "label": "Rear seats folded"
         },
         "fr": {
-          "label": "Rear seats folded"
+          "label": "Sièges arrière rabattus"
         }
       }
     },
@@ -144,7 +144,7 @@
           "label": "Rear seats up with rear footwell overflow"
         },
         "fr": {
-          "label": "Rear seats up with rear footwell overflow"
+          "label": "Sièges arrière relevés avec espace supplémentaire au plancher arrière"
         }
       }
     }
@@ -185,7 +185,7 @@
       "bodyStyle": "Compact crossover SUV"
     },
     "fr": {
-      "bodyStyle": "Compact crossover SUV"
+      "bodyStyle": "SUV crossover compact"
     }
   }
 }

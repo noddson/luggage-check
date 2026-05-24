@@ -52,7 +52,7 @@
           "label": "Cargo area behind second row"
         },
         "fr": {
-          "label": "Cargo area behind second row"
+          "label": "Espace de chargement derrière la deuxième rangée"
         }
       }
     },
@@ -77,7 +77,7 @@
           "label": "Maximum cargo area with second row folded"
         },
         "fr": {
-          "label": "Maximum cargo area with second row folded"
+          "label": "Espace de chargement maximal avec deuxième rangée rabattue"
         }
       }
     },
@@ -98,7 +98,7 @@
           "label": "Rear passenger footwell overflow"
         },
         "fr": {
-          "label": "Rear passenger footwell overflow"
+          "label": "Espace supplémentaire au niveau du plancher arrière"
         }
       }
     }
@@ -117,7 +117,7 @@
           "label": "All seats up"
         },
         "fr": {
-          "label": "All seats up"
+          "label": "Tous les sièges relevés"
         }
       }
     },
@@ -134,7 +134,7 @@
           "label": "Second row folded"
         },
         "fr": {
-          "label": "Second row folded"
+          "label": "Deuxième rangée rabattue"
         }
       }
     },
@@ -152,7 +152,7 @@
           "label": "One rear seat section folded"
         },
         "fr": {
-          "label": "One rear seat section folded"
+          "label": "Une section de siège arrière rabattue"
         }
       }
     }
@@ -234,7 +234,7 @@
       "bodyStyle": "5-door compact hybrid SUV"
     },
     "fr": {
-      "bodyStyle": "5-door compact hybrid SUV"
+      "bodyStyle": "SUV hybride compact 5 portes"
     }
   }
 }

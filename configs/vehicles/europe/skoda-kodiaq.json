@@ -74,7 +74,7 @@
           "label": "Cargo area with row 2 in place and row 3 folded down"
         },
         "fr": {
-          "label": "Cargo area with row 2 in place and row 3 folded down"
+          "label": "Espace de chargement avec la 2e rangée en place et la 3e rangée rabattue"
         }
       }
     },
@@ -99,7 +99,7 @@
           "label": "Maximum cargo area with rear rows folded"
         },
         "fr": {
-          "label": "Maximum cargo area with rear rows folded"
+          "label": "Espace de chargement maximal avec rangées arrière rabattues"
         }
       }
     }
@@ -118,7 +118,7 @@
           "label": "All 7 seats in use"
         },
         "fr": {
-          "label": "All 7 seats in use"
+          "label": "Les 7 sièges sont occupés"
         }
       }
     },
@@ -135,7 +135,7 @@
           "label": "Third row folded"
         },
         "fr": {
-          "label": "Third row folded"
+          "label": "Troisième rangée rabattue"
         }
       }
     },
@@ -152,7 +152,7 @@
           "label": "Rear rows folded"
         },
         "fr": {
-          "label": "Rear rows folded"
+          "label": "Rangées arrière rabattues"
         }
       }
     }
@@ -190,7 +190,7 @@
   ],
   "translations": {
     "fr": {
-      "bodyStyle": "7-seat midsize SUV"
+      "bodyStyle": "SUV intermédiaire 7 places"
     },
     "en": {
       "bodyStyle": "7-seat midsize SUV"
