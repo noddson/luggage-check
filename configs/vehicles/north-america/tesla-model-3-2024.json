@@ -64,7 +64,7 @@
         "el": {
           "label": "Πίσω πορτμπαγκάζ πίσω από τη 2η σειρά"
         },
-        "XX": {
+        "xx": {
           "label": "Aft trunk behind second row"
         }
       }
@@ -110,7 +110,7 @@
         "el": {
           "label": "Εμπρός χώρος αποσκευών / frunk"
         },
-        "XX": {
+        "xx": {
           "label": "Front trunk / frunk"
         }
       }
@@ -156,7 +156,7 @@
         "el": {
           "label": "Επέκταση καμπίνας με πίσω κάθισμα αναδιπλωμένο"
         },
-        "XX": {
+        "xx": {
           "label": "Aft seat folded cabin extension"
         }
       }
@@ -198,7 +198,7 @@
         "el": {
           "label": "Υπερχείλιση χώρου ποδιών πίσω επιβατών"
         },
-        "XX": {
+        "xx": {
           "label": "Aft passenger footwell overflow"
         }
       }
@@ -239,7 +239,7 @@
         "el": {
           "label": "Πίσω καθίσματα όρθια"
         },
-        "XX": {
+        "xx": {
           "label": "Aft seats up"
         }
       }
@@ -279,7 +279,7 @@
         "el": {
           "label": "Πίσω καθίσματα αναδιπλωμένα"
         },
-        "XX": {
+        "xx": {
           "label": "Aft seats folded"
         }
       }
@@ -319,7 +319,7 @@
         "el": {
           "label": "Πίσω καθίσματα όρθια με υπερχείλιση πίσω χώρου ποδιών"
         },
-        "XX": {
+        "xx": {
           "label": "Aft seats up with rear footwell overflow"
         }
       }
@@ -391,7 +391,7 @@
     "el": {
       "bodyStyle": "Ηλεκτρικό μεσαίο σεντάν 4 θυρών"
     },
-    "XX": {
+    "xx": {
       "bodyStyle": "4-door electric midsize sedan"
     }
   }

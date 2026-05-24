@@ -64,7 +64,7 @@
         "el": {
           "label": "Πορτμπαγκάζ πίσω από την 3η σειρά με και τις 7 θέσεις σε χρήση"
         },
-        "XX": {
+        "xx": {
           "label": "Boot behind third row with all 7 seats in use"
         }
       }
@@ -114,7 +114,7 @@
         "el": {
           "label": "Χώρος φόρτωσης με 3η σειρά αφαιρεμένη / αναδιπλωμένη, διαθέσιμες 5 θέσεις"
         },
-        "XX": {
+        "xx": {
           "label": "Cargo area with third row removed / folded, 5 seats available"
         }
       }
@@ -160,7 +160,7 @@
         "el": {
           "label": "Μέγιστος χώρος φόρτωσης με 2η και 3η σειρά αφαιρεμένες"
         },
-        "XX": {
+        "xx": {
           "label": "Maximum cargo area with 2nd and 3rd rows removed"
         }
       }
@@ -200,7 +200,7 @@
         "el": {
           "label": "Και οι 7 θέσεις σε χρήση"
         },
-        "XX": {
+        "xx": {
           "label": "All 7 seats in use"
         }
       }
@@ -238,7 +238,7 @@
         "el": {
           "label": "3η σειρά αφαιρεμένη / αναδιπλωμένη"
         },
-        "XX": {
+        "xx": {
           "label": "Third row removed / folded"
         }
       }
@@ -276,7 +276,7 @@
         "el": {
           "label": "2η και 3η σειρά αφαιρεμένες"
         },
-        "XX": {
+        "xx": {
           "label": "2nd and 3rd rows removed"
         }
       }
@@ -350,7 +350,7 @@
     "el": {
       "bodyStyle": "Συμπαγές επιβατικό van / MPV 7 θέσεων"
     },
-    "XX": {
+    "xx": {
       "bodyStyle": "7-seat compact passenger van / MPV"
     }
   }
