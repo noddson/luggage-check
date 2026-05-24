@@ -47,11 +47,12 @@ const I18N = {
     configuration: 'Configuration', tripSetup: 'Préparation du trajet', vehicle: 'Véhicule', seatCargoConfig: 'Configuration sièges / coffre', rearAngle: 'Angle d’inclinaison du dossier arrière', seatBackNote: 'Les dossiers arrière inclinés réduisent la profondeur disponible en hauteur.', luggage: 'Bagages', bagList: 'Liste des bagages', reset: 'Réinitialiser', visualization: 'Visualisation', bootViz: 'Visualisation de l’ajustement des bagages du coffre', placedLuggage: 'Bagages placés', needsAnotherPlan: 'À replacer', workspaceAria: 'Espace de vérification des bagages', orientation: 'Orientation', pitch: 'Angle de tangage', yaw: 'Angle de lacet', dragHint: 'Faites glisser pour pivoter autour du centre de chargement · cliquez sur X/Y/Z pour les axes prédéfinis', noBagsInZone: 'Aucun bagage placé dans cette zone.', nothingPlacedYet: 'Rien n’est placé pour le moment. Ajoutez des quantités pour commencer.', allPlaced: 'Tous les bagages sélectionnés sont placés dans la configuration active.'
   }
 };
-const t = (key) => I18N[state.language][key] ?? key;
+const localeBundle = () => I18N[state.language] ?? I18N.en;
+const t = (key) => localeBundle()[key] ?? I18N.en[key] ?? key;
 
 function localizeText(text, localized = null) {
   if (state.language !== 'en' && localized && localized[state.language]) return localized[state.language];
-  return text;
+  return localized?.en ?? text;
 }
 
 function localizeEntity(entity, key) {
@@ -62,7 +63,7 @@ function localizeEntity(entity, key) {
       ?? entity?.translations?.en?.[token]
       ?? token;
   }
-  return entity?.translations?.[state.language]?.[key] ?? value;
+  return entity?.translations?.[state.language]?.[key] ?? entity?.translations?.en?.[key] ?? value;
 }
 
 const $ = (selector) => document.querySelector(selector);
@@ -863,6 +864,8 @@ function bindEvents() {
   });
   $('#langEn').addEventListener('click', () => setLanguage('en'));
   $('#langFr').addEventListener('click', () => setLanguage('fr'));
+  $('#langDe').addEventListener('click', () => setLanguage('de'));
+  $('#langEs').addEventListener('click', () => setLanguage('es'));
 }
 
 function applyStaticTranslations() {
@@ -879,8 +882,9 @@ function applyStaticTranslations() {
 
 function setLanguage(language) {
   state.language = language;
-  $('#langEn').classList.toggle('active', language === 'en');
-  $('#langFr').classList.toggle('active', language === 'fr');
+  document.querySelectorAll('.lang-button').forEach((button) => {
+    button.classList.toggle('active', button.id === `lang${language[0].toUpperCase()}${language.slice(1)}`);
+  });
   applyStaticTranslations();
   renderVehicleOptions();
   renderConfigurationOptions();
