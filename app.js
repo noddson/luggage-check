@@ -1175,7 +1175,10 @@ function applyPersistedTripSetupPreference() {
   if (!raw) return;
   try {
     const persisted = JSON.parse(raw);
-    if (!persisted || typeof persisted !== 'object' || persisted.vehicleId !== state.vehicleId) return;
+    if (!persisted || typeof persisted !== 'object') return;
+    const persistedVehicle = state.vehicles.find((vehicle) => vehicle.id === persisted.vehicleId);
+    if (!persistedVehicle) return;
+    state.vehicleId = persistedVehicle.id;
     const vehicle = selectedVehicle();
     const defaults = currentVehicleDefaults(vehicle);
     const validConfig = vehicle.seatConfigurations.some((config) => config.id === persisted.configurationId);
