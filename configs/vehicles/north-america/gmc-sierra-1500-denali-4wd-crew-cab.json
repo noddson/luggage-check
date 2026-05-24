@@ -6,7 +6,7 @@
   "modelYears": [
     "2020"
   ],
-  "bodyStyle": "4-door full-size pickup truck",
+  "bodyStyle": "@i18n:bodyStyle",
   "rentalClasses": [
     "full-size pickup",
     "premium pickup",
@@ -20,7 +20,7 @@
   "cargoZones": [
     {
       "id": "short_bed",
-      "label": "Open cargo bed — short box (Crew Cab 147.4 in wheelbase)",
+      "label": "@i18n:label",
       "volumeLitres": 1781,
       "dimensionsMm": {
         "length": 1776,
@@ -33,11 +33,19 @@
       },
       "usableFraction": 0.86,
       "confidence": "medium",
-      "notes": "Uses the wheel-house width as the conservative rectangular width so rigid luggage is not planned through the wider floor sections. The open pickup bed is weather-exposed unless a cover/cap is fitted."
+      "notes": "Uses the wheel-house width as the conservative rectangular width so rigid luggage is not planned through the wider floor sections. The open pickup bed is weather-exposed unless a cover/cap is fitted.",
+      "translations": {
+        "en": {
+          "label": "Open cargo bed — short box (Crew Cab 147.4 in wheelbase)"
+        },
+        "fr": {
+          "label": "Open cargo bed — short box (Crew Cab 147.4 in wheelbase)"
+        }
+      }
     },
     {
       "id": "short_bed_full_floor",
-      "label": "Open cargo bed — short box full floor width",
+      "label": "@i18n:label",
       "volumeLitres": 1781,
       "dimensionsMm": {
         "length": 1776,
@@ -50,11 +58,19 @@
       },
       "usableFraction": 0.72,
       "confidence": "low",
-      "notes": "Alternate planning envelope that uses the full bed floor width. Wheel wells interrupt this width, so it should be treated as optimistic for rigid bags."
+      "notes": "Alternate planning envelope that uses the full bed floor width. Wheel wells interrupt this width, so it should be treated as optimistic for rigid bags.",
+      "translations": {
+        "en": {
+          "label": "Open cargo bed — short box full floor width"
+        },
+        "fr": {
+          "label": "Open cargo bed — short box full floor width"
+        }
+      }
     },
     {
       "id": "standard_bed",
-      "label": "Open cargo bed — standard box (Crew Cab 157 in wheelbase)",
+      "label": "@i18n:label",
       "volumeLitres": 2030,
       "dimensionsMm": {
         "length": 2017,
@@ -67,11 +83,19 @@
       },
       "usableFraction": 0.86,
       "confidence": "medium",
-      "notes": "Uses the wheel-house width as the conservative rectangular width. GMC lists Crew Cab cargo volume as 62.9–71.7 cu ft depending on short or standard bed."
+      "notes": "Uses the wheel-house width as the conservative rectangular width. GMC lists Crew Cab cargo volume as 62.9–71.7 cu ft depending on short or standard bed.",
+      "translations": {
+        "en": {
+          "label": "Open cargo bed — standard box (Crew Cab 157 in wheelbase)"
+        },
+        "fr": {
+          "label": "Open cargo bed — standard box (Crew Cab 157 in wheelbase)"
+        }
+      }
     },
     {
       "id": "rear_cabin_floor",
-      "label": "Rear cabin floor / seat overflow",
+      "label": "@i18n:label",
       "volumeLitres": 180,
       "dimensionsMm": {
         "length": 740,
@@ -80,46 +104,86 @@
       },
       "usableFraction": 0.45,
       "confidence": "low",
-      "notes": "Generic interior overflow area for soft bags when rear seating is sacrificed; not a manufacturer cargo specification."
+      "notes": "Generic interior overflow area for soft bags when rear seating is sacrificed; not a manufacturer cargo specification.",
+      "translations": {
+        "en": {
+          "label": "Rear cabin floor / seat overflow"
+        },
+        "fr": {
+          "label": "Rear cabin floor / seat overflow"
+        }
+      }
     }
   ],
   "seatConfigurations": [
     {
       "id": "seats_up",
-      "label": "Crew cab, short bed",
+      "label": "@i18n:label",
       "cargoZoneIds": [
         "short_bed"
       ],
       "seatsAvailable": 5,
-      "notes": "Assumes the common Denali Crew Cab short-box configuration; cargo is exposed to weather without a bed cover."
+      "notes": "Assumes the common Denali Crew Cab short-box configuration; cargo is exposed to weather without a bed cover.",
+      "translations": {
+        "en": {
+          "label": "Crew cab, short bed"
+        },
+        "fr": {
+          "label": "Crew cab, short bed"
+        }
+      }
     },
     {
       "id": "short_bed_full_width",
-      "label": "Crew cab, short bed full floor width",
+      "label": "@i18n:label",
       "cargoZoneIds": [
         "short_bed_full_floor"
       ],
       "seatsAvailable": 5,
-      "notes": "Optimistic width view for soft bags or loads that can sit around wheel wells."
+      "notes": "Optimistic width view for soft bags or loads that can sit around wheel wells.",
+      "translations": {
+        "en": {
+          "label": "Crew cab, short bed full floor width"
+        },
+        "fr": {
+          "label": "Crew cab, short bed full floor width"
+        }
+      }
     },
     {
       "id": "standard_bed",
-      "label": "Crew cab, standard bed",
+      "label": "@i18n:label",
       "cargoZoneIds": [
         "standard_bed"
       ],
       "seatsAvailable": 5,
-      "notes": "For the less common Crew Cab standard-box configuration on the 157 in wheelbase."
+      "notes": "For the less common Crew Cab standard-box configuration on the 157 in wheelbase.",
+      "translations": {
+        "en": {
+          "label": "Crew cab, standard bed"
+        },
+        "fr": {
+          "label": "Crew cab, standard bed"
+        }
+      }
     },
     {
       "id": "short_bed_with_cabin_overflow",
-      "label": "Short bed with rear cabin overflow",
+      "label": "@i18n:label",
       "cargoZoneIds": [
         "short_bed",
         "rear_cabin_floor"
       ],
       "seatsAvailable": 2,
-      "notes": "Assumes rear passenger seating is used for additional soft luggage."
+      "notes": "Assumes rear passenger seating is used for additional soft luggage.",
+      "translations": {
+        "en": {
+          "label": "Short bed with rear cabin overflow"
+        },
+        "fr": {
+          "label": "Short bed with rear cabin overflow"
+        }
+      }
     }
   ],
   "sources": [
@@ -175,5 +239,13 @@
       ],
       "confidence": "medium"
     }
-  ]
+  ],
+  "translations": {
+    "en": {
+      "bodyStyle": "4-door full-size pickup truck"
+    },
+    "fr": {
+      "bodyStyle": "4-door full-size pickup truck"
+    }
+  }
 }

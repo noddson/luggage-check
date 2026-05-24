@@ -6,7 +6,7 @@
   "modelYears": [
     "2022-present"
   ],
-  "bodyStyle": "7-seat compact MPV / estate crossover",
+  "bodyStyle": "@i18n:bodyStyle",
   "rentalClasses": [
     "compact van",
     "7-seat MPV",
@@ -20,7 +20,7 @@
   "cargoZones": [
     {
       "id": "boot_seven_seats",
-      "label": "Boot behind third row with all 7 seats in use",
+      "label": "@i18n:label",
       "volumeLitres": 212,
       "dimensionsMm": {
         "length": 270,
@@ -41,12 +41,15 @@
       "translations": {
         "fr": {
           "label": "Coffre derrière la troisième rangée (7 sièges en usage)"
+        },
+        "en": {
+          "label": "Boot behind third row with all 7 seats in use"
         }
       }
     },
     {
       "id": "boot_row3_folded",
-      "label": "Cargo area with row 2 in place and row 3 folded down",
+      "label": "@i18n:label",
       "volumeLitres": 699,
       "dimensionsMm": {
         "length": 900,
@@ -63,11 +66,19 @@
       "seatBackEncroachment": {
         "angleFromVerticalDegrees": 18,
         "notes": "Hypothèse par défaut de l’inclinaison du dossier arrière pour une planification du coffre tenant compte de l’empiètement."
+      },
+      "translations": {
+        "en": {
+          "label": "Cargo area with row 2 in place and row 3 folded down"
+        },
+        "fr": {
+          "label": "Cargo area with row 2 in place and row 3 folded down"
+        }
       }
     },
     {
       "id": "boot_row3_removed",
-      "label": "Cargo area with row 2 in place and row 3 removed",
+      "label": "@i18n:label",
       "volumeLitres": 820,
       "dimensionsMm": {
         "length": 1055,
@@ -84,11 +95,19 @@
       "seatBackEncroachment": {
         "angleFromVerticalDegrees": 18,
         "notes": "Hypothèse par défaut de l’inclinaison du dossier arrière pour une planification du coffre tenant compte de l’empiètement."
+      },
+      "translations": {
+        "en": {
+          "label": "Cargo area with row 2 in place and row 3 removed"
+        },
+        "fr": {
+          "label": "Cargo area with row 2 in place and row 3 removed"
+        }
       }
     },
     {
       "id": "full_cargo_rear_rows_folded",
-      "label": "Maximum cargo area with rear rows folded / removed",
+      "label": "@i18n:label",
       "volumeLitres": 2085,
       "dimensionsMm": {
         "length": 1900,
@@ -101,45 +120,85 @@
       },
       "usableFraction": 0.72,
       "confidence": "medium",
-      "notes": "Dacia publishes 1,807 dm3 VDA / 2,085 litres ISO maximum boot volume for the 7-seater. Dimensions are a planning cuboid based on Dacia's 1.90 m accessory sleeping platform length and published rear-width references, so rigid-item fit still depends on interior taper, wheel arches, and seat hardware."
+      "notes": "Dacia publishes 1,807 dm3 VDA / 2,085 litres ISO maximum boot volume for the 7-seater. Dimensions are a planning cuboid based on Dacia's 1.90 m accessory sleeping platform length and published rear-width references, so rigid-item fit still depends on interior taper, wheel arches, and seat hardware.",
+      "translations": {
+        "en": {
+          "label": "Maximum cargo area with rear rows folded / removed"
+        },
+        "fr": {
+          "label": "Maximum cargo area with rear rows folded / removed"
+        }
+      }
     }
   ],
   "seatConfigurations": [
     {
       "id": "seats_up",
-      "label": "All 7 seats in use",
+      "label": "@i18n:label",
       "cargoZoneIds": [
         "boot_seven_seats"
       ],
       "seatsAvailable": 7,
-      "notes": "Use this for full-passenger rental use; rental listings commonly advertise about 3-4 luggage items, so large suitcases may require reducing passenger count."
+      "notes": "Use this for full-passenger rental use; rental listings commonly advertise about 3-4 luggage items, so large suitcases may require reducing passenger count.",
+      "translations": {
+        "en": {
+          "label": "All 7 seats in use"
+        },
+        "fr": {
+          "label": "All 7 seats in use"
+        }
+      }
     },
     {
       "id": "third_row_folded",
-      "label": "Third row folded",
+      "label": "@i18n:label",
       "cargoZoneIds": [
         "boot_row3_folded"
       ],
       "seatsAvailable": 5,
-      "notes": "Assumes the two third-row seats are folded and unavailable for passengers, while the second row remains in use."
+      "notes": "Assumes the two third-row seats are folded and unavailable for passengers, while the second row remains in use.",
+      "translations": {
+        "en": {
+          "label": "Third row folded"
+        },
+        "fr": {
+          "label": "Third row folded"
+        }
+      }
     },
     {
       "id": "third_row_removed",
-      "label": "Third row removed",
+      "label": "@i18n:label",
       "cargoZoneIds": [
         "boot_row3_removed"
       ],
       "seatsAvailable": 5,
-      "notes": "Assumes the removable third-row seats are out of the vehicle; check rental policy before planning to remove seats."
+      "notes": "Assumes the removable third-row seats are out of the vehicle; check rental policy before planning to remove seats.",
+      "translations": {
+        "en": {
+          "label": "Third row removed"
+        },
+        "fr": {
+          "label": "Third row removed"
+        }
+      }
     },
     {
       "id": "rear_rows_folded",
-      "label": "Rear rows folded / removed",
+      "label": "@i18n:label",
       "cargoZoneIds": [
         "full_cargo_rear_rows_folded"
       ],
       "seatsAvailable": 2,
-      "notes": "For two occupants plus maximum cargo; practical floor flatness depends on whether seats are folded, tumbled, or removed."
+      "notes": "For two occupants plus maximum cargo; practical floor flatness depends on whether seats are folded, tumbled, or removed.",
+      "translations": {
+        "en": {
+          "label": "Rear rows folded / removed"
+        },
+        "fr": {
+          "label": "Rear rows folded / removed"
+        }
+      }
     }
   ],
   "sources": [
@@ -187,6 +246,9 @@
   "translations": {
     "fr": {
       "bodyStyle": "7-seat compact Monospace / estate crossover"
+    },
+    "en": {
+      "bodyStyle": "7-seat compact MPV / estate crossover"
     }
   }
 }

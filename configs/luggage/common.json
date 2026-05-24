@@ -3,7 +3,7 @@
   "items": [
     {
       "id": "iata-cabin-bag",
-      "label": "IATA-style cabin bag",
+      "label": "@i18n:label",
       "quantity": 1,
       "shapeType": "box",
       "dimensionsMm": {
@@ -30,12 +30,15 @@
       "translations": {
         "fr": {
           "label": "Bagage cabine style IATA"
+        },
+        "en": {
+          "label": "IATA-style cabin bag"
         }
       }
     },
     {
       "id": "us-carry-on",
-      "label": "US airline carry-on",
+      "label": "@i18n:label",
       "quantity": 1,
       "shapeType": "box",
       "dimensionsMm": {
@@ -62,12 +65,15 @@
       "translations": {
         "fr": {
           "label": "Bagage cabine compagnie US"
+        },
+        "en": {
+          "label": "US airline carry-on"
         }
       }
     },
     {
       "id": "oddson-family-carry-on",
-      "label": "Oddson Family carry-on",
+      "label": "@i18n:label",
       "quantity": 1,
       "shapeType": "box",
       "dimensionsMm": {
@@ -94,12 +100,15 @@
       "translations": {
         "fr": {
           "label": "Bagage cabine Oddson Family"
+        },
+        "en": {
+          "label": "Oddson Family carry-on"
         }
       }
     },
     {
       "id": "medium-checked-suitcase",
-      "label": "Medium checked suitcase",
+      "label": "@i18n:label",
       "quantity": 1,
       "shapeType": "box",
       "dimensionsMm": {
@@ -126,12 +135,15 @@
       "translations": {
         "fr": {
           "label": "Valise en soute moyenne"
+        },
+        "en": {
+          "label": "Medium checked suitcase"
         }
       }
     },
     {
       "id": "large-checked-suitcase",
-      "label": "Large checked suitcase",
+      "label": "@i18n:label",
       "quantity": 1,
       "shapeType": "box",
       "dimensionsMm": {
@@ -158,12 +170,15 @@
       "translations": {
         "fr": {
           "label": "Grande valise en soute"
+        },
+        "en": {
+          "label": "Large checked suitcase"
         }
       }
     },
     {
       "id": "soft-travel-backpack",
-      "label": "Soft travel backpack",
+      "label": "@i18n:label",
       "quantity": 1,
       "shapeType": "free_form",
       "dimensionsMm": {
@@ -209,12 +224,15 @@
       "translations": {
         "fr": {
           "label": "Sac à dos de voyage souple"
+        },
+        "en": {
+          "label": "Soft travel backpack"
         }
       }
     },
     {
       "id": "golf-clubs-bag",
-      "label": "Golf Clubs",
+      "label": "@i18n:label",
       "quantity": 1,
       "maxQuantity": 12,
       "shapeType": "box",
@@ -241,12 +259,15 @@
       "translations": {
         "fr": {
           "label": "Sac de clubs de golf"
+        },
+        "en": {
+          "label": "Golf Clubs"
         }
       }
     },
     {
       "id": "golf-balls-tiny-boxes",
-      "label": "Golf balls (box of 12)",
+      "label": "@i18n:label",
       "quantity": 1,
       "shapeType": "box",
       "dimensionsMm": {
@@ -273,6 +294,9 @@
       "translations": {
         "fr": {
           "label": "Balles de golf (boîte de 12)"
+        },
+        "en": {
+          "label": "Golf balls (box of 12)"
         }
       }
     }

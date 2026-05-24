@@ -6,7 +6,7 @@
   "modelYears": [
     "2019-present"
   ],
-  "bodyStyle": "5-door hatchback",
+  "bodyStyle": "@i18n:bodyStyle",
   "rentalClasses": [
     "compact",
     "compact elite",
@@ -20,7 +20,7 @@
   "cargoZones": [
     {
       "id": "boot_seats_up",
-      "label": "Boot / trunk with rear seats up",
+      "label": "@i18n:label",
       "volumeLitres": 380,
       "dimensionsMm": {
         "length": 750,
@@ -33,11 +33,19 @@
       "seatBackEncroachment": {
         "angleFromVerticalDegrees": 20,
         "notes": "Hypothèse par défaut de l’inclinaison du dossier arrière pour une planification du coffre tenant compte de l’empiètement."
+      },
+      "translations": {
+        "en": {
+          "label": "Boot / trunk with rear seats up"
+        },
+        "fr": {
+          "label": "Boot / trunk with rear seats up"
+        }
       }
     },
     {
       "id": "boot_seats_folded",
-      "label": "Expanded cargo area with rear seats folded",
+      "label": "@i18n:label",
       "volumeLitres": 1237,
       "dimensionsMm": {
         "length": 1450,
@@ -46,11 +54,19 @@
       },
       "usableFraction": 0.72,
       "confidence": "low",
-      "notes": "Manufacturer folded volume is sourced where available; dimensions estimate a box-like load floor and ignore seat rake, wheel arches, and trim intrusions."
+      "notes": "Manufacturer folded volume is sourced where available; dimensions estimate a box-like load floor and ignore seat rake, wheel arches, and trim intrusions.",
+      "translations": {
+        "en": {
+          "label": "Expanded cargo area with rear seats folded"
+        },
+        "fr": {
+          "label": "Expanded cargo area with rear seats folded"
+        }
+      }
     },
     {
       "id": "rear_seat_footwell",
-      "label": "Rear passenger footwell overflow",
+      "label": "@i18n:label",
       "volumeLitres": 80,
       "dimensionsMm": {
         "length": 650,
@@ -59,37 +75,69 @@
       },
       "usableFraction": 0.45,
       "confidence": "low",
-      "notes": "Generic overflow area, enabled only when passenger space can be used."
+      "notes": "Generic overflow area, enabled only when passenger space can be used.",
+      "translations": {
+        "en": {
+          "label": "Rear passenger footwell overflow"
+        },
+        "fr": {
+          "label": "Rear passenger footwell overflow"
+        }
+      }
     }
   ],
   "seatConfigurations": [
     {
       "id": "seats_up",
-      "label": "Rear seats up",
+      "label": "@i18n:label",
       "cargoZoneIds": [
         "boot_seats_up"
       ],
-      "seatsAvailable": 5
+      "seatsAvailable": 5,
+      "translations": {
+        "en": {
+          "label": "Rear seats up"
+        },
+        "fr": {
+          "label": "Rear seats up"
+        }
+      }
     },
     {
       "id": "rear_folded",
-      "label": "Rear seats folded",
+      "label": "@i18n:label",
       "cargoZoneIds": [
         "boot_seats_up",
         "boot_seats_folded"
       ],
       "seatsAvailable": 2,
-      "notes": "For two occupants plus cargo; exact split-fold support varies by trim."
+      "notes": "For two occupants plus cargo; exact split-fold support varies by trim.",
+      "translations": {
+        "en": {
+          "label": "Rear seats folded"
+        },
+        "fr": {
+          "label": "Rear seats folded"
+        }
+      }
     },
     {
       "id": "seats_up_with_footwell",
-      "label": "Rear seats up with rear footwell overflow",
+      "label": "@i18n:label",
       "cargoZoneIds": [
         "boot_seats_up",
         "rear_seat_footwell"
       ],
       "seatsAvailable": 4,
-      "notes": "Assumes at least one rear passenger position is sacrificed for soft bags."
+      "notes": "Assumes at least one rear passenger position is sacrificed for soft bags.",
+      "translations": {
+        "en": {
+          "label": "Rear seats up with rear footwell overflow"
+        },
+        "fr": {
+          "label": "Rear seats up with rear footwell overflow"
+        }
+      }
     }
   ],
   "sources": [
@@ -127,5 +175,13 @@
       ],
       "confidence": "medium"
     }
-  ]
+  ],
+  "translations": {
+    "en": {
+      "bodyStyle": "5-door hatchback"
+    },
+    "fr": {
+      "bodyStyle": "5-door hatchback"
+    }
+  }
 }
