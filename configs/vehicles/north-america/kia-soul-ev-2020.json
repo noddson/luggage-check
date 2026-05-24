@@ -6,7 +6,7 @@
   "modelYears": [
     "2020"
   ],
-  "bodyStyle": "5-door electric subcompact crossover hatchback",
+  "bodyStyle": "@i18n:bodyStyle",
   "rentalClasses": [
     "compact car",
     "electric compact SUV",
@@ -20,7 +20,7 @@
   "cargoZones": [
     {
       "id": "rear_cargo_floor_lower",
-      "label": "Rear cargo area with seats up and cargo floor lowered",
+      "label": "@i18n:label",
       "volumeLitres": 663,
       "dimensionsMm": {
         "length": 720,
@@ -37,11 +37,19 @@
       "seatBackEncroachment": {
         "angleFromVerticalDegrees": 20,
         "notes": "Hypothèse par défaut de l’inclinaison du dossier arrière pour une planification du coffre tenant compte de l’empiètement."
+      },
+      "translations": {
+        "en": {
+          "label": "Rear cargo area with seats up and cargo floor lowered"
+        },
+        "fr": {
+          "label": "Rear cargo area with seats up and cargo floor lowered"
+        }
       }
     },
     {
       "id": "rear_cargo_floor_upper",
-      "label": "Rear cargo area with seats up and cargo floor raised",
+      "label": "@i18n:label",
       "volumeLitres": 530,
       "dimensionsMm": {
         "length": 720,
@@ -58,11 +66,19 @@
       "seatBackEncroachment": {
         "angleFromVerticalDegrees": 20,
         "notes": "Hypothèse par défaut de l’inclinaison du dossier arrière pour une planification du coffre tenant compte de l’empiètement."
+      },
+      "translations": {
+        "en": {
+          "label": "Rear cargo area with seats up and cargo floor raised"
+        },
+        "fr": {
+          "label": "Rear cargo area with seats up and cargo floor raised"
+        }
       }
     },
     {
       "id": "rear_seats_folded",
-      "label": "Expanded cargo area with rear seats folded",
+      "label": "@i18n:label",
       "volumeLitres": 1735,
       "dimensionsMm": {
         "length": 1450,
@@ -75,11 +91,19 @@
       },
       "usableFraction": 0.72,
       "confidence": "low",
-      "notes": "Canadian-market folded cargo volume is sourced; dimensions approximate a box-like envelope and ignore seatback angle, trim, and wheel-arch intrusions."
+      "notes": "Canadian-market folded cargo volume is sourced; dimensions approximate a box-like envelope and ignore seatback angle, trim, and wheel-arch intrusions.",
+      "translations": {
+        "en": {
+          "label": "Expanded cargo area with rear seats folded"
+        },
+        "fr": {
+          "label": "Expanded cargo area with rear seats folded"
+        }
+      }
     },
     {
       "id": "rear_seat_footwell",
-      "label": "Rear passenger footwell overflow",
+      "label": "@i18n:label",
       "volumeLitres": 80,
       "dimensionsMm": {
         "length": 650,
@@ -88,46 +112,86 @@
       },
       "usableFraction": 0.45,
       "confidence": "low",
-      "notes": "Generic overflow area, enabled only when passenger space can be used."
+      "notes": "Generic overflow area, enabled only when passenger space can be used.",
+      "translations": {
+        "en": {
+          "label": "Rear passenger footwell overflow"
+        },
+        "fr": {
+          "label": "Rear passenger footwell overflow"
+        }
+      }
     }
   ],
   "seatConfigurations": [
     {
       "id": "seats_up",
-      "label": "Rear seats up, cargo floor lowered",
+      "label": "@i18n:label",
       "cargoZoneIds": [
         "rear_cargo_floor_lower"
       ],
-      "seatsAvailable": 5
+      "seatsAvailable": 5,
+      "translations": {
+        "en": {
+          "label": "Rear seats up, cargo floor lowered"
+        },
+        "fr": {
+          "label": "Rear seats up, cargo floor lowered"
+        }
+      }
     },
     {
       "id": "seats_up_floor_raised",
-      "label": "Rear seats up, cargo floor raised",
+      "label": "@i18n:label",
       "cargoZoneIds": [
         "rear_cargo_floor_upper"
       ],
       "seatsAvailable": 5,
-      "notes": "Flatter load floor but lower cargo volume than the lowered-floor setting."
+      "notes": "Flatter load floor but lower cargo volume than the lowered-floor setting.",
+      "translations": {
+        "en": {
+          "label": "Rear seats up, cargo floor raised"
+        },
+        "fr": {
+          "label": "Rear seats up, cargo floor raised"
+        }
+      }
     },
     {
       "id": "rear_folded",
-      "label": "Rear seats folded",
+      "label": "@i18n:label",
       "cargoZoneIds": [
         "rear_cargo_floor_lower",
         "rear_seats_folded"
       ],
       "seatsAvailable": 2,
-      "notes": "For two occupants plus cargo; exact floor step and seatback angle vary by trim and floor position."
+      "notes": "For two occupants plus cargo; exact floor step and seatback angle vary by trim and floor position.",
+      "translations": {
+        "en": {
+          "label": "Rear seats folded"
+        },
+        "fr": {
+          "label": "Rear seats folded"
+        }
+      }
     },
     {
       "id": "seats_up_with_footwell",
-      "label": "Rear seats up with rear footwell overflow",
+      "label": "@i18n:label",
       "cargoZoneIds": [
         "rear_cargo_floor_lower",
         "rear_seat_footwell"
       ],
       "seatsAvailable": 4,
-      "notes": "Assumes at least one rear passenger position is sacrificed for soft bags."
+      "notes": "Assumes at least one rear passenger position is sacrificed for soft bags.",
+      "translations": {
+        "en": {
+          "label": "Rear seats up with rear footwell overflow"
+        },
+        "fr": {
+          "label": "Rear seats up with rear footwell overflow"
+        }
+      }
     }
   ],
   "sources": [
@@ -173,7 +237,7 @@
     {
       "sourceType": "rental-company",
       "publisher": "Enterprise Rent-A-Car",
-      "title": "Compact SUV Rental \u2013 United States",
+      "title": "Compact SUV Rental – United States",
       "url": "https://www.enterprise.com/en/rental-cars/us/suvs/compact-suv-cfar.html",
       "retrievedAt": "2026-05-14",
       "fieldsCovered": [
@@ -181,5 +245,13 @@
       ],
       "confidence": "medium"
     }
-  ]
+  ],
+  "translations": {
+    "en": {
+      "bodyStyle": "5-door electric subcompact crossover hatchback"
+    },
+    "fr": {
+      "bodyStyle": "5-door electric subcompact crossover hatchback"
+    }
+  }
 }

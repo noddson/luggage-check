@@ -6,7 +6,7 @@
   "modelYears": [
     "2026"
   ],
-  "bodyStyle": "5-door all-electric three-row midsize SUV",
+  "bodyStyle": "@i18n:bodyStyle",
   "rentalClasses": [
     "large electric SUV",
     "full-size electric SUV",
@@ -23,7 +23,7 @@
   "cargoZones": [
     {
       "id": "behind_third_row",
-      "label": "Cargo area behind third row",
+      "label": "@i18n:label",
       "volumeLitres": 620,
       "dimensionsMm": {
         "length": 545,
@@ -40,11 +40,19 @@
       "seatBackEncroachment": {
         "angleFromVerticalDegrees": 12,
         "notes": "Third-row seatbacks are close to upright but still reduce the upper cargo envelope."
+      },
+      "translations": {
+        "en": {
+          "label": "Cargo area behind third row"
+        },
+        "fr": {
+          "label": "Cargo area behind third row"
+        }
       }
     },
     {
       "id": "behind_second_row",
-      "label": "Cargo area with third row folded",
+      "label": "@i18n:label",
       "volumeLitres": 1323,
       "dimensionsMm": {
         "length": 1145,
@@ -61,11 +69,19 @@
       "seatBackEncroachment": {
         "angleFromVerticalDegrees": 16,
         "notes": "Second-row seatback rake and fore/aft adjustment vary by six- or seven-passenger seating configuration."
+      },
+      "translations": {
+        "en": {
+          "label": "Cargo area with third row folded"
+        },
+        "fr": {
+          "label": "Cargo area with third row folded"
+        }
       }
     },
     {
       "id": "behind_first_row",
-      "label": "Maximum cargo area with second and third rows folded",
+      "label": "@i18n:label",
       "volumeLitres": 2461,
       "dimensionsMm": {
         "length": 2090,
@@ -78,11 +94,19 @@
       },
       "usableFraction": 0.71,
       "confidence": "low",
-      "notes": "Hyundai USA publishes 86.9 cu ft of luggage capacity behind the first row. This planning envelope assumes both rear rows are folded and discounts uneven folded-seat surfaces, rounded bodywork, and trim intrusions."
+      "notes": "Hyundai USA publishes 86.9 cu ft of luggage capacity behind the first row. This planning envelope assumes both rear rows are folded and discounts uneven folded-seat surfaces, rounded bodywork, and trim intrusions.",
+      "translations": {
+        "en": {
+          "label": "Maximum cargo area with second and third rows folded"
+        },
+        "fr": {
+          "label": "Maximum cargo area with second and third rows folded"
+        }
+      }
     },
     {
       "id": "front_trunk_rwd",
-      "label": "Front trunk / charge-cable storage (RWD trims)",
+      "label": "@i18n:label",
       "volumeLitres": 88,
       "dimensionsMm": {
         "length": 510,
@@ -91,11 +115,19 @@
       },
       "usableFraction": 0.62,
       "confidence": "low",
-      "notes": "Global Hyundai specifications list 88 litres of front-trunk storage on rear-wheel-drive models; all-wheel-drive models are listed at 52 litres. Best for charge cables or small soft bags."
+      "notes": "Global Hyundai specifications list 88 litres of front-trunk storage on rear-wheel-drive models; all-wheel-drive models are listed at 52 litres. Best for charge cables or small soft bags.",
+      "translations": {
+        "en": {
+          "label": "Front trunk / charge-cable storage (RWD trims)"
+        },
+        "fr": {
+          "label": "Front trunk / charge-cable storage (RWD trims)"
+        }
+      }
     },
     {
       "id": "second_row_footwell_overflow",
-      "label": "Second-row footwell overflow",
+      "label": "@i18n:label",
       "volumeLitres": 155,
       "dimensionsMm": {
         "length": 740,
@@ -104,70 +136,126 @@
       },
       "usableFraction": 0.5,
       "confidence": "low",
-      "notes": "Generic overflow area for soft bags when second-row passenger space is partially sacrificed; not a manufacturer cargo specification."
+      "notes": "Generic overflow area for soft bags when second-row passenger space is partially sacrificed; not a manufacturer cargo specification.",
+      "translations": {
+        "en": {
+          "label": "Second-row footwell overflow"
+        },
+        "fr": {
+          "label": "Second-row footwell overflow"
+        }
+      }
     }
   ],
   "seatConfigurations": [
     {
       "id": "seats_up",
-      "label": "All rows up",
+      "label": "@i18n:label",
       "cargoZoneIds": [
         "behind_third_row",
         "front_trunk_rwd"
       ],
       "seatsAvailable": 6,
-      "notes": "IONIQ 9 is offered in North America with six- or seven-passenger seating depending on trim; this conservative default assumes a six-passenger captain's-chair layout."
+      "notes": "IONIQ 9 is offered in North America with six- or seven-passenger seating depending on trim; this conservative default assumes a six-passenger captain's-chair layout.",
+      "translations": {
+        "en": {
+          "label": "All rows up"
+        },
+        "fr": {
+          "label": "All rows up"
+        }
+      }
     },
     {
       "id": "seven_passenger_seats_up",
-      "label": "All rows up, seven-passenger bench model",
+      "label": "@i18n:label",
       "cargoZoneIds": [
         "behind_third_row",
         "front_trunk_rwd"
       ],
       "seatsAvailable": 7,
-      "notes": "For trims equipped with a second-row bench."
+      "notes": "For trims equipped with a second-row bench.",
+      "translations": {
+        "en": {
+          "label": "All rows up, seven-passenger bench model"
+        },
+        "fr": {
+          "label": "All rows up, seven-passenger bench model"
+        }
+      }
     },
     {
       "id": "third_row_folded",
-      "label": "Third row folded",
+      "label": "@i18n:label",
       "cargoZoneIds": [
         "behind_second_row",
         "front_trunk_rwd"
       ],
       "seatsAvailable": 4,
-      "notes": "Six-passenger layout with third row folded; use seven_passenger_third_row_folded for bench-equipped trims."
+      "notes": "Six-passenger layout with third row folded; use seven_passenger_third_row_folded for bench-equipped trims.",
+      "translations": {
+        "en": {
+          "label": "Third row folded"
+        },
+        "fr": {
+          "label": "Third row folded"
+        }
+      }
     },
     {
       "id": "seven_passenger_third_row_folded",
-      "label": "Third row folded, seven-passenger bench model",
+      "label": "@i18n:label",
       "cargoZoneIds": [
         "behind_second_row",
         "front_trunk_rwd"
       ],
       "seatsAvailable": 5,
-      "notes": "Second-row bench remains available while the third row is folded."
+      "notes": "Second-row bench remains available while the third row is folded.",
+      "translations": {
+        "en": {
+          "label": "Third row folded, seven-passenger bench model"
+        },
+        "fr": {
+          "label": "Third row folded, seven-passenger bench model"
+        }
+      }
     },
     {
       "id": "rear_rows_folded",
-      "label": "Second and third rows folded",
+      "label": "@i18n:label",
       "cargoZoneIds": [
         "behind_first_row",
         "front_trunk_rwd"
       ],
       "seatsAvailable": 2,
-      "notes": "Maximum cargo mode for two occupants."
+      "notes": "Maximum cargo mode for two occupants.",
+      "translations": {
+        "en": {
+          "label": "Second and third rows folded"
+        },
+        "fr": {
+          "label": "Second and third rows folded"
+        }
+      }
     },
     {
       "id": "seats_up_with_footwell",
-      "label": "All rows up with second-row footwell overflow",
+      "label": "@i18n:label",
       "cargoZoneIds": [
         "behind_third_row",
         "front_trunk_rwd",
         "second_row_footwell_overflow"
       ],
       "seatsAvailable": 5,
-      "notes": "Assumes one second-row seating position or footwell is used for soft luggage."
+      "notes": "Assumes one second-row seating position or footwell is used for soft luggage.",
+      "translations": {
+        "en": {
+          "label": "All rows up with second-row footwell overflow"
+        },
+        "fr": {
+          "label": "All rows up with second-row footwell overflow"
+        }
+      }
     }
   ],
   "sources": [
@@ -237,5 +325,13 @@
       ],
       "confidence": "medium"
     }
-  ]
+  ],
+  "translations": {
+    "en": {
+      "bodyStyle": "5-door all-electric three-row midsize SUV"
+    },
+    "fr": {
+      "bodyStyle": "5-door all-electric three-row midsize SUV"
+    }
+  }
 }

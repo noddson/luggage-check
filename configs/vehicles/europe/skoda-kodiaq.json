@@ -6,7 +6,7 @@
   "modelYears": [
     "2024-present"
   ],
-  "bodyStyle": "7-seat midsize SUV",
+  "bodyStyle": "@i18n:bodyStyle",
   "rentalClasses": [
     "7-seat SUV",
     "large SUV",
@@ -22,7 +22,7 @@
   "cargoZones": [
     {
       "id": "boot_seven_seats",
-      "label": "Boot behind third row with all 7 seats in use",
+      "label": "@i18n:label",
       "volumeLitres": 340,
       "dimensionsMm": {
         "length": 390,
@@ -43,12 +43,15 @@
       "translations": {
         "fr": {
           "label": "Coffre derrière la troisième rangée (7 sièges en usage)"
+        },
+        "en": {
+          "label": "Boot behind third row with all 7 seats in use"
         }
       }
     },
     {
       "id": "boot_third_row_folded",
-      "label": "Cargo area with row 2 in place and row 3 folded down",
+      "label": "@i18n:label",
       "volumeLitres": 845,
       "dimensionsMm": {
         "length": 1060,
@@ -65,11 +68,19 @@
       "seatBackEncroachment": {
         "angleFromVerticalDegrees": 18,
         "notes": "Hypothèse par défaut de l’inclinaison du dossier arrière pour une planification du coffre tenant compte de l’empiètement."
+      },
+      "translations": {
+        "en": {
+          "label": "Cargo area with row 2 in place and row 3 folded down"
+        },
+        "fr": {
+          "label": "Cargo area with row 2 in place and row 3 folded down"
+        }
       }
     },
     {
       "id": "full_cargo_rear_rows_folded",
-      "label": "Maximum cargo area with rear rows folded",
+      "label": "@i18n:label",
       "volumeLitres": 2035,
       "dimensionsMm": {
         "length": 1900,
@@ -82,36 +93,68 @@
       },
       "usableFraction": 0.72,
       "confidence": "medium",
-      "notes": "Skoda publishes 2,035 L with rear seats folded up to the roof for the 7-seat version. This is a planning envelope for two occupants plus maximum luggage, not a guarantee of rectangular rigid-item fit."
+      "notes": "Skoda publishes 2,035 L with rear seats folded up to the roof for the 7-seat version. This is a planning envelope for two occupants plus maximum luggage, not a guarantee of rectangular rigid-item fit.",
+      "translations": {
+        "en": {
+          "label": "Maximum cargo area with rear rows folded"
+        },
+        "fr": {
+          "label": "Maximum cargo area with rear rows folded"
+        }
+      }
     }
   ],
   "seatConfigurations": [
     {
       "id": "seats_up",
-      "label": "All 7 seats in use",
+      "label": "@i18n:label",
       "cargoZoneIds": [
         "boot_seven_seats"
       ],
       "seatsAvailable": 7,
-      "notes": "Rental listings often show only 1 bag when all seven seats are used; plan for compact soft bags unless passenger count is reduced."
+      "notes": "Rental listings often show only 1 bag when all seven seats are used; plan for compact soft bags unless passenger count is reduced.",
+      "translations": {
+        "en": {
+          "label": "All 7 seats in use"
+        },
+        "fr": {
+          "label": "All 7 seats in use"
+        }
+      }
     },
     {
       "id": "third_row_folded",
-      "label": "Third row folded",
+      "label": "@i18n:label",
       "cargoZoneIds": [
         "boot_third_row_folded"
       ],
       "seatsAvailable": 5,
-      "notes": "Assumes the third row is folded under the luggage-compartment floor while the second row remains available."
+      "notes": "Assumes the third row is folded under the luggage-compartment floor while the second row remains available.",
+      "translations": {
+        "en": {
+          "label": "Third row folded"
+        },
+        "fr": {
+          "label": "Third row folded"
+        }
+      }
     },
     {
       "id": "rear_rows_folded",
-      "label": "Rear rows folded",
+      "label": "@i18n:label",
       "cargoZoneIds": [
         "full_cargo_rear_rows_folded"
       ],
       "seatsAvailable": 2,
-      "notes": "For two occupants plus maximum cargo; floor flatness and cargo-cover storage depend on trim and seat setup."
+      "notes": "For two occupants plus maximum cargo; floor flatness and cargo-cover storage depend on trim and seat setup.",
+      "translations": {
+        "en": {
+          "label": "Rear rows folded"
+        },
+        "fr": {
+          "label": "Rear rows folded"
+        }
+      }
     }
   ],
   "sources": [
@@ -147,6 +190,9 @@
   ],
   "translations": {
     "fr": {
+      "bodyStyle": "7-seat midsize SUV"
+    },
+    "en": {
       "bodyStyle": "7-seat midsize SUV"
     }
   }

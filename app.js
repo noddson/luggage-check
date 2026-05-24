@@ -55,7 +55,14 @@ function localizeText(text, localized = null) {
 }
 
 function localizeEntity(entity, key) {
-  return entity?.translations?.[state.language]?.[key] ?? entity?.[key];
+  const value = entity?.[key];
+  if (typeof value === 'string' && value.startsWith('@i18n:')) {
+    const token = value.slice(6);
+    return entity?.translations?.[state.language]?.[token]
+      ?? entity?.translations?.en?.[token]
+      ?? token;
+  }
+  return entity?.translations?.[state.language]?.[key] ?? value;
 }
 
 const $ = (selector) => document.querySelector(selector);
@@ -781,7 +788,7 @@ function renderResults() {
     ? `${volumePercent}% du volume utilisable utilisé`
     : `${volumePercent}% usable volume used`;
 
-  $('#resultTitle').textContent = `${vehicle.make} ${vehicle.model} · ${config.label}`;
+  $('#resultTitle').textContent = `${vehicle.make} ${vehicle.model} · ${localizeEntity(config, 'label')}`;
   $('#fitBadge').className = `fit-badge ${result.fits ? 'fit-badge--ok' : 'fit-badge--bad'}`;
   $('#fitBadge').textContent = result.fits ? t('bagsFit') : t('bagsUnplaced');
   $('#metrics').replaceChildren(...[

@@ -6,7 +6,7 @@
   "modelYears": [
     "2021-present"
   ],
-  "bodyStyle": "Compact crossover SUV",
+  "bodyStyle": "@i18n:bodyStyle",
   "rentalClasses": [
     "compact SUV",
     "intermediate SUV",
@@ -21,7 +21,7 @@
   "cargoZones": [
     {
       "id": "boot_seats_up",
-      "label": "Boot / trunk with rear seats up",
+      "label": "@i18n:label",
       "volumeLitres": 504,
       "dimensionsMm": {
         "length": 870,
@@ -38,11 +38,19 @@
       "seatBackEncroachment": {
         "angleFromVerticalDegrees": 20,
         "notes": "Hypothèse par défaut de l’inclinaison du dossier arrière pour une planification du coffre tenant compte de l’empiètement."
+      },
+      "translations": {
+        "en": {
+          "label": "Boot / trunk with rear seats up"
+        },
+        "fr": {
+          "label": "Boot / trunk with rear seats up"
+        }
       }
     },
     {
       "id": "boot_seats_folded",
-      "label": "Expanded cargo area with rear seats folded",
+      "label": "@i18n:label",
       "volumeLitres": 1447,
       "dimensionsMm": {
         "length": 1621,
@@ -55,11 +63,19 @@
       },
       "usableFraction": 0.72,
       "confidence": "medium",
-      "notes": "Nissan UK publishes 1,447 L VDA luggage capacity with rear seats folded plus maximum folded length and width. Height is inferred from the volume and should be treated as a planning cuboid rather than a measured box."
+      "notes": "Nissan UK publishes 1,447 L VDA luggage capacity with rear seats folded plus maximum folded length and width. Height is inferred from the volume and should be treated as a planning cuboid rather than a measured box.",
+      "translations": {
+        "en": {
+          "label": "Expanded cargo area with rear seats folded"
+        },
+        "fr": {
+          "label": "Expanded cargo area with rear seats folded"
+        }
+      }
     },
     {
       "id": "rear_seat_footwell",
-      "label": "Rear passenger footwell overflow",
+      "label": "@i18n:label",
       "volumeLitres": 80,
       "dimensionsMm": {
         "length": 650,
@@ -68,37 +84,69 @@
       },
       "usableFraction": 0.45,
       "confidence": "low",
-      "notes": "Generic soft-bag overflow area, enabled only when rear passenger foot space can be sacrificed."
+      "notes": "Generic soft-bag overflow area, enabled only when rear passenger foot space can be sacrificed.",
+      "translations": {
+        "en": {
+          "label": "Rear passenger footwell overflow"
+        },
+        "fr": {
+          "label": "Rear passenger footwell overflow"
+        }
+      }
     }
   ],
   "seatConfigurations": [
     {
       "id": "seats_up",
-      "label": "Rear seats up",
+      "label": "@i18n:label",
       "cargoZoneIds": [
         "boot_seats_up"
       ],
-      "seatsAvailable": 5
+      "seatsAvailable": 5,
+      "translations": {
+        "en": {
+          "label": "Rear seats up"
+        },
+        "fr": {
+          "label": "Rear seats up"
+        }
+      }
     },
     {
       "id": "rear_folded",
-      "label": "Rear seats folded",
+      "label": "@i18n:label",
       "cargoZoneIds": [
         "boot_seats_up",
         "boot_seats_folded"
       ],
       "seatsAvailable": 2,
-      "notes": "For two occupants plus cargo; exact split-fold support and floor height vary by trim."
+      "notes": "For two occupants plus cargo; exact split-fold support and floor height vary by trim.",
+      "translations": {
+        "en": {
+          "label": "Rear seats folded"
+        },
+        "fr": {
+          "label": "Rear seats folded"
+        }
+      }
     },
     {
       "id": "seats_up_with_footwell",
-      "label": "Rear seats up with rear footwell overflow",
+      "label": "@i18n:label",
       "cargoZoneIds": [
         "boot_seats_up",
         "rear_seat_footwell"
       ],
       "seatsAvailable": 4,
-      "notes": "Assumes at least one rear passenger position is sacrificed for soft bags."
+      "notes": "Assumes at least one rear passenger position is sacrificed for soft bags.",
+      "translations": {
+        "en": {
+          "label": "Rear seats up with rear footwell overflow"
+        },
+        "fr": {
+          "label": "Rear seats up with rear footwell overflow"
+        }
+      }
     }
   ],
   "sources": [
@@ -131,5 +179,13 @@
       ],
       "confidence": "medium"
     }
-  ]
+  ],
+  "translations": {
+    "en": {
+      "bodyStyle": "Compact crossover SUV"
+    },
+    "fr": {
+      "bodyStyle": "Compact crossover SUV"
+    }
+  }
 }

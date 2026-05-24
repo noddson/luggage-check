@@ -6,7 +6,7 @@
   "modelYears": [
     "2014-present"
   ],
-  "bodyStyle": "8/9-seat passenger van / minibus",
+  "bodyStyle": "@i18n:bodyStyle",
   "rentalClasses": [
     "9 passenger minibus",
     "passenger van",
@@ -22,7 +22,7 @@
   "cargoZones": [
     {
       "id": "boot_l1_nine_seats",
-      "label": "L1 boot behind third row with 8/9 seats in use",
+      "label": "@i18n:label",
       "volumeLitres": 1050,
       "dimensionsMm": {
         "length": 736,
@@ -39,11 +39,19 @@
       "seatBackEncroachment": {
         "angleFromVerticalDegrees": 15,
         "notes": "Passenger-van row-three seat-back rake assumption for optional encroachment-aware cargo planning."
+      },
+      "translations": {
+        "en": {
+          "label": "L1 boot behind third row with 8/9 seats in use"
+        },
+        "fr": {
+          "label": "L1 boot behind third row with 8/9 seats in use"
+        }
       }
     },
     {
       "id": "boot_l1_row3_folded",
-      "label": "L1 cargo area with row 3 folded, about 6 seats available",
+      "label": "@i18n:label",
       "volumeLitres": 2625,
       "dimensionsMm": {
         "length": 1152,
@@ -60,11 +68,19 @@
       "seatBackEncroachment": {
         "angleFromVerticalDegrees": 15,
         "notes": "Forward bench seat-back rake assumption for optional encroachment-aware cargo planning."
+      },
+      "translations": {
+        "en": {
+          "label": "L1 cargo area with row 3 folded, about 6 seats available"
+        },
+        "fr": {
+          "label": "L1 cargo area with row 3 folded, about 6 seats available"
+        }
       }
     },
     {
       "id": "boot_l1_five_six_seats",
-      "label": "L1 cargo area in 5/6-seat layout",
+      "label": "@i18n:label",
       "volumeLitres": 3360,
       "dimensionsMm": {
         "length": 1650,
@@ -81,11 +97,19 @@
       "seatBackEncroachment": {
         "angleFromVerticalDegrees": 15,
         "notes": "Forward bench seat-back rake assumption for optional encroachment-aware cargo planning."
+      },
+      "translations": {
+        "en": {
+          "label": "L1 cargo area in 5/6-seat layout"
+        },
+        "fr": {
+          "label": "L1 cargo area in 5/6-seat layout"
+        }
       }
     },
     {
       "id": "boot_l2_nine_seats",
-      "label": "L2 boot behind third row with 8/9 seats in use",
+      "label": "@i18n:label",
       "volumeLitres": 1890,
       "dimensionsMm": {
         "length": 1136,
@@ -96,17 +120,25 @@
         "width": 1391,
         "height": 1295
       },
-      "usableFraction": 0.80,
+      "usableFraction": 0.8,
       "confidence": "medium",
       "notes": "Manufacturer L2H1 8/9-seat effective volume, floor length, wheel-arch width, and rear-door opening are sourced. Rectangular dimensions are a simplified planning envelope and do not guarantee clearance around the tailgate, glazing, and row-three seatbacks.",
       "seatBackEncroachment": {
         "angleFromVerticalDegrees": 15,
         "notes": "Passenger-van row-three seat-back rake assumption for optional encroachment-aware cargo planning."
+      },
+      "translations": {
+        "en": {
+          "label": "L2 boot behind third row with 8/9 seats in use"
+        },
+        "fr": {
+          "label": "L2 boot behind third row with 8/9 seats in use"
+        }
       }
     },
     {
       "id": "boot_l2_row3_folded",
-      "label": "L2 cargo area with row 3 folded, about 6 seats available",
+      "label": "@i18n:label",
       "volumeLitres": 3570,
       "dimensionsMm": {
         "length": 1152,
@@ -123,11 +155,19 @@
       "seatBackEncroachment": {
         "angleFromVerticalDegrees": 15,
         "notes": "Forward bench seat-back rake assumption for optional encroachment-aware cargo planning."
+      },
+      "translations": {
+        "en": {
+          "label": "L2 cargo area with row 3 folded, about 6 seats available"
+        },
+        "fr": {
+          "label": "L2 cargo area with row 3 folded, about 6 seats available"
+        }
       }
     },
     {
       "id": "boot_l2_five_six_seats",
-      "label": "L2 cargo area in 5/6-seat layout",
+      "label": "@i18n:label",
       "volumeLitres": 4200,
       "dimensionsMm": {
         "length": 2050,
@@ -144,11 +184,19 @@
       "seatBackEncroachment": {
         "angleFromVerticalDegrees": 15,
         "notes": "Forward bench seat-back rake assumption for optional encroachment-aware cargo planning."
+      },
+      "translations": {
+        "en": {
+          "label": "L2 cargo area in 5/6-seat layout"
+        },
+        "fr": {
+          "label": "L2 cargo area in 5/6-seat layout"
+        }
       }
     },
     {
       "id": "full_cargo_l2_rear_rows_removed",
-      "label": "L2 maximum cargo area with rear rows removed, 2/3 seats available",
+      "label": "@i18n:label",
       "volumeLitres": 5700,
       "dimensionsMm": {
         "length": 2937,
@@ -161,72 +209,136 @@
       },
       "usableFraction": 0.68,
       "confidence": "medium",
-      "notes": "Maximum boot-volume marketing is sourced from Renault UK, while L2H1 floor length after rear-row removal, wheel-arch width, and rear-door opening are sourced from the technical table. This is a simplified box-like planning envelope; rental vehicles may not allow seat removal."
+      "notes": "Maximum boot-volume marketing is sourced from Renault UK, while L2H1 floor length after rear-row removal, wheel-arch width, and rear-door opening are sourced from the technical table. This is a simplified box-like planning envelope; rental vehicles may not allow seat removal.",
+      "translations": {
+        "en": {
+          "label": "L2 maximum cargo area with rear rows removed, 2/3 seats available"
+        },
+        "fr": {
+          "label": "L2 maximum cargo area with rear rows removed, 2/3 seats available"
+        }
+      }
     }
   ],
   "seatConfigurations": [
     {
       "id": "seats_up",
-      "label": "L1 8/9-seat layout",
+      "label": "@i18n:label",
       "cargoZoneIds": [
         "boot_l1_nine_seats"
       ],
       "seatsAvailable": 9,
-      "notes": "Default Trafic estimate uses the short-wheelbase L1 passenger van with all rows available, matching many European 9-seat minibus rental listings."
+      "notes": "Default Trafic estimate uses the short-wheelbase L1 passenger van with all rows available, matching many European 9-seat minibus rental listings.",
+      "translations": {
+        "en": {
+          "label": "L1 8/9-seat layout"
+        },
+        "fr": {
+          "label": "L1 8/9-seat layout"
+        }
+      }
     },
     {
       "id": "l1_row3_folded",
-      "label": "L1 row 3 folded",
+      "label": "@i18n:label",
       "cargoZoneIds": [
         "boot_l1_row3_folded"
       ],
       "seatsAvailable": 6,
-      "notes": "Assumes the rear bench is folded and unavailable for passengers."
+      "notes": "Assumes the rear bench is folded and unavailable for passengers.",
+      "translations": {
+        "en": {
+          "label": "L1 row 3 folded"
+        },
+        "fr": {
+          "label": "L1 row 3 folded"
+        }
+      }
     },
     {
       "id": "l1_five_six_seats",
-      "label": "L1 5/6-seat layout",
+      "label": "@i18n:label",
       "cargoZoneIds": [
         "boot_l1_five_six_seats"
       ],
       "seatsAvailable": 6,
-      "notes": "Use when the vehicle is configured with the rear row removed or unavailable."
+      "notes": "Use when the vehicle is configured with the rear row removed or unavailable.",
+      "translations": {
+        "en": {
+          "label": "L1 5/6-seat layout"
+        },
+        "fr": {
+          "label": "L1 5/6-seat layout"
+        }
+      }
     },
     {
       "id": "l2_seats_up",
-      "label": "L2 8/9-seat layout",
+      "label": "@i18n:label",
       "cargoZoneIds": [
         "boot_l2_nine_seats"
       ],
       "seatsAvailable": 9,
-      "notes": "Long-wheelbase Trafic with all passenger rows in use."
+      "notes": "Long-wheelbase Trafic with all passenger rows in use.",
+      "translations": {
+        "en": {
+          "label": "L2 8/9-seat layout"
+        },
+        "fr": {
+          "label": "L2 8/9-seat layout"
+        }
+      }
     },
     {
       "id": "l2_row3_folded",
-      "label": "L2 row 3 folded",
+      "label": "@i18n:label",
       "cargoZoneIds": [
         "boot_l2_row3_folded"
       ],
       "seatsAvailable": 6,
-      "notes": "Assumes the rear bench is folded and unavailable for passengers."
+      "notes": "Assumes the rear bench is folded and unavailable for passengers.",
+      "translations": {
+        "en": {
+          "label": "L2 row 3 folded"
+        },
+        "fr": {
+          "label": "L2 row 3 folded"
+        }
+      }
     },
     {
       "id": "l2_five_six_seats",
-      "label": "L2 5/6-seat layout",
+      "label": "@i18n:label",
       "cargoZoneIds": [
         "boot_l2_five_six_seats"
       ],
       "seatsAvailable": 6,
-      "notes": "Long-wheelbase layout with the rear row removed or unavailable."
+      "notes": "Long-wheelbase layout with the rear row removed or unavailable.",
+      "translations": {
+        "en": {
+          "label": "L2 5/6-seat layout"
+        },
+        "fr": {
+          "label": "L2 5/6-seat layout"
+        }
+      }
     },
     {
       "id": "l2_rear_rows_removed",
-      "label": "L2 rear rows removed",
+      "label": "@i18n:label",
       "cargoZoneIds": [
         "full_cargo_l2_rear_rows_removed"
       ],
       "seatsAvailable": 3,
-      "notes": "For two or three occupants plus maximum cargo; practical availability depends on rental policy and whether the seats can be removed."
+      "notes": "For two or three occupants plus maximum cargo; practical availability depends on rental policy and whether the seats can be removed.",
+      "translations": {
+        "en": {
+          "label": "L2 rear rows removed"
+        },
+        "fr": {
+          "label": "L2 rear rows removed"
+        }
+      }
     }
   ],
   "sources": [
@@ -286,5 +398,13 @@
       ],
       "confidence": "medium"
     }
-  ]
+  ],
+  "translations": {
+    "en": {
+      "bodyStyle": "8/9-seat passenger van / minibus"
+    },
+    "fr": {
+      "bodyStyle": "8/9-seat passenger van / minibus"
+    }
+  }
 }

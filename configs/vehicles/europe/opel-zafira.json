@@ -6,7 +6,7 @@
   "modelYears": [
     "2019-present"
   ],
-  "bodyStyle": "8-9 seat passenger van / MPV",
+  "bodyStyle": "@i18n:bodyStyle",
   "rentalClasses": [
     "full-size passenger van",
     "9-seat van",
@@ -22,7 +22,7 @@
   "cargoZones": [
     {
       "id": "boot_all_seats",
-      "label": "Boot behind rear row with all seats in use",
+      "label": "@i18n:label",
       "volumeLitres": 603,
       "dimensionsMm": {
         "length": 520,
@@ -39,11 +39,19 @@
       "seatBackEncroachment": {
         "angleFromVerticalDegrees": 12,
         "notes": "Passenger-van rear seats are more upright than typical SUVs, but rental seating positions can vary on rails."
+      },
+      "translations": {
+        "en": {
+          "label": "Boot behind rear row with all seats in use"
+        },
+        "fr": {
+          "label": "Boot behind rear row with all seats in use"
+        }
       }
     },
     {
       "id": "third_row_removed_or_folded",
-      "label": "Cargo area with third row folded or removed",
+      "label": "@i18n:label",
       "volumeLitres": 2381,
       "dimensionsMm": {
         "length": 1450,
@@ -60,11 +68,19 @@
       "seatBackEncroachment": {
         "angleFromVerticalDegrees": 12,
         "notes": "Second-row position and rail travel materially affect available cargo length."
+      },
+      "translations": {
+        "en": {
+          "label": "Cargo area with third row folded or removed"
+        },
+        "fr": {
+          "label": "Cargo area with third row folded or removed"
+        }
       }
     },
     {
       "id": "full_cargo_rear_rows_removed",
-      "label": "Maximum cargo area with rear rows folded or removed",
+      "label": "@i18n:label",
       "volumeLitres": 4200,
       "dimensionsMm": {
         "length": 2760,
@@ -77,36 +93,68 @@
       },
       "usableFraction": 0.74,
       "confidence": "medium",
-      "notes": "Opel publishes 4.2 m3 luggage/cargo volume for the current M-length Zafira and a brochure maximum load length of 2.76 m for the large variant with front seats in place. This zone represents maximum load planning for two or three front occupants, not normal passenger rental use."
+      "notes": "Opel publishes 4.2 m3 luggage/cargo volume for the current M-length Zafira and a brochure maximum load length of 2.76 m for the large variant with front seats in place. This zone represents maximum load planning for two or three front occupants, not normal passenger rental use.",
+      "translations": {
+        "en": {
+          "label": "Maximum cargo area with rear rows folded or removed"
+        },
+        "fr": {
+          "label": "Maximum cargo area with rear rows folded or removed"
+        }
+      }
     }
   ],
   "seatConfigurations": [
     {
       "id": "seats_up",
-      "label": "All seats in use",
+      "label": "@i18n:label",
       "cargoZoneIds": [
         "boot_all_seats"
       ],
       "seatsAvailable": 9,
-      "notes": "For maximum passenger count; Enterprise Croatia lists 9 people and 4-5 bags for Opel Zafira Life or similar."
+      "notes": "For maximum passenger count; Enterprise Croatia lists 9 people and 4-5 bags for Opel Zafira Life or similar.",
+      "translations": {
+        "en": {
+          "label": "All seats in use"
+        },
+        "fr": {
+          "label": "All seats in use"
+        }
+      }
     },
     {
       "id": "third_row_folded_or_removed",
-      "label": "Third row folded or removed",
+      "label": "@i18n:label",
       "cargoZoneIds": [
         "third_row_removed_or_folded"
       ],
       "seatsAvailable": 6,
-      "notes": "Assumes the third row is folded or removed and unavailable for passengers; verify rental policy and whether removed seats must travel in the vehicle."
+      "notes": "Assumes the third row is folded or removed and unavailable for passengers; verify rental policy and whether removed seats must travel in the vehicle.",
+      "translations": {
+        "en": {
+          "label": "Third row folded or removed"
+        },
+        "fr": {
+          "label": "Third row folded or removed"
+        }
+      }
     },
     {
       "id": "rear_rows_removed",
-      "label": "Rear rows folded or removed",
+      "label": "@i18n:label",
       "cargoZoneIds": [
         "full_cargo_rear_rows_removed"
       ],
       "seatsAvailable": 3,
-      "notes": "For front-row occupants plus maximum cargo. Some Zafira Life layouts have two front seats rather than a three-person front bench."
+      "notes": "For front-row occupants plus maximum cargo. Some Zafira Life layouts have two front seats rather than a three-person front bench.",
+      "translations": {
+        "en": {
+          "label": "Rear rows folded or removed"
+        },
+        "fr": {
+          "label": "Rear rows folded or removed"
+        }
+      }
     }
   ],
   "sources": [
@@ -150,5 +198,13 @@
       ],
       "confidence": "medium"
     }
-  ]
+  ],
+  "translations": {
+    "en": {
+      "bodyStyle": "8-9 seat passenger van / MPV"
+    },
+    "fr": {
+      "bodyStyle": "8-9 seat passenger van / MPV"
+    }
+  }
 }

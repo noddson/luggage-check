@@ -6,7 +6,7 @@
   "modelYears": [
     "2020-present"
   ],
-  "bodyStyle": "7-seat compact passenger van / MPV",
+  "bodyStyle": "@i18n:bodyStyle",
   "isDefault": true,
   "rentalClasses": [
     "standard van",
@@ -21,7 +21,7 @@
   "cargoZones": [
     {
       "id": "boot_seven_seats",
-      "label": "Boot behind third row with all 7 seats in use",
+      "label": "@i18n:label",
       "volumeLitres": 446,
       "dimensionsMm": {
         "length": 629,
@@ -42,12 +42,15 @@
       "translations": {
         "fr": {
           "label": "Coffre derrière la troisième rangée (7 sièges en usage)"
+        },
+        "en": {
+          "label": "Boot behind third row with all 7 seats in use"
         }
       }
     },
     {
       "id": "boot_five_seats",
-      "label": "Cargo area with third row removed / folded, 5 seats available",
+      "label": "@i18n:label",
       "volumeLitres": 1720,
       "dimensionsMm": {
         "length": 1452,
@@ -64,11 +67,19 @@
       "seatBackEncroachment": {
         "angleFromVerticalDegrees": 20,
         "notes": "Hypothèse par défaut de l’inclinaison du dossier arrière pour une planification du coffre tenant compte de l’empiètement."
+      },
+      "translations": {
+        "en": {
+          "label": "Cargo area with third row removed / folded, 5 seats available"
+        },
+        "fr": {
+          "label": "Cargo area with third row removed / folded, 5 seats available"
+        }
       }
     },
     {
       "id": "full_cargo_rear_rows_removed",
-      "label": "Maximum cargo area with 2nd and 3rd rows removed",
+      "label": "@i18n:label",
       "volumeLitres": 3105,
       "dimensionsMm": {
         "length": 2136,
@@ -81,36 +92,68 @@
       },
       "usableFraction": 0.72,
       "confidence": "medium",
-      "notes": "Maximum load/luggage volume and floor length behind row 1 are sourced from Volkswagen. Dimensions estimate a box-like load floor and ignore seat rails, wheel arches, trim taper, and roof curvature."
+      "notes": "Maximum load/luggage volume and floor length behind row 1 are sourced from Volkswagen. Dimensions estimate a box-like load floor and ignore seat rails, wheel arches, trim taper, and roof curvature.",
+      "translations": {
+        "en": {
+          "label": "Maximum cargo area with 2nd and 3rd rows removed"
+        },
+        "fr": {
+          "label": "Maximum cargo area with 2nd and 3rd rows removed"
+        }
+      }
     }
   ],
   "seatConfigurations": [
     {
       "id": "seats_up",
-      "label": "All 7 seats in use",
+      "label": "@i18n:label",
       "cargoZoneIds": [
         "boot_seven_seats"
       ],
       "seatsAvailable": 7,
-      "notes": "Use this for normal airport-rental 7-passenger use; rental fleets often describe capacity as about four large bags with all passengers seated."
+      "notes": "Use this for normal airport-rental 7-passenger use; rental fleets often describe capacity as about four large bags with all passengers seated.",
+      "translations": {
+        "en": {
+          "label": "All 7 seats in use"
+        },
+        "fr": {
+          "label": "All 7 seats in use"
+        }
+      }
     },
     {
       "id": "third_row_removed",
-      "label": "Third row removed / folded",
+      "label": "@i18n:label",
       "cargoZoneIds": [
         "boot_five_seats"
       ],
       "seatsAvailable": 5,
-      "notes": "Assumes both third-row seats are unavailable for passengers and the remaining cargo area is used behind the second row."
+      "notes": "Assumes both third-row seats are unavailable for passengers and the remaining cargo area is used behind the second row.",
+      "translations": {
+        "en": {
+          "label": "Third row removed / folded"
+        },
+        "fr": {
+          "label": "Third row removed / folded"
+        }
+      }
     },
     {
       "id": "rear_rows_removed",
-      "label": "2nd and 3rd rows removed",
+      "label": "@i18n:label",
       "cargoZoneIds": [
         "full_cargo_rear_rows_removed"
       ],
       "seatsAvailable": 2,
-      "notes": "For two occupants plus maximum cargo; practical availability depends on whether rental seats can be removed or must stay in the vehicle."
+      "notes": "For two occupants plus maximum cargo; practical availability depends on whether rental seats can be removed or must stay in the vehicle.",
+      "translations": {
+        "en": {
+          "label": "2nd and 3rd rows removed"
+        },
+        "fr": {
+          "label": "2nd and 3rd rows removed"
+        }
+      }
     }
   ],
   "sources": [
@@ -159,6 +202,9 @@
   "translations": {
     "fr": {
       "bodyStyle": "7-seat compact passenger van / Monospace"
+    },
+    "en": {
+      "bodyStyle": "7-seat compact passenger van / MPV"
     }
   }
 }

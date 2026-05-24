@@ -12,7 +12,7 @@
     "2024",
     "2025"
   ],
-  "bodyStyle": "5-door compact hybrid SUV",
+  "bodyStyle": "@i18n:bodyStyle",
   "rentalClasses": [
     "hybrid SUV",
     "compact hybrid SUV",
@@ -29,7 +29,7 @@
   "cargoZones": [
     {
       "id": "behind_second_row",
-      "label": "Cargo area behind second row",
+      "label": "@i18n:label",
       "volumeLitres": 1059,
       "dimensionsMm": {
         "length": 1016,
@@ -46,11 +46,19 @@
       "seatBackEncroachment": {
         "angleFromVerticalDegrees": 14,
         "notes": "Second-row seatback rake reduces the top-front edge of the usable cargo envelope."
+      },
+      "translations": {
+        "en": {
+          "label": "Cargo area behind second row"
+        },
+        "fr": {
+          "label": "Cargo area behind second row"
+        }
       }
     },
     {
       "id": "behind_first_row",
-      "label": "Maximum cargo area with second row folded",
+      "label": "@i18n:label",
       "volumeLitres": 1977,
       "dimensionsMm": {
         "length": 1820,
@@ -63,11 +71,19 @@
       },
       "usableFraction": 0.74,
       "confidence": "low",
-      "notes": "Toyota Canada lists 1,977 L / 69.8 cu ft behind the front seats for the 2025 RAV4 Hybrid. Toyota's published rear-seat-up length is 40.0 in; the folded-seat length is estimated for luggage planning and discounted for the upward step/rake of the folded rear seatbacks, wheel-arch intrusions, and trim taper."
+      "notes": "Toyota Canada lists 1,977 L / 69.8 cu ft behind the front seats for the 2025 RAV4 Hybrid. Toyota's published rear-seat-up length is 40.0 in; the folded-seat length is estimated for luggage planning and discounted for the upward step/rake of the folded rear seatbacks, wheel-arch intrusions, and trim taper.",
+      "translations": {
+        "en": {
+          "label": "Maximum cargo area with second row folded"
+        },
+        "fr": {
+          "label": "Maximum cargo area with second row folded"
+        }
+      }
     },
     {
       "id": "rear_floor_overflow",
-      "label": "Rear passenger footwell overflow",
+      "label": "@i18n:label",
       "volumeLitres": 95,
       "dimensionsMm": {
         "length": 430,
@@ -76,37 +92,69 @@
       },
       "usableFraction": 0.55,
       "confidence": "low",
-      "notes": "Generic soft-bag overflow area for the rear passenger footwells when at least part of the second row is not occupied. This is not a Toyota cargo specification."
+      "notes": "Generic soft-bag overflow area for the rear passenger footwells when at least part of the second row is not occupied. This is not a Toyota cargo specification.",
+      "translations": {
+        "en": {
+          "label": "Rear passenger footwell overflow"
+        },
+        "fr": {
+          "label": "Rear passenger footwell overflow"
+        }
+      }
     }
   ],
   "seatConfigurations": [
     {
       "id": "seats_up",
-      "label": "All seats up",
+      "label": "@i18n:label",
       "cargoZoneIds": [
         "behind_second_row"
       ],
       "seatsAvailable": 5,
-      "notes": "Standard five-passenger SUV seating with luggage in the hatch area."
+      "notes": "Standard five-passenger SUV seating with luggage in the hatch area.",
+      "translations": {
+        "en": {
+          "label": "All seats up"
+        },
+        "fr": {
+          "label": "All seats up"
+        }
+      }
     },
     {
       "id": "rear_seats_folded",
-      "label": "Second row folded",
+      "label": "@i18n:label",
       "cargoZoneIds": [
         "behind_first_row"
       ],
       "seatsAvailable": 2,
-      "notes": "Maximum cargo mode for two occupants."
+      "notes": "Maximum cargo mode for two occupants.",
+      "translations": {
+        "en": {
+          "label": "Second row folded"
+        },
+        "fr": {
+          "label": "Second row folded"
+        }
+      }
     },
     {
       "id": "partial_rear_seat_folded",
-      "label": "One rear seat section folded",
+      "label": "@i18n:label",
       "cargoZoneIds": [
         "behind_second_row",
         "rear_floor_overflow"
       ],
       "seatsAvailable": 4,
-      "notes": "Represents using one rear seating position or footwell area for soft luggage while retaining most passenger seating."
+      "notes": "Represents using one rear seating position or footwell area for soft luggage while retaining most passenger seating.",
+      "translations": {
+        "en": {
+          "label": "One rear seat section folded"
+        },
+        "fr": {
+          "label": "One rear seat section folded"
+        }
+      }
     }
   ],
   "sources": [
@@ -180,5 +228,13 @@
       ],
       "confidence": "medium"
     }
-  ]
+  ],
+  "translations": {
+    "en": {
+      "bodyStyle": "5-door compact hybrid SUV"
+    },
+    "fr": {
+      "bodyStyle": "5-door compact hybrid SUV"
+    }
+  }
 }

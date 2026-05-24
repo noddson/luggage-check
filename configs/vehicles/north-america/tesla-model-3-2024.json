@@ -6,7 +6,7 @@
   "modelYears": [
     "2024+"
   ],
-  "bodyStyle": "4-door electric midsize sedan",
+  "bodyStyle": "@i18n:bodyStyle",
   "rentalClasses": [
     "midsize electric car",
     "electric sedan",
@@ -21,7 +21,7 @@
   "cargoZones": [
     {
       "id": "rear_trunk",
-      "label": "Rear trunk behind second row",
+      "label": "@i18n:label",
       "volumeLitres": 594,
       "dimensionsMm": {
         "length": 1040,
@@ -38,11 +38,19 @@
       "seatBackEncroachment": {
         "angleFromVerticalDegrees": 18,
         "notes": "Hypothèse par défaut de l’inclinaison du dossier arrière pour une planification du coffre tenant compte de l’empiètement."
+      },
+      "translations": {
+        "en": {
+          "label": "Rear trunk behind second row"
+        },
+        "fr": {
+          "label": "Rear trunk behind second row"
+        }
       }
     },
     {
       "id": "front_trunk",
-      "label": "Front trunk / frunk",
+      "label": "@i18n:label",
       "volumeLitres": 88,
       "dimensionsMm": {
         "length": 620,
@@ -55,11 +63,19 @@
       },
       "usableFraction": 0.65,
       "confidence": "low",
-      "notes": "Tesla publishes 3.1 cu ft (88 L) for the front trunk. Les dimensions de planification sont approximatives et favorisent les sacs souples, les sacs à dos et le rangement des câbles de recharge."
+      "notes": "Tesla publishes 3.1 cu ft (88 L) for the front trunk. Les dimensions de planification sont approximatives et favorisent les sacs souples, les sacs à dos et le rangement des câbles de recharge.",
+      "translations": {
+        "en": {
+          "label": "Front trunk / frunk"
+        },
+        "fr": {
+          "label": "Front trunk / frunk"
+        }
+      }
     },
     {
       "id": "rear_seats_folded_extension",
-      "label": "Rear seat folded cabin extension",
+      "label": "@i18n:label",
       "volumeLitres": 360,
       "dimensionsMm": {
         "length": 900,
@@ -72,11 +88,19 @@
       },
       "usableFraction": 0.55,
       "confidence": "low",
-      "notes": "Planning-only estimate for the additional pass-through area available when the split-fold rear seatbacks are folded. Tesla's published cargo-volume table for the current North American manual does not list a seats-folded cargo volume."
+      "notes": "Planning-only estimate for the additional pass-through area available when the split-fold rear seatbacks are folded. Tesla's published cargo-volume table for the current North American manual does not list a seats-folded cargo volume.",
+      "translations": {
+        "en": {
+          "label": "Rear seat folded cabin extension"
+        },
+        "fr": {
+          "label": "Rear seat folded cabin extension"
+        }
+      }
     },
     {
       "id": "rear_seat_footwell_overflow",
-      "label": "Rear passenger footwell overflow",
+      "label": "@i18n:label",
       "volumeLitres": 95,
       "dimensionsMm": {
         "length": 650,
@@ -85,41 +109,73 @@
       },
       "usableFraction": 0.45,
       "confidence": "low",
-      "notes": "Generic overflow area for soft bags when one rear passenger position or footwell can be sacrificed; not a manufacturer cargo specification."
+      "notes": "Generic overflow area for soft bags when one rear passenger position or footwell can be sacrificed; not a manufacturer cargo specification.",
+      "translations": {
+        "en": {
+          "label": "Rear passenger footwell overflow"
+        },
+        "fr": {
+          "label": "Rear passenger footwell overflow"
+        }
+      }
     }
   ],
   "seatConfigurations": [
     {
       "id": "seats_up",
-      "label": "Rear seats up",
+      "label": "@i18n:label",
       "cargoZoneIds": [
         "rear_trunk",
         "front_trunk"
       ],
       "seatsAvailable": 5,
-      "notes": "Uses Tesla's current North American published rear trunk and front trunk cargo volumes."
+      "notes": "Uses Tesla's current North American published rear trunk and front trunk cargo volumes.",
+      "translations": {
+        "en": {
+          "label": "Rear seats up"
+        },
+        "fr": {
+          "label": "Rear seats up"
+        }
+      }
     },
     {
       "id": "rear_folded",
-      "label": "Rear seats folded",
+      "label": "@i18n:label",
       "cargoZoneIds": [
         "rear_trunk",
         "front_trunk",
         "rear_seats_folded_extension"
       ],
       "seatsAvailable": 2,
-      "notes": "For two occupants plus cargo; folded-seat and pass-through geometry varies by trim and cargo shape."
+      "notes": "For two occupants plus cargo; folded-seat and pass-through geometry varies by trim and cargo shape.",
+      "translations": {
+        "en": {
+          "label": "Rear seats folded"
+        },
+        "fr": {
+          "label": "Rear seats folded"
+        }
+      }
     },
     {
       "id": "seats_up_with_footwell",
-      "label": "Rear seats up with rear footwell overflow",
+      "label": "@i18n:label",
       "cargoZoneIds": [
         "rear_trunk",
         "front_trunk",
         "rear_seat_footwell_overflow"
       ],
       "seatsAvailable": 4,
-      "notes": "Assumes at least one rear passenger position is used for soft luggage."
+      "notes": "Assumes at least one rear passenger position is used for soft luggage.",
+      "translations": {
+        "en": {
+          "label": "Rear seats up with rear footwell overflow"
+        },
+        "fr": {
+          "label": "Rear seats up with rear footwell overflow"
+        }
+      }
     }
   ],
   "sources": [
@@ -162,5 +218,13 @@
       ],
       "confidence": "medium"
     }
-  ]
+  ],
+  "translations": {
+    "en": {
+      "bodyStyle": "4-door electric midsize sedan"
+    },
+    "fr": {
+      "bodyStyle": "4-door electric midsize sedan"
+    }
+  }
 }
