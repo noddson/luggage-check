@@ -37,7 +37,7 @@ const I18N = {
     length: 'length', width: 'width', height: 'height', seatEncroachmentEnvelope: 'Seat-back encroachment envelope', forwardSeats: 'Forward seats', front: 'front',
     bootView: 'Boot view', sideView: 'Side view', topView: 'Top view', switchTo: 'Switch to {view}', axisTitle: '{axis} axis · {view}', orientationAxisControl: '3D orientation axis control', yawLabel: 'yaw', pitchLabel: 'pitch',
     zone3dAria: 'rotatable 3D luggage view', removeOne: 'Remove one {item}', placedSummary: '{placed}/{total} bags placed', usedVolume: '{used} L used', placedCount: '{placed} placed · {unplaced} unplaced', volumeUsedPercent: '{percent}% usable volume used',
-    loadErrorTitle: 'Unable to load app', fitResultTitle: 'Estimated cargo fit', loading: 'Loading', languageSelector: 'Language selector', visualizationView: 'Visualization view', scaledDrawing: 'Scaled luggage placement drawing', seatWedgeTitle: 'Seat-back encroachment wedge: {angle}°'
+    loadErrorTitle: 'Unable to load app', fitResultTitle: 'Estimated cargo fit', loading: 'Loading', languageSelector: 'Language selector', visualizationView: 'Visualization view', scaledDrawing: 'Scaled luggage placement drawing', seatWedgeTitle: 'Seat-back encroachment wedge: {angle}°', zoneViewAria: '{zone} · {view} view', seatGuideTitle: 'Forward seat outline'
   },
   de: {
     pageTitle: 'Gepäck-Check',
@@ -54,7 +54,7 @@ const I18N = {
     length: 'Länge', width: 'Breite', height: 'Höhe', seatEncroachmentEnvelope: 'Rücksitzlehnen-Einengungsbereich', forwardSeats: 'Vordersitze', front: 'vorne',
     bootView: 'Kofferraumansicht', sideView: 'Seitenansicht', topView: 'Draufsicht', switchTo: 'Wechseln zu {view}', axisTitle: '{axis}-Achse · {view}', orientationAxisControl: '3D-Ausrichtungsachsensteuerung', yawLabel: 'Drehung', pitchLabel: 'Neigung',
     zone3dAria: 'Drehbare 3D-Gepäckansicht', removeOne: 'Eins entfernen: {item}', placedSummary: '{placed}/{total} Gepäckstücke platziert', usedVolume: '{used} L genutzt', placedCount: '{placed} platziert · {unplaced} nicht platziert', volumeUsedPercent: '{percent}% des nutzbaren Volumens verwendet',
-    loadErrorTitle: 'App konnte nicht geladen werden', fitResultTitle: 'Geschätzte Laderaumpassung', loading: 'Lädt', languageSelector: 'Sprachauswahl', visualizationView: 'Visualisierungsansicht', scaledDrawing: 'Skalierte Zeichnung der Gepäckplatzierung', seatWedgeTitle: 'Rücksitzlehnen-Einengungskeil: {angle}°'
+    loadErrorTitle: 'App konnte nicht geladen werden', fitResultTitle: 'Geschätzte Laderaumpassung', loading: 'Lädt', languageSelector: 'Sprachauswahl', visualizationView: 'Visualisierungsansicht', scaledDrawing: 'Skalierte Zeichnung der Gepäckplatzierung', seatWedgeTitle: 'Rücksitzlehnen-Einengungskeil: {angle}°', zoneViewAria: '{zone} · Ansicht {view}', seatGuideTitle: 'Kontur der Vordersitze'
   },
   fr: {
     pageTitle: 'Vérification des bagages',
@@ -71,16 +71,28 @@ const I18N = {
     length: 'longueur', width: 'largeur', height: 'hauteur', seatEncroachmentEnvelope: 'Zone d’inclinaison du dossier arrière', forwardSeats: 'Sièges avant', front: 'avant',
     bootView: 'Vue du coffre', sideView: 'Vue latérale', topView: 'Vue du dessus', switchTo: 'Basculer vers {view}', axisTitle: 'Axe {axis} · {view}', orientationAxisControl: 'Contrôle de l’axe d’orientation 3D', yawLabel: 'lacet', pitchLabel: 'tangage',
     zone3dAria: 'vue 3D rotative des bagages', removeOne: 'Retirer un {item}', placedSummary: '{placed}/{total} bagages placés', usedVolume: '{used} L utilisés', placedCount: '{placed} placés · {unplaced} non placés', volumeUsedPercent: '{percent}% du volume utilisable utilisé',
-    loadErrorTitle: 'Impossible de charger l’application', fitResultTitle: 'Ajustement estimé du coffre', loading: 'Chargement', languageSelector: 'Sélecteur de langue', visualizationView: 'Vue de visualisation', scaledDrawing: 'Dessin à l’échelle du placement des bagages', seatWedgeTitle: 'Coin d’inclinaison du dossier arrière : {angle}°'
+    loadErrorTitle: 'Impossible de charger l’application', fitResultTitle: 'Ajustement estimé du coffre', loading: 'Chargement', languageSelector: 'Sélecteur de langue', visualizationView: 'Vue de visualisation', scaledDrawing: 'Dessin à l’échelle du placement des bagages', seatWedgeTitle: 'Coin d’inclinaison du dossier arrière : {angle}°', zoneViewAria: '{zone} · vue {view}', seatGuideTitle: 'Contour des sièges avant'
   }
-};
+,
+  es: {
+    pageTitle: 'Comprobación de equipaje',
+    eyebrow: 'Planificador de equipaje para coche de alquiler',
+    heroTitle: 'Elige una configuración del vehículo y comprueba si cabe tu equipaje.',
+    heroCopy: 'Compara configuraciones de maletero de coches de alquiler europeos, ajusta la lista de equipaje y visualiza la colocación estimada en cada zona de carga antes de reservar.',
+    bagsFit: 'Todo el equipaje cabe',
+    bagsUnplaced: 'Parte del equipaje no cabe',
+    fitScore: 'Índice de ajuste',
+    usableVolume: 'Volumen útil',
+    fitResult: 'Resultado',
+    configuration: 'Configuración', tripSetup: 'Preparación del viaje', vehicle: 'Vehículo', seatCargoConfig: 'Configuración de asientos / carga', rearAngle: 'Ángulo de invasión del respaldo trasero', seatBackNote: 'Los respaldos traseros inclinados reducen la profundidad útil en la parte superior.', luggage: 'Equipaje', bagList: 'Lista de equipaje', reset: 'Restablecer', visualization: 'Visualización', bootViz: 'Visualización del ajuste de equipaje en el maletero', placedLuggage: 'Equipaje colocado', needsAnotherPlan: 'Requiere otro plan', workspaceAria: 'Área de comprobación de equipaje', orientation: 'Orientación', pitch: 'Inclinación', yaw: 'Giro', dragHint: 'Arrastra para girar alrededor del centro de carga · haz clic en X/Y/Z para usar vistas predefinidas', noBagsInZone: 'No hay equipaje colocado en esta zona.', nothingPlacedYet: 'Aún no hay nada colocado. Añade cantidades para empezar.', allPlaced: 'Todo el equipaje seleccionado está colocado en la configuración activa.',
+    seats: 'plazas', quantityFor: 'Cantidad para {item}', noSeatEncroachment: 'Ninguna zona de carga activa define invasión inclinada del respaldo trasero.', seatBackOverrideNote: 'Los respaldos traseros inclinados reducen la profundidad útil en la parte superior. Valor por defecto del vehículo: {angle}°; modifica el ángulo para sobrescribirlo.',
+    length: 'largo', width: 'ancho', height: 'alto', seatEncroachmentEnvelope: 'Zona de invasión del respaldo trasero', forwardSeats: 'Asientos delanteros', front: 'frente',
+    bootView: 'Vista del maletero', sideView: 'Vista lateral', topView: 'Vista superior', switchTo: 'Cambiar a {view}', axisTitle: 'Eje {axis} · {view}', orientationAxisControl: 'Control de ejes de orientación 3D', yawLabel: 'giro', pitchLabel: 'inclinación',
+    zone3dAria: 'vista 3D giratoria del equipaje', removeOne: 'Quitar una unidad de {item}', placedSummary: '{placed}/{total} equipajes colocados', usedVolume: '{used} L usados', placedCount: '{placed} colocados · {unplaced} sin colocar', volumeUsedPercent: '{percent}% del volumen útil utilizado',
+    loadErrorTitle: 'No se pudo cargar la aplicación', fitResultTitle: 'Ajuste estimado de carga', loading: 'Cargando', languageSelector: 'Selector de idioma', visualizationView: 'Vista de visualización', scaledDrawing: 'Dibujo a escala de la colocación del equipaje', seatWedgeTitle: 'Cuña de invasión del respaldo: {angle}°', zoneViewAria: '{zone} · vista {view}', seatGuideTitle: 'Contorno de los asientos delanteros'
+  }};
 const localeBundle = () => I18N[state.language] ?? I18N.en;
 const t = (key) => localeBundle()[key] ?? I18N.en[key] ?? key;
-
-function localizeText(text, localized = null) {
-  if (state.language !== 'en' && localized && localized[state.language]) return localized[state.language];
-  return localized?.en ?? text;
-}
 
 function localizeEntity(entity, key) {
   const value = entity?.[key];
@@ -442,7 +454,7 @@ function renderZoneSvg(zone, placements, index) {
         <strong>${localizeEntity(zone, 'label')}</strong>
         <span>${dimensionsLabel(zone.dimensionsMm)} · ${zone.volumeLitres} L</span>
       </div>
-      <svg viewBox="0 0 ${svgWidth} ${svgHeight}" role="img" aria-label="${localizeEntity(zone, 'label')} ${state.activeView} view">
+      <svg viewBox="0 0 ${svgWidth} ${svgHeight}" role="img" aria-label="${t('zoneViewAria').replace('{zone}', localizeEntity(zone, 'label')).replace('{view}', state.activeView)}">
         ${seatOutline}
         <rect class="cargo-outline" x="${padding}" y="${padding}" width="${projection.width * scale}" height="${projection.height * scale}" rx="12" fill="#eff6ff" />
         ${encroachmentOverlay}
@@ -651,9 +663,9 @@ function renderSeatGuide3d(zone, project) {
     ).map(project);
 
     return [
-      renderFace(vertices, [0, 1, 2, 3], '#fde68a', 'seat-face', 'Forward seat outline'),
-      renderFace(vertices, [3, 0, 4, 7], '#fef3c7', 'seat-face', 'Forward seat outline'),
-      renderFace(vertices, [4, 5, 6, 7], '#fef3c7', 'seat-face', 'Forward seat outline')
+      renderFace(vertices, [0, 1, 2, 3], '#fde68a', 'seat-face', t('seatGuideTitle')),
+      renderFace(vertices, [3, 0, 4, 7], '#fef3c7', 'seat-face', t('seatGuideTitle')),
+      renderFace(vertices, [4, 5, 6, 7], '#fef3c7', 'seat-face', t('seatGuideTitle'))
     ];
   });
 }
