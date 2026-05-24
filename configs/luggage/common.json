@@ -33,6 +33,9 @@
         },
         "en": {
           "label": "IATA-style cabin bag"
+        },
+        "de": {
+          "label": "Handgepäck im IATA-Stil"
         }
       }
     },
@@ -68,6 +71,9 @@
         },
         "en": {
           "label": "US airline carry-on"
+        },
+        "de": {
+          "label": "US-Airline-Handgepäck"
         }
       }
     },
@@ -103,6 +109,9 @@
         },
         "en": {
           "label": "Oddson Family carry-on"
+        },
+        "de": {
+          "label": "Oddson Family Handgepäck"
         }
       }
     },
@@ -138,6 +147,9 @@
         },
         "en": {
           "label": "Medium checked suitcase"
+        },
+        "de": {
+          "label": "Mittelgroßer aufgegebener Koffer"
         }
       }
     },
@@ -173,6 +185,9 @@
         },
         "en": {
           "label": "Large checked suitcase"
+        },
+        "de": {
+          "label": "Großer aufgegebener Koffer"
         }
       }
     },
@@ -227,6 +242,9 @@
         },
         "en": {
           "label": "Soft travel backpack"
+        },
+        "de": {
+          "label": "Weicher Reise-Rucksack"
         }
       }
     },
@@ -262,6 +280,9 @@
         },
         "en": {
           "label": "Golf Clubs"
+        },
+        "de": {
+          "label": "Golfschläger"
         }
       }
     },
@@ -297,6 +318,9 @@
         },
         "en": {
           "label": "Golf balls (box of 12)"
+        },
+        "de": {
+          "label": "Golfbälle (12er-Pack)"
         }
       }
     }

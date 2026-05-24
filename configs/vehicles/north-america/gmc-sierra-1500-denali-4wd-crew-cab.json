@@ -40,6 +40,9 @@
         },
         "fr": {
           "label": "Benne ouverte — caisse courte (cabine multiplace, empattement 147,4 po)"
+        },
+        "de": {
+          "label": "Offene Ladefläche — kurze Box (Crew Cab, 147,4 Zoll Radstand)"
         }
       }
     },
@@ -65,6 +68,9 @@
         },
         "fr": {
           "label": "Benne ouverte — caisse courte pleine largeur"
+        },
+        "de": {
+          "label": "Offene Ladefläche — kurze Box in voller Bodenbreite"
         }
       }
     },
@@ -90,6 +96,9 @@
         },
         "fr": {
           "label": "Benne ouverte — caisse standard (cabine multiplace, empattement 157 po)"
+        },
+        "de": {
+          "label": "Offene Ladefläche — Standard-Box (Crew Cab, 157 Zoll Radstand)"
         }
       }
     },
@@ -111,6 +120,9 @@
         },
         "fr": {
           "label": "Espace supplémentaire sur plancher/siège arrière"
+        },
+        "de": {
+          "label": "Hinterer Kabinenboden / Sitz-Überlauf"
         }
       }
     }
@@ -130,6 +142,9 @@
         },
         "fr": {
           "label": "Cabine multiplace, benne courte"
+        },
+        "de": {
+          "label": "Doppelkabine, kurze Ladefläche"
         }
       }
     },
@@ -147,6 +162,9 @@
         },
         "fr": {
           "label": "Cabine multiplace, benne courte pleine largeur"
+        },
+        "de": {
+          "label": "Doppelkabine, kurze Ladefläche in voller Bodenbreite"
         }
       }
     },
@@ -164,6 +182,9 @@
         },
         "fr": {
           "label": "Cabine multiplace, benne standard"
+        },
+        "de": {
+          "label": "Doppelkabine, Standard-Ladefläche"
         }
       }
     },
@@ -182,6 +203,9 @@
         },
         "fr": {
           "label": "Benne courte avec extension dans l’habitacle arrière"
+        },
+        "de": {
+          "label": "Kurze Ladefläche mit zusätzlichem Stauraum in der hinteren Kabine"
         }
       }
     }
@@ -246,6 +270,9 @@
     },
     "fr": {
       "bodyStyle": "Pick-up grand format 4 portes"
+    },
+    "de": {
+      "bodyStyle": "4-türiger Full-Size-Pick-up"
     }
   }
 }

@@ -46,6 +46,9 @@
         },
         "en": {
           "label": "Boot behind third row with all 7 seats in use"
+        },
+        "de": {
+          "label": "Kofferraum hinter der dritten Reihe bei 7 belegten Sitzen"
         }
       }
     },
@@ -75,6 +78,9 @@
         },
         "fr": {
           "label": "Espace de chargement avec la 2e rangée en place et la 3e rangée rabattue"
+        },
+        "de": {
+          "label": "Laderaum mit aufgestellter Reihe 2 und umgeklappter Reihe 3"
         }
       }
     },
@@ -100,6 +106,9 @@
         },
         "fr": {
           "label": "Espace de chargement maximal avec rangées arrière rabattues"
+        },
+        "de": {
+          "label": "Maximaler Laderaum bei umgeklappten hinteren Reihen"
         }
       }
     }
@@ -119,6 +128,9 @@
         },
         "fr": {
           "label": "Les 7 sièges sont occupés"
+        },
+        "de": {
+          "label": "Alle 7 Sitze in Benutzung"
         }
       }
     },
@@ -136,6 +148,9 @@
         },
         "fr": {
           "label": "Troisième rangée rabattue"
+        },
+        "de": {
+          "label": "Dritte Reihe umgeklappt"
         }
       }
     },
@@ -153,6 +168,9 @@
         },
         "fr": {
           "label": "Rangées arrière rabattues"
+        },
+        "de": {
+          "label": "Hintere Reihen umgeklappt"
         }
       }
     }
@@ -194,6 +212,9 @@
     },
     "en": {
       "bodyStyle": "7-seat midsize SUV"
+    },
+    "de": {
+      "bodyStyle": "7-sitziges Mittelklasse-SUV"
     }
   }
 }

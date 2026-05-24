@@ -44,6 +44,9 @@
         },
         "en": {
           "label": "Boot behind third row with all 7 seats in use"
+        },
+        "de": {
+          "label": "Kofferraum hinter der dritten Reihe bei 7 belegten Sitzen"
         }
       }
     },
@@ -73,6 +76,9 @@
         },
         "fr": {
           "label": "Espace de chargement avec la 2e rangée en place et la 3e rangée rabattue"
+        },
+        "de": {
+          "label": "Laderaum mit aufgestellter Reihe 2 und umgeklappter Reihe 3"
         }
       }
     },
@@ -102,6 +108,9 @@
         },
         "fr": {
           "label": "Espace de chargement avec 2e rangée en place et 3e rangée retirée"
+        },
+        "de": {
+          "label": "Laderaum mit aufgestellter Reihe 2 und ausgebauter Reihe 3"
         }
       }
     },
@@ -127,6 +136,9 @@
         },
         "fr": {
           "label": "Espace de chargement maximal avec rangées arrière rabattues / retirées"
+        },
+        "de": {
+          "label": "Maximaler Laderaum bei umgeklappten/ausgebauten hinteren Reihen"
         }
       }
     }
@@ -146,6 +158,9 @@
         },
         "fr": {
           "label": "Les 7 sièges sont occupés"
+        },
+        "de": {
+          "label": "Alle 7 Sitze in Benutzung"
         }
       }
     },
@@ -163,6 +178,9 @@
         },
         "fr": {
           "label": "Troisième rangée rabattue"
+        },
+        "de": {
+          "label": "Dritte Reihe umgeklappt"
         }
       }
     },
@@ -180,6 +198,9 @@
         },
         "fr": {
           "label": "Troisième rangée retirée"
+        },
+        "de": {
+          "label": "Dritte Reihe ausgebaut"
         }
       }
     },
@@ -197,6 +218,9 @@
         },
         "fr": {
           "label": "Rangées arrière rabattues / retirées"
+        },
+        "de": {
+          "label": "Hintere Reihen umgeklappt/ausgebaut"
         }
       }
     }
@@ -249,6 +273,9 @@
     },
     "en": {
       "bodyStyle": "7-seat compact MPV / estate crossover"
+    },
+    "de": {
+      "bodyStyle": "Kompakter 7-Sitzer MPV / Kombi-Crossover"
     }
   }
 }

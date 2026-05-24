@@ -47,6 +47,9 @@
         },
         "fr": {
           "label": "Espace de chargement derrière la troisième rangée"
+        },
+        "de": {
+          "label": "Laderaum hinter der dritten Reihe"
         }
       }
     },
@@ -76,6 +79,9 @@
         },
         "fr": {
           "label": "Espace de chargement avec troisième rangée rabattue"
+        },
+        "de": {
+          "label": "Laderaum mit umgeklappter dritter Reihe"
         }
       }
     },
@@ -101,6 +107,9 @@
         },
         "fr": {
           "label": "Espace de chargement maximal avec 2e et 3e rangées rabattues"
+        },
+        "de": {
+          "label": "Maximaler Laderaum bei umgeklappter zweiter und dritter Reihe"
         }
       }
     },
@@ -122,6 +131,9 @@
         },
         "fr": {
           "label": "Coffre avant / rangement du câble de recharge (versions propulsion)"
+        },
+        "de": {
+          "label": "Vorderer Kofferraum / Ladekabelfach (RWD-Varianten)"
         }
       }
     },
@@ -143,6 +155,9 @@
         },
         "fr": {
           "label": "Espace supplémentaire au plancher de la 2e rangée"
+        },
+        "de": {
+          "label": "Zusätzlicher Stauraum im Fußraum der zweiten Reihe"
         }
       }
     }
@@ -163,6 +178,9 @@
         },
         "fr": {
           "label": "Toutes les rangées relevées"
+        },
+        "de": {
+          "label": "Alle Sitzreihen aufgestellt"
         }
       }
     },
@@ -181,6 +199,9 @@
         },
         "fr": {
           "label": "Toutes les rangées relevées, version banquette 7 places"
+        },
+        "de": {
+          "label": "Alle Reihen aufgestellt, Siebensitzer mit Bank"
         }
       }
     },
@@ -199,6 +220,9 @@
         },
         "fr": {
           "label": "Troisième rangée rabattue"
+        },
+        "de": {
+          "label": "Dritte Reihe umgeklappt"
         }
       }
     },
@@ -217,6 +241,9 @@
         },
         "fr": {
           "label": "Troisième rangée rabattue, version banquette 7 places"
+        },
+        "de": {
+          "label": "Dritte Reihe umgeklappt, Siebensitzer mit Bank"
         }
       }
     },
@@ -235,6 +262,9 @@
         },
         "fr": {
           "label": "Deuxième et troisième rangées rabattues"
+        },
+        "de": {
+          "label": "Zweite und dritte Reihe umgeklappt"
         }
       }
     },
@@ -254,6 +284,9 @@
         },
         "fr": {
           "label": "Toutes les rangées relevées avec espace supplémentaire au plancher de la 2e rangée"
+        },
+        "de": {
+          "label": "Alle Reihen aufgestellt mit zusätzlichem Stauraum im Fußraum der zweiten Reihe"
         }
       }
     }
@@ -332,6 +365,9 @@
     },
     "fr": {
       "bodyStyle": "SUV intermédiaire électrique 5 portes à trois rangées"
+    },
+    "de": {
+      "bodyStyle": "5-türiges vollelektrisches Mittelklasse-SUV mit drei Sitzreihen"
     }
   }
 }
