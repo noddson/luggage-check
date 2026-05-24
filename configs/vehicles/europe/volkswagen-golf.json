@@ -46,6 +46,9 @@
         },
         "es": {
           "label": "Maletero con asientos traseros levantados"
+        },
+        "is": {
+          "label": "Farangursrými með aftursæti uppi"
         }
       }
     },
@@ -73,6 +76,9 @@
         },
         "es": {
           "label": "Área de carga ampliada con asientos traseros abatidos"
+        },
+        "is": {
+          "label": "Stækkað farangursrými með aftursæti felld"
         }
       }
     },
@@ -100,6 +106,9 @@
         },
         "es": {
           "label": "Desbordamiento en el espacio para pies de pasajeros traseros"
+        },
+        "is": {
+          "label": "Yfirflæði í fótarými aftari farþega"
         }
       }
     }
@@ -124,6 +133,9 @@
         },
         "es": {
           "label": "Asientos traseros levantados"
+        },
+        "is": {
+          "label": "Aftursæti uppi"
         }
       }
     },
@@ -148,6 +160,9 @@
         },
         "es": {
           "label": "Asientos traseros abatidos"
+        },
+        "is": {
+          "label": "Aftursæti felld"
         }
       }
     },
@@ -172,6 +187,9 @@
         },
         "es": {
           "label": "Asientos traseros levantados con desbordamiento en el espacio para pies trasero"
+        },
+        "is": {
+          "label": "Aftursæti uppi með yfirflæði í aftara fótarými"
         }
       }
     }
@@ -224,6 +242,9 @@
     },
     "es": {
       "bodyStyle": "Hatchback de 5 puertas"
+    },
+    "is": {
+      "bodyStyle": "5 dyra hlaðbakur"
     }
   }
 }

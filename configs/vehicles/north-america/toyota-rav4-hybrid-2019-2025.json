@@ -59,6 +59,9 @@
         },
         "es": {
           "label": "Área de carga detrás de la segunda fila"
+        },
+        "is": {
+          "label": "Farangursrými aftan við 2. röð"
         }
       }
     },
@@ -90,6 +93,9 @@
         },
         "es": {
           "label": "Área de carga máxima con segunda fila abatida"
+        },
+        "is": {
+          "label": "Hámarksfarangursrými með 2. röð fellda"
         }
       }
     },
@@ -117,6 +123,9 @@
         },
         "es": {
           "label": "Desbordamiento en el espacio para pies de pasajeros traseros"
+        },
+        "is": {
+          "label": "Yfirflæði í fótarými aftari farþega"
         }
       }
     }
@@ -142,6 +151,9 @@
         },
         "es": {
           "label": "Todos los asientos levantados"
+        },
+        "is": {
+          "label": "Öll sæti uppi"
         }
       }
     },
@@ -165,6 +177,9 @@
         },
         "es": {
           "label": "Segunda fila abatida"
+        },
+        "is": {
+          "label": "2. röð felld"
         }
       }
     },
@@ -189,6 +204,9 @@
         },
         "es": {
           "label": "Una sección del asiento trasero abatida"
+        },
+        "is": {
+          "label": "Einn hluti aftursætis felldur"
         }
       }
     }
@@ -277,6 +295,9 @@
     },
     "es": {
       "bodyStyle": "SUV híbrido compacto de 5 puertas"
+    },
+    "is": {
+      "bodyStyle": "5 dyra nettur tvinnjepplingur"
     }
   }
 }

@@ -50,6 +50,9 @@
         },
         "es": {
           "label": "Área de carga trasera con asientos levantados y piso de carga bajo"
+        },
+        "is": {
+          "label": "Aftara farangursrými með sæti uppi og farangursgólf lækkað"
         }
       }
     },
@@ -85,6 +88,9 @@
         },
         "es": {
           "label": "Área de carga trasera con asientos levantados y piso de carga alto"
+        },
+        "is": {
+          "label": "Aftara farangursrými með sæti uppi og farangursgólf hækkað"
         }
       }
     },
@@ -116,6 +122,9 @@
         },
         "es": {
           "label": "Área de carga ampliada con asientos traseros abatidos"
+        },
+        "is": {
+          "label": "Stækkað farangursrými með aftursæti felld"
         }
       }
     },
@@ -143,6 +152,9 @@
         },
         "es": {
           "label": "Desbordamiento en el espacio para pies de pasajeros traseros"
+        },
+        "is": {
+          "label": "Yfirflæði í fótarými aftari farþega"
         }
       }
     }
@@ -167,6 +179,9 @@
         },
         "es": {
           "label": "Asientos traseros levantados, piso de carga bajo"
+        },
+        "is": {
+          "label": "Aftursæti uppi, farangursgólf lækkað"
         }
       }
     },
@@ -190,6 +205,9 @@
         },
         "es": {
           "label": "Asientos traseros levantados, piso de carga alto"
+        },
+        "is": {
+          "label": "Aftursæti uppi, farangursgólf hækkað"
         }
       }
     },
@@ -214,6 +232,9 @@
         },
         "es": {
           "label": "Asientos traseros abatidos"
+        },
+        "is": {
+          "label": "Aftursæti felld"
         }
       }
     },
@@ -238,6 +259,9 @@
         },
         "es": {
           "label": "Asientos traseros levantados con desbordamiento en el espacio para pies trasero"
+        },
+        "is": {
+          "label": "Aftursæti uppi með yfirflæði í aftara fótarými"
         }
       }
     }
@@ -306,6 +330,9 @@
     },
     "es": {
       "bodyStyle": "Hatchback crossover subcompacto eléctrico de 5 puertas"
+    },
+    "is": {
+      "bodyStyle": "5 dyra rafknúinn smágerður crossover hlaðbakur"
     }
   }
 }

@@ -52,6 +52,9 @@
         },
         "es": {
           "label": "Maletero detrás de la fila trasera con todos los asientos en uso"
+        },
+        "is": {
+          "label": "Farangursrými aftan við aftari röð með öll sæti í notkun"
         }
       }
     },
@@ -87,6 +90,9 @@
         },
         "es": {
           "label": "Área de carga con la tercera fila abatida o retirada"
+        },
+        "is": {
+          "label": "Farangursrými með 3. röð fellda eða fjarlægða"
         }
       }
     },
@@ -118,6 +124,9 @@
         },
         "es": {
           "label": "Área de carga máxima con filas traseras abatidas o retiradas"
+        },
+        "is": {
+          "label": "Hámarksfarangursrými með aftari raðir felldar eða fjarlægðar"
         }
       }
     }
@@ -143,6 +152,9 @@
         },
         "es": {
           "label": "Todos los asientos en uso"
+        },
+        "is": {
+          "label": "Öll sæti í notkun"
         }
       }
     },
@@ -166,6 +178,9 @@
         },
         "es": {
           "label": "Tercera fila abatida o retirada"
+        },
+        "is": {
+          "label": "3. röð felld eða fjarlægð"
         }
       }
     },
@@ -189,6 +204,9 @@
         },
         "es": {
           "label": "Filas traseras abatidas o retiradas"
+        },
+        "is": {
+          "label": "Aftari raðir felldar eða fjarlægðar"
         }
       }
     }
@@ -247,6 +265,9 @@
     },
     "es": {
       "bodyStyle": "Furgoneta de pasajeros de 8-9 plazas / monovolumen"
+    },
+    "is": {
+      "bodyStyle": "8–9 sæta farþegabíll / fjölnotabíll"
     }
   }
 }

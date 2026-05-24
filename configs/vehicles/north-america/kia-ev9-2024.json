@@ -54,6 +54,9 @@
         },
         "es": {
           "label": "Área de carga detrás de la tercera fila"
+        },
+        "is": {
+          "label": "Farangursrými aftan við 3. röð"
         }
       }
     },
@@ -89,6 +92,9 @@
         },
         "es": {
           "label": "Área de carga con la tercera fila abatida"
+        },
+        "is": {
+          "label": "Farangursrými með 3. röð fellda"
         }
       }
     },
@@ -120,6 +126,9 @@
         },
         "es": {
           "label": "Área de carga máxima con la segunda y tercera filas abatidas"
+        },
+        "is": {
+          "label": "Hámarksfarangursrými með 2. og 3. röð felldar"
         }
       }
     },
@@ -147,6 +156,9 @@
         },
         "es": {
           "label": "Maletero delantero / almacenamiento del cable de carga (versiones RWD)"
+        },
+        "is": {
+          "label": "Framfarangursrými / geymsla fyrir hleðslukapal (afturhjóladrifsútgáfur)"
         }
       }
     },
@@ -174,6 +186,9 @@
         },
         "es": {
           "label": "Desbordamiento en el espacio para pies de la segunda fila"
+        },
+        "is": {
+          "label": "Yfirflæði í fótarými 2. raðar"
         }
       }
     }
@@ -200,6 +215,9 @@
         },
         "es": {
           "label": "Todas las filas levantadas"
+        },
+        "is": {
+          "label": "Allar raðir uppi"
         }
       }
     },
@@ -224,6 +242,9 @@
         },
         "es": {
           "label": "Todas las filas levantadas, modelo con banca para siete pasajeros"
+        },
+        "is": {
+          "label": "Allar raðir uppi, sjö farþega bekkjasætaútgáfa"
         }
       }
     },
@@ -248,6 +269,9 @@
         },
         "es": {
           "label": "Tercera fila abatida"
+        },
+        "is": {
+          "label": "3. röð felld"
         }
       }
     },
@@ -272,6 +296,9 @@
         },
         "es": {
           "label": "Tercera fila abatida, modelo con banca para siete pasajeros"
+        },
+        "is": {
+          "label": "3. röð felld, sjö farþega bekkjasætaútgáfa"
         }
       }
     },
@@ -296,6 +323,9 @@
         },
         "es": {
           "label": "Segunda y tercera filas abatidas"
+        },
+        "is": {
+          "label": "2. og 3. röð felldar"
         }
       }
     },
@@ -321,6 +351,9 @@
         },
         "es": {
           "label": "Todas las filas levantadas con desbordamiento en el espacio para pies de la segunda fila"
+        },
+        "is": {
+          "label": "Allar raðir uppi með yfirflæði í fótarými 2. raðar"
         }
       }
     }
@@ -392,6 +425,9 @@
     },
     "es": {
       "bodyStyle": "SUV mediano 100% eléctrico de 5 puertas y tres filas"
+    },
+    "is": {
+      "bodyStyle": "5 dyra alrafknúinn meðalstór jepplingur með þremur sætaröðum"
     }
   }
 }

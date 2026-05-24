@@ -51,6 +51,9 @@
         },
         "es": {
           "label": "Maletero trasero detrás de la segunda fila"
+        },
+        "is": {
+          "label": "Aftara farangursrými aftan við 2. röð"
         }
       }
     },
@@ -82,6 +85,9 @@
         },
         "es": {
           "label": "Maletero delantero / frunk"
+        },
+        "is": {
+          "label": "Framfarangursrými / frunk"
         }
       }
     },
@@ -113,6 +119,9 @@
         },
         "es": {
           "label": "Extensión de cabina con asiento trasero abatido"
+        },
+        "is": {
+          "label": "Skálaframlenging með aftursæti felldu"
         }
       }
     },
@@ -140,6 +149,9 @@
         },
         "es": {
           "label": "Desbordamiento en el espacio para pies de pasajeros traseros"
+        },
+        "is": {
+          "label": "Yfirflæði í fótarými aftari farþega"
         }
       }
     }
@@ -166,6 +178,9 @@
         },
         "es": {
           "label": "Asientos traseros levantados"
+        },
+        "is": {
+          "label": "Aftursæti uppi"
         }
       }
     },
@@ -191,6 +206,9 @@
         },
         "es": {
           "label": "Asientos traseros abatidos"
+        },
+        "is": {
+          "label": "Aftursæti felld"
         }
       }
     },
@@ -216,6 +234,9 @@
         },
         "es": {
           "label": "Asientos traseros levantados con desbordamiento en el espacio para pies trasero"
+        },
+        "is": {
+          "label": "Aftursæti uppi með yfirflæði í aftara fótarými"
         }
       }
     }
@@ -273,6 +294,9 @@
     },
     "es": {
       "bodyStyle": "Sedán mediano eléctrico de 4 puertas"
+    },
+    "is": {
+      "bodyStyle": "4 dyra rafknúinn meðalstór fólksbíll"
     }
   }
 }

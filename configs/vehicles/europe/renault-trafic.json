@@ -52,6 +52,9 @@
         },
         "es": {
           "label": "Maletero L1 detrás de la tercera fila con 8/9 asientos en uso"
+        },
+        "is": {
+          "label": "L1 farangursrými aftan við 3. röð með 8/9 sæti í notkun"
         }
       }
     },
@@ -87,6 +90,9 @@
         },
         "es": {
           "label": "Área de carga L1 con la fila 3 abatida, unos 6 asientos disponibles"
+        },
+        "is": {
+          "label": "L1 farangursrými með 3. röð fellda, um 6 sæti í boði"
         }
       }
     },
@@ -122,6 +128,9 @@
         },
         "es": {
           "label": "Área de carga L1 en configuración de 5/6 asientos"
+        },
+        "is": {
+          "label": "L1 farangursrými í 5/6 sæta uppsetningu"
         }
       }
     },
@@ -157,6 +166,9 @@
         },
         "es": {
           "label": "Maletero L2 detrás de la tercera fila con 8/9 asientos en uso"
+        },
+        "is": {
+          "label": "L2 farangursrými aftan við 3. röð með 8/9 sæti í notkun"
         }
       }
     },
@@ -192,6 +204,9 @@
         },
         "es": {
           "label": "Área de carga L2 con la fila 3 abatida, unos 6 asientos disponibles"
+        },
+        "is": {
+          "label": "L2 farangursrými með 3. röð fellda, um 6 sæti í boði"
         }
       }
     },
@@ -227,6 +242,9 @@
         },
         "es": {
           "label": "Área de carga L2 en configuración de 5/6 asientos"
+        },
+        "is": {
+          "label": "L2 farangursrými í 5/6 sæta uppsetningu"
         }
       }
     },
@@ -258,6 +276,9 @@
         },
         "es": {
           "label": "Área de carga máxima L2 con filas traseras retiradas, 2/3 asientos disponibles"
+        },
+        "is": {
+          "label": "L2 hámarksfarangursrými með aftari raðir fjarlægðar, 2/3 sæti í boði"
         }
       }
     }
@@ -283,6 +304,9 @@
         },
         "es": {
           "label": "Configuración L1 de 8/9 asientos"
+        },
+        "is": {
+          "label": "L1 8/9 sæta uppsetning"
         }
       }
     },
@@ -306,6 +330,9 @@
         },
         "es": {
           "label": "L1 con fila 3 abatida"
+        },
+        "is": {
+          "label": "L1 3. röð felld"
         }
       }
     },
@@ -329,6 +356,9 @@
         },
         "es": {
           "label": "Configuración L1 de 5/6 asientos"
+        },
+        "is": {
+          "label": "L1 5/6 sæta uppsetning"
         }
       }
     },
@@ -352,6 +382,9 @@
         },
         "es": {
           "label": "Configuración L2 de 8/9 asientos"
+        },
+        "is": {
+          "label": "L2 8/9 sæta uppsetning"
         }
       }
     },
@@ -375,6 +408,9 @@
         },
         "es": {
           "label": "L2 con fila 3 abatida"
+        },
+        "is": {
+          "label": "L2 3. röð felld"
         }
       }
     },
@@ -398,6 +434,9 @@
         },
         "es": {
           "label": "Configuración L2 de 5/6 asientos"
+        },
+        "is": {
+          "label": "L2 5/6 sæta uppsetning"
         }
       }
     },
@@ -421,6 +460,9 @@
         },
         "es": {
           "label": "L2 con filas traseras retiradas"
+        },
+        "is": {
+          "label": "L2 aftari raðir fjarlægðar"
         }
       }
     }
@@ -495,6 +537,9 @@
     },
     "es": {
       "bodyStyle": "Furgoneta de pasajeros de 8/9 plazas / minibús"
+    },
+    "is": {
+      "bodyStyle": "8/9 sæta farþegabíll / smárúta"
     }
   }
 }
