@@ -64,6 +64,9 @@
         },
         "el": {
           "label": "Πορτμπαγκάζ πίσω από την πίσω σειρά με όλες τις θέσεις σε χρήση"
+        },
+        "XX": {
+          "label": "Boot behind rear row with all seats in use"
         }
       }
     },
@@ -111,6 +114,9 @@
         },
         "el": {
           "label": "Χώρος φόρτωσης με 3η σειρά αναδιπλωμένη ή αφαιρεμένη"
+        },
+        "XX": {
+          "label": "Cargo area with third row folded or removed"
         }
       }
     },
@@ -154,6 +160,9 @@
         },
         "el": {
           "label": "Μέγιστος χώρος φόρτωσης με πίσω σειρές αναδιπλωμένες ή αφαιρεμένες"
+        },
+        "XX": {
+          "label": "Maximum cargo area with rear rows folded or removed"
         }
       }
     }
@@ -191,6 +200,9 @@
         },
         "el": {
           "label": "Όλες οι θέσεις σε χρήση"
+        },
+        "XX": {
+          "label": "All seats in use"
         }
       }
     },
@@ -226,6 +238,9 @@
         },
         "el": {
           "label": "3η σειρά αναδιπλωμένη ή αφαιρεμένη"
+        },
+        "XX": {
+          "label": "Third row folded or removed"
         }
       }
     },
@@ -261,6 +276,9 @@
         },
         "el": {
           "label": "Πίσω σειρές αναδιπλωμένες ή αφαιρεμένες"
+        },
+        "XX": {
+          "label": "Aft rows folded or removed"
         }
       }
     }
@@ -331,6 +349,9 @@
     },
     "el": {
       "bodyStyle": "Επιβατικό van / MPV 8-9 θέσεων"
+    },
+    "XX": {
+      "bodyStyle": "8-9 seat passenger van / MPV"
     }
   }
 }

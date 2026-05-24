@@ -71,6 +71,9 @@
         },
         "el": {
           "label": "Χώρος φόρτωσης πίσω από τη 2η σειρά"
+        },
+        "XX": {
+          "label": "Cargo area behind second row"
         }
       }
     },
@@ -114,6 +117,9 @@
         },
         "el": {
           "label": "Μέγιστος χώρος φόρτωσης με 2η σειρά αναδιπλωμένη"
+        },
+        "XX": {
+          "label": "Maximum cargo area with second row folded"
         }
       }
     },
@@ -153,6 +159,9 @@
         },
         "el": {
           "label": "Υπερχείλιση χώρου ποδιών πίσω επιβατών"
+        },
+        "XX": {
+          "label": "Aft passenger footwell overflow"
         }
       }
     }
@@ -190,6 +199,9 @@
         },
         "el": {
           "label": "Όλα τα καθίσματα όρθια"
+        },
+        "XX": {
+          "label": "All seats up"
         }
       }
     },
@@ -225,6 +237,9 @@
         },
         "el": {
           "label": "2η σειρά αναδιπλωμένη"
+        },
+        "XX": {
+          "label": "Second row folded"
         }
       }
     },
@@ -261,6 +276,9 @@
         },
         "el": {
           "label": "Μία ενότητα πίσω καθίσματος αναδιπλωμένη"
+        },
+        "XX": {
+          "label": "One rear seat section folded"
         }
       }
     }
@@ -361,6 +379,9 @@
     },
     "el": {
       "bodyStyle": "Υβριδικό συμπαγές SUV 5 θυρών"
+    },
+    "XX": {
+      "bodyStyle": "5-door compact hybrid SUV"
     }
   }
 }

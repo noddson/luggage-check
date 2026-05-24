@@ -58,6 +58,9 @@
         },
         "el": {
           "label": "Ανοιχτή καρότσα — κοντή (Crew Cab μεταξόνιο 147,4 in)"
+        },
+        "XX": {
+          "label": "Open cargo bed — short box (Crew Cab 147.4 in wheelbase)"
         }
       }
     },
@@ -101,6 +104,9 @@
         },
         "el": {
           "label": "Ανοιχτή καρότσα — κοντή πλήρους πλάτους δαπέδου"
+        },
+        "XX": {
+          "label": "Open cargo bed — short box full floor width"
         }
       }
     },
@@ -144,6 +150,9 @@
         },
         "el": {
           "label": "Ανοιχτή καρότσα — κανονική (Crew Cab μεταξόνιο 157 in)"
+        },
+        "XX": {
+          "label": "Open cargo bed — standard box (Crew Cab 157 in wheelbase)"
         }
       }
     },
@@ -183,6 +192,9 @@
         },
         "el": {
           "label": "Πίσω δάπεδο καμπίνας / υπερχείλιση καθισμάτων"
+        },
+        "XX": {
+          "label": "Aft cabin floor / seat overflow"
         }
       }
     }
@@ -220,6 +232,9 @@
         },
         "el": {
           "label": "Διπλή καμπίνα, κοντή καρότσα"
+        },
+        "XX": {
+          "label": "Crew cab, short bed"
         }
       }
     },
@@ -255,6 +270,9 @@
         },
         "el": {
           "label": "Διπλή καμπίνα, κοντή καρότσα πλήρους πλάτους δαπέδου"
+        },
+        "XX": {
+          "label": "Crew cab, short bed full floor width"
         }
       }
     },
@@ -290,6 +308,9 @@
         },
         "el": {
           "label": "Διπλή καμπίνα, καρότσα κανονικού μήκους"
+        },
+        "XX": {
+          "label": "Crew cab, standard bed"
         }
       }
     },
@@ -326,6 +347,9 @@
         },
         "el": {
           "label": "Κοντή καρότσα με υπερχείλιση πίσω καμπίνας"
+        },
+        "XX": {
+          "label": "Short bed with rear cabin overflow"
         }
       }
     }
@@ -408,6 +432,9 @@
     },
     "el": {
       "bodyStyle": "Μεγάλο pickup 4 θυρών"
+    },
+    "XX": {
+      "bodyStyle": "4-door full-size pickup truck"
     }
   }
 }
