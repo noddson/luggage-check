@@ -58,6 +58,9 @@
         },
         "jp": {
           "label": "8/9席使用時の3列目後方L1トランク"
+        },
+        "it": {
+          "label": "Bagagliaio L1 dietro la terza fila con 8/9 posti in uso"
         }
       }
     },
@@ -99,6 +102,9 @@
         },
         "jp": {
           "label": "3列目折りたたみ時のL1ラゲッジスペース（約6席利用可）"
+        },
+        "it": {
+          "label": "Vano di carico L1 con terza fila abbattuta, circa 6 posti disponibili"
         }
       }
     },
@@ -140,6 +146,9 @@
         },
         "jp": {
           "label": "5/6席レイアウト時のL1ラゲッジスペース"
+        },
+        "it": {
+          "label": "Vano di carico L1 in configurazione 5/6 posti"
         }
       }
     },
@@ -181,6 +190,9 @@
         },
         "jp": {
           "label": "8/9席使用時の3列目後方L2トランク"
+        },
+        "it": {
+          "label": "Bagagliaio L2 dietro la terza fila con 8/9 posti in uso"
         }
       }
     },
@@ -222,6 +234,9 @@
         },
         "jp": {
           "label": "3列目折りたたみ時のL2ラゲッジスペース（約6席利用可）"
+        },
+        "it": {
+          "label": "Vano di carico L2 con terza fila abbattuta, circa 6 posti disponibili"
         }
       }
     },
@@ -263,6 +278,9 @@
         },
         "jp": {
           "label": "5/6席レイアウト時のL2ラゲッジスペース"
+        },
+        "it": {
+          "label": "Vano di carico L2 in configurazione 5/6 posti"
         }
       }
     },
@@ -300,6 +318,9 @@
         },
         "jp": {
           "label": "後列取り外し時のL2最大ラゲッジスペース（2/3席利用可）"
+        },
+        "it": {
+          "label": "Vano di carico massimo L2 con file posteriori rimosse, 2/3 posti disponibili"
         }
       }
     }
@@ -331,6 +352,9 @@
         },
         "jp": {
           "label": "L1 8/9席レイアウト"
+        },
+        "it": {
+          "label": "Configurazione L1 8/9 posti"
         }
       }
     },
@@ -360,6 +384,9 @@
         },
         "jp": {
           "label": "L1 3列目折りたたみ"
+        },
+        "it": {
+          "label": "L1 terza fila abbattuta"
         }
       }
     },
@@ -389,6 +416,9 @@
         },
         "jp": {
           "label": "L1 5/6席レイアウト"
+        },
+        "it": {
+          "label": "Configurazione L1 5/6 posti"
         }
       }
     },
@@ -418,6 +448,9 @@
         },
         "jp": {
           "label": "L2 8/9席レイアウト"
+        },
+        "it": {
+          "label": "Configurazione L2 8/9 posti"
         }
       }
     },
@@ -447,6 +480,9 @@
         },
         "jp": {
           "label": "L2 3列目折りたたみ"
+        },
+        "it": {
+          "label": "L2 terza fila abbattuta"
         }
       }
     },
@@ -476,6 +512,9 @@
         },
         "jp": {
           "label": "L2 5/6席レイアウト"
+        },
+        "it": {
+          "label": "Configurazione L2 5/6 posti"
         }
       }
     },
@@ -505,6 +544,9 @@
         },
         "jp": {
           "label": "L2 後列取り外し"
+        },
+        "it": {
+          "label": "L2 file posteriori rimosse"
         }
       }
     }
@@ -585,6 +627,9 @@
     },
     "jp": {
       "bodyStyle": "8/9人乗り乗用バン／ミニバス"
+    },
+    "it": {
+      "bodyStyle": "Furgone passeggeri / minibus da 8/9 posti"
     }
   }
 }

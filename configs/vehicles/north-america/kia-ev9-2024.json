@@ -60,6 +60,9 @@
         },
         "jp": {
           "label": "3列目後方ラゲッジスペース"
+        },
+        "it": {
+          "label": "Vano di carico dietro la terza fila"
         }
       }
     },
@@ -101,6 +104,9 @@
         },
         "jp": {
           "label": "3列目折りたたみ時ラゲッジスペース"
+        },
+        "it": {
+          "label": "Vano di carico con terza fila abbattuta"
         }
       }
     },
@@ -138,6 +144,9 @@
         },
         "jp": {
           "label": "2列目・3列目折りたたみ時の最大ラゲッジスペース"
+        },
+        "it": {
+          "label": "Vano di carico massimo con seconda e terza fila abbattute"
         }
       }
     },
@@ -171,6 +180,9 @@
         },
         "jp": {
           "label": "フロントトランク／充電ケーブル収納（RWDグレード）"
+        },
+        "it": {
+          "label": "Bagagliaio anteriore / vano cavo di ricarica (versioni RWD)"
         }
       }
     },
@@ -204,6 +216,9 @@
         },
         "jp": {
           "label": "2列目足元オーバーフロー"
+        },
+        "it": {
+          "label": "Spazio extra nel vano piedi della seconda fila"
         }
       }
     }
@@ -236,6 +251,9 @@
         },
         "jp": {
           "label": "全列使用"
+        },
+        "it": {
+          "label": "Tutte le file in uso"
         }
       }
     },
@@ -266,6 +284,9 @@
         },
         "jp": {
           "label": "全列使用（7人乗りベンチシート仕様）"
+        },
+        "it": {
+          "label": "Tutte le file in uso, modello con panca a sette posti"
         }
       }
     },
@@ -296,6 +317,9 @@
         },
         "jp": {
           "label": "3列目折りたたみ"
+        },
+        "it": {
+          "label": "Terza fila abbattuta"
         }
       }
     },
@@ -326,6 +350,9 @@
         },
         "jp": {
           "label": "3列目折りたたみ（7人乗りベンチシート仕様）"
+        },
+        "it": {
+          "label": "Terza fila abbattuta, modello con panca a sette posti"
         }
       }
     },
@@ -356,6 +383,9 @@
         },
         "jp": {
           "label": "2列目・3列目折りたたみ"
+        },
+        "it": {
+          "label": "Seconda e terza fila abbattute"
         }
       }
     },
@@ -387,6 +417,9 @@
         },
         "jp": {
           "label": "全列使用＋2列目足元オーバーフロー"
+        },
+        "it": {
+          "label": "Tutte le file in uso con spazio extra nel vano piedi della seconda fila"
         }
       }
     }
@@ -464,6 +497,9 @@
     },
     "jp": {
       "bodyStyle": "5ドア電動3列ミッドサイズSUV"
+    },
+    "it": {
+      "bodyStyle": "SUV elettrico medio a 5 porte con tre file di sedili"
     }
   }
 }

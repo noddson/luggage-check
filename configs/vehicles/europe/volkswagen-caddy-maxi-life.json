@@ -57,6 +57,9 @@
         },
         "jp": {
           "label": "7人乗車時の3列目後方トランク"
+        },
+        "it": {
+          "label": "Bagagliaio dietro la terza fila con tutti i 7 posti in uso"
         }
       }
     },
@@ -98,6 +101,9 @@
         },
         "jp": {
           "label": "3列目取り外し／折りたたみ時ラゲッジスペース（5席利用可）"
+        },
+        "it": {
+          "label": "Vano di carico con terza fila rimossa/abbattuta, 5 posti disponibili"
         }
       }
     },
@@ -135,6 +141,9 @@
         },
         "jp": {
           "label": "2列目・3列目取り外し時の最大ラゲッジスペース"
+        },
+        "it": {
+          "label": "Vano di carico massimo con seconda e terza fila rimosse"
         }
       }
     }
@@ -166,6 +175,9 @@
         },
         "jp": {
           "label": "7席すべて使用"
+        },
+        "it": {
+          "label": "Tutti i 7 posti in uso"
         }
       }
     },
@@ -195,6 +207,9 @@
         },
         "jp": {
           "label": "3列目取り外し／折りたたみ"
+        },
+        "it": {
+          "label": "Terza fila rimossa/abbattuta"
         }
       }
     },
@@ -224,6 +239,9 @@
         },
         "jp": {
           "label": "2列目・3列目取り外し"
+        },
+        "it": {
+          "label": "Seconda e terza fila rimosse"
         }
       }
     }
@@ -289,6 +307,9 @@
     },
     "jp": {
       "bodyStyle": "7人乗りコンパクト乗用バン／MPV"
+    },
+    "it": {
+      "bodyStyle": "Monovolume compatto passeggeri a 7 posti"
     }
   }
 }

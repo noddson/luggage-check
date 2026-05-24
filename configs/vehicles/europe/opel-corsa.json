@@ -51,6 +51,9 @@
         },
         "jp": {
           "label": "後席使用時のトランク"
+        },
+        "it": {
+          "label": "Bagagliaio con sedili posteriori in uso"
         }
       }
     },
@@ -84,6 +87,9 @@
         },
         "jp": {
           "label": "後席折りたたみ時の拡張ラゲッジスペース"
+        },
+        "it": {
+          "label": "Vano di carico ampliato con sedili posteriori abbattuti"
         }
       }
     },
@@ -117,6 +123,9 @@
         },
         "jp": {
           "label": "後席足元オーバーフロー"
+        },
+        "it": {
+          "label": "Spazio extra nel vano piedi dei passeggeri posteriori"
         }
       }
     }
@@ -147,6 +156,9 @@
         },
         "jp": {
           "label": "後席使用"
+        },
+        "it": {
+          "label": "Sedili posteriori in uso"
         }
       }
     },
@@ -177,6 +189,9 @@
         },
         "jp": {
           "label": "後席折りたたみ"
+        },
+        "it": {
+          "label": "Sedili posteriori abbattuti"
         }
       }
     },
@@ -207,6 +222,9 @@
         },
         "jp": {
           "label": "後席使用＋後席足元オーバーフロー"
+        },
+        "it": {
+          "label": "Sedili posteriori in uso con spazio extra nel vano piedi posteriore"
         }
       }
     }
@@ -254,6 +272,9 @@
     },
     "jp": {
       "bodyStyle": "5ドアハッチバック"
+    },
+    "it": {
+      "bodyStyle": "Hatchback a 5 porte"
     }
   }
 }

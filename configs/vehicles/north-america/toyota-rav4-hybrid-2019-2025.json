@@ -65,6 +65,9 @@
         },
         "jp": {
           "label": "2列目後方ラゲッジスペース"
+        },
+        "it": {
+          "label": "Vano di carico dietro la seconda fila"
         }
       }
     },
@@ -102,6 +105,9 @@
         },
         "jp": {
           "label": "2列目折りたたみ時の最大ラゲッジスペース"
+        },
+        "it": {
+          "label": "Vano di carico massimo con seconda fila abbattuta"
         }
       }
     },
@@ -135,6 +141,9 @@
         },
         "jp": {
           "label": "後席足元オーバーフロー"
+        },
+        "it": {
+          "label": "Spazio extra nel vano piedi dei passeggeri posteriori"
         }
       }
     }
@@ -166,6 +175,9 @@
         },
         "jp": {
           "label": "全席使用"
+        },
+        "it": {
+          "label": "Tutti i sedili in uso"
         }
       }
     },
@@ -195,6 +207,9 @@
         },
         "jp": {
           "label": "2列目折りたたみ"
+        },
+        "it": {
+          "label": "Seconda fila abbattuta"
         }
       }
     },
@@ -225,6 +240,9 @@
         },
         "jp": {
           "label": "後席片側折りたたみ"
+        },
+        "it": {
+          "label": "Una sezione del sedile posteriore abbattuta"
         }
       }
     }
@@ -319,6 +337,9 @@
     },
     "jp": {
       "bodyStyle": "5ドアコンパクトハイブリッドSUV"
+    },
+    "it": {
+      "bodyStyle": "SUV ibrido compatto a 5 porte"
     }
   }
 }
