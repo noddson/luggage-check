@@ -33,7 +33,7 @@ function generateVersionMetadata() {
   const defaultOwner = 'noddson';
   const defaultRepo = 'luggage-check';
   const [, owner = defaultOwner, repo = defaultRepo] = remoteUrl.match(/github\.com[:/]([^/]+)\/(.+?)(?:\.git)?$/) || [];
-  const dirty = envSha ? false : isDirty();
+  const dirty = isDirty();
   const displayVersion = `${year}.${month}.${shortSha}${dirty ? '.d' : ''}`;
   return {
     displayVersion,
