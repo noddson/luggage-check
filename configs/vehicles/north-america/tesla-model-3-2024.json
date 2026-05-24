@@ -57,6 +57,9 @@
         },
         "jp": {
           "label": "2列目後方リアトランク"
+        },
+        "it": {
+          "label": "Bagagliaio posteriore dietro la seconda fila"
         }
       }
     },
@@ -94,6 +97,9 @@
         },
         "jp": {
           "label": "フロントトランク／フランク"
+        },
+        "it": {
+          "label": "Bagagliaio anteriore / frunk"
         }
       }
     },
@@ -131,6 +137,9 @@
         },
         "jp": {
           "label": "後席折りたたみ時キャビン拡張"
+        },
+        "it": {
+          "label": "Estensione abitacolo con sedili posteriori abbattuti"
         }
       }
     },
@@ -164,6 +173,9 @@
         },
         "jp": {
           "label": "後席足元オーバーフロー"
+        },
+        "it": {
+          "label": "Spazio extra nel vano piedi dei passeggeri posteriori"
         }
       }
     }
@@ -196,6 +208,9 @@
         },
         "jp": {
           "label": "後席使用"
+        },
+        "it": {
+          "label": "Sedili posteriori in uso"
         }
       }
     },
@@ -227,6 +242,9 @@
         },
         "jp": {
           "label": "後席折りたたみ"
+        },
+        "it": {
+          "label": "Sedili posteriori abbattuti"
         }
       }
     },
@@ -258,6 +276,9 @@
         },
         "jp": {
           "label": "後席使用＋後席足元オーバーフロー"
+        },
+        "it": {
+          "label": "Sedili posteriori in uso con spazio extra nel vano piedi posteriore"
         }
       }
     }
@@ -321,6 +342,9 @@
     },
     "jp": {
       "bodyStyle": "4ドア電動ミッドサイズセダン"
+    },
+    "it": {
+      "bodyStyle": "Berlina elettrica media a 4 porte"
     }
   }
 }

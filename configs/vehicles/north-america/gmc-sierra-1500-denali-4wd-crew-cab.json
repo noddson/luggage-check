@@ -52,6 +52,9 @@
         },
         "jp": {
           "label": "オープン荷台—ショートボックス（クルーキャブ・ホイールベース147.4インチ）"
+        },
+        "it": {
+          "label": "Pianale di carico aperto — cassone corto (Crew Cab passo 147,4 pollici)"
         }
       }
     },
@@ -89,6 +92,9 @@
         },
         "jp": {
           "label": "オープン荷台—ショートボックス（床面フル幅）"
+        },
+        "it": {
+          "label": "Pianale di carico aperto — cassone corto a tutta larghezza"
         }
       }
     },
@@ -126,6 +132,9 @@
         },
         "jp": {
           "label": "オープン荷台—標準ボックス（クルーキャブ・ホイールベース157インチ）"
+        },
+        "it": {
+          "label": "Pianale di carico aperto — cassone standard (Crew Cab passo 157 pollici)"
         }
       }
     },
@@ -159,6 +168,9 @@
         },
         "jp": {
           "label": "後部キャビン床／シートオーバーフロー"
+        },
+        "it": {
+          "label": "Pavimento cabina posteriore / spazio extra sedili"
         }
       }
     }
@@ -190,6 +202,9 @@
         },
         "jp": {
           "label": "クルーキャブ・ショートベッド"
+        },
+        "it": {
+          "label": "Cabina doppia, cassone corto"
         }
       }
     },
@@ -219,6 +234,9 @@
         },
         "jp": {
           "label": "クルーキャブ・ショートベッド（床面フル幅）"
+        },
+        "it": {
+          "label": "Cabina doppia, cassone corto a tutta larghezza"
         }
       }
     },
@@ -248,6 +266,9 @@
         },
         "jp": {
           "label": "クルーキャブ・標準ベッド"
+        },
+        "it": {
+          "label": "Cabina doppia, cassone standard"
         }
       }
     },
@@ -278,6 +299,9 @@
         },
         "jp": {
           "label": "後部キャビンオーバーフロー付きショートベッド"
+        },
+        "it": {
+          "label": "Cassone corto con spazio extra in cabina posteriore"
         }
       }
     }
@@ -354,6 +378,9 @@
     },
     "jp": {
       "bodyStyle": "4ドアフルサイズピックアップトラック"
+    },
+    "it": {
+      "bodyStyle": "Pickup full-size a 4 porte"
     }
   }
 }

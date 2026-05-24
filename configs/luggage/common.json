@@ -45,6 +45,9 @@
         },
         "jp": {
           "label": "IATA規格キャビンバッグ"
+        },
+        "it": {
+          "label": "Bagaglio a mano in stile IATA"
         }
       }
     },
@@ -92,6 +95,9 @@
         },
         "jp": {
           "label": "米国航空会社機内持ち込み"
+        },
+        "it": {
+          "label": "Bagaglio a mano per compagnie aeree statunitensi"
         }
       }
     },
@@ -139,6 +145,9 @@
         },
         "jp": {
           "label": "Oddson Family機内持ち込み"
+        },
+        "it": {
+          "label": "Bagaglio a mano famiglia Oddson"
         }
       }
     },
@@ -186,6 +195,9 @@
         },
         "jp": {
           "label": "中型受託手荷物スーツケース"
+        },
+        "it": {
+          "label": "Valigia da stiva media"
         }
       }
     },
@@ -233,6 +245,9 @@
         },
         "jp": {
           "label": "大型受託手荷物スーツケース"
+        },
+        "it": {
+          "label": "Valigia da stiva grande"
         }
       }
     },
@@ -299,6 +314,9 @@
         },
         "jp": {
           "label": "ソフトトラベルバックパック"
+        },
+        "it": {
+          "label": "Zaino da viaggio morbido"
         }
       }
     },
@@ -346,6 +364,9 @@
         },
         "jp": {
           "label": "ゴルフクラブ"
+        },
+        "it": {
+          "label": "Mazze da golf"
         }
       }
     },
@@ -393,6 +414,9 @@
         },
         "jp": {
           "label": "ゴルフボール（12個入り）"
+        },
+        "it": {
+          "label": "Palline da golf (confezione da 12)"
         }
       }
     }

@@ -58,6 +58,9 @@
         },
         "jp": {
           "label": "全席使用時の最後列後方トランク"
+        },
+        "it": {
+          "label": "Bagagliaio dietro la fila posteriore con tutti i posti in uso"
         }
       }
     },
@@ -99,6 +102,9 @@
         },
         "jp": {
           "label": "3列目折りたたみ／取り外し時ラゲッジスペース"
+        },
+        "it": {
+          "label": "Vano di carico con terza fila abbattuta o rimossa"
         }
       }
     },
@@ -136,6 +142,9 @@
         },
         "jp": {
           "label": "後列折りたたみ／取り外し時の最大ラゲッジスペース"
+        },
+        "it": {
+          "label": "Vano di carico massimo con file posteriori abbattute o rimosse"
         }
       }
     }
@@ -167,6 +176,9 @@
         },
         "jp": {
           "label": "全席使用"
+        },
+        "it": {
+          "label": "Tutti i posti in uso"
         }
       }
     },
@@ -196,6 +208,9 @@
         },
         "jp": {
           "label": "3列目折りたたみ／取り外し"
+        },
+        "it": {
+          "label": "Terza fila abbattuta o rimossa"
         }
       }
     },
@@ -225,6 +240,9 @@
         },
         "jp": {
           "label": "後列折りたたみ／取り外し"
+        },
+        "it": {
+          "label": "File posteriori abbattute o rimosse"
         }
       }
     }
@@ -289,6 +307,9 @@
     },
     "jp": {
       "bodyStyle": "8〜9人乗り乗用バン／MPV"
+    },
+    "it": {
+      "bodyStyle": "Furgone passeggeri / MPV da 8-9 posti"
     }
   }
 }
