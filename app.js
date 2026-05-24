@@ -300,15 +300,15 @@ function renderVehicleMeta() {
     ? vehicle.modelYears.join(', ')
     : 'N/A';
 
-  const vehicleHeading = vehicle.generation
-    ? `<strong>${vehicle.make} ${vehicle.model}</strong> · ${vehicle.generation}`
-    : `<strong>${vehicle.make} ${vehicle.model}</strong>`;
+  const heading = vehicle.generation
+    ? `${localizeEntity(vehicle, 'make')} ${localizeEntity(vehicle, 'model')} · ${vehicle.generation}`
+    : `${localizeEntity(vehicle, 'make')} ${localizeEntity(vehicle, 'model')}`;
 
   vehicleMeta.replaceChildren(
-    createEl('p', { html: vehicleHeading }),
-    createEl('p', { html: `<strong>${localizeEntity(config, 'label')}</strong> · ${config.seatsAvailable} ${t('seats')}` }),
-    createEl('p', { html: `<strong>${zones.length}</strong> cargo zone${zones.length === 1 ? '' : 's'} selected · <strong>${totalVolume} L</strong> combined estimate` }),
-    createEl('p', { html: `<strong>Model years:</strong> ${modelYears}` })
+    createEl('p', { text: heading }),
+    createEl('p', { text: `${localizeEntity(config, 'label')} · ${config.seatsAvailable} ${t('seats')}` }),
+    createEl('p', { text: `${zones.length} cargo zone${zones.length === 1 ? '' : 's'} selected · ${totalVolume} L combined estimate` }),
+    createEl('p', { text: `Model years: ${modelYears}` })
   );
 }
 
