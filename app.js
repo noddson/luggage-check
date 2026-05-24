@@ -466,7 +466,6 @@ function renderLuggageControls() {
   const customBag = state.luggageSet.items.find((item) => item.id === CUSTOM_BAG_ID);
   if (customBag) {
     const qtyInput = $(`#qty-${CUSTOM_BAG_ID}`);
-    const customBagLocked = Number(qtyInput.value) > 0;
     ['height', 'width', 'length'].forEach((axis) => {
       const input = $(`#custom-${axis}`);
       const updateCustomDimension = () => {
@@ -474,19 +473,40 @@ function renderLuggageControls() {
         const hasValue = Number.isFinite(parsed);
         const isOutOfBounds = !hasValue || parsed < CUSTOM_BAG_MIN_DIMENSIONS_MM[axis] || parsed > CUSTOM_BAG_MAX_DIMENSIONS_MM[axis];
         input.classList.toggle('field-input--out-of-bounds', isOutOfBounds);
+        const customBagLocked = input.disabled;
         if (customBagLocked) return;
         customBag.dimensionsMm[axis] = hasValue ? parsed : 0;
       };
-      input.disabled = customBagLocked;
       updateCustomDimension();
       input.addEventListener('input', updateCustomDimension);
     });
-    const hasValidDimensions = hasValidCustomBagDimensions(customBag.dimensionsMm);
-    qtyInput.max = String(maxQuantityForItem(customBag));
-    qtyInput.disabled = !hasValidDimensions && Number(qtyInput.value) === 0;
-    if (!hasValidDimensions) qtyInput.value = '0';
-    if (Number(qtyInput.value) > maxQuantityForItem(customBag)) qtyInput.value = String(maxQuantityForItem(customBag));
+    syncCustomBagControlState();
   }
+}
+
+function syncCustomBagControlState(result = null) {
+  const customBag = state.luggageSet?.items?.find((item) => item.id === CUSTOM_BAG_ID);
+  const qtyInput = $(`#qty-${CUSTOM_BAG_ID}`);
+  if (!customBag || !qtyInput) return;
+  const customBagInResult = Boolean(result) && (
+    result.placements.some((placement) => (placement.sourceId ?? placement.itemId?.split('#')[0]) === CUSTOM_BAG_ID)
+    || result.unplacedItems.some((item) => (item.sourceId ?? item.id?.split('#')[0]) === CUSTOM_BAG_ID)
+  );
+  const customBagLocked = customBagInResult || Number(qtyInput.value) > 0;
+  ['height', 'width', 'length'].forEach((axis) => {
+    const input = $(`#custom-${axis}`);
+    if (!input) return;
+    input.disabled = customBagLocked;
+    const parsed = Number.parseInt(input.value, 10);
+    const hasValue = Number.isFinite(parsed);
+    const isOutOfBounds = !hasValue || parsed < CUSTOM_BAG_MIN_DIMENSIONS_MM[axis] || parsed > CUSTOM_BAG_MAX_DIMENSIONS_MM[axis];
+    input.classList.toggle('field-input--out-of-bounds', isOutOfBounds);
+  });
+  const hasValidDimensions = hasValidCustomBagDimensions(customBag.dimensionsMm);
+  qtyInput.max = String(maxQuantityForItem(customBag));
+  qtyInput.disabled = !hasValidDimensions;
+  if (!hasValidDimensions) qtyInput.value = '0';
+  if (Number(qtyInput.value) > maxQuantityForItem(customBag)) qtyInput.value = String(maxQuantityForItem(customBag));
 }
 
 function metricCard(label, value, detail = '', className = '') {
@@ -1068,6 +1088,7 @@ function renderResults() {
   ]);
   renderVisualization(vehicle, config, result);
   renderLists(result);
+  syncCustomBagControlState(result);
   $('#warnings').replaceChildren();
 }
 
