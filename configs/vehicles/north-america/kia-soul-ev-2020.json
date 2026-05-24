@@ -44,6 +44,9 @@
         },
         "fr": {
           "label": "Espace de chargement arrière avec sièges relevés et plancher abaissé"
+        },
+        "de": {
+          "label": "Hinterer Laderaum mit aufgestellten Sitzen und abgesenktem Ladeboden"
         }
       }
     },
@@ -73,6 +76,9 @@
         },
         "fr": {
           "label": "Espace de chargement arrière avec sièges relevés et plancher surélevé"
+        },
+        "de": {
+          "label": "Hinterer Laderaum mit aufgestellten Sitzen und angehobenem Ladeboden"
         }
       }
     },
@@ -98,6 +104,9 @@
         },
         "fr": {
           "label": "Espace de chargement étendu avec sièges arrière rabattus"
+        },
+        "de": {
+          "label": "Erweiterter Laderaum bei umgeklappten Rücksitzen"
         }
       }
     },
@@ -119,6 +128,9 @@
         },
         "fr": {
           "label": "Espace supplémentaire au niveau du plancher arrière"
+        },
+        "de": {
+          "label": "Zusätzlicher Stauraum im hinteren Fußraum"
         }
       }
     }
@@ -137,6 +149,9 @@
         },
         "fr": {
           "label": "Sièges arrière relevés, plancher de coffre abaissé"
+        },
+        "de": {
+          "label": "Rücksitzbank aufgestellt, Ladeboden abgesenkt"
         }
       }
     },
@@ -154,6 +169,9 @@
         },
         "fr": {
           "label": "Sièges arrière relevés, plancher de coffre surélevé"
+        },
+        "de": {
+          "label": "Rücksitzbank aufgestellt, Ladeboden angehoben"
         }
       }
     },
@@ -172,6 +190,9 @@
         },
         "fr": {
           "label": "Sièges arrière rabattus"
+        },
+        "de": {
+          "label": "Rücksitzbank umgeklappt"
         }
       }
     },
@@ -190,6 +211,9 @@
         },
         "fr": {
           "label": "Sièges arrière relevés avec espace supplémentaire au plancher arrière"
+        },
+        "de": {
+          "label": "Rücksitzbank aufgestellt mit zusätzlichem Stauraum im hinteren Fußraum"
         }
       }
     }
@@ -252,6 +276,9 @@
     },
     "fr": {
       "bodyStyle": "Crossover sous-compact électrique à hayon 5 portes"
+    },
+    "de": {
+      "bodyStyle": "5-türiger elektrischer Kleinwagen-Crossover mit Heckklappe"
     }
   }
 }

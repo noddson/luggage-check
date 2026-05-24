@@ -53,6 +53,9 @@
         },
         "fr": {
           "label": "Espace de chargement derrière la deuxième rangée"
+        },
+        "de": {
+          "label": "Laderaum hinter der zweiten Reihe"
         }
       }
     },
@@ -78,6 +81,9 @@
         },
         "fr": {
           "label": "Espace de chargement maximal avec deuxième rangée rabattue"
+        },
+        "de": {
+          "label": "Maximaler Laderaum bei umgeklappter zweiter Reihe"
         }
       }
     },
@@ -99,6 +105,9 @@
         },
         "fr": {
           "label": "Espace supplémentaire au niveau du plancher arrière"
+        },
+        "de": {
+          "label": "Zusätzlicher Stauraum im hinteren Fußraum"
         }
       }
     }
@@ -118,6 +127,9 @@
         },
         "fr": {
           "label": "Tous les sièges relevés"
+        },
+        "de": {
+          "label": "Alle Sitze aufgestellt"
         }
       }
     },
@@ -135,6 +147,9 @@
         },
         "fr": {
           "label": "Deuxième rangée rabattue"
+        },
+        "de": {
+          "label": "Zweite Reihe umgeklappt"
         }
       }
     },
@@ -153,6 +168,9 @@
         },
         "fr": {
           "label": "Une section de siège arrière rabattue"
+        },
+        "de": {
+          "label": "Ein Teil der Rücksitzbank umgeklappt"
         }
       }
     }
@@ -235,6 +253,9 @@
     },
     "fr": {
       "bodyStyle": "SUV hybride compact 5 portes"
+    },
+    "de": {
+      "bodyStyle": "5-türiges kompaktes Hybrid-SUV"
     }
   }
 }

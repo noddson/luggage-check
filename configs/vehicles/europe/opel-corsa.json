@@ -39,6 +39,9 @@
         },
         "fr": {
           "label": "Coffre avec sièges arrière relevés"
+        },
+        "de": {
+          "label": "Kofferraum mit aufgestellten Rücksitzen"
         }
       }
     },
@@ -60,6 +63,9 @@
         },
         "fr": {
           "label": "Espace de chargement étendu avec sièges arrière rabattus"
+        },
+        "de": {
+          "label": "Erweiterter Laderaum bei umgeklappten Rücksitzen"
         }
       }
     },
@@ -81,6 +87,9 @@
         },
         "fr": {
           "label": "Espace supplémentaire au niveau du plancher arrière"
+        },
+        "de": {
+          "label": "Zusätzlicher Stauraum im hinteren Fußraum"
         }
       }
     }
@@ -99,6 +108,9 @@
         },
         "fr": {
           "label": "Sièges arrière relevés"
+        },
+        "de": {
+          "label": "Rücksitzbank aufgestellt"
         }
       }
     },
@@ -117,6 +129,9 @@
         },
         "fr": {
           "label": "Sièges arrière rabattus"
+        },
+        "de": {
+          "label": "Rücksitzbank umgeklappt"
         }
       }
     },
@@ -135,6 +150,9 @@
         },
         "fr": {
           "label": "Sièges arrière relevés avec espace supplémentaire au plancher arrière"
+        },
+        "de": {
+          "label": "Rücksitzbank aufgestellt mit zusätzlichem Stauraum im hinteren Fußraum"
         }
       }
     }
@@ -170,6 +188,9 @@
     },
     "fr": {
       "bodyStyle": "Berline à hayon 5 portes"
+    },
+    "de": {
+      "bodyStyle": "5-türige Schräghecklimousine"
     }
   }
 }

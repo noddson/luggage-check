@@ -45,6 +45,9 @@
         },
         "en": {
           "label": "Boot behind third row with all 7 seats in use"
+        },
+        "de": {
+          "label": "Kofferraum hinter der dritten Reihe bei 7 belegten Sitzen"
         }
       }
     },
@@ -74,6 +77,9 @@
         },
         "fr": {
           "label": "Espace de chargement avec la troisième rangée retirée/repliée, 5 places disponibles"
+        },
+        "de": {
+          "label": "Laderaum mit ausgebauter/umgeklappter dritter Reihe, 5 Sitze verfügbar"
         }
       }
     },
@@ -99,6 +105,9 @@
         },
         "fr": {
           "label": "Volume de chargement maximal avec les 2e et 3e rangées retirées"
+        },
+        "de": {
+          "label": "Maximaler Laderaum bei ausgebauter 2. und 3. Reihe"
         }
       }
     }
@@ -118,6 +127,9 @@
         },
         "fr": {
           "label": "Les 7 sièges sont occupés"
+        },
+        "de": {
+          "label": "Alle 7 Sitze in Benutzung"
         }
       }
     },
@@ -135,6 +147,9 @@
         },
         "fr": {
           "label": "Troisième rangée retirée / pliée"
+        },
+        "de": {
+          "label": "Dritte Reihe ausgebaut/umgeklappt"
         }
       }
     },
@@ -152,6 +167,9 @@
         },
         "fr": {
           "label": "2e et 3e lignes supprimées"
+        },
+        "de": {
+          "label": "2. und 3. Reihe ausgebaut"
         }
       }
     }
@@ -205,6 +223,9 @@
     },
     "en": {
       "bodyStyle": "7-seat compact passenger van / MPV"
+    },
+    "de": {
+      "bodyStyle": "Kompakter 7-Sitzer-Personentransporter / MPV"
     }
   }
 }

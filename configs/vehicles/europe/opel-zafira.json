@@ -46,6 +46,9 @@
         },
         "fr": {
           "label": "Coffre derrière la rangée arrière avec tous les sièges occupés"
+        },
+        "de": {
+          "label": "Kofferraum hinter der hinteren Reihe bei voller Sitznutzung"
         }
       }
     },
@@ -75,6 +78,9 @@
         },
         "fr": {
           "label": "Espace de chargement avec troisième rangée rabattue ou retirée"
+        },
+        "de": {
+          "label": "Laderaum mit umgeklappter oder ausgebauter dritter Reihe"
         }
       }
     },
@@ -100,6 +106,9 @@
         },
         "fr": {
           "label": "Espace de chargement maximal avec rangées arrière rabattues ou retirées"
+        },
+        "de": {
+          "label": "Maximaler Laderaum bei umgeklappten oder ausgebauten hinteren Reihen"
         }
       }
     }
@@ -119,6 +128,9 @@
         },
         "fr": {
           "label": "Tous les sièges sont occupés"
+        },
+        "de": {
+          "label": "Alle Sitze in Benutzung"
         }
       }
     },
@@ -136,6 +148,9 @@
         },
         "fr": {
           "label": "Troisième rangée rabattue ou retirée"
+        },
+        "de": {
+          "label": "Dritte Reihe umgeklappt oder ausgebaut"
         }
       }
     },
@@ -153,6 +168,9 @@
         },
         "fr": {
           "label": "Rangées arrière rabattues ou retirées"
+        },
+        "de": {
+          "label": "Hintere Reihen umgeklappt oder ausgebaut"
         }
       }
     }
@@ -205,6 +223,9 @@
     },
     "fr": {
       "bodyStyle": "Monospace / minibus 8-9 places"
+    },
+    "de": {
+      "bodyStyle": "8/9-Sitzer-Personentransporter / MPV"
     }
   }
 }

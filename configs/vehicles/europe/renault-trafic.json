@@ -46,6 +46,9 @@
         },
         "fr": {
           "label": "L1 coffre derrière la troisième rangée avec 8/9 places occupées"
+        },
+        "de": {
+          "label": "L1-Kofferraum hinter der dritten Reihe bei 8/9 belegten Sitzen"
         }
       }
     },
@@ -75,6 +78,9 @@
         },
         "fr": {
           "label": "L1 espace de chargement avec 3e rangée rabattue, environ 6 places disponibles"
+        },
+        "de": {
+          "label": "L1-Laderaum mit umgeklappter Reihe 3, etwa 6 Sitze verfügbar"
         }
       }
     },
@@ -104,6 +110,9 @@
         },
         "fr": {
           "label": "L1 espace de chargement en configuration 5/6 places"
+        },
+        "de": {
+          "label": "L1-Laderaum in der 5/6-Sitzkonfiguration"
         }
       }
     },
@@ -133,6 +142,9 @@
         },
         "fr": {
           "label": "L2 coffre derrière la troisième rangée avec 8/9 places occupées"
+        },
+        "de": {
+          "label": "L2-Kofferraum hinter der dritten Reihe bei 8/9 belegten Sitzen"
         }
       }
     },
@@ -162,6 +174,9 @@
         },
         "fr": {
           "label": "L2 espace de chargement avec 3e rangée rabattue, environ 6 places disponibles"
+        },
+        "de": {
+          "label": "L2-Laderaum mit umgeklappter Reihe 3, etwa 6 Sitze verfügbar"
         }
       }
     },
@@ -191,6 +206,9 @@
         },
         "fr": {
           "label": "L2 espace de chargement en configuration 5/6 places"
+        },
+        "de": {
+          "label": "L2-Laderaum in der 5/6-Sitzkonfiguration"
         }
       }
     },
@@ -216,6 +234,9 @@
         },
         "fr": {
           "label": "L2 espace de chargement maximal avec rangées arrière retirées, 2/3 places disponibles"
+        },
+        "de": {
+          "label": "L2 maximaler Laderaum bei ausgebauten hinteren Reihen, 2/3 Sitze verfügbar"
         }
       }
     }
@@ -235,6 +256,9 @@
         },
         "fr": {
           "label": "Configuration L1 8/9 places"
+        },
+        "de": {
+          "label": "L1-Konfiguration mit 8/9 Sitzen"
         }
       }
     },
@@ -252,6 +276,9 @@
         },
         "fr": {
           "label": "L1 3e rangée rabattue"
+        },
+        "de": {
+          "label": "L1 Reihe 3 umgeklappt"
         }
       }
     },
@@ -269,6 +296,9 @@
         },
         "fr": {
           "label": "Configuration L1 5/6 places"
+        },
+        "de": {
+          "label": "L1-Konfiguration mit 5/6 Sitzen"
         }
       }
     },
@@ -286,6 +316,9 @@
         },
         "fr": {
           "label": "Configuration L2 8/9 places"
+        },
+        "de": {
+          "label": "L2-Konfiguration mit 8/9 Sitzen"
         }
       }
     },
@@ -303,6 +336,9 @@
         },
         "fr": {
           "label": "L2 3e rangée rabattue"
+        },
+        "de": {
+          "label": "L2 Reihe 3 umgeklappt"
         }
       }
     },
@@ -320,6 +356,9 @@
         },
         "fr": {
           "label": "Configuration L2 5/6 places"
+        },
+        "de": {
+          "label": "L2-Konfiguration mit 5/6 Sitzen"
         }
       }
     },
@@ -337,6 +376,9 @@
         },
         "fr": {
           "label": "L2 rangées arrière retirées"
+        },
+        "de": {
+          "label": "L2 hintere Reihen ausgebaut"
         }
       }
     }
@@ -405,6 +447,9 @@
     },
     "fr": {
       "bodyStyle": "Fourgon passagers / minibus 8/9 places"
+    },
+    "de": {
+      "bodyStyle": "8/9-Sitzer-Personentransporter / Minibus"
     }
   }
 }

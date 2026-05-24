@@ -45,6 +45,9 @@
         },
         "fr": {
           "label": "Coffre arrière derrière la deuxième rangée"
+        },
+        "de": {
+          "label": "Hinterer Kofferraum hinter der zweiten Reihe"
         }
       }
     },
@@ -70,6 +73,9 @@
         },
         "fr": {
           "label": "Coffre avant / frunk"
+        },
+        "de": {
+          "label": "Vorderer Kofferraum / Frunk"
         }
       }
     },
@@ -95,6 +101,9 @@
         },
         "fr": {
           "label": "Extension de l’habitacle avec siège arrière rabattu"
+        },
+        "de": {
+          "label": "Kabinenverlängerung bei umgeklappter Rücksitzbank"
         }
       }
     },
@@ -116,6 +125,9 @@
         },
         "fr": {
           "label": "Espace supplémentaire au niveau du plancher arrière"
+        },
+        "de": {
+          "label": "Zusätzlicher Stauraum im hinteren Fußraum"
         }
       }
     }
@@ -136,6 +148,9 @@
         },
         "fr": {
           "label": "Sièges arrière relevés"
+        },
+        "de": {
+          "label": "Rücksitzbank aufgestellt"
         }
       }
     },
@@ -155,6 +170,9 @@
         },
         "fr": {
           "label": "Sièges arrière rabattus"
+        },
+        "de": {
+          "label": "Rücksitzbank umgeklappt"
         }
       }
     },
@@ -174,6 +192,9 @@
         },
         "fr": {
           "label": "Sièges arrière relevés avec espace supplémentaire au plancher arrière"
+        },
+        "de": {
+          "label": "Rücksitzbank aufgestellt mit zusätzlichem Stauraum im hinteren Fußraum"
         }
       }
     }
@@ -225,6 +246,9 @@
     },
     "fr": {
       "bodyStyle": "Berline intermédiaire électrique 4 portes"
+    },
+    "de": {
+      "bodyStyle": "4-türige elektrische Mittelklasse-Limousine"
     }
   }
 }
