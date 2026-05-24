@@ -52,7 +52,7 @@
         "el": {
           "label": "Χειραποσκευή τύπου IATA"
         },
-        "XX": {
+        "xx": {
           "label": "Sky-deck sea chest"
         }
       }
@@ -108,7 +108,7 @@
         "el": {
           "label": "Χειραποσκευή αμερικανικής αεροπορικής"
         },
-        "XX": {
+        "xx": {
           "label": "Boardin' mate's carry crate"
         }
       }
@@ -164,7 +164,7 @@
         "el": {
           "label": "Χειραποσκευή οικογένειας Oddson"
         },
-        "XX": {
+        "xx": {
           "label": "Oddson crew deck trunk"
         }
       }
@@ -220,7 +220,7 @@
         "el": {
           "label": "Μεσαία βαλίτσα για παράδοση"
         },
-        "XX": {
+        "xx": {
           "label": "Rum-runner barrel"
         }
       }
@@ -276,7 +276,7 @@
         "el": {
           "label": "Μεγάλη βαλίτσα για παράδοση"
         },
-        "XX": {
+        "xx": {
           "label": "Captain's grand sea trunk"
         }
       }
@@ -351,7 +351,7 @@
         "el": {
           "label": "Μαλακό ταξιδιωτικό σακίδιο"
         },
-        "XX": {
+        "xx": {
           "label": "Deckhand's rope-slung rucksack"
         }
       }
@@ -407,7 +407,7 @@
         "el": {
           "label": "Μπαστούνια γκολφ"
         },
-        "XX": {
+        "xx": {
           "label": "Shipboard cannon"
         }
       }
@@ -463,7 +463,7 @@
         "el": {
           "label": "Μπαλάκια γκολφ (κουτί των 12)"
         },
-        "XX": {
+        "xx": {
           "label": "Pouch o' doubloons (12 coins)"
         }
       }

@@ -63,7 +63,7 @@
         "el": {
           "label": "Πίσω χώρος φόρτωσης με καθίσματα όρθια και δάπεδο χαμηλωμένο"
         },
-        "XX": {
+        "xx": {
           "label": "Aft cargo area with seats up and cargo floor lowered"
         }
       }
@@ -113,7 +113,7 @@
         "el": {
           "label": "Πίσω χώρος φόρτωσης με καθίσματα όρθια και δάπεδο υπερυψωμένο"
         },
-        "XX": {
+        "xx": {
           "label": "Aft cargo area with seats up and cargo floor raised"
         }
       }
@@ -159,7 +159,7 @@
         "el": {
           "label": "Επεκταμένος χώρος φόρτωσης με πίσω καθίσματα αναδιπλωμένα"
         },
-        "XX": {
+        "xx": {
           "label": "Expanded cargo area with rear seats folded"
         }
       }
@@ -201,7 +201,7 @@
         "el": {
           "label": "Υπερχείλιση χώρου ποδιών πίσω επιβατών"
         },
-        "XX": {
+        "xx": {
           "label": "Aft passenger footwell overflow"
         }
       }
@@ -240,7 +240,7 @@
         "el": {
           "label": "Πίσω καθίσματα όρθια, δάπεδο φόρτωσης χαμηλωμένο"
         },
-        "XX": {
+        "xx": {
           "label": "Aft seats up, cargo floor lowered"
         }
       }
@@ -278,7 +278,7 @@
         "el": {
           "label": "Πίσω καθίσματα όρθια, δάπεδο φόρτωσης υπερυψωμένο"
         },
-        "XX": {
+        "xx": {
           "label": "Aft seats up, cargo floor raised"
         }
       }
@@ -317,7 +317,7 @@
         "el": {
           "label": "Πίσω καθίσματα αναδιπλωμένα"
         },
-        "XX": {
+        "xx": {
           "label": "Aft seats folded"
         }
       }
@@ -356,7 +356,7 @@
         "el": {
           "label": "Πίσω καθίσματα όρθια με υπερχείλιση πίσω χώρου ποδιών"
         },
-        "XX": {
+        "xx": {
           "label": "Aft seats up with rear footwell overflow"
         }
       }
@@ -439,7 +439,7 @@
     "el": {
       "bodyStyle": "Ηλεκτρικό υποσυμπαγές crossover hatchback 5 θυρών"
     },
-    "XX": {
+    "xx": {
       "bodyStyle": "5-door electric subcompact crossover hatchback"
     }
   }

@@ -67,7 +67,7 @@
         "el": {
           "label": "Χώρος φόρτωσης πίσω από την 3η σειρά"
         },
-        "XX": {
+        "xx": {
           "label": "Cargo area behind third row"
         }
       }
@@ -117,7 +117,7 @@
         "el": {
           "label": "Χώρος φόρτωσης με 3η σειρά αναδιπλωμένη"
         },
-        "XX": {
+        "xx": {
           "label": "Cargo area with third row folded"
         }
       }
@@ -163,7 +163,7 @@
         "el": {
           "label": "Μέγιστος χώρος φόρτωσης με 2η και 3η σειρά αναδιπλωμένες"
         },
-        "XX": {
+        "xx": {
           "label": "Maximum cargo area with second and third rows folded"
         }
       }
@@ -205,7 +205,7 @@
         "el": {
           "label": "Εμπρός χώρος αποσκευών / αποθήκευση καλωδίου φόρτισης (εκδόσεις RWD)"
         },
-        "XX": {
+        "xx": {
           "label": "Front trunk / charge-cable storage (RWD trims)"
         }
       }
@@ -247,7 +247,7 @@
         "el": {
           "label": "Υπερχείλιση χώρου ποδιών 2ης σειράς"
         },
-        "XX": {
+        "xx": {
           "label": "Second-row footwell overflow"
         }
       }
@@ -288,7 +288,7 @@
         "el": {
           "label": "Όλες οι σειρές όρθιες"
         },
-        "XX": {
+        "xx": {
           "label": "All rows up"
         }
       }
@@ -327,7 +327,7 @@
         "el": {
           "label": "Όλες οι σειρές όρθιες, έκδοση πάγκου 7 επιβατών"
         },
-        "XX": {
+        "xx": {
           "label": "All rows up, seven-passenger bench model"
         }
       }
@@ -366,7 +366,7 @@
         "el": {
           "label": "3η σειρά αναδιπλωμένη"
         },
-        "XX": {
+        "xx": {
           "label": "Third row folded"
         }
       }
@@ -405,7 +405,7 @@
         "el": {
           "label": "3η σειρά αναδιπλωμένη, έκδοση πάγκου 7 επιβατών"
         },
-        "XX": {
+        "xx": {
           "label": "Third row folded, seven-passenger bench model"
         }
       }
@@ -444,7 +444,7 @@
         "el": {
           "label": "2η και 3η σειρά αναδιπλωμένες"
         },
-        "XX": {
+        "xx": {
           "label": "Second and third rows folded"
         }
       }
@@ -484,7 +484,7 @@
         "el": {
           "label": "Όλες οι σειρές όρθιες με υπερχείλιση χώρου ποδιών 2ης σειράς"
         },
-        "XX": {
+        "xx": {
           "label": "All rows up with second-row footwell overflow"
         }
       }
@@ -570,7 +570,7 @@
     "el": {
       "bodyStyle": "Πλήρως ηλεκτρικό μεσαίο SUV 5 θυρών με τρεις σειρές"
     },
-    "XX": {
+    "xx": {
       "bodyStyle": "5-door all-electric three-row midsize SUV"
     }
   }

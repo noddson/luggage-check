@@ -58,7 +58,7 @@
         "el": {
           "label": "Πορτμπαγκάζ με πίσω καθίσματα όρθια"
         },
-        "XX": {
+        "xx": {
           "label": "Boot / trunk with rear seats up"
         }
       }
@@ -100,7 +100,7 @@
         "el": {
           "label": "Επεκταμένος χώρος φόρτωσης με πίσω καθίσματα αναδιπλωμένα"
         },
-        "XX": {
+        "xx": {
           "label": "Expanded cargo area with rear seats folded"
         }
       }
@@ -142,7 +142,7 @@
         "el": {
           "label": "Υπερχείλιση χώρου ποδιών πίσω επιβατών"
         },
-        "XX": {
+        "xx": {
           "label": "Aft passenger footwell overflow"
         }
       }
@@ -181,7 +181,7 @@
         "el": {
           "label": "Πίσω καθίσματα όρθια"
         },
-        "XX": {
+        "xx": {
           "label": "Aft seats up"
         }
       }
@@ -220,7 +220,7 @@
         "el": {
           "label": "Πίσω καθίσματα αναδιπλωμένα"
         },
-        "XX": {
+        "xx": {
           "label": "Aft seats folded"
         }
       }
@@ -259,7 +259,7 @@
         "el": {
           "label": "Πίσω καθίσματα όρθια με υπερχείλιση πίσω χώρου ποδιών"
         },
-        "XX": {
+        "xx": {
           "label": "Aft seats up with rear footwell overflow"
         }
       }
@@ -315,7 +315,7 @@
     "el": {
       "bodyStyle": "Hatchback 5 θυρών"
     },
-    "XX": {
+    "xx": {
       "bodyStyle": "5-door hatchback"
     }
   }
