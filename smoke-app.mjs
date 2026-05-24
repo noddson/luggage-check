@@ -16,10 +16,10 @@ for (const marker of ['vehicleSelect', 'configurationSelect', 'seatBackEncroachm
 for (const marker of ['estimateFit', 'renderVisualization', 'seatEncroachmentOverlay', 'renderSeatEncroachmentWedge3d', 'view-tab', 'orientation-axis-control', 'defaultVehicle', 'resetLuggageQuantities', 'loadVehicles', 'VEHICLE_INDEX_PATH', "activeView: '3d'"]) {
   if (!app.includes(marker)) throw new Error(`Browser app missing ${marker}`);
 }
-for (const marker of ['bootView', 'sideView', 'topView', 'activeOrientationLabel']) {
+for (const marker of ['bootView', 'sideView', 'topView', 'activeOrientationLabel', 'orientationPresets']) {
   if (!app.includes(marker)) throw new Error(`Browser app missing orientation preset label ${marker}`);
 }
-for (const marker of ["es: {", "zoneViewAria", "seatGuideTitle"]) {
+for (const marker of ["es: {", "it: {", "zoneViewAria", "seatGuideTitle"]) {
   if (!app.includes(marker)) throw new Error(`Browser app missing localization marker ${marker}`);
 }
 if (!css.includes('.zone-card')) throw new Error('Styles missing visualization card rules');

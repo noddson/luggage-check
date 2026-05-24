@@ -72,8 +72,24 @@ const I18N = {
     bootView: 'Vue du coffre', sideView: 'Vue latérale', topView: 'Vue du dessus', switchTo: 'Basculer vers {view}', axisTitle: 'Axe {axis} · {view}', orientationAxisControl: 'Contrôle de l’axe d’orientation 3D', yawLabel: 'lacet', pitchLabel: 'tangage',
     zone3dAria: 'vue 3D rotative des bagages', removeOne: 'Retirer un {item}', placedSummary: '{placed}/{total} bagages placés', usedVolume: '{used} L utilisés', placedCount: '{placed} placés · {unplaced} non placés', volumeUsedPercent: '{percent}% du volume utilisable utilisé',
     loadErrorTitle: 'Impossible de charger l’application', fitResultTitle: 'Ajustement estimé du coffre', loading: 'Chargement', languageSelector: 'Sélecteur de langue', visualizationView: 'Vue de visualisation', scaledDrawing: 'Dessin à l’échelle du placement des bagages', seatWedgeTitle: 'Coin d’inclinaison du dossier arrière : {angle}°', zoneViewAria: '{zone} · vue {view}', seatGuideTitle: 'Contour des sièges avant'
-  }
-,
+  },
+  it: {
+    pageTitle: 'Verifica bagagli',
+    eyebrow: 'Pianificatore bagagli per auto a noleggio',
+    heroTitle: 'Scegli una configurazione del veicolo e verifica se i bagagli entrano.',
+    heroCopy: 'Confronta le configurazioni del bagagliaio delle auto a noleggio europee, regola la lista bagagli e visualizza il posizionamento stimato in ogni zona di carico prima di prenotare.',
+    bagsFit: 'Tutti i bagagli entrano',
+    bagsUnplaced: 'Alcuni bagagli non trovano posto',
+    fitScore: 'Indice di compatibilità',
+    usableVolume: 'Volume utile',
+    fitResult: 'Risultato',
+    configuration: 'Configurazione', tripSetup: 'Impostazione del viaggio', vehicle: 'Veicolo', seatCargoConfig: 'Configurazione sedili / vano di carico', rearAngle: 'Angolo di ingombro dello schienale posteriore', seatBackNote: 'Gli schienali posteriori inclinati riducono la profondità disponibile nella parte alta.', luggage: 'Bagagli', bagList: 'Lista bagagli', reset: 'Reimposta', visualization: 'Visualizzazione', bootViz: 'Visualizzazione del posizionamento bagagli nel bagagliaio', placedLuggage: 'Bagagli posizionati', needsAnotherPlan: 'Da ripianificare', workspaceAria: 'Area di verifica della disposizione bagagli', orientation: 'Orientamento', pitch: 'Inclinazione', yaw: 'Rotazione', dragHint: 'Trascina per ruotare intorno al centro del vano · fai clic su X/Y/Z per le viste preimpostate', noBagsInZone: 'Nessun bagaglio posizionato in questa zona.', nothingPlacedYet: 'Non è ancora stato posizionato nulla. Aggiungi le quantità per iniziare.', allPlaced: 'Tutti i bagagli selezionati sono stati posizionati nella configurazione attiva.',
+    seats: 'posti', quantityFor: 'Quantità per {item}', noSeatEncroachment: 'Nessuna zona di carico attiva prevede un ingombro inclinato dello schienale posteriore.', seatBackOverrideNote: 'Gli schienali posteriori inclinati riducono la profondità disponibile nella parte alta. Valore predefinito del veicolo: {angle}°; modifica l’angolo per sovrascriverlo.',
+    length: 'lunghezza', width: 'larghezza', height: 'altezza', seatEncroachmentEnvelope: 'Area di ingombro dello schienale posteriore', forwardSeats: 'Sedili anteriori', front: 'davanti',
+    bootView: 'Vista bagagliaio', sideView: 'Vista laterale', topView: 'Vista dall’alto', switchTo: 'Passa a {view}', axisTitle: 'Asse {axis} · {view}', orientationAxisControl: 'Controllo assi orientamento 3D', yawLabel: 'rotazione', pitchLabel: 'inclinazione',
+    zone3dAria: 'vista 3D ruotabile dei bagagli', removeOne: 'Rimuovi un {item}', placedSummary: '{placed}/{total} bagagli posizionati', usedVolume: '{used} L usati', placedCount: '{placed} posizionati · {unplaced} non posizionati', volumeUsedPercent: '{percent}% del volume utile utilizzato',
+    loadErrorTitle: 'Impossibile caricare l’app', fitResultTitle: 'Stima di carico bagagliaio', loading: 'Caricamento', languageSelector: 'Selettore lingua', visualizationView: 'Vista visualizzazione', scaledDrawing: 'Disegno in scala del posizionamento bagagli', seatWedgeTitle: 'Cuneo di ingombro dello schienale: {angle}°', zoneViewAria: '{zone} · vista {view}', seatGuideTitle: 'Profilo dei sedili anteriori'
+  },
   es: {
     pageTitle: 'Comprobación de equipaje',
     eyebrow: 'Planificador de equipaje para coche de alquiler',
@@ -610,11 +626,13 @@ function renderFace(vertices, indices, fill, className, title = '') {
   };
 }
 
-const ORIENTATION_PRESETS = {
-  x: { label: t('bootView'), yaw: 270, pitch: 90 },
-  y: { label: t('sideView'), yaw: 0, pitch: 90 },
-  z: { label: t('topView'), yaw: -90, pitch: 0 }
-};
+function orientationPresets() {
+  return {
+    x: { label: t('bootView'), yaw: 270, pitch: 90 },
+    y: { label: t('sideView'), yaw: 0, pitch: 90 },
+    z: { label: t('topView'), yaw: -90, pitch: 0 }
+  };
+}
 
 function renderOrientationAxisControl() {
   const origin = { x: 710, y: 104 };
@@ -661,7 +679,7 @@ function renderOrientationAxisControl() {
 }
 
 function set3dOrientation(axis) {
-  const preset = ORIENTATION_PRESETS[axis];
+  const preset = orientationPresets()[axis];
   if (!preset) return;
   state.rotation3d = { yaw: preset.yaw, pitch: preset.pitch };
   state.activeOrientationLabel = preset.label;
