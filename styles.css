@@ -44,9 +44,6 @@ button { cursor: pointer; }
 .field select:focus, .field input:focus, .luggage-item input:focus { border-color: var(--brand); box-shadow: 0 0 0 4px var(--brand-soft); }
 .degree-field small { color: #475569; font-weight: 700; line-height: 1.45; }
 .degree-field input:disabled { background: #f1f5f9; color: var(--muted); cursor: not-allowed; }
-.vehicle-meta { display: grid; gap: 8px; padding: 16px; border-radius: 20px; background: #f1f5f9; color: var(--muted); line-height: 1.45; }
-.vehicle-meta strong { color: var(--ink); }
-.vehicle-meta em { color: #475569; }
 .luggage-list { display: grid; gap: 12px; }
 .luggage-item { display: grid; grid-template-columns: minmax(0, 1fr) 82px; gap: 12px; align-items: center; padding: 14px; border: 1px solid var(--line); border-radius: 18px; background: var(--bag-panel-bg, #fff); }
 .luggage-item strong, .luggage-item span { display: block; }

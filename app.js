@@ -288,28 +288,11 @@ function renderConfigurationOptions() {
   configurationSelect.value = state.configurationId;
 }
 
-function renderVehicleMeta() {
+function renderSeatBackEncroachmentState() {
   const vehicle = selectedVehicle();
   const config = selectedConfiguration(vehicle);
   const zones = config.cargoZoneIds.map((id) => vehicle.cargoZones.find((zone) => zone.id === id)).filter(Boolean);
   renderSeatBackEncroachmentControl(zones);
-
-  const vehicleMeta = $('#vehicleMeta');
-  const totalVolume = Math.round(zones.reduce((sum, zone) => sum + (zone.volumeLitres ?? 0), 0));
-  const modelYears = Array.isArray(vehicle.modelYears) && vehicle.modelYears.length > 0
-    ? vehicle.modelYears.join(', ')
-    : 'N/A';
-
-  const heading = vehicle.generation
-    ? `${localizeEntity(vehicle, 'make')} ${localizeEntity(vehicle, 'model')} · ${vehicle.generation}`
-    : `${localizeEntity(vehicle, 'make')} ${localizeEntity(vehicle, 'model')}`;
-
-  vehicleMeta.replaceChildren(
-    createEl('p', { text: heading }),
-    createEl('p', { text: `${localizeEntity(config, 'label')} · ${config.seatsAvailable} ${t('seats')}` }),
-    createEl('p', { text: `${zones.length} cargo zone${zones.length === 1 ? '' : 's'} selected · ${totalVolume} L combined estimate` }),
-    createEl('p', { text: `Model years: ${modelYears}` })
-  );
 }
 
 function renderSeatBackEncroachmentControl(zones) {
@@ -935,13 +918,13 @@ function bindEvents() {
     state.vehicleId = vehicleSelect.value;
     renderConfigurationOptions();
     syncSeatBackEncroachmentDefault();
-    renderVehicleMeta();
+    renderSeatBackEncroachmentState();
     renderResults();
   });
   configurationSelect.addEventListener('change', () => {
     state.configurationId = configurationSelect.value;
     syncSeatBackEncroachmentDefault();
-    renderVehicleMeta();
+    renderSeatBackEncroachmentState();
     renderResults();
   });
   seatBackEncroachmentDegreesInput.addEventListener('input', () => {
@@ -1045,7 +1028,7 @@ export async function initApp() {
     syncSeatBackEncroachmentDefault();
     renderVehicleOptions();
     renderConfigurationOptions();
-    renderVehicleMeta();
+    renderSeatBackEncroachmentState();
     renderLuggageControls();
     bindEvents();
     const persistedLanguage = getPersistedLanguagePreference();
