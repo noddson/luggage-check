@@ -1211,6 +1211,7 @@ function setLanguage(language) {
   applyStaticTranslations();
   renderVehicleOptions();
   renderConfigurationOptions();
+  renderSeatBackEncroachmentState();
   renderLuggageControls();
   renderResults();
 }
