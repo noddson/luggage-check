@@ -52,6 +52,9 @@
         },
         "es": {
           "label": "Maletero detrás de la tercera fila con los 7 asientos en uso"
+        },
+        "is": {
+          "label": "Farangursrými aftan við 3. röð með öll 7 sæti í notkun"
         }
       }
     },
@@ -87,6 +90,9 @@
         },
         "es": {
           "label": "Área de carga con la fila 2 en su sitio y la fila 3 abatida"
+        },
+        "is": {
+          "label": "Farangursrými með 2. röð á sínum stað og 3. röð fellda niður"
         }
       }
     },
@@ -118,6 +124,9 @@
         },
         "es": {
           "label": "Área de carga máxima con filas traseras abatidas"
+        },
+        "is": {
+          "label": "Hámarksfarangursrými með aftari raðir felldar"
         }
       }
     }
@@ -143,6 +152,9 @@
         },
         "es": {
           "label": "Los 7 asientos en uso"
+        },
+        "is": {
+          "label": "Öll 7 sæti í notkun"
         }
       }
     },
@@ -166,6 +178,9 @@
         },
         "es": {
           "label": "Tercera fila abatida"
+        },
+        "is": {
+          "label": "3. röð felld"
         }
       }
     },
@@ -189,6 +204,9 @@
         },
         "es": {
           "label": "Filas traseras abatidas"
+        },
+        "is": {
+          "label": "Aftari raðir felldar"
         }
       }
     }
@@ -236,6 +254,9 @@
     },
     "es": {
       "bodyStyle": "SUV mediano de 7 plazas"
+    },
+    "is": {
+      "bodyStyle": "7 sæta meðalstór jepplingur"
     }
   }
 }

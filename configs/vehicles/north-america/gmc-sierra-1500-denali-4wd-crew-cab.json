@@ -46,6 +46,9 @@
         },
         "es": {
           "label": "Caja de carga abierta — caja corta (cabina doble, batalla de 147.4 pulgadas)"
+        },
+        "is": {
+          "label": "Opinn pallur — stutt kassi (Crew Cab 147,4 tommu hjólhaf)"
         }
       }
     },
@@ -77,6 +80,9 @@
         },
         "es": {
           "label": "Caja de carga abierta — caja corta de ancho completo de piso"
+        },
+        "is": {
+          "label": "Opinn pallur — stuttur kassi í fullri gólfbreidd"
         }
       }
     },
@@ -108,6 +114,9 @@
         },
         "es": {
           "label": "Caja de carga abierta — caja estándar (cabina doble, batalla de 157 pulgadas)"
+        },
+        "is": {
+          "label": "Opinn pallur — staðlaður kassi (Crew Cab 157 tommu hjólhaf)"
         }
       }
     },
@@ -135,6 +144,9 @@
         },
         "es": {
           "label": "Desbordamiento en piso de cabina trasera / asiento"
+        },
+        "is": {
+          "label": "Gólf afturskála / yfirflæði við sæti"
         }
       }
     }
@@ -160,6 +172,9 @@
         },
         "es": {
           "label": "Cabina doble, caja corta"
+        },
+        "is": {
+          "label": "Tvöfaldur skáli, stutt pallrými"
         }
       }
     },
@@ -183,6 +198,9 @@
         },
         "es": {
           "label": "Cabina doble, caja corta de ancho completo de piso"
+        },
+        "is": {
+          "label": "Tvöfaldur skáli, stutt pallrými í fullri breidd"
         }
       }
     },
@@ -206,6 +224,9 @@
         },
         "es": {
           "label": "Cabina doble, caja estándar"
+        },
+        "is": {
+          "label": "Tvöfaldur skáli, staðlað pallrými"
         }
       }
     },
@@ -230,6 +251,9 @@
         },
         "es": {
           "label": "Caja corta con desbordamiento en cabina trasera"
+        },
+        "is": {
+          "label": "Stutt pallrými með yfirflæði í afturskála"
         }
       }
     }
@@ -300,6 +324,9 @@
     },
     "es": {
       "bodyStyle": "Pickup de tamaño completo de 4 puertas"
+    },
+    "is": {
+      "bodyStyle": "4 dyra pallbíll í fullri stærð"
     }
   }
 }

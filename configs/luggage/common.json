@@ -39,6 +39,9 @@
         },
         "es": {
           "label": "Bolsa de cabina estilo IATA"
+        },
+        "is": {
+          "label": "IATA-staðlaður handfarangurstaska"
         }
       }
     },
@@ -80,6 +83,9 @@
         },
         "es": {
           "label": "Equipaje de mano de aerolínea de EE. UU."
+        },
+        "is": {
+          "label": "Handfarangur samkvæmt bandarískum flugfélagastaðli"
         }
       }
     },
@@ -121,6 +127,9 @@
         },
         "es": {
           "label": "Equipaje de mano Oddson Family"
+        },
+        "is": {
+          "label": "Oddson Family handfarangur"
         }
       }
     },
@@ -162,6 +171,9 @@
         },
         "es": {
           "label": "Maleta facturada mediana"
+        },
+        "is": {
+          "label": "Meðalstór innritað ferðataska"
         }
       }
     },
@@ -203,6 +215,9 @@
         },
         "es": {
           "label": "Maleta facturada grande"
+        },
+        "is": {
+          "label": "Stór innritað ferðataska"
         }
       }
     },
@@ -263,6 +278,9 @@
         },
         "es": {
           "label": "Mochila de viaje blanda"
+        },
+        "is": {
+          "label": "Mjúkur ferðabakpoki"
         }
       }
     },
@@ -304,6 +322,9 @@
         },
         "es": {
           "label": "Palos de golf"
+        },
+        "is": {
+          "label": "Golfkylfur"
         }
       }
     },
@@ -345,6 +366,9 @@
         },
         "es": {
           "label": "Pelotas de golf (caja de 12)"
+        },
+        "is": {
+          "label": "Golfboltar (kassi með 12)"
         }
       }
     }

@@ -51,6 +51,9 @@
         },
         "es": {
           "label": "Maletero detrás de la tercera fila con los 7 asientos en uso"
+        },
+        "is": {
+          "label": "Farangursrými aftan við 3. röð með öll 7 sæti í notkun"
         }
       }
     },
@@ -86,6 +89,9 @@
         },
         "es": {
           "label": "Área de carga con tercera fila retirada / abatida, 5 asientos disponibles"
+        },
+        "is": {
+          "label": "Farangursrými með 3. röð fjarlægða / fellda, 5 sæti í boði"
         }
       }
     },
@@ -117,6 +123,9 @@
         },
         "es": {
           "label": "Área de carga máxima con 2.ª y 3.ª filas retiradas"
+        },
+        "is": {
+          "label": "Hámarksfarangursrými með 2. og 3. röð fjarlægð"
         }
       }
     }
@@ -142,6 +151,9 @@
         },
         "es": {
           "label": "Los 7 asientos en uso"
+        },
+        "is": {
+          "label": "Öll 7 sæti í notkun"
         }
       }
     },
@@ -165,6 +177,9 @@
         },
         "es": {
           "label": "Tercera fila retirada / abatida"
+        },
+        "is": {
+          "label": "3. röð fjarlægð / felld"
         }
       }
     },
@@ -188,6 +203,9 @@
         },
         "es": {
           "label": "2.ª y 3.ª filas retiradas"
+        },
+        "is": {
+          "label": "2. og 3. sætaröð fjarlægð"
         }
       }
     }
@@ -247,6 +265,9 @@
     },
     "es": {
       "bodyStyle": "Furgoneta compacta de pasajeros de 7 plazas / monovolumen"
+    },
+    "is": {
+      "bodyStyle": "7 sæta nettur farþegabíll / fjölnotabíll"
     }
   }
 }
