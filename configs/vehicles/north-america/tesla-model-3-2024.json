@@ -60,6 +60,9 @@
         },
         "it": {
           "label": "Bagagliaio posteriore dietro la seconda fila"
+        },
+        "el": {
+          "label": "Πίσω πορτμπαγκάζ πίσω από τη 2η σειρά"
         }
       }
     },
@@ -100,6 +103,9 @@
         },
         "it": {
           "label": "Bagagliaio anteriore / frunk"
+        },
+        "el": {
+          "label": "Εμπρός χώρος αποσκευών / frunk"
         }
       }
     },
@@ -140,6 +146,9 @@
         },
         "it": {
           "label": "Estensione abitacolo con sedili posteriori abbattuti"
+        },
+        "el": {
+          "label": "Επέκταση καμπίνας με πίσω κάθισμα αναδιπλωμένο"
         }
       }
     },
@@ -176,6 +185,9 @@
         },
         "it": {
           "label": "Spazio extra nel vano piedi dei passeggeri posteriori"
+        },
+        "el": {
+          "label": "Υπερχείλιση χώρου ποδιών πίσω επιβατών"
         }
       }
     }
@@ -211,6 +223,9 @@
         },
         "it": {
           "label": "Sedili posteriori in uso"
+        },
+        "el": {
+          "label": "Πίσω καθίσματα όρθια"
         }
       }
     },
@@ -245,6 +260,9 @@
         },
         "it": {
           "label": "Sedili posteriori abbattuti"
+        },
+        "el": {
+          "label": "Πίσω καθίσματα αναδιπλωμένα"
         }
       }
     },
@@ -279,6 +297,9 @@
         },
         "it": {
           "label": "Sedili posteriori in uso con spazio extra nel vano piedi posteriore"
+        },
+        "el": {
+          "label": "Πίσω καθίσματα όρθια με υπερχείλιση πίσω χώρου ποδιών"
         }
       }
     }
@@ -345,6 +366,9 @@
     },
     "it": {
       "bodyStyle": "Berlina elettrica media a 4 porte"
+    },
+    "el": {
+      "bodyStyle": "Ηλεκτρικό μεσαίο σεντάν 4 θυρών"
     }
   }
 }

@@ -55,6 +55,9 @@
         },
         "it": {
           "label": "Pianale di carico aperto — cassone corto (Crew Cab passo 147,4 pollici)"
+        },
+        "el": {
+          "label": "Ανοιχτή καρότσα — κοντή (Crew Cab μεταξόνιο 147,4 in)"
         }
       }
     },
@@ -95,6 +98,9 @@
         },
         "it": {
           "label": "Pianale di carico aperto — cassone corto a tutta larghezza"
+        },
+        "el": {
+          "label": "Ανοιχτή καρότσα — κοντή πλήρους πλάτους δαπέδου"
         }
       }
     },
@@ -135,6 +141,9 @@
         },
         "it": {
           "label": "Pianale di carico aperto — cassone standard (Crew Cab passo 157 pollici)"
+        },
+        "el": {
+          "label": "Ανοιχτή καρότσα — κανονική (Crew Cab μεταξόνιο 157 in)"
         }
       }
     },
@@ -171,6 +180,9 @@
         },
         "it": {
           "label": "Pavimento cabina posteriore / spazio extra sedili"
+        },
+        "el": {
+          "label": "Πίσω δάπεδο καμπίνας / υπερχείλιση καθισμάτων"
         }
       }
     }
@@ -205,6 +217,9 @@
         },
         "it": {
           "label": "Cabina doppia, cassone corto"
+        },
+        "el": {
+          "label": "Διπλή καμπίνα, κοντή καρότσα"
         }
       }
     },
@@ -237,6 +252,9 @@
         },
         "it": {
           "label": "Cabina doppia, cassone corto a tutta larghezza"
+        },
+        "el": {
+          "label": "Διπλή καμπίνα, κοντή καρότσα πλήρους πλάτους δαπέδου"
         }
       }
     },
@@ -269,6 +287,9 @@
         },
         "it": {
           "label": "Cabina doppia, cassone standard"
+        },
+        "el": {
+          "label": "Διπλή καμπίνα, καρότσα κανονικού μήκους"
         }
       }
     },
@@ -302,6 +323,9 @@
         },
         "it": {
           "label": "Cassone corto con spazio extra in cabina posteriore"
+        },
+        "el": {
+          "label": "Κοντή καρότσα με υπερχείλιση πίσω καμπίνας"
         }
       }
     }
@@ -381,6 +405,9 @@
     },
     "it": {
       "bodyStyle": "Pickup full-size a 4 porte"
+    },
+    "el": {
+      "bodyStyle": "Μεγάλο pickup 4 θυρών"
     }
   }
 }

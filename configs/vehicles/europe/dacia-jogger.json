@@ -59,6 +59,9 @@
         },
         "it": {
           "label": "Bagagliaio dietro la terza fila con tutti i 7 posti in uso"
+        },
+        "el": {
+          "label": "Πορτμπαγκάζ πίσω από την 3η σειρά με και τις 7 θέσεις σε χρήση"
         }
       }
     },
@@ -103,6 +106,9 @@
         },
         "it": {
           "label": "Vano di carico con seconda fila in posizione e terza fila abbattuta"
+        },
+        "el": {
+          "label": "Χώρος φόρτωσης με 2η σειρά στη θέση της και 3η αναδιπλωμένη"
         }
       }
     },
@@ -147,6 +153,9 @@
         },
         "it": {
           "label": "Vano di carico con seconda fila in posizione e terza fila rimossa"
+        },
+        "el": {
+          "label": "Χώρος φόρτωσης με 2η σειρά στη θέση της και 3η αφαιρεμένη"
         }
       }
     },
@@ -187,6 +196,9 @@
         },
         "it": {
           "label": "Vano di carico massimo con file posteriori abbattute/rimosse"
+        },
+        "el": {
+          "label": "Μέγιστος χώρος φόρτωσης με πίσω σειρές αναδιπλωμένες / αφαιρεμένες"
         }
       }
     }
@@ -221,6 +233,9 @@
         },
         "it": {
           "label": "Tutti i 7 posti in uso"
+        },
+        "el": {
+          "label": "Και οι 7 θέσεις σε χρήση"
         }
       }
     },
@@ -253,6 +268,9 @@
         },
         "it": {
           "label": "Terza fila abbattuta"
+        },
+        "el": {
+          "label": "3η σειρά αναδιπλωμένη"
         }
       }
     },
@@ -285,6 +303,9 @@
         },
         "it": {
           "label": "Terza fila rimossa"
+        },
+        "el": {
+          "label": "3η σειρά αφαιρεμένη"
         }
       }
     },
@@ -317,6 +338,9 @@
         },
         "it": {
           "label": "File posteriori abbattute/rimosse"
+        },
+        "el": {
+          "label": "Πίσω σειρές αναδιπλωμένες / αφαιρεμένες"
         }
       }
     }
@@ -384,6 +408,9 @@
     },
     "it": {
       "bodyStyle": "MPV compatto a 7 posti / crossover station wagon"
+    },
+    "el": {
+      "bodyStyle": "Συμπαγές MPV / crossover estate 7 θέσεων"
     }
   }
 }

@@ -62,6 +62,9 @@
         },
         "it": {
           "label": "Vano di carico dietro la terza fila"
+        },
+        "el": {
+          "label": "Χώρος φόρτωσης πίσω από την 3η σειρά"
         }
       }
     },
@@ -106,6 +109,9 @@
         },
         "it": {
           "label": "Vano di carico con terza fila abbattuta"
+        },
+        "el": {
+          "label": "Χώρος φόρτωσης με 3η σειρά αναδιπλωμένη"
         }
       }
     },
@@ -146,6 +152,9 @@
         },
         "it": {
           "label": "Vano di carico massimo con seconda e terza fila abbattute"
+        },
+        "el": {
+          "label": "Μέγιστος χώρος φόρτωσης με 2η και 3η σειρά αναδιπλωμένες"
         }
       }
     },
@@ -182,6 +191,9 @@
         },
         "it": {
           "label": "Bagagliaio anteriore / vano cavo di ricarica (versioni RWD)"
+        },
+        "el": {
+          "label": "Εμπρός χώρος αποσκευών / αποθήκευση καλωδίου φόρτισης (εκδόσεις RWD)"
         }
       }
     },
@@ -218,6 +230,9 @@
         },
         "it": {
           "label": "Spazio extra nel vano piedi della seconda fila"
+        },
+        "el": {
+          "label": "Υπερχείλιση χώρου ποδιών 2ης σειράς"
         }
       }
     }
@@ -253,6 +268,9 @@
         },
         "it": {
           "label": "Tutte le file in uso"
+        },
+        "el": {
+          "label": "Όλες οι σειρές όρθιες"
         }
       }
     },
@@ -286,6 +304,9 @@
         },
         "it": {
           "label": "Tutte le file in uso, modello con panca a sette posti"
+        },
+        "el": {
+          "label": "Όλες οι σειρές όρθιες, έκδοση πάγκου 7 επιβατών"
         }
       }
     },
@@ -319,6 +340,9 @@
         },
         "it": {
           "label": "Terza fila abbattuta"
+        },
+        "el": {
+          "label": "3η σειρά αναδιπλωμένη"
         }
       }
     },
@@ -352,6 +376,9 @@
         },
         "it": {
           "label": "Terza fila abbattuta, modello con panca a sette posti"
+        },
+        "el": {
+          "label": "3η σειρά αναδιπλωμένη, έκδοση πάγκου 7 επιβατών"
         }
       }
     },
@@ -385,6 +412,9 @@
         },
         "it": {
           "label": "Seconda e terza fila abbattute"
+        },
+        "el": {
+          "label": "2η και 3η σειρά αναδιπλωμένες"
         }
       }
     },
@@ -419,6 +449,9 @@
         },
         "it": {
           "label": "Tutte le file in uso con spazio extra nel vano piedi della seconda fila"
+        },
+        "el": {
+          "label": "Όλες οι σειρές όρθιες με υπερχείλιση χώρου ποδιών 2ης σειράς"
         }
       }
     }
@@ -512,6 +545,9 @@
     },
     "it": {
       "bodyStyle": "SUV elettrico medio a 5 porte con tre file di sedili"
+    },
+    "el": {
+      "bodyStyle": "Πλήρως ηλεκτρικό μεσαίο SUV 5 θυρών με τρεις σειρές"
     }
   }
 }
