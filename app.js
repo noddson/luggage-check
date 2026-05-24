@@ -1301,6 +1301,27 @@ function getPersistedLanguagePreference() {
   return I18N[cookieLanguage] ? cookieLanguage : null;
 }
 
+async function renderBuildVersion() {
+  const appVersionEl = $('#appVersion');
+  if (!appVersionEl) return;
+  try {
+    const version = await readJson('./version.json');
+    if (!version?.displayVersion || !version?.fullSha) return;
+    appVersionEl.innerHTML = '';
+    const label = document.createElement('span');
+    label.textContent = 'Version: ';
+    const link = document.createElement('a');
+    link.href = version.githubCommitUrl || '#';
+    link.textContent = version.displayVersion;
+    link.target = '_blank';
+    link.rel = 'noopener noreferrer';
+    link.title = version.fullSha;
+    appVersionEl.append(label, link);
+  } catch (error) {
+    console.warn('Unable to load version metadata', error);
+  }
+}
+
 export async function initApp() {
   try {
     const [luggageSet, vehicles] = await Promise.all([
@@ -1318,6 +1339,7 @@ export async function initApp() {
     renderConfigurationOptions();
     renderSeatBackEncroachmentState();
     renderLuggageControls();
+    await renderBuildVersion();
     bindEvents();
     const persistedLanguage = getPersistedLanguagePreference();
     if (persistedLanguage && persistedLanguage !== state.language) {
