@@ -1024,12 +1024,22 @@ function bindEvents() {
     persistTripSetupPreference();
     renderResults();
   });
-  usableVolumeBufferPercentInput.addEventListener('input', () => {
-    state.usableVolumeBufferPercent = clamp(Number(usableVolumeBufferPercentInput.value) || DEFAULT_USABLE_VOLUME_BUFFER_PERCENT, MIN_USABLE_VOLUME_BUFFER_PERCENT, MAX_USABLE_VOLUME_BUFFER_PERCENT);
-    usableVolumeBufferPercentInput.value = state.usableVolumeBufferPercent;
+  const commitUsableVolumeBufferPercent = () => {
+    const parsed = Number.parseInt(usableVolumeBufferPercentInput.value, 10);
+    const sanitizedValue = Number.isFinite(parsed)
+      ? clamp(parsed, MIN_USABLE_VOLUME_BUFFER_PERCENT, MAX_USABLE_VOLUME_BUFFER_PERCENT)
+      : DEFAULT_USABLE_VOLUME_BUFFER_PERCENT;
+    state.usableVolumeBufferPercent = sanitizedValue;
+    usableVolumeBufferPercentInput.value = String(sanitizedValue);
     persistTripSetupPreference();
     renderResults();
+  };
+
+  usableVolumeBufferPercentInput.addEventListener('input', () => {
+    usableVolumeBufferPercentInput.value = usableVolumeBufferPercentInput.value.replace(/[^0-9]/gu, '');
   });
+  usableVolumeBufferPercentInput.addEventListener('change', commitUsableVolumeBufferPercent);
+  usableVolumeBufferPercentInput.addEventListener('blur', commitUsableVolumeBufferPercent);
   resetLuggageButton.addEventListener('click', resetLuggageQuantities);
   document.querySelectorAll('.view-tab').forEach((button) => button.addEventListener('click', () => {
     state.activeView = button.dataset.view;
