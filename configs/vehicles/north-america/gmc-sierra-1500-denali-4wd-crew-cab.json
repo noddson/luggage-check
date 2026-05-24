@@ -43,6 +43,9 @@
         },
         "de": {
           "label": "Offene Ladefläche — kurze Box (Crew Cab, 147,4 Zoll Radstand)"
+        },
+        "es": {
+          "label": "Caja de carga abierta — caja corta (cabina doble, batalla de 147.4 pulgadas)"
         }
       }
     },
@@ -71,6 +74,9 @@
         },
         "de": {
           "label": "Offene Ladefläche — kurze Box in voller Bodenbreite"
+        },
+        "es": {
+          "label": "Caja de carga abierta — caja corta de ancho completo de piso"
         }
       }
     },
@@ -99,6 +105,9 @@
         },
         "de": {
           "label": "Offene Ladefläche — Standard-Box (Crew Cab, 157 Zoll Radstand)"
+        },
+        "es": {
+          "label": "Caja de carga abierta — caja estándar (cabina doble, batalla de 157 pulgadas)"
         }
       }
     },
@@ -123,6 +132,9 @@
         },
         "de": {
           "label": "Hinterer Kabinenboden / Sitz-Überlauf"
+        },
+        "es": {
+          "label": "Desbordamiento en piso de cabina trasera / asiento"
         }
       }
     }
@@ -145,6 +157,9 @@
         },
         "de": {
           "label": "Doppelkabine, kurze Ladefläche"
+        },
+        "es": {
+          "label": "Cabina doble, caja corta"
         }
       }
     },
@@ -165,6 +180,9 @@
         },
         "de": {
           "label": "Doppelkabine, kurze Ladefläche in voller Bodenbreite"
+        },
+        "es": {
+          "label": "Cabina doble, caja corta de ancho completo de piso"
         }
       }
     },
@@ -185,6 +203,9 @@
         },
         "de": {
           "label": "Doppelkabine, Standard-Ladefläche"
+        },
+        "es": {
+          "label": "Cabina doble, caja estándar"
         }
       }
     },
@@ -206,6 +227,9 @@
         },
         "de": {
           "label": "Kurze Ladefläche mit zusätzlichem Stauraum in der hinteren Kabine"
+        },
+        "es": {
+          "label": "Caja corta con desbordamiento en cabina trasera"
         }
       }
     }
@@ -273,6 +297,9 @@
     },
     "de": {
       "bodyStyle": "4-türiger Full-Size-Pick-up"
+    },
+    "es": {
+      "bodyStyle": "Pickup de tamaño completo de 4 puertas"
     }
   }
 }

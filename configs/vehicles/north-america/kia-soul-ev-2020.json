@@ -47,6 +47,9 @@
         },
         "de": {
           "label": "Hinterer Laderaum mit aufgestellten Sitzen und abgesenktem Ladeboden"
+        },
+        "es": {
+          "label": "Área de carga trasera con asientos levantados y piso de carga bajo"
         }
       }
     },
@@ -79,6 +82,9 @@
         },
         "de": {
           "label": "Hinterer Laderaum mit aufgestellten Sitzen und angehobenem Ladeboden"
+        },
+        "es": {
+          "label": "Área de carga trasera con asientos levantados y piso de carga alto"
         }
       }
     },
@@ -107,6 +113,9 @@
         },
         "de": {
           "label": "Erweiterter Laderaum bei umgeklappten Rücksitzen"
+        },
+        "es": {
+          "label": "Área de carga ampliada con asientos traseros abatidos"
         }
       }
     },
@@ -131,6 +140,9 @@
         },
         "de": {
           "label": "Zusätzlicher Stauraum im hinteren Fußraum"
+        },
+        "es": {
+          "label": "Desbordamiento en el espacio para pies de pasajeros traseros"
         }
       }
     }
@@ -152,6 +164,9 @@
         },
         "de": {
           "label": "Rücksitzbank aufgestellt, Ladeboden abgesenkt"
+        },
+        "es": {
+          "label": "Asientos traseros levantados, piso de carga bajo"
         }
       }
     },
@@ -172,6 +187,9 @@
         },
         "de": {
           "label": "Rücksitzbank aufgestellt, Ladeboden angehoben"
+        },
+        "es": {
+          "label": "Asientos traseros levantados, piso de carga alto"
         }
       }
     },
@@ -193,6 +211,9 @@
         },
         "de": {
           "label": "Rücksitzbank umgeklappt"
+        },
+        "es": {
+          "label": "Asientos traseros abatidos"
         }
       }
     },
@@ -214,6 +235,9 @@
         },
         "de": {
           "label": "Rücksitzbank aufgestellt mit zusätzlichem Stauraum im hinteren Fußraum"
+        },
+        "es": {
+          "label": "Asientos traseros levantados con desbordamiento en el espacio para pies trasero"
         }
       }
     }
@@ -279,6 +303,9 @@
     },
     "de": {
       "bodyStyle": "5-türiger elektrischer Kleinwagen-Crossover mit Heckklappe"
+    },
+    "es": {
+      "bodyStyle": "Hatchback crossover subcompacto eléctrico de 5 puertas"
     }
   }
 }

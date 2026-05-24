@@ -42,6 +42,9 @@
         },
         "de": {
           "label": "Kofferraum mit aufgestellten Rücksitzen"
+        },
+        "es": {
+          "label": "Maletero con asientos traseros levantados"
         }
       }
     },
@@ -66,6 +69,9 @@
         },
         "de": {
           "label": "Erweiterter Laderaum bei umgeklappten Rücksitzen"
+        },
+        "es": {
+          "label": "Área de carga ampliada con asientos traseros abatidos"
         }
       }
     },
@@ -90,6 +96,9 @@
         },
         "de": {
           "label": "Zusätzlicher Stauraum im hinteren Fußraum"
+        },
+        "es": {
+          "label": "Desbordamiento en el espacio para pies de pasajeros traseros"
         }
       }
     }
@@ -111,6 +120,9 @@
         },
         "de": {
           "label": "Rücksitzbank aufgestellt"
+        },
+        "es": {
+          "label": "Asientos traseros levantados"
         }
       }
     },
@@ -132,6 +144,9 @@
         },
         "de": {
           "label": "Rücksitzbank umgeklappt"
+        },
+        "es": {
+          "label": "Asientos traseros abatidos"
         }
       }
     },
@@ -153,6 +168,9 @@
         },
         "de": {
           "label": "Rücksitzbank aufgestellt mit zusätzlichem Stauraum im hinteren Fußraum"
+        },
+        "es": {
+          "label": "Asientos traseros levantados con desbordamiento en el espacio para pies trasero"
         }
       }
     }
@@ -191,6 +209,9 @@
     },
     "de": {
       "bodyStyle": "5-türige Schräghecklimousine"
+    },
+    "es": {
+      "bodyStyle": "Hatchback de 5 puertas"
     }
   }
 }
