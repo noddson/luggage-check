@@ -20,7 +20,9 @@ const state = {
   configurationId: '',
   activeView: '3d',
   seatBackEncroachmentAngleDegrees: DEFAULT_SEAT_BACK_ANGLE_DEGREES,
+  seatBackEncroachmentInputDegrees: String(DEFAULT_SEAT_BACK_ANGLE_DEGREES),
   usableVolumeBufferPercent: DEFAULT_USABLE_VOLUME_BUFFER_PERCENT,
+  usableVolumeBufferInputPercent: String(DEFAULT_USABLE_VOLUME_BUFFER_PERCENT),
   rotation3d: { yaw: 315, pitch: 60 },
   activeOrientationLabel: '',
   language: 'en'
@@ -362,8 +364,11 @@ function renderConfigurationOptions() {
 }
 
 function renderBufferControl() {
-  usableVolumeBufferPercentInput.value = state.usableVolumeBufferPercent;
-  usableVolumeBufferNote.textContent = t('safetyMarginNote');
+  usableVolumeBufferPercentInput.value = state.usableVolumeBufferInputPercent;
+  usableVolumeBufferNote.textContent = `${t('safetyMarginNote')} (min 5%, max 50%)`;
+  const parsed = Number.parseInt(state.usableVolumeBufferInputPercent, 10);
+  const outOfBounds = Number.isFinite(parsed) && (parsed < MIN_USABLE_VOLUME_BUFFER_PERCENT || parsed > MAX_USABLE_VOLUME_BUFFER_PERCENT);
+  usableVolumeBufferPercentInput.classList.toggle('field-input--out-of-bounds', outOfBounds);
 }
 
 function renderSeatBackEncroachmentState() {
@@ -377,11 +382,14 @@ function renderSeatBackEncroachmentState() {
 function renderSeatBackEncroachmentControl(zones) {
   const defaultAngle = defaultSeatBackAngleDegrees(zones);
   const hasEncroachment = hasActiveSeatBackEncroachment(zones);
-  seatBackEncroachmentDegreesInput.value = state.seatBackEncroachmentAngleDegrees;
+  seatBackEncroachmentDegreesInput.value = state.seatBackEncroachmentInputDegrees;
   seatBackEncroachmentDegreesInput.disabled = !hasEncroachment;
   seatBackEncroachmentNote.textContent = hasEncroachment
-    ? t('seatBackOverrideNote').replace('{angle}', String(defaultAngle))
+    ? `${t('seatBackOverrideNote').replace('{angle}', String(defaultAngle))} (max 45°)`
     : t('noSeatEncroachment');
+  const parsed = Number.parseInt(state.seatBackEncroachmentInputDegrees, 10);
+  const outOfBounds = Number.isFinite(parsed) && (parsed < 0 || parsed > 45);
+  seatBackEncroachmentDegreesInput.classList.toggle('field-input--out-of-bounds', outOfBounds);
 }
 
 function syncSeatBackEncroachmentDefault() {
@@ -389,6 +397,7 @@ function syncSeatBackEncroachmentDefault() {
   const config = selectedConfiguration(vehicle);
   const zones = config.cargoZoneIds.map((id) => vehicle.cargoZones.find((zone) => zone.id === id)).filter(Boolean);
   state.seatBackEncroachmentAngleDegrees = defaultSeatBackAngleDegrees(zones);
+  state.seatBackEncroachmentInputDegrees = String(state.seatBackEncroachmentAngleDegrees);
 }
 
 function resetLuggageQuantities() {
@@ -1007,6 +1016,7 @@ function bindEvents() {
     renderConfigurationOptions();
     syncSeatBackEncroachmentDefault();
     state.usableVolumeBufferPercent = DEFAULT_USABLE_VOLUME_BUFFER_PERCENT;
+    state.usableVolumeBufferInputPercent = String(DEFAULT_USABLE_VOLUME_BUFFER_PERCENT);
     renderSeatBackEncroachmentState();
     persistTripSetupPreference();
     renderResults();
@@ -1018,28 +1028,40 @@ function bindEvents() {
     persistTripSetupPreference();
     renderResults();
   });
+  const updateBoundaryStatus = (input, isOutOfBounds) => {
+    input.classList.toggle('field-input--out-of-bounds', isOutOfBounds);
+    input.setAttribute('aria-invalid', isOutOfBounds ? 'true' : 'false');
+  };
+
   seatBackEncroachmentDegreesInput.addEventListener('input', () => {
-    state.seatBackEncroachmentAngleDegrees = clamp(Number(seatBackEncroachmentDegreesInput.value) || 0, 0, 89);
-    seatBackEncroachmentDegreesInput.value = state.seatBackEncroachmentAngleDegrees;
+    state.seatBackEncroachmentInputDegrees = seatBackEncroachmentDegreesInput.value;
+    const parsed = Number.parseInt(state.seatBackEncroachmentInputDegrees, 10);
+    const hasValue = Number.isFinite(parsed);
+    const isOutOfBounds = hasValue && (parsed < 0 || parsed > 45);
+    updateBoundaryStatus(seatBackEncroachmentDegreesInput, isOutOfBounds);
+    state.seatBackEncroachmentAngleDegrees = hasValue
+      ? clamp(parsed, 0, 45)
+      : DEFAULT_SEAT_BACK_ANGLE_DEGREES;
     persistTripSetupPreference();
     renderResults();
   });
-  const commitUsableVolumeBufferPercent = () => {
-    const parsed = Number.parseInt(usableVolumeBufferPercentInput.value, 10);
-    const sanitizedValue = Number.isFinite(parsed)
+
+  const updateUsableVolumeBuffer = () => {
+    state.usableVolumeBufferInputPercent = usableVolumeBufferPercentInput.value;
+    const parsed = Number.parseInt(state.usableVolumeBufferInputPercent, 10);
+    const hasValue = Number.isFinite(parsed);
+    const isOutOfBounds = hasValue && (parsed < MIN_USABLE_VOLUME_BUFFER_PERCENT || parsed > MAX_USABLE_VOLUME_BUFFER_PERCENT);
+    updateBoundaryStatus(usableVolumeBufferPercentInput, isOutOfBounds);
+    state.usableVolumeBufferPercent = hasValue
       ? clamp(parsed, MIN_USABLE_VOLUME_BUFFER_PERCENT, MAX_USABLE_VOLUME_BUFFER_PERCENT)
       : DEFAULT_USABLE_VOLUME_BUFFER_PERCENT;
-    state.usableVolumeBufferPercent = sanitizedValue;
-    usableVolumeBufferPercentInput.value = String(sanitizedValue);
     persistTripSetupPreference();
     renderResults();
   };
 
-  usableVolumeBufferPercentInput.addEventListener('input', () => {
-    usableVolumeBufferPercentInput.value = usableVolumeBufferPercentInput.value.replace(/[^0-9]/gu, '');
-  });
-  usableVolumeBufferPercentInput.addEventListener('change', commitUsableVolumeBufferPercent);
-  usableVolumeBufferPercentInput.addEventListener('blur', commitUsableVolumeBufferPercent);
+  usableVolumeBufferPercentInput.addEventListener('input', updateUsableVolumeBuffer);
+  usableVolumeBufferPercentInput.addEventListener('change', updateUsableVolumeBuffer);
+  usableVolumeBufferPercentInput.addEventListener('blur', updateUsableVolumeBuffer);
   resetLuggageButton.addEventListener('click', resetLuggageQuantities);
   document.querySelectorAll('.view-tab').forEach((button) => button.addEventListener('click', () => {
     state.activeView = button.dataset.view;

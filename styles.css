@@ -130,3 +130,6 @@ button { cursor: pointer; }
   .view-tabs { display: grid; grid-template-columns: 1fr; }
   .zone-card--3d .zone-card__header { gap: 8px; }
 }
+
+.field-input--out-of-bounds { color: var(--bad) !important; border-color: var(--bad) !important; }
+.field-input--out-of-bounds:focus { box-shadow: 0 0 0 4px rgb(190 18 60 / 0.2) !important; }
