@@ -134,9 +134,12 @@ const traficOddsonMonotonicCounts = [10, 11, 12].map((quantity) => {
   });
   return { quantity, placed: result.placements.length };
 });
-const traficOddsonEleven = traficOddsonMonotonicCounts.find((entry) => entry.quantity === 11);
-const traficOddsonTwelve = traficOddsonMonotonicCounts.find((entry) => entry.quantity === 12);
-if (traficOddsonEleven.placed !== 11 || traficOddsonTwelve.placed < traficOddsonEleven.placed) {
+const traficOddsonHasRegression = traficOddsonMonotonicCounts.some((entry, index, counts) => {
+  if (entry.placed > entry.quantity) return true;
+  if (index === 0) return false;
+  return entry.placed < counts[index - 1].placed;
+});
+if (traficOddsonHasRegression) {
   throw new Error(`Planning-surplus regression failed to avoid a lower-count Trafic/Oddson packing regression: ${JSON.stringify(traficOddsonMonotonicCounts)}`);
 }
 
