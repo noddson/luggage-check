@@ -307,7 +307,7 @@ function hasValidCustomBagDimensions(dimensions) {
 }
 
 function defaultSeatBackAngleDegrees(zones) {
-  return zones.find((zone) => zone.seatBackEncroachment)?.seatBackEncroachment?.angleFromVerticalDegrees ?? DEFAULT_SEAT_BACK_ANGLE_DEGREES;
+  return zones.find((zone) => zone.seatBackEncroachment)?.seatBackEncroachment?.angleFromVerticalDegrees ?? 0;
 }
 
 function seatBackAngleDegrees(zone) {
@@ -390,13 +390,10 @@ function renderSeatBackEncroachmentState() {
 }
 
 function renderSeatBackEncroachmentControl(zones) {
-  const defaultAngle = defaultSeatBackAngleDegrees(zones);
   const hasEncroachment = hasActiveSeatBackEncroachment(zones);
   seatBackEncroachmentDegreesInput.value = state.seatBackEncroachmentInputDegrees;
   seatBackEncroachmentDegreesInput.disabled = !hasEncroachment;
-  seatBackEncroachmentNote.textContent = hasEncroachment
-    ? `${t('seatBackOverrideNote').replace('{angle}', String(defaultAngle))} (max ${MAX_SEAT_BACK_ANGLE_DEGREES}°)`
-    : t('noSeatEncroachment');
+  seatBackEncroachmentNote.textContent = `${t('seatBackNote')} (max ${MAX_SEAT_BACK_ANGLE_DEGREES}°)`;
   const parsed = Number.parseInt(state.seatBackEncroachmentInputDegrees, 10);
   const outOfBounds = Number.isFinite(parsed) && (parsed < 0 || parsed > MAX_SEAT_BACK_ANGLE_DEGREES);
   seatBackEncroachmentDegreesInput.classList.toggle('field-input--out-of-bounds', outOfBounds);
@@ -406,7 +403,8 @@ function syncSeatBackEncroachmentDefault() {
   const vehicle = selectedVehicle();
   const config = selectedConfiguration(vehicle);
   const zones = config.cargoZoneIds.map((id) => vehicle.cargoZones.find((zone) => zone.id === id)).filter(Boolean);
-  state.seatBackEncroachmentAngleDegrees = defaultSeatBackAngleDegrees(zones);
+  const hasEncroachment = hasActiveSeatBackEncroachment(zones);
+  state.seatBackEncroachmentAngleDegrees = hasEncroachment ? defaultSeatBackAngleDegrees(zones) : 0;
   state.seatBackEncroachmentInputDegrees = String(state.seatBackEncroachmentAngleDegrees);
 }
 
