@@ -29,6 +29,7 @@ const state = {
 const LANGUAGE_COOKIE_NAME = 'preferredLanguage';
 const LANGUAGE_COOKIE_MAX_AGE_SECONDS = 60 * 60 * 24 * 365;
 const DEFAULT_LANGUAGE = 'en';
+const TRIP_SETUP_COOKIE_NAME = 'tripSetup';
 const I18N = {
   en: {
     pageTitle: 'Luggage Check',
@@ -1005,23 +1006,28 @@ function bindEvents() {
     state.vehicleId = vehicleSelect.value;
     renderConfigurationOptions();
     syncSeatBackEncroachmentDefault();
+    state.usableVolumeBufferPercent = DEFAULT_USABLE_VOLUME_BUFFER_PERCENT;
     renderSeatBackEncroachmentState();
+    persistTripSetupPreference();
     renderResults();
   });
   configurationSelect.addEventListener('change', () => {
     state.configurationId = configurationSelect.value;
     syncSeatBackEncroachmentDefault();
     renderSeatBackEncroachmentState();
+    persistTripSetupPreference();
     renderResults();
   });
   seatBackEncroachmentDegreesInput.addEventListener('input', () => {
     state.seatBackEncroachmentAngleDegrees = clamp(Number(seatBackEncroachmentDegreesInput.value) || 0, 0, 89);
     seatBackEncroachmentDegreesInput.value = state.seatBackEncroachmentAngleDegrees;
+    persistTripSetupPreference();
     renderResults();
   });
   usableVolumeBufferPercentInput.addEventListener('input', () => {
     state.usableVolumeBufferPercent = clamp(Number(usableVolumeBufferPercentInput.value) || DEFAULT_USABLE_VOLUME_BUFFER_PERCENT, MIN_USABLE_VOLUME_BUFFER_PERCENT, MAX_USABLE_VOLUME_BUFFER_PERCENT);
     usableVolumeBufferPercentInput.value = state.usableVolumeBufferPercent;
+    persistTripSetupPreference();
     renderResults();
   });
   resetLuggageButton.addEventListener('click', resetLuggageQuantities);
@@ -1086,23 +1092,85 @@ function setLanguage(language) {
   renderResults();
 }
 
+function cookieValue(name) {
+  if (typeof document === 'undefined') return null;
+  const segment = document.cookie
+    .split(';')
+    .map((entry) => entry.trim())
+    .find((entry) => entry.startsWith(`${name}=`));
+  if (!segment) return null;
+  return decodeURIComponent(segment.split('=').slice(1).join('='));
+}
+
+function setCookie(name, value, maxAgeSeconds = LANGUAGE_COOKIE_MAX_AGE_SECONDS) {
+  if (typeof document === 'undefined') return;
+  document.cookie = `${name}=${encodeURIComponent(value)}; path=/; max-age=${maxAgeSeconds}; SameSite=Lax`;
+}
+
+function clearCookie(name) {
+  if (typeof document === 'undefined') return;
+  document.cookie = `${name}=; path=/; max-age=0; SameSite=Lax`;
+}
+
+function currentVehicleDefaults(vehicle = selectedVehicle()) {
+  const defaultConfigurationId = vehicle.seatConfigurations[0]?.id ?? '';
+  const defaultBufferPercent = DEFAULT_USABLE_VOLUME_BUFFER_PERCENT;
+  const zones = (vehicle.seatConfigurations[0]?.cargoZoneIds ?? [])
+    .map((id) => vehicle.cargoZones.find((zone) => zone.id === id))
+    .filter(Boolean);
+  return {
+    configurationId: defaultConfigurationId,
+    seatBackAngleDegrees: defaultSeatBackAngleDegrees(zones),
+    usableVolumeBufferPercent: defaultBufferPercent
+  };
+}
+
+function persistTripSetupPreference() {
+  const vehicle = selectedVehicle();
+  if (!vehicle?.id) return;
+  const defaults = currentVehicleDefaults(vehicle);
+  const payload = {
+    vehicleId: vehicle.id,
+    configurationId: state.configurationId,
+    seatBackAngleDegrees: state.seatBackEncroachmentAngleDegrees !== defaults.seatBackAngleDegrees ? state.seatBackEncroachmentAngleDegrees : undefined,
+    usableVolumeBufferPercent: state.usableVolumeBufferPercent !== defaults.usableVolumeBufferPercent ? state.usableVolumeBufferPercent : undefined
+  };
+  setCookie(TRIP_SETUP_COOKIE_NAME, JSON.stringify(payload));
+}
+
+function applyPersistedTripSetupPreference() {
+  const raw = cookieValue(TRIP_SETUP_COOKIE_NAME);
+  if (!raw) return;
+  try {
+    const persisted = JSON.parse(raw);
+    if (!persisted || typeof persisted !== 'object' || persisted.vehicleId !== state.vehicleId) return;
+    const vehicle = selectedVehicle();
+    const defaults = currentVehicleDefaults(vehicle);
+    const validConfig = vehicle.seatConfigurations.some((config) => config.id === persisted.configurationId);
+    state.configurationId = validConfig ? persisted.configurationId : defaults.configurationId;
+    state.seatBackEncroachmentAngleDegrees = typeof persisted.seatBackAngleDegrees === 'number'
+      ? clamp(persisted.seatBackAngleDegrees, 0, 89)
+      : defaults.seatBackAngleDegrees;
+    state.usableVolumeBufferPercent = typeof persisted.usableVolumeBufferPercent === 'number'
+      ? clamp(persisted.usableVolumeBufferPercent, MIN_USABLE_VOLUME_BUFFER_PERCENT, MAX_USABLE_VOLUME_BUFFER_PERCENT)
+      : defaults.usableVolumeBufferPercent;
+  } catch {
+    clearCookie(TRIP_SETUP_COOKIE_NAME);
+  }
+}
+
 function persistLanguagePreference(language) {
   if (typeof document === 'undefined') return;
   if (language === DEFAULT_LANGUAGE) {
-    document.cookie = `${LANGUAGE_COOKIE_NAME}=; path=/; max-age=0; SameSite=Lax`;
+    clearCookie(LANGUAGE_COOKIE_NAME);
     return;
   }
-  document.cookie = `${LANGUAGE_COOKIE_NAME}=${encodeURIComponent(language)}; path=/; max-age=${LANGUAGE_COOKIE_MAX_AGE_SECONDS}; SameSite=Lax`;
+  setCookie(LANGUAGE_COOKIE_NAME, language);
 }
 
 function getPersistedLanguagePreference() {
-  if (typeof document === 'undefined') return null;
-  const languageCookie = document.cookie
-    .split(';')
-    .map((segment) => segment.trim())
-    .find((segment) => segment.startsWith(`${LANGUAGE_COOKIE_NAME}=`));
-  if (!languageCookie) return null;
-  const cookieLanguage = decodeURIComponent(languageCookie.split('=').slice(1).join('='));
+  const cookieLanguage = cookieValue(LANGUAGE_COOKIE_NAME);
+  if (!cookieLanguage) return null;
   return I18N[cookieLanguage] ? cookieLanguage : null;
 }
 
@@ -1118,6 +1186,7 @@ export async function initApp() {
     state.vehicleId = initialVehicle.id;
     state.configurationId = initialVehicle.seatConfigurations[0].id;
     syncSeatBackEncroachmentDefault();
+    applyPersistedTripSetupPreference();
     renderVehicleOptions();
     renderConfigurationOptions();
     renderSeatBackEncroachmentState();
