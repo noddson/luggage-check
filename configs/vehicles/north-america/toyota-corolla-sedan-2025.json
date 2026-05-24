@@ -1,0 +1,236 @@
+{
+  "id": "toyota-corolla-sedan-2025",
+  "make": "Toyota",
+  "model": "Corolla",
+  "generation": "Twelfth generation / E210 (North America refresh)",
+  "modelYears": [
+    "2025"
+  ],
+  "bodyStyle": "@i18n:bodyStyle",
+  "rentalClasses": [
+    "compact car",
+    "midsize car",
+    "intermediate car",
+    "sedan"
+  ],
+  "commonRentalAliases": [
+    "Toyota Corolla or similar",
+    "Corolla or similar",
+    "Intermediate car or similar",
+    "Midsize car or similar"
+  ],
+  "cargoZones": [
+    {
+      "id": "rear_trunk",
+      "label": "@i18n:label",
+      "volumeLitres": 371,
+      "dimensionsMm": {
+        "length": 940,
+        "width": 1010,
+        "height": 510
+      },
+      "openingMm": {
+        "width": 960,
+        "height": 470
+      },
+      "usableFraction": 0.68,
+      "confidence": "low",
+      "notes": "Toyota's 2025 Corolla eBrochure lists 13.1 cu ft of cargo volume behind the second row. Rectangular planning dimensions and opening values are conservative estimates because official North American trunk-box dimensions are not published.",
+      "seatBackEncroachment": {
+        "angleFromVerticalDegrees": 18,
+        "notes": "Planning assumption for rear-seatback rake that reduces upper-front trunk usability for rigid luggage."
+      },
+      "translations": {
+        "en": { "label": "Rear trunk behind second row" },
+        "fr": { "label": "Coffre arrière derrière la deuxième rangée" },
+        "de": { "label": "Hinterer Kofferraum hinter der zweiten Reihe" },
+        "es": { "label": "Maletero trasero detrás de la segunda fila" },
+        "is": { "label": "Aftara farangursrými aftan við 2. röð" },
+        "jp": { "label": "2列目後方リアトランク" },
+        "it": { "label": "Bagagliaio posteriore dietro la seconda fila" },
+        "el": { "label": "Πίσω πορτμπαγκάζ πίσω από τη 2η σειρά" },
+        "xx": { "label": "Aft trunk behind second row" }
+      }
+    },
+    {
+      "id": "rear_seats_folded_extension",
+      "label": "@i18n:label",
+      "volumeLitres": 290,
+      "dimensionsMm": {
+        "length": 860,
+        "width": 980,
+        "height": 390
+      },
+      "openingMm": {
+        "width": 760,
+        "height": 350
+      },
+      "usableFraction": 0.52,
+      "confidence": "low",
+      "notes": "Planning-only estimate for extra pass-through space when split-fold rear seats are folded. Toyota's North American 2025 public specs in the cited sources do not publish seats-folded total cargo volume.",
+      "translations": {
+        "en": { "label": "Rear seat folded cabin extension" },
+        "fr": { "label": "Extension de l’habitacle avec siège arrière rabattu" },
+        "de": { "label": "Kabinenverlängerung bei umgeklappter Rücksitzbank" },
+        "es": { "label": "Extensión de cabina con asiento trasero abatido" },
+        "is": { "label": "Skálaframlenging með aftursæti felldu" },
+        "jp": { "label": "後席折りたたみ時キャビン拡張" },
+        "it": { "label": "Estensione abitacolo con sedili posteriori abbattuti" },
+        "el": { "label": "Επέκταση καμπίνας με πίσω κάθισμα αναδιπλωμένο" },
+        "xx": { "label": "Aft seat folded cabin extension" }
+      }
+    },
+    {
+      "id": "rear_seat_footwell_overflow",
+      "label": "@i18n:label",
+      "volumeLitres": 90,
+      "dimensionsMm": {
+        "length": 620,
+        "width": 1020,
+        "height": 140
+      },
+      "usableFraction": 0.45,
+      "confidence": "low",
+      "notes": "Generic overflow area for soft bags when one rear passenger position or footwell can be used for luggage; not a Toyota manufacturer cargo specification.",
+      "translations": {
+        "en": { "label": "Rear passenger footwell overflow" },
+        "fr": { "label": "Espace supplémentaire au niveau du plancher arrière" },
+        "de": { "label": "Zusätzlicher Stauraum im hinteren Fußraum" },
+        "es": { "label": "Desbordamiento en el espacio para pies de pasajeros traseros" },
+        "is": { "label": "Yfirflæði í fótarými aftari farþega" },
+        "jp": { "label": "後席足元オーバーフロー" },
+        "it": { "label": "Spazio extra nel vano piedi dei passeggeri posteriori" },
+        "el": { "label": "Υπερχείλιση χώρου ποδιών πίσω επιβατών" },
+        "xx": { "label": "Aft passenger footwell overflow" }
+      }
+    }
+  ],
+  "seatConfigurations": [
+    {
+      "id": "seats_up",
+      "label": "@i18n:label",
+      "cargoZoneIds": [
+        "rear_trunk"
+      ],
+      "seatsAvailable": 5,
+      "notes": "Standard five-passenger compact sedan seating with cargo in the rear trunk.",
+      "translations": {
+        "en": { "label": "Rear seats up" },
+        "fr": { "label": "Sièges arrière relevés" },
+        "de": { "label": "Rücksitzbank aufgestellt" },
+        "es": { "label": "Asientos traseros levantados" },
+        "is": { "label": "Aftursæti uppi" },
+        "jp": { "label": "後席使用" },
+        "it": { "label": "Sedili posteriori in uso" },
+        "el": { "label": "Πίσω καθίσματα όρθια" },
+        "xx": { "label": "Aft seats up" }
+      }
+    },
+    {
+      "id": "rear_folded",
+      "label": "@i18n:label",
+      "cargoZoneIds": [
+        "rear_trunk",
+        "rear_seats_folded_extension"
+      ],
+      "seatsAvailable": 2,
+      "notes": "For two occupants plus cargo when rear seatbacks are folded.",
+      "translations": {
+        "en": { "label": "Rear seats folded" },
+        "fr": { "label": "Sièges arrière rabattus" },
+        "de": { "label": "Rücksitzbank umgeklappt" },
+        "es": { "label": "Asientos traseros abatidos" },
+        "is": { "label": "Aftursæti felld" },
+        "jp": { "label": "後席折りたたみ" },
+        "it": { "label": "Sedili posteriori abbattuti" },
+        "el": { "label": "Πίσω καθίσματα αναδιπλωμένα" },
+        "xx": { "label": "Aft seats folded" }
+      }
+    },
+    {
+      "id": "seats_up_with_footwell",
+      "label": "@i18n:label",
+      "cargoZoneIds": [
+        "rear_trunk",
+        "rear_seat_footwell_overflow"
+      ],
+      "seatsAvailable": 4,
+      "notes": "Assumes one rear passenger position or footwell can be dedicated to soft luggage.",
+      "translations": {
+        "en": { "label": "Rear seats up with rear footwell overflow" },
+        "fr": { "label": "Sièges arrière relevés avec espace supplémentaire au plancher arrière" },
+        "de": { "label": "Rücksitzbank aufgestellt mit zusätzlichem Stauraum im hinteren Fußraum" },
+        "es": { "label": "Asientos traseros levantados con desbordamiento en el espacio para pies trasero" },
+        "is": { "label": "Aftursæti uppi með yfirflæði í aftara fótarými" },
+        "jp": { "label": "後席使用＋後席足元オーバーフロー" },
+        "it": { "label": "Sedili posteriori in uso con spazio extra nel vano piedi posteriore" },
+        "el": { "label": "Πίσω καθίσματα όρθια με υπερχείλιση πίσω χώρου ποδιών" },
+        "xx": { "label": "Aft seats up with rear footwell overflow" }
+      }
+    }
+  ],
+  "sources": [
+    {
+      "sourceType": "manufacturer",
+      "publisher": "Toyota Motor Sales, U.S.A.",
+      "title": "2025 Corolla eBrochure",
+      "url": "https://www.toyota.com/content/dam/toyota/brochures/pdf/2025/corolla_ebrochure.pdf",
+      "retrievedAt": "2026-05-24",
+      "fieldsCovered": [
+        "North American Corolla sedan model context",
+        "cargo volume behind second row",
+        "seating capacity",
+        "exterior and interior dimensions context"
+      ],
+      "confidence": "high"
+    },
+    {
+      "sourceType": "manufacturer",
+      "publisher": "Toyota",
+      "title": "2025 Toyota Corolla",
+      "url": "https://www.toyota.com/corolla/",
+      "retrievedAt": "2026-05-24",
+      "fieldsCovered": [
+        "North American 2025 Corolla lineup context",
+        "body style and trim context"
+      ],
+      "confidence": "high"
+    },
+    {
+      "sourceType": "rental-company",
+      "publisher": "Avis",
+      "title": "Rent a Toyota Corolla or Similar Intermediate Car",
+      "url": "https://www.avis.com/en/cars/toyota/corolla",
+      "retrievedAt": "2026-05-24",
+      "fieldsCovered": [
+        "North American rental-market alias",
+        "Toyota Corolla or similar phrasing",
+        "intermediate/midsize rental class context"
+      ],
+      "confidence": "high"
+    },
+    {
+      "sourceType": "rental-company",
+      "publisher": "Enterprise Rent-A-Car",
+      "title": "Rental Cars Comparison – United States",
+      "url": "https://www.enterprise.com/en/rental-cars/us/cars.html",
+      "retrievedAt": "2026-05-24",
+      "fieldsCovered": [
+        "North American rental-market availability",
+        "Toyota Corolla or similar listing context"
+      ],
+      "confidence": "medium"
+    }
+  ],
+  "translations": {
+    "en": { "bodyStyle": "4-door compact sedan" },
+    "fr": { "bodyStyle": "Berline compacte 4 portes" },
+    "de": { "bodyStyle": "4-türige Kompaktlimousine" },
+    "es": { "bodyStyle": "Sedán compacto de 4 puertas" },
+    "is": { "bodyStyle": "4 dyra nettur fólksbíll" },
+    "jp": { "bodyStyle": "4ドアコンパクトセダン" },
+    "it": { "bodyStyle": "Berlina compatta a 4 porte" },
+    "el": { "bodyStyle": "Συμπαγές σεντάν 4 θυρών" },
+    "xx": { "bodyStyle": "4-door compact sedan" }
+  }
+}
