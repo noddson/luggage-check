@@ -49,6 +49,9 @@
         },
         "de": {
           "label": "Kofferraum hinter der hinteren Reihe bei voller Sitznutzung"
+        },
+        "es": {
+          "label": "Maletero detrás de la fila trasera con todos los asientos en uso"
         }
       }
     },
@@ -81,6 +84,9 @@
         },
         "de": {
           "label": "Laderaum mit umgeklappter oder ausgebauter dritter Reihe"
+        },
+        "es": {
+          "label": "Área de carga con la tercera fila abatida o retirada"
         }
       }
     },
@@ -109,6 +115,9 @@
         },
         "de": {
           "label": "Maximaler Laderaum bei umgeklappten oder ausgebauten hinteren Reihen"
+        },
+        "es": {
+          "label": "Área de carga máxima con filas traseras abatidas o retiradas"
         }
       }
     }
@@ -131,6 +140,9 @@
         },
         "de": {
           "label": "Alle Sitze in Benutzung"
+        },
+        "es": {
+          "label": "Todos los asientos en uso"
         }
       }
     },
@@ -151,6 +163,9 @@
         },
         "de": {
           "label": "Dritte Reihe umgeklappt oder ausgebaut"
+        },
+        "es": {
+          "label": "Tercera fila abatida o retirada"
         }
       }
     },
@@ -171,6 +186,9 @@
         },
         "de": {
           "label": "Hintere Reihen umgeklappt oder ausgebaut"
+        },
+        "es": {
+          "label": "Filas traseras abatidas o retiradas"
         }
       }
     }
@@ -226,6 +244,9 @@
     },
     "de": {
       "bodyStyle": "8/9-Sitzer-Personentransporter / MPV"
+    },
+    "es": {
+      "bodyStyle": "Furgoneta de pasajeros de 8-9 plazas / monovolumen"
     }
   }
 }

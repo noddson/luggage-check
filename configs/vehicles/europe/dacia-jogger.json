@@ -47,6 +47,9 @@
         },
         "de": {
           "label": "Kofferraum hinter der dritten Reihe bei 7 belegten Sitzen"
+        },
+        "es": {
+          "label": "Maletero detrás de la tercera fila con los 7 asientos en uso"
         }
       }
     },
@@ -79,6 +82,9 @@
         },
         "de": {
           "label": "Laderaum mit aufgestellter Reihe 2 und umgeklappter Reihe 3"
+        },
+        "es": {
+          "label": "Área de carga con la fila 2 en su sitio y la fila 3 abatida"
         }
       }
     },
@@ -111,6 +117,9 @@
         },
         "de": {
           "label": "Laderaum mit aufgestellter Reihe 2 und ausgebauter Reihe 3"
+        },
+        "es": {
+          "label": "Área de carga con la fila 2 en su sitio y la fila 3 retirada"
         }
       }
     },
@@ -139,6 +148,9 @@
         },
         "de": {
           "label": "Maximaler Laderaum bei umgeklappten/ausgebauten hinteren Reihen"
+        },
+        "es": {
+          "label": "Área de carga máxima con filas traseras abatidas / retiradas"
         }
       }
     }
@@ -161,6 +173,9 @@
         },
         "de": {
           "label": "Alle 7 Sitze in Benutzung"
+        },
+        "es": {
+          "label": "Los 7 asientos en uso"
         }
       }
     },
@@ -181,6 +196,9 @@
         },
         "de": {
           "label": "Dritte Reihe umgeklappt"
+        },
+        "es": {
+          "label": "Tercera fila abatida"
         }
       }
     },
@@ -201,6 +219,9 @@
         },
         "de": {
           "label": "Dritte Reihe ausgebaut"
+        },
+        "es": {
+          "label": "Tercera fila retirada"
         }
       }
     },
@@ -221,6 +242,9 @@
         },
         "de": {
           "label": "Hintere Reihen umgeklappt/ausgebaut"
+        },
+        "es": {
+          "label": "Filas traseras abatidas / retiradas"
         }
       }
     }
@@ -276,6 +300,9 @@
     },
     "de": {
       "bodyStyle": "Kompakter 7-Sitzer MPV / Kombi-Crossover"
+    },
+    "es": {
+      "bodyStyle": "Monovolumen compacto de 7 plazas / crossover familiar"
     }
   }
 }

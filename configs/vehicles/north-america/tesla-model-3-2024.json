@@ -48,6 +48,9 @@
         },
         "de": {
           "label": "Hinterer Kofferraum hinter der zweiten Reihe"
+        },
+        "es": {
+          "label": "Maletero trasero detrás de la segunda fila"
         }
       }
     },
@@ -76,6 +79,9 @@
         },
         "de": {
           "label": "Vorderer Kofferraum / Frunk"
+        },
+        "es": {
+          "label": "Maletero delantero / frunk"
         }
       }
     },
@@ -104,6 +110,9 @@
         },
         "de": {
           "label": "Kabinenverlängerung bei umgeklappter Rücksitzbank"
+        },
+        "es": {
+          "label": "Extensión de cabina con asiento trasero abatido"
         }
       }
     },
@@ -128,6 +137,9 @@
         },
         "de": {
           "label": "Zusätzlicher Stauraum im hinteren Fußraum"
+        },
+        "es": {
+          "label": "Desbordamiento en el espacio para pies de pasajeros traseros"
         }
       }
     }
@@ -151,6 +163,9 @@
         },
         "de": {
           "label": "Rücksitzbank aufgestellt"
+        },
+        "es": {
+          "label": "Asientos traseros levantados"
         }
       }
     },
@@ -173,6 +188,9 @@
         },
         "de": {
           "label": "Rücksitzbank umgeklappt"
+        },
+        "es": {
+          "label": "Asientos traseros abatidos"
         }
       }
     },
@@ -195,6 +213,9 @@
         },
         "de": {
           "label": "Rücksitzbank aufgestellt mit zusätzlichem Stauraum im hinteren Fußraum"
+        },
+        "es": {
+          "label": "Asientos traseros levantados con desbordamiento en el espacio para pies trasero"
         }
       }
     }
@@ -249,6 +270,9 @@
     },
     "de": {
       "bodyStyle": "4-türige elektrische Mittelklasse-Limousine"
+    },
+    "es": {
+      "bodyStyle": "Sedán mediano eléctrico de 4 puertas"
     }
   }
 }

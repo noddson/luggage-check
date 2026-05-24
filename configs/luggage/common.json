@@ -36,6 +36,9 @@
         },
         "de": {
           "label": "Handgepäck im IATA-Stil"
+        },
+        "es": {
+          "label": "Bolsa de cabina estilo IATA"
         }
       }
     },
@@ -74,6 +77,9 @@
         },
         "de": {
           "label": "US-Airline-Handgepäck"
+        },
+        "es": {
+          "label": "Equipaje de mano de aerolínea de EE. UU."
         }
       }
     },
@@ -112,6 +118,9 @@
         },
         "de": {
           "label": "Oddson Family Handgepäck"
+        },
+        "es": {
+          "label": "Equipaje de mano Oddson Family"
         }
       }
     },
@@ -150,6 +159,9 @@
         },
         "de": {
           "label": "Mittelgroßer aufgegebener Koffer"
+        },
+        "es": {
+          "label": "Maleta facturada mediana"
         }
       }
     },
@@ -188,6 +200,9 @@
         },
         "de": {
           "label": "Großer aufgegebener Koffer"
+        },
+        "es": {
+          "label": "Maleta facturada grande"
         }
       }
     },
@@ -245,6 +260,9 @@
         },
         "de": {
           "label": "Weicher Reise-Rucksack"
+        },
+        "es": {
+          "label": "Mochila de viaje blanda"
         }
       }
     },
@@ -283,6 +301,9 @@
         },
         "de": {
           "label": "Golfschläger"
+        },
+        "es": {
+          "label": "Palos de golf"
         }
       }
     },
@@ -321,6 +342,9 @@
         },
         "de": {
           "label": "Golfbälle (12er-Pack)"
+        },
+        "es": {
+          "label": "Pelotas de golf (caja de 12)"
         }
       }
     }

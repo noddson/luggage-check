@@ -49,6 +49,9 @@
         },
         "de": {
           "label": "L1-Kofferraum hinter der dritten Reihe bei 8/9 belegten Sitzen"
+        },
+        "es": {
+          "label": "Maletero L1 detrás de la tercera fila con 8/9 asientos en uso"
         }
       }
     },
@@ -81,6 +84,9 @@
         },
         "de": {
           "label": "L1-Laderaum mit umgeklappter Reihe 3, etwa 6 Sitze verfügbar"
+        },
+        "es": {
+          "label": "Área de carga L1 con la fila 3 abatida, unos 6 asientos disponibles"
         }
       }
     },
@@ -113,6 +119,9 @@
         },
         "de": {
           "label": "L1-Laderaum in der 5/6-Sitzkonfiguration"
+        },
+        "es": {
+          "label": "Área de carga L1 en configuración de 5/6 asientos"
         }
       }
     },
@@ -145,6 +154,9 @@
         },
         "de": {
           "label": "L2-Kofferraum hinter der dritten Reihe bei 8/9 belegten Sitzen"
+        },
+        "es": {
+          "label": "Maletero L2 detrás de la tercera fila con 8/9 asientos en uso"
         }
       }
     },
@@ -177,6 +189,9 @@
         },
         "de": {
           "label": "L2-Laderaum mit umgeklappter Reihe 3, etwa 6 Sitze verfügbar"
+        },
+        "es": {
+          "label": "Área de carga L2 con la fila 3 abatida, unos 6 asientos disponibles"
         }
       }
     },
@@ -209,6 +224,9 @@
         },
         "de": {
           "label": "L2-Laderaum in der 5/6-Sitzkonfiguration"
+        },
+        "es": {
+          "label": "Área de carga L2 en configuración de 5/6 asientos"
         }
       }
     },
@@ -237,6 +255,9 @@
         },
         "de": {
           "label": "L2 maximaler Laderaum bei ausgebauten hinteren Reihen, 2/3 Sitze verfügbar"
+        },
+        "es": {
+          "label": "Área de carga máxima L2 con filas traseras retiradas, 2/3 asientos disponibles"
         }
       }
     }
@@ -259,6 +280,9 @@
         },
         "de": {
           "label": "L1-Konfiguration mit 8/9 Sitzen"
+        },
+        "es": {
+          "label": "Configuración L1 de 8/9 asientos"
         }
       }
     },
@@ -279,6 +303,9 @@
         },
         "de": {
           "label": "L1 Reihe 3 umgeklappt"
+        },
+        "es": {
+          "label": "L1 con fila 3 abatida"
         }
       }
     },
@@ -299,6 +326,9 @@
         },
         "de": {
           "label": "L1-Konfiguration mit 5/6 Sitzen"
+        },
+        "es": {
+          "label": "Configuración L1 de 5/6 asientos"
         }
       }
     },
@@ -319,6 +349,9 @@
         },
         "de": {
           "label": "L2-Konfiguration mit 8/9 Sitzen"
+        },
+        "es": {
+          "label": "Configuración L2 de 8/9 asientos"
         }
       }
     },
@@ -339,6 +372,9 @@
         },
         "de": {
           "label": "L2 Reihe 3 umgeklappt"
+        },
+        "es": {
+          "label": "L2 con fila 3 abatida"
         }
       }
     },
@@ -359,6 +395,9 @@
         },
         "de": {
           "label": "L2-Konfiguration mit 5/6 Sitzen"
+        },
+        "es": {
+          "label": "Configuración L2 de 5/6 asientos"
         }
       }
     },
@@ -379,6 +418,9 @@
         },
         "de": {
           "label": "L2 hintere Reihen ausgebaut"
+        },
+        "es": {
+          "label": "L2 con filas traseras retiradas"
         }
       }
     }
@@ -450,6 +492,9 @@
     },
     "de": {
       "bodyStyle": "8/9-Sitzer-Personentransporter / Minibus"
+    },
+    "es": {
+      "bodyStyle": "Furgoneta de pasajeros de 8/9 plazas / minibús"
     }
   }
 }

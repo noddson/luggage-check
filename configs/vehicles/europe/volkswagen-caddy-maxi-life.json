@@ -48,6 +48,9 @@
         },
         "de": {
           "label": "Kofferraum hinter der dritten Reihe bei 7 belegten Sitzen"
+        },
+        "es": {
+          "label": "Maletero detrás de la tercera fila con los 7 asientos en uso"
         }
       }
     },
@@ -80,6 +83,9 @@
         },
         "de": {
           "label": "Laderaum mit ausgebauter/umgeklappter dritter Reihe, 5 Sitze verfügbar"
+        },
+        "es": {
+          "label": "Área de carga con tercera fila retirada / abatida, 5 asientos disponibles"
         }
       }
     },
@@ -108,6 +114,9 @@
         },
         "de": {
           "label": "Maximaler Laderaum bei ausgebauter 2. und 3. Reihe"
+        },
+        "es": {
+          "label": "Área de carga máxima con 2.ª y 3.ª filas retiradas"
         }
       }
     }
@@ -130,6 +139,9 @@
         },
         "de": {
           "label": "Alle 7 Sitze in Benutzung"
+        },
+        "es": {
+          "label": "Los 7 asientos en uso"
         }
       }
     },
@@ -150,6 +162,9 @@
         },
         "de": {
           "label": "Dritte Reihe ausgebaut/umgeklappt"
+        },
+        "es": {
+          "label": "Tercera fila retirada / abatida"
         }
       }
     },
@@ -170,6 +185,9 @@
         },
         "de": {
           "label": "2. und 3. Reihe ausgebaut"
+        },
+        "es": {
+          "label": "2.ª y 3.ª filas retiradas"
         }
       }
     }
@@ -226,6 +244,9 @@
     },
     "de": {
       "bodyStyle": "Kompakter 7-Sitzer-Personentransporter / MPV"
+    },
+    "es": {
+      "bodyStyle": "Furgoneta compacta de pasajeros de 7 plazas / monovolumen"
     }
   }
 }

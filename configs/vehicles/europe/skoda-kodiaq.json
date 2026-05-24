@@ -49,6 +49,9 @@
         },
         "de": {
           "label": "Kofferraum hinter der dritten Reihe bei 7 belegten Sitzen"
+        },
+        "es": {
+          "label": "Maletero detrás de la tercera fila con los 7 asientos en uso"
         }
       }
     },
@@ -81,6 +84,9 @@
         },
         "de": {
           "label": "Laderaum mit aufgestellter Reihe 2 und umgeklappter Reihe 3"
+        },
+        "es": {
+          "label": "Área de carga con la fila 2 en su sitio y la fila 3 abatida"
         }
       }
     },
@@ -109,6 +115,9 @@
         },
         "de": {
           "label": "Maximaler Laderaum bei umgeklappten hinteren Reihen"
+        },
+        "es": {
+          "label": "Área de carga máxima con filas traseras abatidas"
         }
       }
     }
@@ -131,6 +140,9 @@
         },
         "de": {
           "label": "Alle 7 Sitze in Benutzung"
+        },
+        "es": {
+          "label": "Los 7 asientos en uso"
         }
       }
     },
@@ -151,6 +163,9 @@
         },
         "de": {
           "label": "Dritte Reihe umgeklappt"
+        },
+        "es": {
+          "label": "Tercera fila abatida"
         }
       }
     },
@@ -171,6 +186,9 @@
         },
         "de": {
           "label": "Hintere Reihen umgeklappt"
+        },
+        "es": {
+          "label": "Filas traseras abatidas"
         }
       }
     }
@@ -215,6 +233,9 @@
     },
     "de": {
       "bodyStyle": "7-sitziges Mittelklasse-SUV"
+    },
+    "es": {
+      "bodyStyle": "SUV mediano de 7 plazas"
     }
   }
 }
