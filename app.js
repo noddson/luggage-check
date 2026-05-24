@@ -411,9 +411,16 @@ function syncSeatBackEncroachmentDefault() {
 }
 
 function resetLuggageQuantities() {
+  const customBag = state.luggageSet?.items?.find((item) => item.id === CUSTOM_BAG_ID);
   luggageControls.querySelectorAll('input').forEach((input) => {
     input.value = 0;
   });
+  if (customBag) {
+    ['height', 'width', 'length'].forEach((axis) => {
+      customBag.dimensionsMm[axis] = 0;
+    });
+  }
+  syncCustomBagControlState();
   renderResults();
 }
 
@@ -476,6 +483,7 @@ function renderLuggageControls() {
         const customBagLocked = input.disabled;
         if (customBagLocked) return;
         customBag.dimensionsMm[axis] = hasValue ? parsed : 0;
+        syncCustomBagControlState();
       };
       updateCustomDimension();
       input.addEventListener('input', updateCustomDimension);
