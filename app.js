@@ -410,6 +410,13 @@ function resetLuggageQuantities() {
 }
 
 function renderLuggageControls() {
+  const quantitiesByItemId = new Map(
+    state.luggageSet.items.map((item) => {
+      const input = $(`#qty-${item.id}`);
+      const value = input ? Number(input.value) : item.quantity;
+      return [item.id, Number.isFinite(value) ? Math.max(0, value) : 0];
+    })
+  );
   const controls = state.luggageSet.items.map((item) => {
     const color = colorForSourceId(item.id);
     const article = createEl('article', { className: 'luggage-item', attrs: { style: `--bag-tint:${color};--bag-panel-bg:${mixWithWhite(color, 0.9)}` } });
@@ -421,7 +428,7 @@ function renderLuggageControls() {
     const label = createEl('label');
     label.append(
       createEl('span', { className: 'sr-only', text: t('quantityFor').replace('{item}', localizeEntity(item, 'label')) }),
-      createEl('input', { attrs: { id: `qty-${item.id}`, type: 'number', min: '0', max: String(maxQuantityForItem(item)), step: '1', value: item.quantity } })
+      createEl('input', { attrs: { id: `qty-${item.id}`, type: 'number', min: '0', max: String(maxQuantityForItem(item)), step: '1', value: quantitiesByItemId.get(item.id) ?? 0 } })
     );
     article.append(meta, label);
     return article;
