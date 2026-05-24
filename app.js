@@ -4,7 +4,8 @@ const VEHICLE_INDEX_PATH = './configs/vehicles/index.json';
 
 const BAG_COLORS = ['#2563eb', '#16a34a', '#f97316', '#9333ea', '#0891b2', '#e11d48', '#ca8a04', '#4f46e5'];
 const DEFAULT_SEAT_BACK_ANGLE_DEGREES = 20;
-const DEFAULT_USABLE_VOLUME_BUFFER_PERCENT = 25;
+const MAX_SEAT_BACK_ANGLE_DEGREES = 45;
+const DEFAULT_USABLE_VOLUME_BUFFER_PERCENT = 10;
 const MIN_USABLE_VOLUME_BUFFER_PERCENT = 5;
 const MAX_USABLE_VOLUME_BUFFER_PERCENT = 50;
 const DEFAULT_MAX_QUANTITY_BY_SIZE = {
@@ -303,7 +304,8 @@ function defaultSeatBackAngleDegrees(zones) {
 }
 
 function seatBackAngleDegrees(zone) {
-  return zone.seatBackEncroachment ? state.seatBackEncroachmentAngleDegrees : (zone.seatBackEncroachment?.angleFromVerticalDegrees ?? DEFAULT_SEAT_BACK_ANGLE_DEGREES);
+  const requested = zone.seatBackEncroachment ? state.seatBackEncroachmentAngleDegrees : (zone.seatBackEncroachment?.angleFromVerticalDegrees ?? DEFAULT_SEAT_BACK_ANGLE_DEGREES);
+  return clamp(requested, 0, MAX_SEAT_BACK_ANGLE_DEGREES);
 }
 
 function seatBackEncroachmentMmAtHeight(zone, heightMm) {
@@ -385,10 +387,10 @@ function renderSeatBackEncroachmentControl(zones) {
   seatBackEncroachmentDegreesInput.value = state.seatBackEncroachmentInputDegrees;
   seatBackEncroachmentDegreesInput.disabled = !hasEncroachment;
   seatBackEncroachmentNote.textContent = hasEncroachment
-    ? `${t('seatBackOverrideNote').replace('{angle}', String(defaultAngle))} (max 45°)`
+    ? `${t('seatBackOverrideNote').replace('{angle}', String(defaultAngle))} (max ${MAX_SEAT_BACK_ANGLE_DEGREES}°)`
     : t('noSeatEncroachment');
   const parsed = Number.parseInt(state.seatBackEncroachmentInputDegrees, 10);
-  const outOfBounds = Number.isFinite(parsed) && (parsed < 0 || parsed > 45);
+  const outOfBounds = Number.isFinite(parsed) && (parsed < 0 || parsed > MAX_SEAT_BACK_ANGLE_DEGREES);
   seatBackEncroachmentDegreesInput.classList.toggle('field-input--out-of-bounds', outOfBounds);
 }
 
@@ -1037,10 +1039,10 @@ function bindEvents() {
     state.seatBackEncroachmentInputDegrees = seatBackEncroachmentDegreesInput.value;
     const parsed = Number.parseInt(state.seatBackEncroachmentInputDegrees, 10);
     const hasValue = Number.isFinite(parsed);
-    const isOutOfBounds = hasValue && (parsed < 0 || parsed > 45);
+    const isOutOfBounds = hasValue && (parsed < 0 || parsed > MAX_SEAT_BACK_ANGLE_DEGREES);
     updateBoundaryStatus(seatBackEncroachmentDegreesInput, isOutOfBounds);
     state.seatBackEncroachmentAngleDegrees = hasValue
-      ? clamp(parsed, 0, 45)
+      ? clamp(parsed, 0, MAX_SEAT_BACK_ANGLE_DEGREES)
       : DEFAULT_SEAT_BACK_ANGLE_DEGREES;
     persistTripSetupPreference();
     renderResults();
@@ -1184,7 +1186,7 @@ function applyPersistedTripSetupPreference() {
     const validConfig = vehicle.seatConfigurations.some((config) => config.id === persisted.configurationId);
     state.configurationId = validConfig ? persisted.configurationId : defaults.configurationId;
     state.seatBackEncroachmentAngleDegrees = typeof persisted.seatBackAngleDegrees === 'number'
-      ? clamp(persisted.seatBackAngleDegrees, 0, 89)
+      ? clamp(persisted.seatBackAngleDegrees, 0, MAX_SEAT_BACK_ANGLE_DEGREES)
       : defaults.seatBackAngleDegrees;
     state.usableVolumeBufferPercent = typeof persisted.usableVolumeBufferPercent === 'number'
       ? clamp(persisted.usableVolumeBufferPercent, MIN_USABLE_VOLUME_BUFFER_PERCENT, MAX_USABLE_VOLUME_BUFFER_PERCENT)
