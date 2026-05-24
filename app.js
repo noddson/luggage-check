@@ -583,6 +583,10 @@ function normalizeYaw(yaw) {
   return ((yaw % 360) + 360) % 360;
 }
 
+function displayYawDegrees(yaw) {
+  return Math.round(normalizeYaw(yaw)) % 360;
+}
+
 function current3dAngles() {
   return {
     yaw: normalizeYaw(state.rotation3d.yaw) * Math.PI / 180,
@@ -685,7 +689,7 @@ function renderOrientationAxisControl() {
   const orientationStatus = state.activeOrientationLabel
     ? `<text class="orientation-axis-preset-label" x="722" y="172" text-anchor="middle">${state.activeOrientationLabel}</text>`
     : `<text class="orientation-axis-angle-label" x="722" y="156" text-anchor="middle">
-        <tspan x="722">${t('yawLabel')} ${Math.round(state.rotation3d.yaw)}°</tspan>
+        <tspan x="722">${t('yawLabel')} ${displayYawDegrees(state.rotation3d.yaw)}°</tspan>
         <tspan x="722" dy="16">${t('pitchLabel')} ${Math.round(state.rotation3d.pitch)}°</tspan>
       </text>`;
 
