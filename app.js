@@ -4,6 +4,9 @@ const VEHICLE_INDEX_PATH = './configs/vehicles/index.json';
 
 const BAG_COLORS = ['#2563eb', '#16a34a', '#f97316', '#9333ea', '#0891b2', '#e11d48', '#ca8a04', '#4f46e5'];
 const DEFAULT_SEAT_BACK_ANGLE_DEGREES = 20;
+const DEFAULT_USABLE_VOLUME_BUFFER_PERCENT = 25;
+const MIN_USABLE_VOLUME_BUFFER_PERCENT = 5;
+const MAX_USABLE_VOLUME_BUFFER_PERCENT = 50;
 const DEFAULT_MAX_QUANTITY_BY_SIZE = {
   large: 12,
   medium: 24,
@@ -17,6 +20,7 @@ const state = {
   configurationId: '',
   activeView: '3d',
   seatBackEncroachmentAngleDegrees: DEFAULT_SEAT_BACK_ANGLE_DEGREES,
+  usableVolumeBufferPercent: DEFAULT_USABLE_VOLUME_BUFFER_PERCENT,
   rotation3d: { yaw: 315, pitch: 60 },
   activeOrientationLabel: '',
   language: 'en'
@@ -36,7 +40,7 @@ const I18N = {
     fitScore: 'Fit score',
     usableVolume: 'Usable volume',
     fitResult: 'Fit result'
-    ,configuration: 'Configuration', tripSetup: 'Trip setup', vehicle: 'Vehicle', seatCargoConfig: 'Seat / cargo configuration', rearAngle: 'Rear seat-back encroachment angle', seatBackNote: 'Sloped rear seat backs constrain upper-depth clearance.', luggage: 'Luggage', bagList: 'Bag list', reset: 'Reset', visualization: 'Visualization', bootViz: 'Boot Luggage Fit Visualization', placedLuggage: 'Placed luggage', needsAnotherPlan: 'Needs another plan', workspaceAria: 'Luggage fit workspace', orientation: 'Orientation', pitch: 'Pitch', yaw: 'Yaw', dragHint: 'Drag to pivot around cargo centre · click X/Y/Z for axis presets', noBagsInZone: 'No bags placed in this zone.', nothingPlacedYet: 'Nothing placed yet. Add luggage quantities to begin.', allPlaced: 'Every selected bag is placed in the active configuration.',
+    ,configuration: 'Configuration', tripSetup: 'Trip setup', vehicle: 'Vehicle', seatCargoConfig: 'Seat / cargo configuration', rearAngle: 'Rear seat-back encroachment angle', seatBackNote: 'Sloped rear seat backs constrain upper-depth clearance.', safetyMargin: 'Cargo safety margin', safetyMarginNote: 'Planning-only buffer removed from nominal cargo volume. No fit guarantee.', luggage: 'Luggage', bagList: 'Bag list', reset: 'Reset', visualization: 'Visualization', bootViz: 'Boot Luggage Fit Visualization', placedLuggage: 'Placed luggage', needsAnotherPlan: 'Needs another plan', workspaceAria: 'Luggage fit workspace', orientation: 'Orientation', pitch: 'Pitch', yaw: 'Yaw', dragHint: 'Drag to pivot around cargo centre · click X/Y/Z for axis presets', noBagsInZone: 'No bags placed in this zone.', nothingPlacedYet: 'Nothing placed yet. Add luggage quantities to begin.', allPlaced: 'Every selected bag is placed in the active configuration.',
     seats: 'seats', quantityFor: 'Quantity for {item}', noSeatEncroachment: 'No active cargo zone defines sloped rear seat-back encroachment.', seatBackOverrideNote: 'Sloped rear seat backs constrain upper-depth clearance. Vehicle default: {angle}°; edit the degree angle to override it.',
     length: 'length', width: 'width', height: 'height', seatEncroachmentEnvelope: 'Seat-back encroachment envelope', forwardSeats: 'Forward seats', front: 'front',
     bootView: 'Boot view', sideView: 'Side view', topView: 'Top view', switchTo: 'Switch to {view}', axisTitle: '{axis} axis · {view}', orientationAxisControl: '3D orientation axis control', yawLabel: 'yaw', pitchLabel: 'pitch',
@@ -58,7 +62,7 @@ const I18N = {
     vehicle: "Wagon",
     seatCargoConfig: "Seat / cargo rig",
     rearAngle: "Aft seat-back wedge angle",
-    seatBackNote: "Sloped aft seat backs pinch upper-depth clearance, matey.",
+    seatBackNote: "Sloped aft seat backs pinch upper-depth clearance, matey.", safetyMargin: "Cargo safety margin", safetyMarginNote: "Plan-only buffer cut from hold volume. No promises yer plunder fits.",
     luggage: "Plunder",
     bagList: "Plunder ledger",
     reset: "Reset th' haul",
@@ -118,7 +122,7 @@ const I18N = {
     fitScore: 'Δείκτης εφαρμογής',
     usableVolume: 'Χρήσιμος όγκος',
     fitResult: 'Αποτέλεσμα εφαρμογής',
-    configuration: 'Διαμόρφωση', tripSetup: 'Ρύθμιση ταξιδιού', vehicle: 'Όχημα', seatCargoConfig: 'Διαμόρφωση καθισμάτων / χώρου φόρτωσης', rearAngle: 'Γωνία κλίσης πλάτης πίσω καθισμάτων', seatBackNote: 'Οι κεκλιμένες πλάτες πίσω καθισμάτων μειώνουν το διαθέσιμο άνω βάθος.', luggage: 'Αποσκευές', bagList: 'Λίστα αποσκευών', reset: 'Επαναφορά', visualization: 'Οπτικοποίηση', bootViz: 'Οπτικοποίηση εφαρμογής αποσκευών στο πορτμπαγκάζ', placedLuggage: 'Τοποθετημένες αποσκευές', needsAnotherPlan: 'Χρειάζεται άλλο πλάνο', workspaceAria: 'Χώρος εργασίας εφαρμογής αποσκευών', orientation: 'Προσανατολισμός', pitch: 'Κλίση', yaw: 'Περιστροφή', dragHint: 'Σύρε για περιστροφή γύρω από το κέντρο φόρτωσης · πάτησε X/Y/Z για προεπιλογές αξόνων', noBagsInZone: 'Δεν υπάρχουν αποσκευές σε αυτή τη ζώνη.', nothingPlacedYet: 'Δεν έχει τοποθετηθεί τίποτα ακόμη. Πρόσθεσε ποσότητες για να ξεκινήσεις.', allPlaced: 'Όλες οι επιλεγμένες αποσκευές έχουν τοποθετηθεί στην ενεργή διαμόρφωση.',
+    configuration: 'Διαμόρφωση', tripSetup: 'Ρύθμιση ταξιδιού', vehicle: 'Όχημα', seatCargoConfig: 'Διαμόρφωση καθισμάτων / χώρου φόρτωσης', rearAngle: 'Γωνία κλίσης πλάτης πίσω καθισμάτων', seatBackNote: 'Οι κεκλιμένες πλάτες πίσω καθισμάτων μειώνουν το διαθέσιμο άνω βάθος.', safetyMargin: 'Περιθώριο ασφαλείας χώρου', safetyMarginNote: 'Περιθώριο μόνο για σχεδιασμό που αφαιρείται από τον ονομαστικό όγκο. Δεν υπάρχει εγγύηση εφαρμογής.', luggage: 'Αποσκευές', bagList: 'Λίστα αποσκευών', reset: 'Επαναφορά', visualization: 'Οπτικοποίηση', bootViz: 'Οπτικοποίηση εφαρμογής αποσκευών στο πορτμπαγκάζ', placedLuggage: 'Τοποθετημένες αποσκευές', needsAnotherPlan: 'Χρειάζεται άλλο πλάνο', workspaceAria: 'Χώρος εργασίας εφαρμογής αποσκευών', orientation: 'Προσανατολισμός', pitch: 'Κλίση', yaw: 'Περιστροφή', dragHint: 'Σύρε για περιστροφή γύρω από το κέντρο φόρτωσης · πάτησε X/Y/Z για προεπιλογές αξόνων', noBagsInZone: 'Δεν υπάρχουν αποσκευές σε αυτή τη ζώνη.', nothingPlacedYet: 'Δεν έχει τοποθετηθεί τίποτα ακόμη. Πρόσθεσε ποσότητες για να ξεκινήσεις.', allPlaced: 'Όλες οι επιλεγμένες αποσκευές έχουν τοποθετηθεί στην ενεργή διαμόρφωση.',
     seats: 'καθίσματα', quantityFor: 'Ποσότητα για {item}', noSeatEncroachment: 'Καμία ενεργή ζώνη φόρτωσης δεν ορίζει κεκλιμένη πλάτη πίσω καθισμάτων.', seatBackOverrideNote: 'Οι κεκλιμένες πλάτες πίσω καθισμάτων μειώνουν το διαθέσιμο άνω βάθος. Προεπιλογή οχήματος: {angle}°· άλλαξε τη γωνία για παράκαμψη.',
     length: 'μήκος', width: 'πλάτος', height: 'ύψος', seatEncroachmentEnvelope: 'Ζώνη κλίσης πλάτης πίσω καθισμάτων', forwardSeats: 'Μπροστινά καθίσματα', front: 'μπροστά',
     bootView: 'Πίσω χώρος', sideView: 'Πλάγια όψη', topView: 'Κάτοψη', switchTo: 'Μετάβαση σε {view}', axisTitle: 'Άξονας {axis} · {view}', orientationAxisControl: 'Έλεγχος αξόνων προσανατολισμού 3D', yawLabel: 'περιστροφή', pitchLabel: 'κλίση',
@@ -135,7 +139,7 @@ const I18N = {
     fitScore: 'Passgenauigkeit',
     usableVolume: 'Nutzbares Volumen',
     fitResult: 'Ergebnis',
-    configuration: 'Konfiguration', tripSetup: 'Reiseeinstellungen', vehicle: 'Fahrzeug', seatCargoConfig: 'Sitz- / Laderaumkonfiguration', rearAngle: 'Winkel der Rücksitzlehnen-Einengung', seatBackNote: 'Geneigte Rücksitzlehnen reduzieren die obere Tiefenfreiheit.', luggage: 'Gepäck', bagList: 'Gepäckliste', reset: 'Zurücksetzen', visualization: 'Visualisierung', bootViz: 'Kofferraum-Gepäck-Visualisierung', placedLuggage: 'Platziertes Gepäck', needsAnotherPlan: 'Braucht anderen Plan', workspaceAria: 'Arbeitsbereich zur Gepäckanpassung', orientation: 'Ausrichtung', pitch: 'Neigung', yaw: 'Drehung', dragHint: 'Zum Drehen um den Ladebereich ziehen · X/Y/Z für Achsenvorgaben anklicken', noBagsInZone: 'In dieser Zone ist kein Gepäck platziert.', nothingPlacedYet: 'Noch nichts platziert. Füge Mengen hinzu, um zu starten.', allPlaced: 'Alle ausgewählten Gepäckstücke sind in der aktiven Konfiguration platziert.',
+    configuration: 'Konfiguration', tripSetup: 'Reiseeinstellungen', vehicle: 'Fahrzeug', seatCargoConfig: 'Sitz- / Laderaumkonfiguration', rearAngle: 'Winkel der Rücksitzlehnen-Einengung', seatBackNote: 'Geneigte Rücksitzlehnen reduzieren die obere Tiefenfreiheit.', safetyMargin: 'Sicherheitsreserve Laderaum', safetyMarginNote: 'Planungspuffer vom Nennvolumen abgezogen. Keine Passgarantie.', luggage: 'Gepäck', bagList: 'Gepäckliste', reset: 'Zurücksetzen', visualization: 'Visualisierung', bootViz: 'Kofferraum-Gepäck-Visualisierung', placedLuggage: 'Platziertes Gepäck', needsAnotherPlan: 'Braucht anderen Plan', workspaceAria: 'Arbeitsbereich zur Gepäckanpassung', orientation: 'Ausrichtung', pitch: 'Neigung', yaw: 'Drehung', dragHint: 'Zum Drehen um den Ladebereich ziehen · X/Y/Z für Achsenvorgaben anklicken', noBagsInZone: 'In dieser Zone ist kein Gepäck platziert.', nothingPlacedYet: 'Noch nichts platziert. Füge Mengen hinzu, um zu starten.', allPlaced: 'Alle ausgewählten Gepäckstücke sind in der aktiven Konfiguration platziert.',
     seats: 'Sitze', quantityFor: 'Menge für', noSeatEncroachment: 'Keine aktive Ladezone definiert eine geneigte Rücksitzlehnen-Einengung.', seatBackOverrideNote: 'Geneigte Rücksitzlehnen reduzieren die obere Tiefenfreiheit. Fahrzeugstandard: {angle}°; ändere den Winkel, um ihn zu überschreiben.',
     length: 'Länge', width: 'Breite', height: 'Höhe', seatEncroachmentEnvelope: 'Rücksitzlehnen-Einengungsbereich', forwardSeats: 'Vordersitze', front: 'vorne',
     bootView: 'Kofferraumansicht', sideView: 'Seitenansicht', topView: 'Draufsicht', switchTo: 'Wechseln zu {view}', axisTitle: '{axis}-Achse · {view}', orientationAxisControl: '3D-Ausrichtungsachsensteuerung', yawLabel: 'Drehung', pitchLabel: 'Neigung',
@@ -152,7 +156,7 @@ const I18N = {
     fitScore: 'Score de compatibilité',
     usableVolume: 'Volume utilisable',
     fitResult: 'Résultat',
-    configuration: 'Configuration', tripSetup: 'Préparation du trajet', vehicle: 'Véhicule', seatCargoConfig: 'Configuration sièges / coffre', rearAngle: 'Angle d’inclinaison du dossier arrière', seatBackNote: 'Les dossiers arrière inclinés réduisent la profondeur disponible en hauteur.', luggage: 'Bagages', bagList: 'Liste des bagages', reset: 'Réinitialiser', visualization: 'Visualisation', bootViz: 'Visualisation de l’ajustement des bagages du coffre', placedLuggage: 'Bagages placés', needsAnotherPlan: 'À replacer', workspaceAria: 'Espace de vérification des bagages', orientation: 'Orientation', pitch: 'Angle de tangage', yaw: 'Angle de lacet', dragHint: 'Faites glisser pour pivoter autour du centre de chargement · cliquez sur X/Y/Z pour les axes prédéfinis', noBagsInZone: 'Aucun bagage placé dans cette zone.', nothingPlacedYet: 'Rien n’est placé pour le moment. Ajoutez des quantités pour commencer.', allPlaced: 'Tous les bagages sélectionnés sont placés dans la configuration active.',
+    configuration: 'Configuration', tripSetup: 'Préparation du trajet', vehicle: 'Véhicule', seatCargoConfig: 'Configuration sièges / coffre', rearAngle: 'Angle d’inclinaison du dossier arrière', seatBackNote: 'Les dossiers arrière inclinés réduisent la profondeur disponible en hauteur.', safetyMargin: 'Marge de sécurité du coffre', safetyMarginNote: 'Marge de planification retirée du volume nominal. Aucun ajustement garanti.', luggage: 'Bagages', bagList: 'Liste des bagages', reset: 'Réinitialiser', visualization: 'Visualisation', bootViz: 'Visualisation de l’ajustement des bagages du coffre', placedLuggage: 'Bagages placés', needsAnotherPlan: 'À replacer', workspaceAria: 'Espace de vérification des bagages', orientation: 'Orientation', pitch: 'Angle de tangage', yaw: 'Angle de lacet', dragHint: 'Faites glisser pour pivoter autour du centre de chargement · cliquez sur X/Y/Z pour les axes prédéfinis', noBagsInZone: 'Aucun bagage placé dans cette zone.', nothingPlacedYet: 'Rien n’est placé pour le moment. Ajoutez des quantités pour commencer.', allPlaced: 'Tous les bagages sélectionnés sont placés dans la configuration active.',
     seats: 'sièges', quantityFor: 'Quantité pour {item}', noSeatEncroachment: 'Aucune zone de chargement active ne définit d’inclinaison de dossier arrière.', seatBackOverrideNote: 'Les dossiers arrière inclinés réduisent la profondeur disponible en hauteur. Valeur par défaut du véhicule : {angle}° ; modifiez l’angle pour la remplacer.',
     length: 'longueur', width: 'largeur', height: 'hauteur', seatEncroachmentEnvelope: 'Zone d’inclinaison du dossier arrière', forwardSeats: 'Sièges avant', front: 'avant',
     bootView: 'Vue du coffre', sideView: 'Vue latérale', topView: 'Vue du dessus', switchTo: 'Basculer vers {view}', axisTitle: 'Axe {axis} · {view}', orientationAxisControl: 'Contrôle de l’axe d’orientation 3D', yawLabel: 'lacet', pitchLabel: 'tangage',
@@ -169,7 +173,7 @@ const I18N = {
     fitScore: 'Indice di compatibilità',
     usableVolume: 'Volume utile',
     fitResult: 'Risultato',
-    configuration: 'Configurazione', tripSetup: 'Impostazione del viaggio', vehicle: 'Veicolo', seatCargoConfig: 'Configurazione sedili / vano di carico', rearAngle: 'Angolo di ingombro dello schienale posteriore', seatBackNote: 'Gli schienali posteriori inclinati riducono la profondità disponibile nella parte alta.', luggage: 'Bagagli', bagList: 'Lista bagagli', reset: 'Reimposta', visualization: 'Visualizzazione', bootViz: 'Visualizzazione del posizionamento bagagli nel bagagliaio', placedLuggage: 'Bagagli posizionati', needsAnotherPlan: 'Da ripianificare', workspaceAria: 'Area di verifica della disposizione bagagli', orientation: 'Orientamento', pitch: 'Inclinazione', yaw: 'Rotazione', dragHint: 'Trascina per ruotare intorno al centro del vano · fai clic su X/Y/Z per le viste preimpostate', noBagsInZone: 'Nessun bagaglio posizionato in questa zona.', nothingPlacedYet: 'Non è ancora stato posizionato nulla. Aggiungi le quantità per iniziare.', allPlaced: 'Tutti i bagagli selezionati sono stati posizionati nella configurazione attiva.',
+    configuration: 'Configurazione', tripSetup: 'Impostazione del viaggio', vehicle: 'Veicolo', seatCargoConfig: 'Configurazione sedili / vano di carico', rearAngle: 'Angolo di ingombro dello schienale posteriore', seatBackNote: 'Gli schienali posteriori inclinati riducono la profondità disponibile nella parte alta.', safetyMargin: 'Margine di sicurezza bagagliaio', safetyMarginNote: 'Buffer di pianificazione sottratto dal volume nominale. Nessuna garanzia di entrata.', luggage: 'Bagagli', bagList: 'Lista bagagli', reset: 'Reimposta', visualization: 'Visualizzazione', bootViz: 'Visualizzazione del posizionamento bagagli nel bagagliaio', placedLuggage: 'Bagagli posizionati', needsAnotherPlan: 'Da ripianificare', workspaceAria: 'Area di verifica della disposizione bagagli', orientation: 'Orientamento', pitch: 'Inclinazione', yaw: 'Rotazione', dragHint: 'Trascina per ruotare intorno al centro del vano · fai clic su X/Y/Z per le viste preimpostate', noBagsInZone: 'Nessun bagaglio posizionato in questa zona.', nothingPlacedYet: 'Non è ancora stato posizionato nulla. Aggiungi le quantità per iniziare.', allPlaced: 'Tutti i bagagli selezionati sono stati posizionati nella configurazione attiva.',
     seats: 'posti', quantityFor: 'Quantità per {item}', noSeatEncroachment: 'Nessuna zona di carico attiva prevede un ingombro inclinato dello schienale posteriore.', seatBackOverrideNote: 'Gli schienali posteriori inclinati riducono la profondità disponibile nella parte alta. Valore predefinito del veicolo: {angle}°; modifica l’angolo per sovrascriverlo.',
     length: 'lunghezza', width: 'larghezza', height: 'altezza', seatEncroachmentEnvelope: 'Area di ingombro dello schienale posteriore', forwardSeats: 'Sedili anteriori', front: 'davanti',
     bootView: 'Vista bagagliaio', sideView: 'Vista laterale', topView: 'Vista dall’alto', switchTo: 'Passa a {view}', axisTitle: 'Asse {axis} · {view}', orientationAxisControl: 'Controllo assi orientamento 3D', yawLabel: 'rotazione', pitchLabel: 'inclinazione',
@@ -186,7 +190,7 @@ const I18N = {
     fitScore: 'Índice de ajuste',
     usableVolume: 'Volumen útil',
     fitResult: 'Resultado',
-    configuration: 'Configuración', tripSetup: 'Preparación del viaje', vehicle: 'Vehículo', seatCargoConfig: 'Configuración de asientos / carga', rearAngle: 'Ángulo de invasión del respaldo trasero', seatBackNote: 'Los respaldos traseros inclinados reducen la profundidad útil en la parte superior.', luggage: 'Equipaje', bagList: 'Lista de equipaje', reset: 'Restablecer', visualization: 'Visualización', bootViz: 'Visualización del ajuste de equipaje en el maletero', placedLuggage: 'Equipaje colocado', needsAnotherPlan: 'Requiere otro plan', workspaceAria: 'Área de comprobación de equipaje', orientation: 'Orientación', pitch: 'Inclinación', yaw: 'Giro', dragHint: 'Arrastra para girar alrededor del centro de carga · haz clic en X/Y/Z para usar vistas predefinidas', noBagsInZone: 'No hay equipaje colocado en esta zona.', nothingPlacedYet: 'Aún no hay nada colocado. Añade cantidades para empezar.', allPlaced: 'Todo el equipaje seleccionado está colocado en la configuración activa.',
+    configuration: 'Configuración', tripSetup: 'Preparación del viaje', vehicle: 'Vehículo', seatCargoConfig: 'Configuración de asientos / carga', rearAngle: 'Ángulo de invasión del respaldo trasero', seatBackNote: 'Los respaldos traseros inclinados reducen la profundidad útil en la parte superior.', safetyMargin: 'Margen de seguridad del maletero', safetyMarginNote: 'Margen de planificación restado del volumen nominal. Sin garantía de encaje.', luggage: 'Equipaje', bagList: 'Lista de equipaje', reset: 'Restablecer', visualization: 'Visualización', bootViz: 'Visualización del ajuste de equipaje en el maletero', placedLuggage: 'Equipaje colocado', needsAnotherPlan: 'Requiere otro plan', workspaceAria: 'Área de comprobación de equipaje', orientation: 'Orientación', pitch: 'Inclinación', yaw: 'Giro', dragHint: 'Arrastra para girar alrededor del centro de carga · haz clic en X/Y/Z para usar vistas predefinidas', noBagsInZone: 'No hay equipaje colocado en esta zona.', nothingPlacedYet: 'Aún no hay nada colocado. Añade cantidades para empezar.', allPlaced: 'Todo el equipaje seleccionado está colocado en la configuración activa.',
     seats: 'plazas', quantityFor: 'Cantidad para {item}', noSeatEncroachment: 'Ninguna zona de carga activa define invasión inclinada del respaldo trasero.', seatBackOverrideNote: 'Los respaldos traseros inclinados reducen la profundidad útil en la parte superior. Valor por defecto del vehículo: {angle}°; modifica el ángulo para sobrescribirlo.',
     length: 'largo', width: 'ancho', height: 'alto', seatEncroachmentEnvelope: 'Zona de invasión del respaldo trasero', forwardSeats: 'Asientos delanteros', front: 'frente',
     bootView: 'Vista del maletero', sideView: 'Vista lateral', topView: 'Vista superior', switchTo: 'Cambiar a {view}', axisTitle: 'Eje {axis} · {view}', orientationAxisControl: 'Control de ejes de orientación 3D', yawLabel: 'giro', pitchLabel: 'inclinación',
@@ -203,7 +207,7 @@ const I18N = {
     fitScore: 'Passunarstig',
     usableVolume: 'Nýtanlegt rúmmál',
     fitResult: 'Niðurstaða',
-    configuration: 'Uppsetning', tripSetup: 'Ferðauppsetning', vehicle: 'Ökutæki', seatCargoConfig: 'Sæta- / farangursuppsetning', rearAngle: 'Hallahorn aftursætisbaks', seatBackNote: 'Hallandi aftursætisbök draga úr nýtanlegri dýpt efst.', luggage: 'Farangur', bagList: 'Farangurslisti', reset: 'Endurstilla', visualization: 'Myndræn framsetning', bootViz: 'Myndræn passun farangurs í skotti', placedLuggage: 'Farangur sem er kominn fyrir', needsAnotherPlan: 'Þarf aðra lausn', workspaceAria: 'Vinnusvæði fyrir farangurspassun', orientation: 'Stefna', pitch: 'Halli', yaw: 'Snúningur', dragHint: 'Dragðu til að snúa um miðju farangursrýmis · smelltu á X/Y/Z fyrir fyrirfram stilltar ásaafstöður', noBagsInZone: 'Enginn farangur er staðsettur í þessu rými.', nothingPlacedYet: 'Ekkert hefur verið staðsett enn. Bættu við magni til að byrja.', allPlaced: 'Allur valinn farangur er staðsettur í virkri uppsetningu.',
+    configuration: 'Uppsetning', tripSetup: 'Ferðauppsetning', vehicle: 'Ökutæki', seatCargoConfig: 'Sæta- / farangursuppsetning', rearAngle: 'Hallahorn aftursætisbaks', seatBackNote: 'Hallandi aftursætisbök draga úr nýtanlegri dýpt efst.', safetyMargin: 'Öryggisbil farangursrýmis', safetyMarginNote: 'Skipulagsbil dregið frá nafnrúmmáli. Engin trygging fyrir að allt passi.', luggage: 'Farangur', bagList: 'Farangurslisti', reset: 'Endurstilla', visualization: 'Myndræn framsetning', bootViz: 'Myndræn passun farangurs í skotti', placedLuggage: 'Farangur sem er kominn fyrir', needsAnotherPlan: 'Þarf aðra lausn', workspaceAria: 'Vinnusvæði fyrir farangurspassun', orientation: 'Stefna', pitch: 'Halli', yaw: 'Snúningur', dragHint: 'Dragðu til að snúa um miðju farangursrýmis · smelltu á X/Y/Z fyrir fyrirfram stilltar ásaafstöður', noBagsInZone: 'Enginn farangur er staðsettur í þessu rými.', nothingPlacedYet: 'Ekkert hefur verið staðsett enn. Bættu við magni til að byrja.', allPlaced: 'Allur valinn farangur er staðsettur í virkri uppsetningu.',
     seats: 'sæti', quantityFor: 'Magn fyrir {item}', noSeatEncroachment: 'Ekkert virkt farangursrými skilgreinir halla aftursætisbaks.', seatBackOverrideNote: 'Hallandi aftursætisbök draga úr nýtanlegri dýpt efst. Sjálfgefið horn ökutækis: {angle}°; breyttu gráðutölunni til að yfirskrifa.',
     length: 'lengd', width: 'breidd', height: 'hæð', seatEncroachmentEnvelope: 'Skörunarsvæði aftursætisbaks', forwardSeats: 'Framsæti', front: 'framan',
     bootView: 'Skottsýn', sideView: 'Hliðarsýn', topView: 'Ofansýn', switchTo: 'Skipta í {view}', axisTitle: '{axis}-ás · {view}', orientationAxisControl: 'Stýring fyrir 3D stefnuása', yawLabel: 'snúningur', pitchLabel: 'halli',
@@ -220,7 +224,7 @@ const I18N = {
     fitScore: '積載適合スコア',
     usableVolume: '使用可能容量',
     fitResult: '積載結果',
-    configuration: '構成', tripSetup: '旅行設定', vehicle: '車両', seatCargoConfig: 'シート / 荷室構成', rearAngle: '後席背もたれの張り出し角度', seatBackNote: '傾斜した後席背もたれは上部の奥行きクリアランスを制限します。', luggage: '荷物', bagList: '荷物リスト', reset: 'リセット', visualization: '可視化', bootViz: '荷室の荷物積載可視化', placedLuggage: '積載済みの荷物', needsAnotherPlan: '再検討が必要', workspaceAria: '荷物積載の作業エリア', orientation: '向き', pitch: 'ピッチ', yaw: 'ヨー', dragHint: 'ドラッグして荷室中心を軸に回転 · X/Y/Z をクリックして軸プリセットを適用', noBagsInZone: 'このゾーンには荷物が配置されていません。', nothingPlacedYet: 'まだ配置されていません。数量を追加して開始してください。', allPlaced: '選択した荷物はすべて現在の構成に配置されています。',
+    configuration: '構成', tripSetup: '旅行設定', vehicle: '車両', seatCargoConfig: 'シート / 荷室構成', rearAngle: '後席背もたれの張り出し角度', seatBackNote: '傾斜した後席背もたれは上部の奥行きクリアランスを制限します。', safetyMargin: '荷室の安全マージン', safetyMarginNote: '公称容量から差し引く計画用バッファです。積載適合を保証しません。', luggage: '荷物', bagList: '荷物リスト', reset: 'リセット', visualization: '可視化', bootViz: '荷室の荷物積載可視化', placedLuggage: '積載済みの荷物', needsAnotherPlan: '再検討が必要', workspaceAria: '荷物積載の作業エリア', orientation: '向き', pitch: 'ピッチ', yaw: 'ヨー', dragHint: 'ドラッグして荷室中心を軸に回転 · X/Y/Z をクリックして軸プリセットを適用', noBagsInZone: 'このゾーンには荷物が配置されていません。', nothingPlacedYet: 'まだ配置されていません。数量を追加して開始してください。', allPlaced: '選択した荷物はすべて現在の構成に配置されています。',
     seats: '席', quantityFor: '{item} の数量', noSeatEncroachment: '有効な荷室ゾーンに後席背もたれの張り出し設定はありません。', seatBackOverrideNote: '傾斜した後席背もたれは上部の奥行きクリアランスを制限します。車両の既定値: {angle}°。上書きするには角度を編集してください。',
     length: '長さ', width: '幅', height: '高さ', seatEncroachmentEnvelope: '背もたれ張り出し領域', forwardSeats: '前席', front: '前方',
     bootView: '荷室ビュー', sideView: '側面ビュー', topView: '上面ビュー', switchTo: '{view} に切り替え', axisTitle: '{axis} 軸 · {view}', orientationAxisControl: '3D 向き軸コントロール', yawLabel: 'ヨー', pitchLabel: 'ピッチ',
@@ -258,6 +262,8 @@ const vehicleSelect = $('#vehicleSelect');
 const configurationSelect = $('#configurationSelect');
 const seatBackEncroachmentDegreesInput = $('#seatBackEncroachmentDegrees');
 const seatBackEncroachmentNote = $('#seatBackEncroachmentNote');
+const usableVolumeBufferPercentInput = $('#usableVolumeBufferPercent');
+const usableVolumeBufferNote = $('#usableVolumeBufferNote');
 const luggageControls = $('#luggageControls');
 const resetLuggageButton = $('#resetLuggageButton');
 const visualization = $('#visualization');
@@ -354,11 +360,17 @@ function renderConfigurationOptions() {
   configurationSelect.value = state.configurationId;
 }
 
+function renderBufferControl() {
+  usableVolumeBufferPercentInput.value = state.usableVolumeBufferPercent;
+  usableVolumeBufferNote.textContent = t('safetyMarginNote');
+}
+
 function renderSeatBackEncroachmentState() {
   const vehicle = selectedVehicle();
   const config = selectedConfiguration(vehicle);
   const zones = config.cargoZoneIds.map((id) => vehicle.cargoZones.find((zone) => zone.id === id)).filter(Boolean);
   renderSeatBackEncroachmentControl(zones);
+  renderBufferControl();
 }
 
 function renderSeatBackEncroachmentControl(zones) {
@@ -966,7 +978,8 @@ function renderResults() {
   const luggageSet = cloneLuggageWithQuantities();
   const result = estimateFit(luggageSet, vehicle, config.id, {
     considerSeatBackEncroachment: hasActiveSeatBackEncroachment(zones),
-    seatBackAngleDegrees: state.seatBackEncroachmentAngleDegrees
+    seatBackAngleDegrees: state.seatBackEncroachmentAngleDegrees,
+    defaultUsableFraction: (100 - state.usableVolumeBufferPercent) / 100
   });
   const percent = Math.round(result.fitScore * 100);
   const volumePercent = Math.round((result.usedVolumeLitres / Math.max(1, result.usableVolumeLitres)) * 100);
@@ -1004,6 +1017,11 @@ function bindEvents() {
   seatBackEncroachmentDegreesInput.addEventListener('input', () => {
     state.seatBackEncroachmentAngleDegrees = clamp(Number(seatBackEncroachmentDegreesInput.value) || 0, 0, 89);
     seatBackEncroachmentDegreesInput.value = state.seatBackEncroachmentAngleDegrees;
+    renderResults();
+  });
+  usableVolumeBufferPercentInput.addEventListener('input', () => {
+    state.usableVolumeBufferPercent = clamp(Number(usableVolumeBufferPercentInput.value) || DEFAULT_USABLE_VOLUME_BUFFER_PERCENT, MIN_USABLE_VOLUME_BUFFER_PERCENT, MAX_USABLE_VOLUME_BUFFER_PERCENT);
+    usableVolumeBufferPercentInput.value = state.usableVolumeBufferPercent;
     renderResults();
   });
   resetLuggageButton.addEventListener('click', resetLuggageQuantities);

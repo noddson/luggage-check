@@ -62,6 +62,12 @@
             <small id="seatBackEncroachmentNote" data-i18n="seatBackNote">Sloped rear seat backs constrain upper-depth clearance.</small>
           </label>
 
+          <label class="field degree-field">
+            <span data-i18n="safetyMargin">Cargo safety margin</span>
+            <input id="usableVolumeBufferPercent" type="number" min="5" max="50" step="1" inputmode="decimal" />
+            <small id="usableVolumeBufferNote" data-i18n="safetyMarginNote">Planning-only buffer subtracted from published cargo volume. No fit guarantee.</small>
+          </label>
+
           <div class="panel-heading compact luggage-heading">
             <div>
               <p class="eyebrow" data-i18n="luggage">Luggage</p>

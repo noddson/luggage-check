@@ -32,7 +32,6 @@
         "width": 1190,
         "height": 1050
       },
-      "usableFraction": 0.82,
       "confidence": "medium",
       "notes": "Published 7-seat boot volume and rear cargo width are sourced; rectangular dimensions combine the sourced floor length/width with an estimated cuboid height for MVP packing. Soft bags fit more reliably than rigid boxes because the third-row seatbacks and tailgate trim reduce usable shape.",
       "seatBackEncroachment": {
@@ -82,7 +81,6 @@
         "width": 1190,
         "height": 1050
       },
-      "usableFraction": 0.76,
       "confidence": "medium",
       "notes": "Five-seat luggage volume is sourced from rental/editorial references and cargo floor length behind row 2 is sourced from Volkswagen. Dimensions are an estimated rectangular planning envelope and do not guarantee clearance around folded/removed seat mounts.",
       "seatBackEncroachment": {
@@ -132,7 +130,6 @@
         "width": 1190,
         "height": 1050
       },
-      "usableFraction": 0.72,
       "confidence": "medium",
       "notes": "Maximum load/luggage volume and floor length behind row 1 are sourced from Volkswagen. Dimensions estimate a box-like load floor and ignore seat rails, wheel arches, trim taper, and roof curvature.",
       "translations": {

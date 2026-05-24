@@ -27,7 +27,6 @@
         "width": 1050,
         "height": 569
       },
-      "usableFraction": 0.82,
       "confidence": "low",
       "notes": "Le volume constructeur est sourcé ; les dimensions rectangulaires sont des cuboïdes estimés en première approximation pour le MVP et doivent être remplacées par des mesures réelles du coffre.",
       "seatBackEncroachment": {
@@ -73,7 +72,6 @@
         "width": 1050,
         "height": 894
       },
-      "usableFraction": 0.72,
       "confidence": "low",
       "notes": "Manufacturer folded volume is sourced where available; dimensions estimate a box-like load floor and ignore seat rake, wheel arches, and trim intrusions.",
       "translations": {
@@ -115,7 +113,6 @@
         "width": 1100,
         "height": 180
       },
-      "usableFraction": 0.45,
       "confidence": "low",
       "notes": "Generic overflow area, enabled only when passenger space can be used.",
       "translations": {

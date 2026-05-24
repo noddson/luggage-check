@@ -31,7 +31,6 @@
         "width": 1286,
         "height": 569
       },
-      "usableFraction": 0.86,
       "confidence": "medium",
       "notes": "Uses the wheel-house width as the conservative rectangular width so rigid luggage is not planned through the wider floor sections. The open pickup bed is weather-exposed unless a cover/cap is fitted.",
       "translations": {
@@ -77,7 +76,6 @@
         "width": 1814,
         "height": 569
       },
-      "usableFraction": 0.72,
       "confidence": "low",
       "notes": "Alternate planning envelope that uses the full bed floor width. Wheel wells interrupt this width, so it should be treated as optimistic for rigid bags.",
       "translations": {
@@ -123,7 +121,6 @@
         "width": 1286,
         "height": 569
       },
-      "usableFraction": 0.86,
       "confidence": "medium",
       "notes": "Uses the wheel-house width as the conservative rectangular width. GMC lists Crew Cab cargo volume as 62.9–71.7 cu ft depending on short or standard bed.",
       "translations": {
@@ -165,7 +162,6 @@
         "width": 1500,
         "height": 300
       },
-      "usableFraction": 0.45,
       "confidence": "low",
       "notes": "Generic interior overflow area for soft bags when rear seating is sacrificed; not a manufacturer cargo specification.",
       "translations": {

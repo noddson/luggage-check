@@ -31,7 +31,6 @@
         "width": 980,
         "height": 720
       },
-      "usableFraction": 0.8,
       "confidence": "low",
       "notes": "Manufacturer cargo volume is sourced for the cargo floor lowered position; rectangular dimensions are planning estimates based on the published volume and Soul proportions.",
       "seatBackEncroachment": {
@@ -81,7 +80,6 @@
         "width": 980,
         "height": 650
       },
-      "usableFraction": 0.82,
       "confidence": "low",
       "notes": "Represents the flatter raised-floor setup. Cargo volume is sourced from a Canadian review/spec reference; cuboid dimensions and hatch opening are approximate for luggage planning.",
       "seatBackEncroachment": {
@@ -131,7 +129,6 @@
         "width": 980,
         "height": 720
       },
-      "usableFraction": 0.72,
       "confidence": "low",
       "notes": "Canadian-market folded cargo volume is sourced; dimensions approximate a box-like envelope and ignore seatback angle, trim, and wheel-arch intrusions.",
       "translations": {
@@ -173,7 +170,6 @@
         "width": 1100,
         "height": 180
       },
-      "usableFraction": 0.45,
       "confidence": "low",
       "notes": "Generic overflow area, enabled only when passenger space can be used.",
       "translations": {

@@ -32,7 +32,6 @@
         "width": 1100,
         "height": 760
       },
-      "usableFraction": 0.82,
       "confidence": "medium",
       "notes": "Nissan UK publishes up to 504 L boot capacity excluding luggage boards and a technical-table luggage range of 400-455 L by version. The planning envelope uses Nissan-published maximum boot length and width with an inferred rectangular height; trim, load boards, e-POWER hardware, and wheel-arch taper can reduce usable rigid-case fit.",
       "seatBackEncroachment": {
@@ -82,7 +81,6 @@
         "width": 1100,
         "height": 760
       },
-      "usableFraction": 0.72,
       "confidence": "medium",
       "notes": "Nissan UK publishes 1,447 L VDA luggage capacity with rear seats folded plus maximum folded length and width. Height is inferred from the volume and should be treated as a planning cuboid rather than a measured box.",
       "translations": {
@@ -124,7 +122,6 @@
         "width": 1100,
         "height": 180
       },
-      "usableFraction": 0.45,
       "confidence": "low",
       "notes": "Generic soft-bag overflow area, enabled only when rear passenger foot space can be sacrificed.",
       "translations": {
