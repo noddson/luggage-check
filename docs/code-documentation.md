@@ -6,7 +6,7 @@ This document explains the luggage-check codebase at the level needed to maintai
 
 | Area | Files | Purpose |
 | --- | --- | --- |
-| Browser UI | `index.html`, `styles.css`, `app.js` | Static single-page app that loads luggage plus the generated vehicle index, lets users choose a vehicle/seat setup/luggage quantities, runs the fit estimator, and renders 2D/3D SVG visualizations. |
+| Browser UI | `index.html`, `styles.css`, `app.js` | Static single-page app that loads luggage plus the generated vehicle index, lets users choose a vehicle/seat setup/luggage quantities, supports a custom bag profile, persists trip setup/language preferences in cookies, runs the fit estimator, and renders 2D/3D SVG visualizations. |
 | Fit estimation | `fitEstimator.js` | Deterministic multi-pass rectangular packing estimator. Expands luggage quantities, applies soft-bag compression, tests rotations/opening constraints/seat-back encroachment, and returns placements plus warnings. |
 | Config loading | `loadConfigs.js` | Node-side JSON readers used by validation and smoke scripts. |
 | Domain documentation | `types.js` | JSDoc typedefs for luggage, vehicles, cargo zones, seat configurations, and estimator result shapes. |
@@ -1123,7 +1123,7 @@ This script is the main CI-style data check.
 
 After loading configs, the script also checks:
 
-- Europe has at least six starter vehicle configs and North America has at least two.
+- Europe has at least six starter vehicle configs and North America has at least four.
 - Exactly one default vehicle exists and it is `volkswagen-caddy-maxi-life`.
 - `estimateFit` returns a boolean for every vehicle's `seats_up` configuration.
 
