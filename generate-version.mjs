@@ -26,11 +26,14 @@ function generateVersionMetadata() {
   const now = new Date();
   const year = now.getUTCFullYear();
   const month = String(now.getUTCMonth() + 1).padStart(2, '0');
-  const shortSha = run('git rev-parse --short=7 HEAD');
-  const fullSha = run('git rev-parse HEAD');
+  const envSha = (process.env.GITHUB_SHA || process.env.COMMIT_SHA || '').trim();
+  const fullSha = envSha || run('git rev-parse HEAD');
+  const shortSha = fullSha.slice(0, 7);
   const remoteUrl = tryRun('git config --get remote.origin.url');
-  const [, owner = '<owner>', repo = '<repo>'] = remoteUrl.match(/github\.com[:/]([^/]+)\/(.+?)(?:\.git)?$/) || [];
-  const dirty = isDirty();
+  const defaultOwner = 'noddson';
+  const defaultRepo = 'luggage-check';
+  const [, owner = defaultOwner, repo = defaultRepo] = remoteUrl.match(/github\.com[:/]([^/]+)\/(.+?)(?:\.git)?$/) || [];
+  const dirty = envSha ? false : isDirty();
   const displayVersion = `${year}.${month}.${shortSha}${dirty ? '.d' : ''}`;
   return {
     displayVersion,
