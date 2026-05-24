@@ -436,10 +436,11 @@ function renderLuggageControls() {
     const color = colorForSourceId(item.id);
     const article = createEl('article', { className: 'luggage-item', attrs: { style: `--bag-tint:${color};--bag-panel-bg:${mixWithWhite(color, 0.9)}` } });
     const meta = createEl('div');
-    meta.append(
-      createEl('strong', { text: localizeEntity(item, 'label') }),
-      createEl('span', { text: `${dimensionsLabel(item.dimensionsMm)} · ${item.shapeType.replace('_', ' ')}` })
-    );
+    meta.append(createEl('strong', { text: localizeEntity(item, 'label') }));
+    const dimensionsAndTypeLabel = `${dimensionsLabel(item.dimensionsMm)} · ${item.shapeType.replace('_', ' ')}`;
+    if (item.id !== CUSTOM_BAG_ID) {
+      meta.append(createEl('span', { text: dimensionsAndTypeLabel }));
+    }
     const label = createEl('label');
     label.append(
       createEl('span', { className: 'sr-only', text: t('quantityFor').replace('{item}', localizeEntity(item, 'label')) }),
