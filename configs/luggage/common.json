@@ -53,7 +53,7 @@
           "label": "Χειραποσκευή τύπου IATA"
         },
         "XX": {
-          "label": "IATA-style cabin bag"
+          "label": "Sky-deck sea chest"
         }
       }
     },
@@ -109,7 +109,7 @@
           "label": "Χειραποσκευή αμερικανικής αεροπορικής"
         },
         "XX": {
-          "label": "US airline carry-on"
+          "label": "Boardin' mate's carry crate"
         }
       }
     },
@@ -165,7 +165,7 @@
           "label": "Χειραποσκευή οικογένειας Oddson"
         },
         "XX": {
-          "label": "Oddson Family carry-on"
+          "label": "Oddson crew deck trunk"
         }
       }
     },
@@ -221,7 +221,7 @@
           "label": "Μεσαία βαλίτσα για παράδοση"
         },
         "XX": {
-          "label": "Medium checked suitcase"
+          "label": "Rum-runner barrel"
         }
       }
     },
@@ -277,7 +277,7 @@
           "label": "Μεγάλη βαλίτσα για παράδοση"
         },
         "XX": {
-          "label": "Large checked suitcase"
+          "label": "Captain's grand sea trunk"
         }
       }
     },
@@ -352,7 +352,7 @@
           "label": "Μαλακό ταξιδιωτικό σακίδιο"
         },
         "XX": {
-          "label": "Soft travel backpack"
+          "label": "Deckhand's rope-slung rucksack"
         }
       }
     },
@@ -408,7 +408,7 @@
           "label": "Μπαστούνια γκολφ"
         },
         "XX": {
-          "label": "Golf Clubs"
+          "label": "Shipboard cannon"
         }
       }
     },
@@ -464,7 +464,7 @@
           "label": "Μπαλάκια γκολφ (κουτί των 12)"
         },
         "XX": {
-          "label": "Golf balls (box of 12)"
+          "label": "Pouch o' doubloons (12 coins)"
         }
       }
     }
