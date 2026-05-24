@@ -145,3 +145,4 @@ button { cursor: pointer; }
 .app-footer { margin-top: 24px; padding: 14px 16px; border: 1px solid var(--line); border-radius: 14px; background: #fff7ed; color: #7c2d12; font-size: 0.9rem; line-height: 1.5; }
 .app-footer p { margin: 0; }
 .app-footer p + p { margin-top: 8px; color: #9a3412; }
+.app-version a { color: #9a3412; font-weight: 800; }
