@@ -32,7 +32,29 @@ const I18N = {
     fitScore: 'Fit score',
     usableVolume: 'Usable volume',
     fitResult: 'Fit result'
-    ,configuration: 'Configuration', tripSetup: 'Trip setup', vehicle: 'Vehicle', seatCargoConfig: 'Seat / cargo configuration', rearAngle: 'Rear seat-back encroachment angle', seatBackNote: 'Sloped rear seat backs constrain upper-depth clearance.', luggage: 'Luggage', bagList: 'Bag list', reset: 'Reset', visualization: 'Visualization', bootViz: 'Boot Luggage Fit Visualization', placedLuggage: 'Placed luggage', needsAnotherPlan: 'Needs another plan', workspaceAria: 'Luggage fit workspace', orientation: 'Orientation', pitch: 'Pitch', yaw: 'Yaw', dragHint: 'Drag to pivot around cargo centre · click X/Y/Z for axis presets', noBagsInZone: 'No bags placed in this zone.', nothingPlacedYet: 'Nothing placed yet. Add luggage quantities to begin.', allPlaced: 'Every selected bag is placed in the active configuration.'
+    ,configuration: 'Configuration', tripSetup: 'Trip setup', vehicle: 'Vehicle', seatCargoConfig: 'Seat / cargo configuration', rearAngle: 'Rear seat-back encroachment angle', seatBackNote: 'Sloped rear seat backs constrain upper-depth clearance.', luggage: 'Luggage', bagList: 'Bag list', reset: 'Reset', visualization: 'Visualization', bootViz: 'Boot Luggage Fit Visualization', placedLuggage: 'Placed luggage', needsAnotherPlan: 'Needs another plan', workspaceAria: 'Luggage fit workspace', orientation: 'Orientation', pitch: 'Pitch', yaw: 'Yaw', dragHint: 'Drag to pivot around cargo centre · click X/Y/Z for axis presets', noBagsInZone: 'No bags placed in this zone.', nothingPlacedYet: 'Nothing placed yet. Add luggage quantities to begin.', allPlaced: 'Every selected bag is placed in the active configuration.',
+    seats: 'seats', quantityFor: 'Quantity for {item}', noSeatEncroachment: 'No active cargo zone defines sloped rear seat-back encroachment.', seatBackOverrideNote: 'Sloped rear seat backs constrain upper-depth clearance. Vehicle default: {angle}°; edit the degree angle to override it.',
+    length: 'length', width: 'width', height: 'height', seatEncroachmentEnvelope: 'Seat-back encroachment envelope', forwardSeats: 'Forward seats', front: 'front',
+    bootView: 'Boot view', sideView: 'Side view', topView: 'Top view', switchTo: 'Switch to {view}', axisTitle: '{axis} axis · {view}', orientationAxisControl: '3D orientation axis control', yawLabel: 'yaw', pitchLabel: 'pitch',
+    zone3dAria: 'rotatable 3D luggage view', removeOne: 'Remove one {item}', placedSummary: '{placed}/{total} bags placed', usedVolume: '{used} L used', placedCount: '{placed} placed · {unplaced} unplaced', volumeUsedPercent: '{percent}% usable volume used',
+    loadErrorTitle: 'Unable to load app', fitResultTitle: 'Estimated cargo fit', loading: 'Loading', languageSelector: 'Language selector', visualizationView: 'Visualization view', scaledDrawing: 'Scaled luggage placement drawing', seatWedgeTitle: 'Seat-back encroachment wedge: {angle}°'
+  },
+  de: {
+    pageTitle: 'Gepäck-Check',
+    eyebrow: 'Gepäckplaner für Mietwagen',
+    heroTitle: 'Wähle eine Fahrzeugkonfiguration und prüfe, ob dein Gepäck passt.',
+    heroCopy: 'Vergleiche Kofferraumkonfigurationen europäischer Mietwagen, passe die Gepäckliste an und visualisiere die geschätzte Platzierung in jeder Ladezone vor der Buchung.',
+    bagsFit: 'Alle Gepäckstücke passen',
+    bagsUnplaced: 'Einige Gepäckstücke passen nicht',
+    fitScore: 'Passgenauigkeit',
+    usableVolume: 'Nutzbares Volumen',
+    fitResult: 'Ergebnis',
+    configuration: 'Konfiguration', tripSetup: 'Reiseeinstellungen', vehicle: 'Fahrzeug', seatCargoConfig: 'Sitz- / Laderaumkonfiguration', rearAngle: 'Winkel der Rücksitzlehnen-Einengung', seatBackNote: 'Geneigte Rücksitzlehnen reduzieren die obere Tiefenfreiheit.', luggage: 'Gepäck', bagList: 'Gepäckliste', reset: 'Zurücksetzen', visualization: 'Visualisierung', bootViz: 'Kofferraum-Gepäck-Visualisierung', placedLuggage: 'Platziertes Gepäck', needsAnotherPlan: 'Braucht anderen Plan', workspaceAria: 'Arbeitsbereich zur Gepäckanpassung', orientation: 'Ausrichtung', pitch: 'Neigung', yaw: 'Drehung', dragHint: 'Zum Drehen um den Ladebereich ziehen · X/Y/Z für Achsenvorgaben anklicken', noBagsInZone: 'In dieser Zone ist kein Gepäck platziert.', nothingPlacedYet: 'Noch nichts platziert. Füge Mengen hinzu, um zu starten.', allPlaced: 'Alle ausgewählten Gepäckstücke sind in der aktiven Konfiguration platziert.',
+    seats: 'Sitze', quantityFor: 'Menge für', noSeatEncroachment: 'Keine aktive Ladezone definiert eine geneigte Rücksitzlehnen-Einengung.', seatBackOverrideNote: 'Geneigte Rücksitzlehnen reduzieren die obere Tiefenfreiheit. Fahrzeugstandard: {angle}°; ändere den Winkel, um ihn zu überschreiben.',
+    length: 'Länge', width: 'Breite', height: 'Höhe', seatEncroachmentEnvelope: 'Rücksitzlehnen-Einengungsbereich', forwardSeats: 'Vordersitze', front: 'vorne',
+    bootView: 'Kofferraumansicht', sideView: 'Seitenansicht', topView: 'Draufsicht', switchTo: 'Wechseln zu {view}', axisTitle: '{axis}-Achse · {view}', orientationAxisControl: '3D-Ausrichtungsachsensteuerung', yawLabel: 'Drehung', pitchLabel: 'Neigung',
+    zone3dAria: 'Drehbare 3D-Gepäckansicht', removeOne: 'Eins entfernen: {item}', placedSummary: '{placed}/{total} Gepäckstücke platziert', usedVolume: '{used} L genutzt', placedCount: '{placed} platziert · {unplaced} nicht platziert', volumeUsedPercent: '{percent}% des nutzbaren Volumens verwendet',
+    loadErrorTitle: 'App konnte nicht geladen werden', fitResultTitle: 'Geschätzte Laderaumpassung', loading: 'Lädt', languageSelector: 'Sprachauswahl', visualizationView: 'Visualisierungsansicht', scaledDrawing: 'Skalierte Zeichnung der Gepäckplatzierung', seatWedgeTitle: 'Rücksitzlehnen-Einengungskeil: {angle}°'
   },
   fr: {
     pageTitle: 'Vérification des bagages',
@@ -44,7 +66,12 @@ const I18N = {
     fitScore: 'Score de compatibilité',
     usableVolume: 'Volume utilisable',
     fitResult: 'Résultat',
-    configuration: 'Configuration', tripSetup: 'Préparation du trajet', vehicle: 'Véhicule', seatCargoConfig: 'Configuration sièges / coffre', rearAngle: 'Angle d’inclinaison du dossier arrière', seatBackNote: 'Les dossiers arrière inclinés réduisent la profondeur disponible en hauteur.', luggage: 'Bagages', bagList: 'Liste des bagages', reset: 'Réinitialiser', visualization: 'Visualisation', bootViz: 'Visualisation de l’ajustement des bagages du coffre', placedLuggage: 'Bagages placés', needsAnotherPlan: 'À replacer', workspaceAria: 'Espace de vérification des bagages', orientation: 'Orientation', pitch: 'Angle de tangage', yaw: 'Angle de lacet', dragHint: 'Faites glisser pour pivoter autour du centre de chargement · cliquez sur X/Y/Z pour les axes prédéfinis', noBagsInZone: 'Aucun bagage placé dans cette zone.', nothingPlacedYet: 'Rien n’est placé pour le moment. Ajoutez des quantités pour commencer.', allPlaced: 'Tous les bagages sélectionnés sont placés dans la configuration active.'
+    configuration: 'Configuration', tripSetup: 'Préparation du trajet', vehicle: 'Véhicule', seatCargoConfig: 'Configuration sièges / coffre', rearAngle: 'Angle d’inclinaison du dossier arrière', seatBackNote: 'Les dossiers arrière inclinés réduisent la profondeur disponible en hauteur.', luggage: 'Bagages', bagList: 'Liste des bagages', reset: 'Réinitialiser', visualization: 'Visualisation', bootViz: 'Visualisation de l’ajustement des bagages du coffre', placedLuggage: 'Bagages placés', needsAnotherPlan: 'À replacer', workspaceAria: 'Espace de vérification des bagages', orientation: 'Orientation', pitch: 'Angle de tangage', yaw: 'Angle de lacet', dragHint: 'Faites glisser pour pivoter autour du centre de chargement · cliquez sur X/Y/Z pour les axes prédéfinis', noBagsInZone: 'Aucun bagage placé dans cette zone.', nothingPlacedYet: 'Rien n’est placé pour le moment. Ajoutez des quantités pour commencer.', allPlaced: 'Tous les bagages sélectionnés sont placés dans la configuration active.',
+    seats: 'sièges', quantityFor: 'Quantité pour {item}', noSeatEncroachment: 'Aucune zone de chargement active ne définit d’inclinaison de dossier arrière.', seatBackOverrideNote: 'Les dossiers arrière inclinés réduisent la profondeur disponible en hauteur. Valeur par défaut du véhicule : {angle}° ; modifiez l’angle pour la remplacer.',
+    length: 'longueur', width: 'largeur', height: 'hauteur', seatEncroachmentEnvelope: 'Zone d’inclinaison du dossier arrière', forwardSeats: 'Sièges avant', front: 'avant',
+    bootView: 'Vue du coffre', sideView: 'Vue latérale', topView: 'Vue du dessus', switchTo: 'Basculer vers {view}', axisTitle: 'Axe {axis} · {view}', orientationAxisControl: 'Contrôle de l’axe d’orientation 3D', yawLabel: 'lacet', pitchLabel: 'tangage',
+    zone3dAria: 'vue 3D rotative des bagages', removeOne: 'Retirer un {item}', placedSummary: '{placed}/{total} bagages placés', usedVolume: '{used} L utilisés', placedCount: '{placed} placés · {unplaced} non placés', volumeUsedPercent: '{percent}% du volume utilisable utilisé',
+    loadErrorTitle: 'Impossible de charger l’application', fitResultTitle: 'Ajustement estimé du coffre', loading: 'Chargement', languageSelector: 'Sélecteur de langue', visualizationView: 'Vue de visualisation', scaledDrawing: 'Dessin à l’échelle du placement des bagages', seatWedgeTitle: 'Coin d’inclinaison du dossier arrière : {angle}°'
   }
 };
 const localeBundle = () => I18N[state.language] ?? I18N.en;
@@ -170,7 +197,7 @@ function renderVehicleOptions() {
 function renderConfigurationOptions() {
   const vehicle = selectedVehicle();
   configurationSelect.replaceChildren(...vehicle.seatConfigurations.map((config) => createEl('option', {
-    text: `${localizeEntity(config, 'label')} · ${config.seatsAvailable} ${state.language === 'fr' ? 'sièges' : 'seats'}`,
+    text: `${localizeEntity(config, 'label')} · ${config.seatsAvailable} ${t('seats')}`,
     attrs: { value: config.id }
   })));
   if (!vehicle.seatConfigurations.some((config) => config.id === state.configurationId)) {
@@ -195,12 +222,8 @@ function renderSeatBackEncroachmentControl(zones) {
   seatBackEncroachmentDegreesInput.value = state.seatBackEncroachmentAngleDegrees;
   seatBackEncroachmentDegreesInput.disabled = !hasEncroachment;
   seatBackEncroachmentNote.textContent = hasEncroachment
-    ? (state.language === 'fr'
-      ? `Les dossiers arrière inclinés réduisent la profondeur disponible en hauteur. Valeur par défaut du véhicule : ${defaultAngle}° ; modifiez l’angle pour la remplacer.`
-      : `Sloped rear seat backs constrain upper-depth clearance. Vehicle default: ${defaultAngle}°; edit the degree angle to override it.`)
-    : (state.language === 'fr'
-      ? 'Aucune zone de chargement active ne définit d’inclinaison de dossier arrière.'
-      : 'No active cargo zone defines sloped rear seat-back encroachment.');
+    ? t('seatBackOverrideNote').replace('{angle}', String(defaultAngle))
+    : t('noSeatEncroachment');
 }
 
 function syncSeatBackEncroachmentDefault() {
@@ -228,7 +251,7 @@ function renderLuggageControls() {
     );
     const label = createEl('label');
     label.append(
-      createEl('span', { className: 'sr-only', text: `Quantity for ${localizeEntity(item, 'label')}` }),
+      createEl('span', { className: 'sr-only', text: t('quantityFor').replace('{item}', localizeEntity(item, 'label')) }),
       createEl('input', { attrs: { id: `qty-${item.id}`, type: 'number', min: '0', max: String(maxQuantityForItem(item)), step: '1', value: item.quantity } })
     );
     article.append(meta, label);
@@ -288,9 +311,9 @@ function projectBox(placement, view) {
 
 function projectZone(zone, view) {
   const dimensions = zone.dimensionsMm;
-  if (view === 'side') return { width: dimensions.length, height: dimensions.height, xLabel: 'length', yLabel: 'height' };
-  if (view === 'front') return { width: dimensions.width, height: dimensions.height, xLabel: 'width', yLabel: 'height' };
-  return { width: dimensions.length, height: dimensions.width, xLabel: 'length', yLabel: 'width' };
+  if (view === 'side') return { width: dimensions.length, height: dimensions.height, xLabel: t('length'), yLabel: t('height') };
+  if (view === 'front') return { width: dimensions.width, height: dimensions.height, xLabel: t('width'), yLabel: t('height') };
+  return { width: dimensions.length, height: dimensions.width, xLabel: t('length'), yLabel: t('width') };
 }
 
 function seatEncroachmentOverlay(zone, projection, view, padding, scale) {
@@ -301,7 +324,7 @@ function seatEncroachmentOverlay(zone, projection, view, padding, scale) {
   const floorY = padding + projection.height * scale;
   const topY = padding;
   return `
-    <g aria-label="Seat-back encroachment envelope">
+    <g aria-label="${t('seatEncroachmentEnvelope')}">
       <polygon class="seat-encroachment-area" points="${floorX},${floorY} ${floorX},${topY} ${topX},${topY}" />
       <line class="seat-encroachment-line" x1="${floorX}" y1="${floorY}" x2="${topX}" y2="${topY}" />
     </g>
@@ -311,7 +334,7 @@ function seatEncroachmentOverlay(zone, projection, view, padding, scale) {
 function seatOutlineFor2dView(projection, view, padding, scale) {
   const seatFill = '#fef3c7';
   const seatStroke = '#92400e';
-  const label = view === 'front' ? 'Forward seats' : 'Forward / seats';
+  const label = t('forwardSeats');
 
   if (view === 'side') {
     const x = padding + projection.width * scale + 14;
@@ -323,7 +346,7 @@ function seatOutlineFor2dView(projection, view, padding, scale) {
       <g class="seat-outline seat-outline--side" aria-label="${label}">
         <path d="M ${x} ${floorY - baseHeight} h ${seatWidth} q 8 0 8 8 v ${baseHeight - 8} h ${-seatWidth - 8} z" fill="${seatFill}" stroke="${seatStroke}" />
         <path d="M ${x + seatWidth * 0.46} ${floorY - baseHeight} l ${seatWidth * 0.18} ${-seatHeight} q 3 -10 14 -7 l ${seatWidth * 0.18} 4 l ${-seatWidth * 0.23} ${seatHeight + 3} z" fill="${seatFill}" stroke="${seatStroke}" />
-        <text x="${x + seatWidth / 2}" y="${Math.max(18, floorY - seatHeight - 14)}" text-anchor="middle" class="seat-label">front</text>
+        <text x="${x + seatWidth / 2}" y="${Math.max(18, floorY - seatHeight - 14)}" text-anchor="middle" class="seat-label">${t('front')}</text>
       </g>
     `;
   }
@@ -341,7 +364,7 @@ function seatOutlineFor2dView(projection, view, padding, scale) {
       <g class="seat-outline seat-outline--front" aria-label="${label}">
         <rect x="${startX}" y="${y}" width="${seatWidth}" height="${seatHeight}" rx="11" fill="${seatFill}" stroke="${seatStroke}" />
         <rect x="${startX + seatWidth + gap}" y="${y}" width="${seatWidth}" height="${seatHeight}" rx="11" fill="${seatFill}" stroke="${seatStroke}" />
-        <text x="${cargoX + cargoWidth / 2}" y="${Math.max(14, y - 6)}" text-anchor="middle" class="seat-label">front</text>
+        <text x="${cargoX + cargoWidth / 2}" y="${Math.max(14, y - 6)}" text-anchor="middle" class="seat-label">${t('front')}</text>
       </g>
     `;
   }
@@ -360,7 +383,7 @@ function seatOutlineFor2dView(projection, view, padding, scale) {
       <rect x="${x}" y="${startY}" width="${seatDepth}" height="${seatWidth}" rx="12" fill="${seatFill}" stroke="${seatStroke}" />
       <rect x="${x}" y="${startY + seatWidth + gap}" width="${seatDepth}" height="${seatWidth}" rx="12" fill="${seatFill}" stroke="${seatStroke}" />
       <line x1="${cargoX + cargoWidth}" y1="${cargoY}" x2="${cargoX + cargoWidth}" y2="${cargoY + cargoHeight}" class="seat-back-line" />
-      <text x="${x + seatDepth / 2}" y="${Math.max(18, startY - 8)}" text-anchor="middle" class="seat-label">front</text>
+      <text x="${x + seatDepth / 2}" y="${Math.max(18, startY - 8)}" text-anchor="middle" class="seat-label">${t('front')}</text>
     </g>
   `;
 }
@@ -542,9 +565,9 @@ function renderFace(vertices, indices, fill, className, title = '') {
 }
 
 const ORIENTATION_PRESETS = {
-  x: { label: 'Boot View', yaw: 270, pitch: 90 },
-  y: { label: 'Side View', yaw: 0, pitch: 90 },
-  z: { label: 'Top View', yaw: -90, pitch: 0 }
+  x: { label: t('bootView'), yaw: 270, pitch: 90 },
+  y: { label: t('sideView'), yaw: 0, pitch: 90 },
+  z: { label: t('topView'), yaw: -90, pitch: 0 }
 };
 
 function renderOrientationAxisControl() {
@@ -552,9 +575,9 @@ function renderOrientationAxisControl() {
   const axisLength = 44;
   const center = { x: 0, y: 0, z: 0 };
   const axes = [
-    { key: 'x', label: 'X', color: '#dc2626', vector: { x: axisLength, y: 0, z: 0 }, title: 'Boot view' },
-    { key: 'y', label: 'Y', color: '#16a34a', vector: { x: 0, y: axisLength, z: 0 }, title: 'Side view' },
-    { key: 'z', label: 'Z', color: '#2563eb', vector: { x: 0, y: 0, z: axisLength }, title: 'Top-down view' }
+    { key: 'x', label: 'X', color: '#dc2626', vector: { x: axisLength, y: 0, z: 0 }, title: t('bootView') },
+    { key: 'y', label: 'Y', color: '#16a34a', vector: { x: 0, y: axisLength, z: 0 }, title: t('sideView') },
+    { key: 'z', label: 'Z', color: '#2563eb', vector: { x: 0, y: 0, z: axisLength }, title: t('topView') }
   ];
 
   const axisMarkup = axes.map((axis) => {
@@ -565,11 +588,11 @@ function renderOrientationAxisControl() {
     const labelY = origin.y + endpoint.y * 1.18;
 
     return `
-      <g class="orientation-axis-button" role="button" tabindex="0" data-axis="${axis.key}" aria-label="Switch to ${axis.title}" style="--axis-color:${axis.color}">
+      <g class="orientation-axis-button" role="button" tabindex="0" data-axis="${axis.key}" aria-label="${t('switchTo').replace('{view}', axis.title)}" style="--axis-color:${axis.color}">
         <line class="orientation-axis-line" x1="${origin.x}" y1="${origin.y}" x2="${x.toFixed(1)}" y2="${y.toFixed(1)}" />
         <circle class="orientation-axis-end" cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="4" />
         <text class="orientation-axis-label" x="${labelX.toFixed(1)}" y="${labelY.toFixed(1)}" text-anchor="middle" dominant-baseline="middle">${axis.label}</text>
-        <title>${axis.label} axis · ${axis.title}</title>
+        <title>${t('axisTitle').replace('{axis}', axis.label).replace('{view}', axis.title)}</title>
       </g>
     `;
   }).join('');
@@ -577,14 +600,14 @@ function renderOrientationAxisControl() {
   const orientationStatus = state.activeOrientationLabel
     ? `<text class="orientation-axis-preset-label" x="722" y="172" text-anchor="middle">${state.activeOrientationLabel}</text>`
     : `<text class="orientation-axis-angle-label" x="722" y="156" text-anchor="middle">
-        <tspan x="722">yaw ${Math.round(state.rotation3d.yaw)}°</tspan>
-        <tspan x="722" dy="16">pitch ${Math.round(state.rotation3d.pitch)}°</tspan>
+        <tspan x="722">${t('yawLabel')} ${Math.round(state.rotation3d.yaw)}°</tspan>
+        <tspan x="722" dy="16">${t('pitchLabel')} ${Math.round(state.rotation3d.pitch)}°</tspan>
       </text>`;
 
   return `
-    <g class="orientation-axis-control" aria-label="3D orientation axis control">
+    <g class="orientation-axis-control" aria-label="${t('orientationAxisControl')}">
       <rect class="orientation-axis-panel" x="648" y="18" width="148" height="184" rx="16" />
-      <text class="orientation-axis-heading" x="722" y="40" text-anchor="middle">orientation</text>
+      <text class="orientation-axis-heading" x="722" y="40" text-anchor="middle">${t('orientation').toLowerCase()}</text>
       ${axisMarkup}
       ${orientationStatus}
     </g>
@@ -603,7 +626,7 @@ function renderSeatEncroachmentWedge3d(zone, project) {
   const rawVertices = createSeatEncroachmentWedgeVertices(zone);
   if (rawVertices.length === 0) return [];
   const vertices = rawVertices.map(project);
-  const title = `Seat-back encroachment wedge: ${seatBackAngleDegrees(zone)}°`;
+  const title = t('seatWedgeTitle').replace('{angle}', String(seatBackAngleDegrees(zone)));
   return [
     renderFace(vertices, [0, 1, 2], '#fecaca', 'seat-encroachment-face', title),
     renderFace(vertices, [3, 5, 4], '#fecaca', 'seat-encroachment-face', title),
@@ -671,7 +694,7 @@ function renderZone3dSvg(zone, placements) {
         </div>
         <span>${t('dragHint')}</span>
       </div>
-      <svg class="zone-3d-svg" viewBox="0 0 ${svgWidth} ${svgHeight}" role="img" aria-label="${localizeEntity(zone, 'label')} rotatable 3D luggage view">
+      <svg class="zone-3d-svg" viewBox="0 0 ${svgWidth} ${svgHeight}" role="img" aria-label="${localizeEntity(zone, 'label')} ${t('zone3dAria')}">
         <rect x="0" y="0" width="${svgWidth}" height="${svgHeight}" rx="18" fill="#f8fafc" />
         ${faces}
         <polyline class="zone-wire" points="${polygonPoints([zoneVertices[0], zoneVertices[1], zoneVertices[2], zoneVertices[3], zoneVertices[0]])}" />
@@ -750,7 +773,7 @@ function renderLists(result) {
       const li = createEl('li', { className: 'placed-item', attrs: { 'data-source-id': sourceId } });
       li.append(
         createEl('span', { className: 'item-status item-status--placed', text: '✓', attrs: { 'aria-hidden': 'true' } }),
-        createEl('button', { className: 'placed-delete', text: '✕', attrs: { type: 'button', title: `Remove one ${localizedPlacementLabel(placement)}`, 'aria-label': `Remove one ${localizedPlacementLabel(placement)}` } }),
+        createEl('button', { className: 'placed-delete', text: '✕', attrs: { type: 'button', title: t('removeOne').replace('{item}', localizedPlacementLabel(placement)), 'aria-label': t('removeOne').replace('{item}', localizedPlacementLabel(placement)) } }),
         createEl('strong', { text: localizedPlacementLabel(placement) }),
         createEl('small', { text: `${localizedZoneLabel(placement.zoneLabel, placement.zoneId)} · ${dimensionsLabel(placement.orientationMm)}` })
       );
@@ -769,7 +792,7 @@ function renderLists(result) {
       const li = createEl('li', { className: 'problem placed-item', attrs: { 'data-source-id': sourceId } });
       li.append(
         createEl('span', { className: 'item-status item-status--unplaced', text: '⊘', attrs: { 'aria-hidden': 'true' } }),
-        createEl('button', { className: 'placed-delete', text: '✕', attrs: { type: 'button', title: `Remove one ${localizedPlacementLabel(item)}`, 'aria-label': `Remove one ${localizedPlacementLabel(item)}` } }),
+        createEl('button', { className: 'placed-delete', text: '✕', attrs: { type: 'button', title: t('removeOne').replace('{item}', localizedPlacementLabel(item)), 'aria-label': t('removeOne').replace('{item}', localizedPlacementLabel(item)) } }),
         createEl('strong', { text: localizedPlacementLabel(item) }),
         createEl('small', { text: `${dimensionsLabel(item.dimensionsMm)} · ${item.volumeLitres} L` })
       );
@@ -793,19 +816,15 @@ function renderResults() {
   const percent = Math.round(result.fitScore * 100);
   const volumePercent = Math.round((result.usedVolumeLitres / Math.max(1, result.usableVolumeLitres)) * 100);
 
-  const fitResultLabel = state.language === 'fr'
-    ? `${result.placements.length} placés · ${result.unplacedItems.length} non placés`
-    : `${result.placements.length} placed · ${result.unplacedItems.length} unplaced`;
-  const fitResultDetail = state.language === 'fr'
-    ? `${volumePercent}% du volume utilisable utilisé`
-    : `${volumePercent}% usable volume used`;
+  const fitResultLabel = t('placedCount').replace('{placed}', String(result.placements.length)).replace('{unplaced}', String(result.unplacedItems.length));
+  const fitResultDetail = t('volumeUsedPercent').replace('{percent}', String(volumePercent));
 
   $('#resultTitle').textContent = `${vehicle.make} ${vehicle.model} · ${localizeEntity(config, 'label')}`;
   $('#fitBadge').className = `fit-badge ${result.fits ? 'fit-badge--ok' : 'fit-badge--bad'}`;
   $('#fitBadge').textContent = result.fits ? t('bagsFit') : t('bagsUnplaced');
   $('#metrics').replaceChildren(...[
-    metricCard(t('fitScore'), `${percent}%`, state.language === 'fr' ? `${result.placements.length}/${result.placements.length + result.unplacedItems.length} bagages placés` : `${result.placements.length}/${result.placements.length + result.unplacedItems.length} bags placed`),
-    metricCard(t('usableVolume'), `${result.usableVolumeLitres} L`, state.language === 'fr' ? `${result.usedVolumeLitres} L utilisés` : `${result.usedVolumeLitres} L used`),
+    metricCard(t('fitScore'), `${percent}%`, t('placedSummary').replace('{placed}', String(result.placements.length)).replace('{total}', String(result.placements.length + result.unplacedItems.length))),
+    metricCard(t('usableVolume'), `${result.usableVolumeLitres} L`, t('usedVolume').replace('{used}', String(result.usedVolumeLitres))),
     metricCard(t('fitResult'), fitResultLabel, fitResultDetail, 'metric--fit-result')
   ]);
   renderVisualization(vehicle, config, result);
@@ -881,6 +900,7 @@ function applyStaticTranslations() {
 
 function setLanguage(language) {
   state.language = language;
+  document.documentElement.lang = language;
   const languageSelect = $('#languageSelect');
   if (languageSelect && languageSelect.value !== language) {
     languageSelect.value = language;
@@ -912,7 +932,7 @@ export async function initApp() {
     applyStaticTranslations();
     renderResults();
   } catch (error) {
-    $('#metrics').replaceChildren(metricCard('Fit result', 'Unable to load app', error.message, 'metric--fit-result'));
+    $('#metrics').replaceChildren(metricCard(t('fitResult'), t('loadErrorTitle'), error.message, 'metric--fit-result'));
     console.error(error);
   }
 }

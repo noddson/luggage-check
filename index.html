@@ -17,8 +17,8 @@
             <h1 data-i18n="heroTitle">Pick a vehicle setup and see whether your bags fit.</h1>
           </div>
           <div class="language-switcher">
-            <label class="language-switcher__label" for="languageSelect">Language selector</label>
-            <select id="languageSelect" class="language-select" aria-label="Language selector">
+            <label class="language-switcher__label" for="languageSelect" data-i18n="languageSelector">Language selector</label>
+            <select id="languageSelect" class="language-select" aria-label="Language selector" data-i18n-aria-label="languageSelector">
               <option value="en" selected>🇨🇦 CA</option>
               <option value="de">🇩🇪 DE</option>
               <option value="es">🇪🇸 ES</option>
@@ -76,18 +76,18 @@
           <div class="results-header">
             <div>
               <p class="eyebrow" data-i18n="visualization">Visualization</p>
-              <h2 id="resultTitle">Estimated cargo fit</h2>
+              <h2 id="resultTitle" data-i18n="fitResultTitle">Estimated cargo fit</h2>
             </div>
-            <div id="fitBadge" class="fit-badge">Loading</div>
+            <div id="fitBadge" class="fit-badge" data-i18n="loading">Loading</div>
           </div>
 
           <div class="metrics" id="metrics"></div>
 
-          <div class="view-tabs" role="tablist" aria-label="Visualization view">
+          <div class="view-tabs" role="tablist" aria-label="Visualization view" data-i18n-aria-label="visualizationView">
             <button class="view-tab active" type="button" data-view="3d" data-i18n="bootViz">Boot Luggage Fit Visualization</button>
           </div>
 
-          <div id="visualization" class="visualization" aria-label="Scaled luggage placement drawing"></div>
+          <div id="visualization" class="visualization" aria-label="Scaled luggage placement drawing" data-i18n-aria-label="scaledDrawing"></div>
 
           <div class="details-grid">
             <section>
