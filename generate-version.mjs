@@ -29,7 +29,9 @@ function generateVersionMetadata() {
   const shortSha = run('git rev-parse --short=7 HEAD');
   const fullSha = run('git rev-parse HEAD');
   const remoteUrl = tryRun('git config --get remote.origin.url');
-  const [, owner = '<owner>', repo = '<repo>'] = remoteUrl.match(/github\.com[:/]([^/]+)\/(.+?)(?:\.git)?$/) || [];
+  const defaultOwner = 'noddson';
+  const defaultRepo = 'luggage-check';
+  const [, owner = defaultOwner, repo = defaultRepo] = remoteUrl.match(/github\.com[:/]([^/]+)\/(.+?)(?:\.git)?$/) || [];
   const dirty = isDirty();
   const displayVersion = `${year}.${month}.${shortSha}${dirty ? '.d' : ''}`;
   return {
