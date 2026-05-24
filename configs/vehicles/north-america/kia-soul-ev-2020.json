@@ -59,6 +59,9 @@
         },
         "it": {
           "label": "Vano di carico posteriore con sedili in uso e piano di carico abbassato"
+        },
+        "el": {
+          "label": "Πίσω χώρος φόρτωσης με καθίσματα όρθια και δάπεδο χαμηλωμένο"
         }
       }
     },
@@ -103,6 +106,9 @@
         },
         "it": {
           "label": "Vano di carico posteriore con sedili in uso e piano di carico rialzato"
+        },
+        "el": {
+          "label": "Πίσω χώρος φόρτωσης με καθίσματα όρθια και δάπεδο υπερυψωμένο"
         }
       }
     },
@@ -143,6 +149,9 @@
         },
         "it": {
           "label": "Vano di carico ampliato con sedili posteriori abbattuti"
+        },
+        "el": {
+          "label": "Επεκταμένος χώρος φόρτωσης με πίσω καθίσματα αναδιπλωμένα"
         }
       }
     },
@@ -179,6 +188,9 @@
         },
         "it": {
           "label": "Spazio extra nel vano piedi dei passeggeri posteriori"
+        },
+        "el": {
+          "label": "Υπερχείλιση χώρου ποδιών πίσω επιβατών"
         }
       }
     }
@@ -212,6 +224,9 @@
         },
         "it": {
           "label": "Sedili posteriori in uso, piano di carico abbassato"
+        },
+        "el": {
+          "label": "Πίσω καθίσματα όρθια, δάπεδο φόρτωσης χαμηλωμένο"
         }
       }
     },
@@ -244,6 +259,9 @@
         },
         "it": {
           "label": "Sedili posteriori in uso, piano di carico rialzato"
+        },
+        "el": {
+          "label": "Πίσω καθίσματα όρθια, δάπεδο φόρτωσης υπερυψωμένο"
         }
       }
     },
@@ -277,6 +295,9 @@
         },
         "it": {
           "label": "Sedili posteriori abbattuti"
+        },
+        "el": {
+          "label": "Πίσω καθίσματα αναδιπλωμένα"
         }
       }
     },
@@ -310,6 +331,9 @@
         },
         "it": {
           "label": "Sedili posteriori in uso con spazio extra nel vano piedi posteriore"
+        },
+        "el": {
+          "label": "Πίσω καθίσματα όρθια με υπερχείλιση πίσω χώρου ποδιών"
         }
       }
     }
@@ -387,6 +411,9 @@
     },
     "it": {
       "bodyStyle": "Crossover hatchback elettrico subcompatto a 5 porte"
+    },
+    "el": {
+      "bodyStyle": "Ηλεκτρικό υποσυμπαγές crossover hatchback 5 θυρών"
     }
   }
 }

@@ -55,6 +55,9 @@
         },
         "it": {
           "label": "Bagagliaio con sedili posteriori in uso"
+        },
+        "el": {
+          "label": "Πορτμπαγκάζ με πίσω καθίσματα όρθια"
         }
       }
     },
@@ -91,6 +94,9 @@
         },
         "it": {
           "label": "Vano di carico ampliato con sedili posteriori abbattuti"
+        },
+        "el": {
+          "label": "Επεκταμένος χώρος φόρτωσης με πίσω καθίσματα αναδιπλωμένα"
         }
       }
     },
@@ -127,6 +133,9 @@
         },
         "it": {
           "label": "Spazio extra nel vano piedi dei passeggeri posteriori"
+        },
+        "el": {
+          "label": "Υπερχείλιση χώρου ποδιών πίσω επιβατών"
         }
       }
     }
@@ -160,6 +169,9 @@
         },
         "it": {
           "label": "Sedili posteriori in uso"
+        },
+        "el": {
+          "label": "Πίσω καθίσματα όρθια"
         }
       }
     },
@@ -193,6 +205,9 @@
         },
         "it": {
           "label": "Sedili posteriori abbattuti"
+        },
+        "el": {
+          "label": "Πίσω καθίσματα αναδιπλωμένα"
         }
       }
     },
@@ -226,6 +241,9 @@
         },
         "it": {
           "label": "Sedili posteriori in uso con spazio extra nel vano piedi posteriore"
+        },
+        "el": {
+          "label": "Πίσω καθίσματα όρθια με υπερχείλιση πίσω χώρου ποδιών"
         }
       }
     }
@@ -277,6 +295,9 @@
     },
     "it": {
       "bodyStyle": "SUV / crossover compatto"
+    },
+    "el": {
+      "bodyStyle": "συμπαγές SUV / crossover"
     }
   }
 }

@@ -48,6 +48,9 @@
         },
         "it": {
           "label": "Bagaglio a mano in stile IATA"
+        },
+        "el": {
+          "label": "Χειραποσκευή τύπου IATA"
         }
       }
     },
@@ -98,6 +101,9 @@
         },
         "it": {
           "label": "Bagaglio a mano per compagnie aeree statunitensi"
+        },
+        "el": {
+          "label": "Χειραποσκευή αμερικανικής αεροπορικής"
         }
       }
     },
@@ -148,6 +154,9 @@
         },
         "it": {
           "label": "Bagaglio a mano famiglia Oddson"
+        },
+        "el": {
+          "label": "Χειραποσκευή οικογένειας Oddson"
         }
       }
     },
@@ -198,6 +207,9 @@
         },
         "it": {
           "label": "Valigia da stiva media"
+        },
+        "el": {
+          "label": "Μεσαία βαλίτσα για παράδοση"
         }
       }
     },
@@ -248,6 +260,9 @@
         },
         "it": {
           "label": "Valigia da stiva grande"
+        },
+        "el": {
+          "label": "Μεγάλη βαλίτσα για παράδοση"
         }
       }
     },
@@ -317,6 +332,9 @@
         },
         "it": {
           "label": "Zaino da viaggio morbido"
+        },
+        "el": {
+          "label": "Μαλακό ταξιδιωτικό σακίδιο"
         }
       }
     },
@@ -367,6 +385,9 @@
         },
         "it": {
           "label": "Mazze da golf"
+        },
+        "el": {
+          "label": "Μπαστούνια γκολφ"
         }
       }
     },
@@ -417,6 +438,9 @@
         },
         "it": {
           "label": "Palline da golf (confezione da 12)"
+        },
+        "el": {
+          "label": "Μπαλάκια γκολφ (κουτί των 12)"
         }
       }
     }

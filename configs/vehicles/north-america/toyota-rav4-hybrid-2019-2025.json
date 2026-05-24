@@ -68,6 +68,9 @@
         },
         "it": {
           "label": "Vano di carico dietro la seconda fila"
+        },
+        "el": {
+          "label": "Χώρος φόρτωσης πίσω από τη 2η σειρά"
         }
       }
     },
@@ -108,6 +111,9 @@
         },
         "it": {
           "label": "Vano di carico massimo con seconda fila abbattuta"
+        },
+        "el": {
+          "label": "Μέγιστος χώρος φόρτωσης με 2η σειρά αναδιπλωμένη"
         }
       }
     },
@@ -144,6 +150,9 @@
         },
         "it": {
           "label": "Spazio extra nel vano piedi dei passeggeri posteriori"
+        },
+        "el": {
+          "label": "Υπερχείλιση χώρου ποδιών πίσω επιβατών"
         }
       }
     }
@@ -178,6 +187,9 @@
         },
         "it": {
           "label": "Tutti i sedili in uso"
+        },
+        "el": {
+          "label": "Όλα τα καθίσματα όρθια"
         }
       }
     },
@@ -210,6 +222,9 @@
         },
         "it": {
           "label": "Seconda fila abbattuta"
+        },
+        "el": {
+          "label": "2η σειρά αναδιπλωμένη"
         }
       }
     },
@@ -243,6 +258,9 @@
         },
         "it": {
           "label": "Una sezione del sedile posteriore abbattuta"
+        },
+        "el": {
+          "label": "Μία ενότητα πίσω καθίσματος αναδιπλωμένη"
         }
       }
     }
@@ -340,6 +358,9 @@
     },
     "it": {
       "bodyStyle": "SUV ibrido compatto a 5 porte"
+    },
+    "el": {
+      "bodyStyle": "Υβριδικό συμπαγές SUV 5 θυρών"
     }
   }
 }

@@ -60,6 +60,9 @@
         },
         "it": {
           "label": "Bagagliaio dietro la terza fila con tutti i 7 posti in uso"
+        },
+        "el": {
+          "label": "Πορτμπαγκάζ πίσω από την 3η σειρά με και τις 7 θέσεις σε χρήση"
         }
       }
     },
@@ -104,6 +107,9 @@
         },
         "it": {
           "label": "Vano di carico con terza fila rimossa/abbattuta, 5 posti disponibili"
+        },
+        "el": {
+          "label": "Χώρος φόρτωσης με 3η σειρά αφαιρεμένη / αναδιπλωμένη, διαθέσιμες 5 θέσεις"
         }
       }
     },
@@ -144,6 +150,9 @@
         },
         "it": {
           "label": "Vano di carico massimo con seconda e terza fila rimosse"
+        },
+        "el": {
+          "label": "Μέγιστος χώρος φόρτωσης με 2η και 3η σειρά αφαιρεμένες"
         }
       }
     }
@@ -178,6 +187,9 @@
         },
         "it": {
           "label": "Tutti i 7 posti in uso"
+        },
+        "el": {
+          "label": "Και οι 7 θέσεις σε χρήση"
         }
       }
     },
@@ -210,6 +222,9 @@
         },
         "it": {
           "label": "Terza fila rimossa/abbattuta"
+        },
+        "el": {
+          "label": "3η σειρά αφαιρεμένη / αναδιπλωμένη"
         }
       }
     },
@@ -242,6 +257,9 @@
         },
         "it": {
           "label": "Seconda e terza fila rimosse"
+        },
+        "el": {
+          "label": "2η και 3η σειρά αφαιρεμένες"
         }
       }
     }
@@ -310,6 +328,9 @@
     },
     "it": {
       "bodyStyle": "Monovolume compatto passeggeri a 7 posti"
+    },
+    "el": {
+      "bodyStyle": "Συμπαγές επιβατικό van / MPV 7 θέσεων"
     }
   }
 }
