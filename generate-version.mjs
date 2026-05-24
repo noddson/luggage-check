@@ -14,6 +14,10 @@ function tryRun(command) {
 }
 
 function isDirty() {
+  if ((process.env.VERSION_ASSUME_CLEAN || "").toLowerCase() === "true") {
+    return false;
+  }
+
   try {
     execSync('git diff --quiet --ignore-submodules HEAD --', { stdio: 'ignore' });
     return false;
