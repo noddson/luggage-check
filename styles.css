@@ -49,6 +49,9 @@ button { cursor: pointer; }
 .luggage-item strong, .luggage-item span { display: block; }
 .luggage-item span { color: var(--muted); margin-top: 4px; font-size: 0.88rem; line-height: 1.35; }
 .luggage-item input { text-align: center; font-weight: 900; }
+.custom-bag-dimensions { margin-top: 8px; display: grid; gap: 8px; }
+.custom-bag-dimension { display: grid; grid-template-columns: 72px minmax(0, 1fr); gap: 8px; align-items: center; font-size: 0.86rem; color: var(--muted); }
+.custom-bag-dimension input { text-align: left; font-weight: 700; }
 
 .results-header { display: flex; justify-content: space-between; gap: 16px; align-items: start; margin-bottom: 18px; }
 .fit-badge { padding: 10px 14px; border-radius: 999px; background: #e2e8f0; color: #334155; font-weight: 900; white-space: nowrap; }

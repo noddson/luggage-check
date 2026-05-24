@@ -114,62 +114,6 @@
       }
     },
     {
-      "id": "oddson-family-carry-on",
-      "label": "@i18n:label",
-      "quantity": 1,
-      "shapeType": "box",
-      "dimensionsMm": {
-        "length": 570,
-        "width": 360,
-        "height": 260
-      },
-      "rotationAllowed": true,
-      "sources": [
-        {
-          "sourceType": "editorial",
-          "publisher": "Nick Oddson",
-          "title": "Oddson Family carry-on measured dimensions",
-          "url": "https://github.com/example/luggage-check/configs/luggage/common.json",
-          "retrievedAt": "2026-05-15",
-          "fieldsCovered": [
-            "carry-on dimensions"
-          ],
-          "confidence": "high",
-          "notes": "Actually measured dimensions of real their real luggage."
-        }
-      ],
-      "maxQuantity": 24,
-      "translations": {
-        "fr": {
-          "label": "Bagage cabine Oddson Family"
-        },
-        "en": {
-          "label": "Oddson Family carry-on"
-        },
-        "de": {
-          "label": "Oddson Family Handgepäck"
-        },
-        "es": {
-          "label": "Equipaje de mano Oddson Family"
-        },
-        "is": {
-          "label": "Oddson Family handfarangur"
-        },
-        "jp": {
-          "label": "Oddson Family機内持ち込み"
-        },
-        "it": {
-          "label": "Bagaglio a mano famiglia Oddson"
-        },
-        "el": {
-          "label": "Χειραποσκευή οικογένειας Oddson"
-        },
-        "xx": {
-          "label": "Oddson crew deck trunk"
-        }
-      }
-    },
-    {
       "id": "medium-checked-suitcase",
       "label": "@i18n:label",
       "quantity": 1,
@@ -465,6 +409,117 @@
         },
         "xx": {
           "label": "Pouch o' doubloons (12 coins)"
+        }
+      }
+    },
+    {
+      "id": "oddson-family-carry-on",
+      "label": "@i18n:label",
+      "quantity": 1,
+      "shapeType": "box",
+      "dimensionsMm": {
+        "length": 570,
+        "width": 360,
+        "height": 260
+      },
+      "rotationAllowed": true,
+      "sources": [
+        {
+          "sourceType": "editorial",
+          "publisher": "Nick Oddson",
+          "title": "Oddson Family carry-on measured dimensions",
+          "url": "https://github.com/example/luggage-check/configs/luggage/common.json",
+          "retrievedAt": "2026-05-15",
+          "fieldsCovered": [
+            "carry-on dimensions"
+          ],
+          "confidence": "high",
+          "notes": "Actually measured dimensions of real their real luggage."
+        }
+      ],
+      "maxQuantity": 24,
+      "translations": {
+        "fr": {
+          "label": "Bagage cabine Oddson Family"
+        },
+        "en": {
+          "label": "Oddson Family carry-on"
+        },
+        "de": {
+          "label": "Oddson Family Handgepäck"
+        },
+        "es": {
+          "label": "Equipaje de mano Oddson Family"
+        },
+        "is": {
+          "label": "Oddson Family handfarangur"
+        },
+        "jp": {
+          "label": "Oddson Family機内持ち込み"
+        },
+        "it": {
+          "label": "Bagaglio a mano famiglia Oddson"
+        },
+        "el": {
+          "label": "Χειραποσκευή οικογένειας Oddson"
+        },
+        "xx": {
+          "label": "Oddson crew deck trunk"
+        }
+      }
+    },
+    {
+      "id": "custom-bag",
+      "label": "@i18n:label",
+      "quantity": 1,
+      "shapeType": "box",
+      "dimensionsMm": {
+        "length": 550,
+        "width": 350,
+        "height": 200
+      },
+      "rotationAllowed": true,
+      "sources": [
+        {
+          "sourceType": "editorial",
+          "publisher": "Luggage Check",
+          "title": "Custom bag user-defined dimensions",
+          "url": "https://github.com/example/luggage-check/configs/luggage/common.json",
+          "retrievedAt": "2026-05-24",
+          "fieldsCovered": [
+            "box dimensions"
+          ],
+          "confidence": "high",
+          "notes": "User-entered dimensions constrained to 10-2500 mm on each axis."
+        }
+      ],
+      "translations": {
+        "fr": {
+          "label": "Custom bag"
+        },
+        "en": {
+          "label": "Custom bag"
+        },
+        "de": {
+          "label": "Custom bag"
+        },
+        "es": {
+          "label": "Custom bag"
+        },
+        "is": {
+          "label": "Custom bag"
+        },
+        "jp": {
+          "label": "Custom bag"
+        },
+        "it": {
+          "label": "Custom bag"
+        },
+        "el": {
+          "label": "Custom bag"
+        },
+        "xx": {
+          "label": "Custom bag"
         }
       }
     }
