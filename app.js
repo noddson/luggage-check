@@ -260,7 +260,18 @@ function localizedPlacementLabel(entry) {
   const sourceId = entry.sourceId ?? (entry.itemId ? entry.itemId.split('#')[0] : null);
   const item = state.luggageSet?.items?.find((candidate) => candidate.id === sourceId);
   if (item) return localizeEntity(item, 'label');
-  return entry.label;
+  if (entry?.label) {
+    const directLabel = localizeEntity(entry, 'label');
+    if (directLabel !== 'label') return directLabel;
+  }
+  return entry.label ?? sourceId ?? '';
+}
+
+function localizedZoneLabel(label, zoneId) {
+  const vehicle = selectedVehicle();
+  const zone = vehicle?.cargoZones?.find((candidate) => candidate.id === zoneId);
+  if (!zone) return label;
+  return localizeEntity(zone, 'label');
 }
 
 function estimateSources() {
@@ -739,8 +750,8 @@ function renderLists(result) {
       li.append(
         createEl('span', { className: 'item-status item-status--placed', text: '✓', attrs: { 'aria-hidden': 'true' } }),
         createEl('button', { className: 'placed-delete', text: '✕', attrs: { type: 'button', title: `Remove one ${localizedPlacementLabel(placement)}`, 'aria-label': `Remove one ${localizedPlacementLabel(placement)}` } }),
-        createEl('strong', { text: placement.label }),
-        createEl('small', { text: `${placement.zoneLabel} · ${dimensionsLabel(placement.orientationMm)}` })
+        createEl('strong', { text: localizedPlacementLabel(placement) }),
+        createEl('small', { text: `${localizedZoneLabel(placement.zoneLabel, placement.zoneId)} · ${dimensionsLabel(placement.orientationMm)}` })
       );
       li.style.setProperty('--bag-panel-bg', mixWithWhite(tint, 0.9));
       return li;
@@ -758,7 +769,7 @@ function renderLists(result) {
       li.append(
         createEl('span', { className: 'item-status item-status--unplaced', text: '⊘', attrs: { 'aria-hidden': 'true' } }),
         createEl('button', { className: 'placed-delete', text: '✕', attrs: { type: 'button', title: `Remove one ${localizedPlacementLabel(item)}`, 'aria-label': `Remove one ${localizedPlacementLabel(item)}` } }),
-        createEl('strong', { text: localizeEntity(item, 'label') }),
+        createEl('strong', { text: localizedPlacementLabel(item) }),
         createEl('small', { text: `${dimensionsLabel(item.dimensionsMm)} · ${item.volumeLitres} L` })
       );
       li.style.setProperty('--bag-panel-bg', mixWithWhite(tint, 0.9));
@@ -871,7 +882,9 @@ function setLanguage(language) {
   $('#langEn').classList.toggle('active', language === 'en');
   $('#langFr').classList.toggle('active', language === 'fr');
   applyStaticTranslations();
+  renderVehicleOptions();
   renderConfigurationOptions();
+  renderLuggageControls();
   renderResults();
 }
 
