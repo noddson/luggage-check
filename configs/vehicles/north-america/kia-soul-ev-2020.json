@@ -83,7 +83,7 @@
       "confidence": "low",
       "notes": "Represents the flatter raised-floor setup. Cargo volume is sourced from a Canadian review/spec reference; cuboid dimensions and hatch opening are approximate for luggage planning.",
       "seatBackEncroachment": {
-        "angleFromVerticalDegrees": 20,
+        "angleFromVerticalDegrees": 26,
         "notes": "Hypothèse par défaut de l’inclinaison du dossier arrière pour une planification du coffre tenant compte de l’empiètement."
       },
       "translations": {
