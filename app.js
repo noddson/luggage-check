@@ -289,10 +289,24 @@ function renderVehicleMeta() {
   const vehicle = selectedVehicle();
   const config = selectedConfiguration(vehicle);
   const zones = config.cargoZoneIds.map((id) => vehicle.cargoZones.find((zone) => zone.id === id)).filter(Boolean);
-  const encroachmentZones = zones.filter((zone) => zone.seatBackEncroachment);
   renderSeatBackEncroachmentControl(zones);
+
   const vehicleMeta = $('#vehicleMeta');
-  vehicleMeta.replaceChildren();
+  const totalVolume = Math.round(zones.reduce((sum, zone) => sum + (zone.volumeLitres ?? 0), 0));
+  const modelYears = Array.isArray(vehicle.modelYears) && vehicle.modelYears.length > 0
+    ? vehicle.modelYears.join(', ')
+    : 'N/A';
+
+  const vehicleHeading = vehicle.generation
+    ? `<strong>${vehicle.make} ${vehicle.model}</strong> · ${vehicle.generation}`
+    : `<strong>${vehicle.make} ${vehicle.model}</strong>`;
+
+  vehicleMeta.replaceChildren(
+    createEl('p', { html: vehicleHeading }),
+    createEl('p', { html: `<strong>${localizeEntity(config, 'label')}</strong> · ${config.seatsAvailable} ${t('seats')}` }),
+    createEl('p', { html: `<strong>${zones.length}</strong> cargo zone${zones.length === 1 ? '' : 's'} selected · <strong>${totalVolume} L</strong> combined estimate` }),
+    createEl('p', { html: `<strong>Model years:</strong> ${modelYears}` })
+  );
 }
 
 function renderSeatBackEncroachmentControl(zones) {
