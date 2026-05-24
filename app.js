@@ -109,21 +109,22 @@ const I18N = {
     loadErrorTitle: 'Ekki tókst að hlaða forriti', fitResultTitle: 'Áætluð farangurspassun', loading: 'Hleð', languageSelector: 'Val á tungumáli', visualizationView: 'Sýn á framsetningu', scaledDrawing: 'Skölunarteikning af staðsetningu farangurs', seatWedgeTitle: 'Skörunarfleygur aftursætisbaks: {angle}°', zoneViewAria: '{zone} · {view} sýn', seatGuideTitle: 'Útlínur framsæta'
   },
   jp: {
-    pageTitle: '荷物チェック',
-    eyebrow: 'レンタカー荷物プランナー',
-    heroTitle: '車両設定を選んで、荷物が載るかを確認しましょう。',
-    heroCopy: 'ヨーロッパのレンタカーの荷室構成を比較し、荷物リストを調整して、予約前に各荷室ゾーンへの推定配置を可視化できます。',
-    bagsFit: 'すべての荷物を積載できます',
-    bagsUnplaced: '積載できない荷物があります',
-    fitScore: '積載適合スコア',
-    usableVolume: '使用可能容量',
-    fitResult: '積載結果',
-    configuration: '構成', tripSetup: '旅行設定', vehicle: '車両', seatCargoConfig: 'シート / 荷室構成', rearAngle: '後席背もたれの張り出し角度', seatBackNote: '傾斜した後席背もたれは上部の奥行きクリアランスを制限します。', luggage: '荷物', bagList: '荷物リスト', reset: 'リセット', visualization: '可視化', bootViz: '荷室の荷物積載可視化', placedLuggage: '積載済みの荷物', needsAnotherPlan: '再検討が必要', workspaceAria: '荷物積載の作業エリア', orientation: '向き', pitch: 'ピッチ', yaw: 'ヨー', dragHint: 'ドラッグして荷室中心を軸に回転 · X/Y/Z をクリックして軸プリセットを適用', noBagsInZone: 'このゾーンには荷物が配置されていません。', nothingPlacedYet: 'まだ配置されていません。数量を追加して開始してください。', allPlaced: '選択した荷物はすべて現在の構成に配置されています。',
-    seats: '席', quantityFor: '{item} の数量', noSeatEncroachment: '有効な荷室ゾーンに後席背もたれの張り出し設定はありません。', seatBackOverrideNote: '傾斜した後席背もたれは上部の奥行きクリアランスを制限します。車両の既定値: {angle}°。上書きするには角度を編集してください。',
-    length: '長さ', width: '幅', height: '高さ', seatEncroachmentEnvelope: '背もたれ張り出し領域', forwardSeats: '前席', front: '前方',
-    bootView: '荷室ビュー', sideView: '側面ビュー', topView: '上面ビュー', switchTo: '{view} に切り替え', axisTitle: '{axis} 軸 · {view}', orientationAxisControl: '3D 向き軸コントロール', yawLabel: 'ヨー', pitchLabel: 'ピッチ',
-    zone3dAria: '回転可能な3D荷物ビュー', removeOne: '{item} を1つ削除', placedSummary: '{total} 個中 {placed} 個を配置', usedVolume: '{used} L 使用', placedCount: '配置済み {placed} · 未配置 {unplaced}', volumeUsedPercent: '使用可能容量の {percent}% を使用',
-    loadErrorTitle: 'アプリを読み込めませんでした', fitResultTitle: '推定積載結果', loading: '読み込み中', languageSelector: '言語セレクター', visualizationView: '可視化ビュー', scaledDrawing: '荷物配置の縮尺図', seatWedgeTitle: '背もたれ張り出しウェッジ: {angle}°', zoneViewAria: '{zone} · {view} ビュー', seatGuideTitle: '前席の輪郭'
+    pageTitle: 'Verifica bagagli',
+    eyebrow: 'Pianificatore bagagli per auto a noleggio',
+    heroTitle: 'Scegli una configurazione del veicolo e verifica se i tuoi bagagli entrano.',
+    heroCopy: 'Confronta le configurazioni del vano bagagli delle auto a noleggio europee, regola la lista dei bagagli e visualizza il posizionamento stimato in ogni zona di carico prima di prenotare.',
+    bagsFit: 'Tutti i bagagli entrano',
+    bagsUnplaced: 'Alcuni bagagli non entrano',
+    fitScore: 'Indice di compatibilità',
+    usableVolume: 'Volume utilizzabile',
+    fitResult: 'Risultato',
+    configuration: 'Configurazione', tripSetup: 'Impostazione viaggio', vehicle: 'Veicolo', seatCargoConfig: 'Configurazione sedili / carico', rearAngle: 'Angolo di ingombro dello schienale posteriore', seatBackNote: 'Gli schienali posteriori inclinati riducono la profondità utile nella parte alta.', luggage: 'Bagagli', bagList: 'Elenco bagagli', reset: 'Reimposta', visualization: 'Visualizzazione', bootViz: 'Visualizzazione bagagli nel vano', placedLuggage: 'Bagagli posizionati', needsAnotherPlan: 'Da ripianificare', workspaceAria: 'Area di verifica bagagli', orientation: 'Orientamento', pitch: 'Inclinazione', yaw: 'Rotazione', dragHint: 'Trascina per ruotare attorno al centro del vano · fai clic su X/Y/Z per viste predefinite', noBagsInZone: 'Nessun bagaglio posizionato in questa zona.', nothingPlacedYet: 'Non è ancora stato posizionato nulla. Aggiungi le quantità per iniziare.', allPlaced: 'Tutti i bagagli selezionati sono posizionati nella configurazione attiva.',
+    seats: 'posti', quantityFor: 'Quantità per {item}', noSeatEncroachment: 'Nessuna zona di carico attiva definisce l’ingombro inclinato dello schienale posteriore.', seatBackOverrideNote: 'Gli schienali posteriori inclinati riducono la profondità utile nella parte alta. Valore predefinito del veicolo: {angle}°; modifica l’angolo per sovrascriverlo.',
+    length: 'lunghezza', width: 'larghezza', height: 'altezza', seatEncroachmentEnvelope: 'Area di ingombro dello schienale posteriore', forwardSeats: 'Sedili anteriori', front: 'anteriore',
+    bootView: 'Vista vano bagagli', sideView: 'Vista laterale', topView: 'Vista dall’alto', switchTo: 'Passa a {view}', axisTitle: 'Asse {axis} · {view}', orientationAxisControl: 'Controllo assi di orientamento 3D', yawLabel: 'rotazione', pitchLabel: 'inclinazione',
+    zone3dAria: 'vista bagagli 3D ruotabile', removeOne: 'Rimuovi un {item}', placedSummary: '{placed}/{total} bagagli posizionati', usedVolume: '{used} L utilizzati', placedCount: '{placed} posizionati · {unplaced} non posizionati', volumeUsedPercent: '{percent}% del volume utilizzabile impiegato',
+    loadErrorTitle: 'Impossibile caricare l’app', fitResultTitle: 'Adattamento bagagli stimato', loading: 'Caricamento', languageSelector: 'Selettore lingua', visualizationView: 'Vista visualizzazione', scaledDrawing: 'Disegno in scala del posizionamento bagagli', seatWedgeTitle: 'Cuneo di ingombro dello schienale: {angle}°', zoneViewAria: '{zone} · vista {view}', seatGuideTitle: 'Profilo dei sedili anteriori'
+  }
   }};
 const localeBundle = () => I18N[state.language] ?? I18N.en;
 const t = (key) => localeBundle()[key] ?? I18N.en[key] ?? key;
