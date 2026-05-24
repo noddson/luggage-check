@@ -43,7 +43,7 @@
           "label": "Rear cargo area with seats up and cargo floor lowered"
         },
         "fr": {
-          "label": "Rear cargo area with seats up and cargo floor lowered"
+          "label": "Espace de chargement arrière avec sièges relevés et plancher abaissé"
         }
       }
     },
@@ -72,7 +72,7 @@
           "label": "Rear cargo area with seats up and cargo floor raised"
         },
         "fr": {
-          "label": "Rear cargo area with seats up and cargo floor raised"
+          "label": "Espace de chargement arrière avec sièges relevés et plancher surélevé"
         }
       }
     },
@@ -97,7 +97,7 @@
           "label": "Expanded cargo area with rear seats folded"
         },
         "fr": {
-          "label": "Expanded cargo area with rear seats folded"
+          "label": "Espace de chargement étendu avec sièges arrière rabattus"
         }
       }
     },
@@ -118,7 +118,7 @@
           "label": "Rear passenger footwell overflow"
         },
         "fr": {
-          "label": "Rear passenger footwell overflow"
+          "label": "Espace supplémentaire au niveau du plancher arrière"
         }
       }
     }
@@ -136,7 +136,7 @@
           "label": "Rear seats up, cargo floor lowered"
         },
         "fr": {
-          "label": "Rear seats up, cargo floor lowered"
+          "label": "Sièges arrière relevés, plancher de coffre abaissé"
         }
       }
     },
@@ -153,7 +153,7 @@
           "label": "Rear seats up, cargo floor raised"
         },
         "fr": {
-          "label": "Rear seats up, cargo floor raised"
+          "label": "Sièges arrière relevés, plancher de coffre surélevé"
         }
       }
     },
@@ -171,7 +171,7 @@
           "label": "Rear seats folded"
         },
         "fr": {
-          "label": "Rear seats folded"
+          "label": "Sièges arrière rabattus"
         }
       }
     },
@@ -189,7 +189,7 @@
           "label": "Rear seats up with rear footwell overflow"
         },
         "fr": {
-          "label": "Rear seats up with rear footwell overflow"
+          "label": "Sièges arrière relevés avec espace supplémentaire au plancher arrière"
         }
       }
     }
@@ -251,7 +251,7 @@
       "bodyStyle": "5-door electric subcompact crossover hatchback"
     },
     "fr": {
-      "bodyStyle": "5-door electric subcompact crossover hatchback"
+      "bodyStyle": "Crossover sous-compact électrique à hayon 5 portes"
     }
   }
 }

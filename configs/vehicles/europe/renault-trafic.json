@@ -45,7 +45,7 @@
           "label": "L1 boot behind third row with 8/9 seats in use"
         },
         "fr": {
-          "label": "L1 boot behind third row with 8/9 seats in use"
+          "label": "L1 coffre derrière la troisième rangée avec 8/9 places occupées"
         }
       }
     },
@@ -74,7 +74,7 @@
           "label": "L1 cargo area with row 3 folded, about 6 seats available"
         },
         "fr": {
-          "label": "L1 cargo area with row 3 folded, about 6 seats available"
+          "label": "L1 espace de chargement avec 3e rangée rabattue, environ 6 places disponibles"
         }
       }
     },
@@ -103,7 +103,7 @@
           "label": "L1 cargo area in 5/6-seat layout"
         },
         "fr": {
-          "label": "L1 cargo area in 5/6-seat layout"
+          "label": "L1 espace de chargement en configuration 5/6 places"
         }
       }
     },
@@ -132,7 +132,7 @@
           "label": "L2 boot behind third row with 8/9 seats in use"
         },
         "fr": {
-          "label": "L2 boot behind third row with 8/9 seats in use"
+          "label": "L2 coffre derrière la troisième rangée avec 8/9 places occupées"
         }
       }
     },
@@ -161,7 +161,7 @@
           "label": "L2 cargo area with row 3 folded, about 6 seats available"
         },
         "fr": {
-          "label": "L2 cargo area with row 3 folded, about 6 seats available"
+          "label": "L2 espace de chargement avec 3e rangée rabattue, environ 6 places disponibles"
         }
       }
     },
@@ -190,7 +190,7 @@
           "label": "L2 cargo area in 5/6-seat layout"
         },
         "fr": {
-          "label": "L2 cargo area in 5/6-seat layout"
+          "label": "L2 espace de chargement en configuration 5/6 places"
         }
       }
     },
@@ -215,7 +215,7 @@
           "label": "L2 maximum cargo area with rear rows removed, 2/3 seats available"
         },
         "fr": {
-          "label": "L2 maximum cargo area with rear rows removed, 2/3 seats available"
+          "label": "L2 espace de chargement maximal avec rangées arrière retirées, 2/3 places disponibles"
         }
       }
     }
@@ -234,7 +234,7 @@
           "label": "L1 8/9-seat layout"
         },
         "fr": {
-          "label": "L1 8/9-seat layout"
+          "label": "Configuration L1 8/9 places"
         }
       }
     },
@@ -251,7 +251,7 @@
           "label": "L1 row 3 folded"
         },
         "fr": {
-          "label": "L1 row 3 folded"
+          "label": "L1 3e rangée rabattue"
         }
       }
     },
@@ -268,7 +268,7 @@
           "label": "L1 5/6-seat layout"
         },
         "fr": {
-          "label": "L1 5/6-seat layout"
+          "label": "Configuration L1 5/6 places"
         }
       }
     },
@@ -285,7 +285,7 @@
           "label": "L2 8/9-seat layout"
         },
         "fr": {
-          "label": "L2 8/9-seat layout"
+          "label": "Configuration L2 8/9 places"
         }
       }
     },
@@ -302,7 +302,7 @@
           "label": "L2 row 3 folded"
         },
         "fr": {
-          "label": "L2 row 3 folded"
+          "label": "L2 3e rangée rabattue"
         }
       }
     },
@@ -319,7 +319,7 @@
           "label": "L2 5/6-seat layout"
         },
         "fr": {
-          "label": "L2 5/6-seat layout"
+          "label": "Configuration L2 5/6 places"
         }
       }
     },
@@ -336,7 +336,7 @@
           "label": "L2 rear rows removed"
         },
         "fr": {
-          "label": "L2 rear rows removed"
+          "label": "L2 rangées arrière retirées"
         }
       }
     }
@@ -404,7 +404,7 @@
       "bodyStyle": "8/9-seat passenger van / minibus"
     },
     "fr": {
-      "bodyStyle": "8/9-seat passenger van / minibus"
+      "bodyStyle": "Fourgon passagers / minibus 8/9 places"
     }
   }
 }

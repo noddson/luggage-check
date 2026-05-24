@@ -47,7 +47,7 @@
           "label": "Cargo area behind third row"
         },
         "fr": {
-          "label": "Cargo area behind third row"
+          "label": "Espace de chargement derrière la troisième rangée"
         }
       }
     },
@@ -76,7 +76,7 @@
           "label": "Cargo area with third row folded"
         },
         "fr": {
-          "label": "Cargo area with third row folded"
+          "label": "Espace de chargement avec troisième rangée rabattue"
         }
       }
     },
@@ -101,7 +101,7 @@
           "label": "Maximum cargo area with second and third rows folded"
         },
         "fr": {
-          "label": "Maximum cargo area with second and third rows folded"
+          "label": "Espace de chargement maximal avec 2e et 3e rangées rabattues"
         }
       }
     },
@@ -122,7 +122,7 @@
           "label": "Front trunk / charge-cable storage (RWD trims)"
         },
         "fr": {
-          "label": "Front trunk / charge-cable storage (RWD trims)"
+          "label": "Coffre avant / rangement du câble de recharge (versions propulsion)"
         }
       }
     },
@@ -143,7 +143,7 @@
           "label": "Second-row footwell overflow"
         },
         "fr": {
-          "label": "Second-row footwell overflow"
+          "label": "Espace supplémentaire au plancher de la 2e rangée"
         }
       }
     }
@@ -163,7 +163,7 @@
           "label": "All rows up"
         },
         "fr": {
-          "label": "All rows up"
+          "label": "Toutes les rangées relevées"
         }
       }
     },
@@ -181,7 +181,7 @@
           "label": "All rows up, seven-passenger bench model"
         },
         "fr": {
-          "label": "All rows up, seven-passenger bench model"
+          "label": "Toutes les rangées relevées, version banquette 7 places"
         }
       }
     },
@@ -199,7 +199,7 @@
           "label": "Third row folded"
         },
         "fr": {
-          "label": "Third row folded"
+          "label": "Troisième rangée rabattue"
         }
       }
     },
@@ -217,7 +217,7 @@
           "label": "Third row folded, seven-passenger bench model"
         },
         "fr": {
-          "label": "Third row folded, seven-passenger bench model"
+          "label": "Troisième rangée rabattue, version banquette 7 places"
         }
       }
     },
@@ -235,7 +235,7 @@
           "label": "Second and third rows folded"
         },
         "fr": {
-          "label": "Second and third rows folded"
+          "label": "Deuxième et troisième rangées rabattues"
         }
       }
     },
@@ -254,7 +254,7 @@
           "label": "All rows up with second-row footwell overflow"
         },
         "fr": {
-          "label": "All rows up with second-row footwell overflow"
+          "label": "Toutes les rangées relevées avec espace supplémentaire au plancher de la 2e rangée"
         }
       }
     }
@@ -319,7 +319,7 @@
       "bodyStyle": "5-door all-electric three-row midsize SUV"
     },
     "fr": {
-      "bodyStyle": "5-door all-electric three-row midsize SUV"
+      "bodyStyle": "SUV intermédiaire électrique 5 portes à trois rangées"
     }
   }
 }

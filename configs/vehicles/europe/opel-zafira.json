@@ -45,7 +45,7 @@
           "label": "Boot behind rear row with all seats in use"
         },
         "fr": {
-          "label": "Boot behind rear row with all seats in use"
+          "label": "Coffre derrière la rangée arrière avec tous les sièges occupés"
         }
       }
     },
@@ -74,7 +74,7 @@
           "label": "Cargo area with third row folded or removed"
         },
         "fr": {
-          "label": "Cargo area with third row folded or removed"
+          "label": "Espace de chargement avec troisième rangée rabattue ou retirée"
         }
       }
     },
@@ -99,7 +99,7 @@
           "label": "Maximum cargo area with rear rows folded or removed"
         },
         "fr": {
-          "label": "Maximum cargo area with rear rows folded or removed"
+          "label": "Espace de chargement maximal avec rangées arrière rabattues ou retirées"
         }
       }
     }
@@ -118,7 +118,7 @@
           "label": "All seats in use"
         },
         "fr": {
-          "label": "All seats in use"
+          "label": "Tous les sièges sont occupés"
         }
       }
     },
@@ -135,7 +135,7 @@
           "label": "Third row folded or removed"
         },
         "fr": {
-          "label": "Third row folded or removed"
+          "label": "Troisième rangée rabattue ou retirée"
         }
       }
     },
@@ -152,7 +152,7 @@
           "label": "Rear rows folded or removed"
         },
         "fr": {
-          "label": "Rear rows folded or removed"
+          "label": "Rangées arrière rabattues ou retirées"
         }
       }
     }
@@ -204,7 +204,7 @@
       "bodyStyle": "8-9 seat passenger van / MPV"
     },
     "fr": {
-      "bodyStyle": "8-9 seat passenger van / MPV"
+      "bodyStyle": "Monospace / minibus 8-9 places"
     }
   }
 }

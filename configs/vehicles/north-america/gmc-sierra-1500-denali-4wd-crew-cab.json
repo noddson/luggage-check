@@ -39,7 +39,7 @@
           "label": "Open cargo bed — short box (Crew Cab 147.4 in wheelbase)"
         },
         "fr": {
-          "label": "Open cargo bed — short box (Crew Cab 147.4 in wheelbase)"
+          "label": "Benne ouverte — caisse courte (cabine multiplace, empattement 147,4 po)"
         }
       }
     },
@@ -64,7 +64,7 @@
           "label": "Open cargo bed — short box full floor width"
         },
         "fr": {
-          "label": "Open cargo bed — short box full floor width"
+          "label": "Benne ouverte — caisse courte pleine largeur"
         }
       }
     },
@@ -89,7 +89,7 @@
           "label": "Open cargo bed — standard box (Crew Cab 157 in wheelbase)"
         },
         "fr": {
-          "label": "Open cargo bed — standard box (Crew Cab 157 in wheelbase)"
+          "label": "Benne ouverte — caisse standard (cabine multiplace, empattement 157 po)"
         }
       }
     },
@@ -110,7 +110,7 @@
           "label": "Rear cabin floor / seat overflow"
         },
         "fr": {
-          "label": "Rear cabin floor / seat overflow"
+          "label": "Espace supplémentaire sur plancher/siège arrière"
         }
       }
     }
@@ -129,7 +129,7 @@
           "label": "Crew cab, short bed"
         },
         "fr": {
-          "label": "Crew cab, short bed"
+          "label": "Cabine multiplace, benne courte"
         }
       }
     },
@@ -146,7 +146,7 @@
           "label": "Crew cab, short bed full floor width"
         },
         "fr": {
-          "label": "Crew cab, short bed full floor width"
+          "label": "Cabine multiplace, benne courte pleine largeur"
         }
       }
     },
@@ -163,7 +163,7 @@
           "label": "Crew cab, standard bed"
         },
         "fr": {
-          "label": "Crew cab, standard bed"
+          "label": "Cabine multiplace, benne standard"
         }
       }
     },
@@ -181,7 +181,7 @@
           "label": "Short bed with rear cabin overflow"
         },
         "fr": {
-          "label": "Short bed with rear cabin overflow"
+          "label": "Benne courte avec extension dans l’habitacle arrière"
         }
       }
     }
@@ -245,7 +245,7 @@
       "bodyStyle": "4-door full-size pickup truck"
     },
     "fr": {
-      "bodyStyle": "4-door full-size pickup truck"
+      "bodyStyle": "Pick-up grand format 4 portes"
     }
   }
 }

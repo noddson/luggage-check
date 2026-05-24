@@ -72,7 +72,7 @@
           "label": "Cargo area with row 2 in place and row 3 folded down"
         },
         "fr": {
-          "label": "Cargo area with row 2 in place and row 3 folded down"
+          "label": "Espace de chargement avec la 2e rangée en place et la 3e rangée rabattue"
         }
       }
     },
@@ -101,7 +101,7 @@
           "label": "Cargo area with row 2 in place and row 3 removed"
         },
         "fr": {
-          "label": "Cargo area with row 2 in place and row 3 removed"
+          "label": "Espace de chargement avec 2e rangée en place et 3e rangée retirée"
         }
       }
     },
@@ -126,7 +126,7 @@
           "label": "Maximum cargo area with rear rows folded / removed"
         },
         "fr": {
-          "label": "Maximum cargo area with rear rows folded / removed"
+          "label": "Espace de chargement maximal avec rangées arrière rabattues / retirées"
         }
       }
     }
@@ -145,7 +145,7 @@
           "label": "All 7 seats in use"
         },
         "fr": {
-          "label": "All 7 seats in use"
+          "label": "Les 7 sièges sont occupés"
         }
       }
     },
@@ -162,7 +162,7 @@
           "label": "Third row folded"
         },
         "fr": {
-          "label": "Third row folded"
+          "label": "Troisième rangée rabattue"
         }
       }
     },
@@ -179,7 +179,7 @@
           "label": "Third row removed"
         },
         "fr": {
-          "label": "Third row removed"
+          "label": "Troisième rangée retirée"
         }
       }
     },
@@ -196,7 +196,7 @@
           "label": "Rear rows folded / removed"
         },
         "fr": {
-          "label": "Rear rows folded / removed"
+          "label": "Rangées arrière rabattues / retirées"
         }
       }
     }
