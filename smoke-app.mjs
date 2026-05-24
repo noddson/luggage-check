@@ -19,7 +19,7 @@ for (const marker of ['estimateFit', 'renderVisualization', 'seatEncroachmentOve
 for (const marker of ['bootView', 'sideView', 'topView', 'activeOrientationLabel', 'orientationPresets']) {
   if (!app.includes(marker)) throw new Error(`Browser app missing orientation preset label ${marker}`);
 }
-for (const marker of ["es: {", "it: {", "zoneViewAria", "seatGuideTitle"]) {
+for (const marker of ["es: {", "it: {", "xx: {", "zoneViewAria", "seatGuideTitle"]) {
   if (!app.includes(marker)) throw new Error(`Browser app missing localization marker ${marker}`);
 }
 if (!css.includes('.zone-card')) throw new Error('Styles missing visualization card rules');

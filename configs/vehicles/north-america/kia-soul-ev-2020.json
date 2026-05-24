@@ -62,6 +62,9 @@
         },
         "el": {
           "label": "Πίσω χώρος φόρτωσης με καθίσματα όρθια και δάπεδο χαμηλωμένο"
+        },
+        "XX": {
+          "label": "Aft cargo area with seats up and cargo floor lowered"
         }
       }
     },
@@ -109,6 +112,9 @@
         },
         "el": {
           "label": "Πίσω χώρος φόρτωσης με καθίσματα όρθια και δάπεδο υπερυψωμένο"
+        },
+        "XX": {
+          "label": "Aft cargo area with seats up and cargo floor raised"
         }
       }
     },
@@ -152,6 +158,9 @@
         },
         "el": {
           "label": "Επεκταμένος χώρος φόρτωσης με πίσω καθίσματα αναδιπλωμένα"
+        },
+        "XX": {
+          "label": "Expanded cargo area with rear seats folded"
         }
       }
     },
@@ -191,6 +200,9 @@
         },
         "el": {
           "label": "Υπερχείλιση χώρου ποδιών πίσω επιβατών"
+        },
+        "XX": {
+          "label": "Aft passenger footwell overflow"
         }
       }
     }
@@ -227,6 +239,9 @@
         },
         "el": {
           "label": "Πίσω καθίσματα όρθια, δάπεδο φόρτωσης χαμηλωμένο"
+        },
+        "XX": {
+          "label": "Aft seats up, cargo floor lowered"
         }
       }
     },
@@ -262,6 +277,9 @@
         },
         "el": {
           "label": "Πίσω καθίσματα όρθια, δάπεδο φόρτωσης υπερυψωμένο"
+        },
+        "XX": {
+          "label": "Aft seats up, cargo floor raised"
         }
       }
     },
@@ -298,6 +316,9 @@
         },
         "el": {
           "label": "Πίσω καθίσματα αναδιπλωμένα"
+        },
+        "XX": {
+          "label": "Aft seats folded"
         }
       }
     },
@@ -334,6 +355,9 @@
         },
         "el": {
           "label": "Πίσω καθίσματα όρθια με υπερχείλιση πίσω χώρου ποδιών"
+        },
+        "XX": {
+          "label": "Aft seats up with rear footwell overflow"
         }
       }
     }
@@ -414,6 +438,9 @@
     },
     "el": {
       "bodyStyle": "Ηλεκτρικό υποσυμπαγές crossover hatchback 5 θυρών"
+    },
+    "XX": {
+      "bodyStyle": "5-door electric subcompact crossover hatchback"
     }
   }
 }

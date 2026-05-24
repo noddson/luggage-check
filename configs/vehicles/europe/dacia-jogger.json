@@ -62,6 +62,9 @@
         },
         "el": {
           "label": "Πορτμπαγκάζ πίσω από την 3η σειρά με και τις 7 θέσεις σε χρήση"
+        },
+        "XX": {
+          "label": "Boot behind third row with all 7 seats in use"
         }
       }
     },
@@ -109,6 +112,9 @@
         },
         "el": {
           "label": "Χώρος φόρτωσης με 2η σειρά στη θέση της και 3η αναδιπλωμένη"
+        },
+        "XX": {
+          "label": "Cargo area with row 2 in place and row 3 folded down"
         }
       }
     },
@@ -156,6 +162,9 @@
         },
         "el": {
           "label": "Χώρος φόρτωσης με 2η σειρά στη θέση της και 3η αφαιρεμένη"
+        },
+        "XX": {
+          "label": "Cargo area with row 2 in place and row 3 removed"
         }
       }
     },
@@ -199,6 +208,9 @@
         },
         "el": {
           "label": "Μέγιστος χώρος φόρτωσης με πίσω σειρές αναδιπλωμένες / αφαιρεμένες"
+        },
+        "XX": {
+          "label": "Maximum cargo area with rear rows folded / removed"
         }
       }
     }
@@ -236,6 +248,9 @@
         },
         "el": {
           "label": "Και οι 7 θέσεις σε χρήση"
+        },
+        "XX": {
+          "label": "All 7 seats in use"
         }
       }
     },
@@ -271,6 +286,9 @@
         },
         "el": {
           "label": "3η σειρά αναδιπλωμένη"
+        },
+        "XX": {
+          "label": "Third row folded"
         }
       }
     },
@@ -306,6 +324,9 @@
         },
         "el": {
           "label": "3η σειρά αφαιρεμένη"
+        },
+        "XX": {
+          "label": "Third row removed"
         }
       }
     },
@@ -341,6 +362,9 @@
         },
         "el": {
           "label": "Πίσω σειρές αναδιπλωμένες / αφαιρεμένες"
+        },
+        "XX": {
+          "label": "Aft rows folded / removed"
         }
       }
     }
@@ -411,6 +435,9 @@
     },
     "el": {
       "bodyStyle": "Συμπαγές MPV / crossover estate 7 θέσεων"
+    },
+    "XX": {
+      "bodyStyle": "7-seat compact MPV / estate crossover"
     }
   }
 }

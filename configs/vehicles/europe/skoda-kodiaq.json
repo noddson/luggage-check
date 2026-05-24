@@ -64,6 +64,9 @@
         },
         "el": {
           "label": "Πορτμπαγκάζ πίσω από την 3η σειρά με και τις 7 θέσεις σε χρήση"
+        },
+        "XX": {
+          "label": "Boot behind third row with all 7 seats in use"
         }
       }
     },
@@ -111,6 +114,9 @@
         },
         "el": {
           "label": "Χώρος φόρτωσης με 2η σειρά στη θέση της και 3η αναδιπλωμένη"
+        },
+        "XX": {
+          "label": "Cargo area with row 2 in place and row 3 folded down"
         }
       }
     },
@@ -154,6 +160,9 @@
         },
         "el": {
           "label": "Μέγιστος χώρος φόρτωσης με πίσω σειρές αναδιπλωμένες"
+        },
+        "XX": {
+          "label": "Maximum cargo area with rear rows folded"
         }
       }
     }
@@ -191,6 +200,9 @@
         },
         "el": {
           "label": "Και οι 7 θέσεις σε χρήση"
+        },
+        "XX": {
+          "label": "All 7 seats in use"
         }
       }
     },
@@ -226,6 +238,9 @@
         },
         "el": {
           "label": "3η σειρά αναδιπλωμένη"
+        },
+        "XX": {
+          "label": "Third row folded"
         }
       }
     },
@@ -261,6 +276,9 @@
         },
         "el": {
           "label": "Πίσω σειρές αναδιπλωμένες"
+        },
+        "XX": {
+          "label": "Aft rows folded"
         }
       }
     }
@@ -320,6 +338,9 @@
     },
     "el": {
       "bodyStyle": "Μεσαίο SUV 7 θέσεων"
+    },
+    "XX": {
+      "bodyStyle": "7-seat midsize SUV"
     }
   }
 }

@@ -51,6 +51,9 @@
         },
         "el": {
           "label": "Χειραποσκευή τύπου IATA"
+        },
+        "XX": {
+          "label": "IATA-style cabin bag"
         }
       }
     },
@@ -104,6 +107,9 @@
         },
         "el": {
           "label": "Χειραποσκευή αμερικανικής αεροπορικής"
+        },
+        "XX": {
+          "label": "US airline carry-on"
         }
       }
     },
@@ -157,6 +163,9 @@
         },
         "el": {
           "label": "Χειραποσκευή οικογένειας Oddson"
+        },
+        "XX": {
+          "label": "Oddson Family carry-on"
         }
       }
     },
@@ -210,6 +219,9 @@
         },
         "el": {
           "label": "Μεσαία βαλίτσα για παράδοση"
+        },
+        "XX": {
+          "label": "Medium checked suitcase"
         }
       }
     },
@@ -263,6 +275,9 @@
         },
         "el": {
           "label": "Μεγάλη βαλίτσα για παράδοση"
+        },
+        "XX": {
+          "label": "Large checked suitcase"
         }
       }
     },
@@ -335,6 +350,9 @@
         },
         "el": {
           "label": "Μαλακό ταξιδιωτικό σακίδιο"
+        },
+        "XX": {
+          "label": "Soft travel backpack"
         }
       }
     },
@@ -388,6 +406,9 @@
         },
         "el": {
           "label": "Μπαστούνια γκολφ"
+        },
+        "XX": {
+          "label": "Golf Clubs"
         }
       }
     },
@@ -441,6 +462,9 @@
         },
         "el": {
           "label": "Μπαλάκια γκολφ (κουτί των 12)"
+        },
+        "XX": {
+          "label": "Golf balls (box of 12)"
         }
       }
     }

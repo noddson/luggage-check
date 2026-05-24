@@ -64,6 +64,9 @@
         },
         "el": {
           "label": "L1 πορτμπαγκάζ πίσω από την 3η σειρά με 8/9 θέσεις σε χρήση"
+        },
+        "XX": {
+          "label": "L1 boot behind third row with 8/9 seats in use"
         }
       }
     },
@@ -111,6 +114,9 @@
         },
         "el": {
           "label": "Χώρος φόρτωσης L1 με 3η σειρά αναδιπλωμένη, περίπου 6 θέσεις διαθέσιμες"
+        },
+        "XX": {
+          "label": "L1 cargo area with row 3 folded, about 6 seats available"
         }
       }
     },
@@ -158,6 +164,9 @@
         },
         "el": {
           "label": "Χώρος φόρτωσης L1 σε διάταξη 5/6 θέσεων"
+        },
+        "XX": {
+          "label": "L1 cargo area in 5/6-seat layout"
         }
       }
     },
@@ -205,6 +214,9 @@
         },
         "el": {
           "label": "L2 πορτμπαγκάζ πίσω από την 3η σειρά με 8/9 θέσεις σε χρήση"
+        },
+        "XX": {
+          "label": "L2 boot behind third row with 8/9 seats in use"
         }
       }
     },
@@ -252,6 +264,9 @@
         },
         "el": {
           "label": "Χώρος φόρτωσης L2 με 3η σειρά αναδιπλωμένη, περίπου 6 θέσεις διαθέσιμες"
+        },
+        "XX": {
+          "label": "L2 cargo area with row 3 folded, about 6 seats available"
         }
       }
     },
@@ -299,6 +314,9 @@
         },
         "el": {
           "label": "Χώρος φόρτωσης L2 σε διάταξη 5/6 θέσεων"
+        },
+        "XX": {
+          "label": "L2 cargo area in 5/6-seat layout"
         }
       }
     },
@@ -342,6 +360,9 @@
         },
         "el": {
           "label": "L2 μέγιστος χώρος φόρτωσης με πίσω σειρές αφαιρεμένες, διαθέσιμες 2/3 θέσεις"
+        },
+        "XX": {
+          "label": "L2 maximum cargo area with rear rows removed, 2/3 seats available"
         }
       }
     }
@@ -379,6 +400,9 @@
         },
         "el": {
           "label": "Διάταξη L1 8/9 θέσεων"
+        },
+        "XX": {
+          "label": "L1 8/9-seat layout"
         }
       }
     },
@@ -414,6 +438,9 @@
         },
         "el": {
           "label": "L1 με 3η σειρά αναδιπλωμένη"
+        },
+        "XX": {
+          "label": "L1 row 3 folded"
         }
       }
     },
@@ -449,6 +476,9 @@
         },
         "el": {
           "label": "Διάταξη L1 5/6 θέσεων"
+        },
+        "XX": {
+          "label": "L1 5/6-seat layout"
         }
       }
     },
@@ -484,6 +514,9 @@
         },
         "el": {
           "label": "Διάταξη L2 8/9 θέσεων"
+        },
+        "XX": {
+          "label": "L2 8/9-seat layout"
         }
       }
     },
@@ -519,6 +552,9 @@
         },
         "el": {
           "label": "L2 με 3η σειρά αναδιπλωμένη"
+        },
+        "XX": {
+          "label": "L2 row 3 folded"
         }
       }
     },
@@ -554,6 +590,9 @@
         },
         "el": {
           "label": "Διάταξη L2 5/6 θέσεων"
+        },
+        "XX": {
+          "label": "L2 5/6-seat layout"
         }
       }
     },
@@ -589,6 +628,9 @@
         },
         "el": {
           "label": "L2 πίσω σειρές αφαιρεμένες"
+        },
+        "XX": {
+          "label": "L2 rear rows removed"
         }
       }
     }
@@ -675,6 +717,9 @@
     },
     "el": {
       "bodyStyle": "Επιβατικό van / minibus 8/9 θέσεων"
+    },
+    "XX": {
+      "bodyStyle": "8/9-seat passenger van / minibus"
     }
   }
 }
