@@ -90,6 +90,23 @@ const I18N = {
     bootView: 'Vista del maletero', sideView: 'Vista lateral', topView: 'Vista superior', switchTo: 'Cambiar a {view}', axisTitle: 'Eje {axis} · {view}', orientationAxisControl: 'Control de ejes de orientación 3D', yawLabel: 'giro', pitchLabel: 'inclinación',
     zone3dAria: 'vista 3D giratoria del equipaje', removeOne: 'Quitar una unidad de {item}', placedSummary: '{placed}/{total} equipajes colocados', usedVolume: '{used} L usados', placedCount: '{placed} colocados · {unplaced} sin colocar', volumeUsedPercent: '{percent}% del volumen útil utilizado',
     loadErrorTitle: 'No se pudo cargar la aplicación', fitResultTitle: 'Ajuste estimado de carga', loading: 'Cargando', languageSelector: 'Selector de idioma', visualizationView: 'Vista de visualización', scaledDrawing: 'Dibujo a escala de la colocación del equipaje', seatWedgeTitle: 'Cuña de invasión del respaldo: {angle}°', zoneViewAria: '{zone} · vista {view}', seatGuideTitle: 'Contorno de los asientos delanteros'
+  },
+  is: {
+    pageTitle: 'Farangurstékk',
+    eyebrow: 'Farangursáætlun fyrir bílaleigubíla',
+    heroTitle: 'Veldu uppsetningu ökutækis og sjáðu hvort farangurinn kemst fyrir.',
+    heroCopy: 'Berðu saman farangursrýmisuppsetningar í evrópskum bílaleigubílum, stilltu farangurslistann og skoðaðu áætlaða staðsetningu í hverju rými áður en þú bókar.',
+    bagsFit: 'Allur farangur kemst fyrir',
+    bagsUnplaced: 'Hluti farangurs kemst ekki fyrir',
+    fitScore: 'Passunarstig',
+    usableVolume: 'Nýtanlegt rúmmál',
+    fitResult: 'Niðurstaða',
+    configuration: 'Uppsetning', tripSetup: 'Ferðauppsetning', vehicle: 'Ökutæki', seatCargoConfig: 'Sæta- / farangursuppsetning', rearAngle: 'Hallahorn aftursætisbaks', seatBackNote: 'Hallandi aftursætisbök draga úr nýtanlegri dýpt efst.', luggage: 'Farangur', bagList: 'Farangurslisti', reset: 'Endurstilla', visualization: 'Myndræn framsetning', bootViz: 'Myndræn passun farangurs í skotti', placedLuggage: 'Farangur sem er kominn fyrir', needsAnotherPlan: 'Þarf aðra lausn', workspaceAria: 'Vinnusvæði fyrir farangurspassun', orientation: 'Stefna', pitch: 'Halli', yaw: 'Snúningur', dragHint: 'Dragðu til að snúa um miðju farangursrýmis · smelltu á X/Y/Z fyrir fyrirfram stilltar ásaafstöður', noBagsInZone: 'Enginn farangur er staðsettur í þessu rými.', nothingPlacedYet: 'Ekkert hefur verið staðsett enn. Bættu við magni til að byrja.', allPlaced: 'Allur valinn farangur er staðsettur í virkri uppsetningu.',
+    seats: 'sæti', quantityFor: 'Magn fyrir {item}', noSeatEncroachment: 'Ekkert virkt farangursrými skilgreinir halla aftursætisbaks.', seatBackOverrideNote: 'Hallandi aftursætisbök draga úr nýtanlegri dýpt efst. Sjálfgefið horn ökutækis: {angle}°; breyttu gráðutölunni til að yfirskrifa.',
+    length: 'lengd', width: 'breidd', height: 'hæð', seatEncroachmentEnvelope: 'Skörunarsvæði aftursætisbaks', forwardSeats: 'Framsæti', front: 'framan',
+    bootView: 'Skottsýn', sideView: 'Hliðarsýn', topView: 'Ofansýn', switchTo: 'Skipta í {view}', axisTitle: '{axis}-ás · {view}', orientationAxisControl: 'Stýring fyrir 3D stefnuása', yawLabel: 'snúningur', pitchLabel: 'halli',
+    zone3dAria: 'snúanleg 3D sýn á farangur', removeOne: 'Fjarlægja eitt af {item}', placedSummary: '{placed}/{total} farangurseiningar komnar fyrir', usedVolume: '{used} L notað', placedCount: '{placed} komið fyrir · {unplaced} óstaðsett', volumeUsedPercent: '{percent}% af nýtanlegu rúmmáli notað',
+    loadErrorTitle: 'Ekki tókst að hlaða forriti', fitResultTitle: 'Áætluð farangurspassun', loading: 'Hleð', languageSelector: 'Val á tungumáli', visualizationView: 'Sýn á framsetningu', scaledDrawing: 'Skölunarteikning af staðsetningu farangurs', seatWedgeTitle: 'Skörunarfleygur aftursætisbaks: {angle}°', zoneViewAria: '{zone} · {view} sýn', seatGuideTitle: 'Útlínur framsæta'
   }};
 const localeBundle = () => I18N[state.language] ?? I18N.en;
 const t = (key) => localeBundle()[key] ?? I18N.en[key] ?? key;
