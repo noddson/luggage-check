@@ -302,6 +302,10 @@ function maxQuantityForItem(item) {
   return Math.max(1, Number(item.maxQuantity) || defaultMaxQuantity(item));
 }
 
+function hasValidCustomBagDimensions(dimensions) {
+  return ['length', 'width', 'height'].every((axis) => Number.isFinite(Number(dimensions?.[axis])) && Number(dimensions[axis]) >= CUSTOM_BAG_MIN_DIMENSIONS_MM[axis] && Number(dimensions[axis]) <= CUSTOM_BAG_MAX_DIMENSIONS_MM[axis]);
+}
+
 function defaultSeatBackAngleDegrees(zones) {
   return zones.find((zone) => zone.seatBackEncroachment)?.seatBackEncroachment?.angleFromVerticalDegrees ?? DEFAULT_SEAT_BACK_ANGLE_DEGREES;
 }
@@ -329,10 +333,11 @@ function vehicleLabel(vehicle) {
 function cloneLuggageWithQuantities() {
   return {
     ...state.luggageSet,
-    items: state.luggageSet.items.map((item) => ({
-      ...item,
-      quantity: item.id === CUSTOM_BAG_ID ? 0 : Math.min(maxQuantityForItem(item), Math.max(0, Number($(`#qty-${item.id}`).value)))
-    })).filter((item) => item.quantity > 0)
+    items: state.luggageSet.items.map((item) => {
+      const requestedQuantity = Math.min(maxQuantityForItem(item), Math.max(0, Number($(`#qty-${item.id}`).value)));
+      const quantity = item.id === CUSTOM_BAG_ID && !hasValidCustomBagDimensions(item.dimensionsMm) ? 0 : requestedQuantity;
+      return { ...item, quantity };
+    }).filter((item) => item.quantity > 0)
   };
 }
 
@@ -460,21 +465,26 @@ function renderLuggageControls() {
   luggageControls.querySelectorAll('input').forEach((input) => input.addEventListener('input', renderResults));
   const customBag = state.luggageSet.items.find((item) => item.id === CUSTOM_BAG_ID);
   if (customBag) {
+    const qtyInput = $(`#qty-${CUSTOM_BAG_ID}`);
+    const customBagLocked = Number(qtyInput.value) > 0;
     ['height', 'width', 'length'].forEach((axis) => {
       const input = $(`#custom-${axis}`);
       const updateCustomDimension = () => {
         const parsed = Number.parseInt(input.value, 10);
         const hasValue = Number.isFinite(parsed);
-        const isOutOfBounds = hasValue && (parsed < CUSTOM_BAG_MIN_DIMENSIONS_MM[axis] || parsed > CUSTOM_BAG_MAX_DIMENSIONS_MM[axis]);
+        const isOutOfBounds = !hasValue || parsed < CUSTOM_BAG_MIN_DIMENSIONS_MM[axis] || parsed > CUSTOM_BAG_MAX_DIMENSIONS_MM[axis];
         input.classList.toggle('field-input--out-of-bounds', isOutOfBounds);
-        const clamped = hasValue ? clamp(parsed, CUSTOM_BAG_MIN_DIMENSIONS_MM[axis], CUSTOM_BAG_MAX_DIMENSIONS_MM[axis]) : customBag.dimensionsMm[axis];
-        customBag.dimensionsMm[axis] = clamped;
+        if (customBagLocked) return;
+        customBag.dimensionsMm[axis] = hasValue ? parsed : 0;
       };
+      input.disabled = customBagLocked;
       updateCustomDimension();
       input.addEventListener('input', updateCustomDimension);
     });
-    const qtyInput = $(`#qty-${CUSTOM_BAG_ID}`);
+    const hasValidDimensions = hasValidCustomBagDimensions(customBag.dimensionsMm);
     qtyInput.max = String(maxQuantityForItem(customBag));
+    qtyInput.disabled = !hasValidDimensions && Number(qtyInput.value) === 0;
+    if (!hasValidDimensions) qtyInput.value = '0';
     if (Number(qtyInput.value) > maxQuantityForItem(customBag)) qtyInput.value = String(maxQuantityForItem(customBag));
   }
 }

@@ -35,22 +35,22 @@
           "label": "IATA-style cabin bag"
         },
         "de": {
-          "label": "Handgepäck im IATA-Stil"
+          "label": "Handgep\u00e4ck im IATA-Stil"
         },
         "es": {
           "label": "Bolsa de cabina estilo IATA"
         },
         "is": {
-          "label": "IATA-staðlaður handfarangurstaska"
+          "label": "IATA-sta\u00f0la\u00f0ur handfarangurstaska"
         },
         "jp": {
-          "label": "IATA規格キャビンバッグ"
+          "label": "IATA\u898f\u683c\u30ad\u30e3\u30d3\u30f3\u30d0\u30c3\u30b0"
         },
         "it": {
           "label": "Bagaglio a mano in stile IATA"
         },
         "el": {
-          "label": "Χειραποσκευή τύπου IATA"
+          "label": "\u03a7\u03b5\u03b9\u03c1\u03b1\u03c0\u03bf\u03c3\u03ba\u03b5\u03c5\u03ae \u03c4\u03cd\u03c0\u03bf\u03c5 IATA"
         },
         "xx": {
           "label": "Sky-deck sea chest"
@@ -91,22 +91,22 @@
           "label": "US airline carry-on"
         },
         "de": {
-          "label": "US-Airline-Handgepäck"
+          "label": "US-Airline-Handgep\u00e4ck"
         },
         "es": {
-          "label": "Equipaje de mano de aerolínea de EE. UU."
+          "label": "Equipaje de mano de aerol\u00ednea de EE. UU."
         },
         "is": {
-          "label": "Handfarangur samkvæmt bandarískum flugfélagastaðli"
+          "label": "Handfarangur samkv\u00e6mt bandar\u00edskum flugf\u00e9lagasta\u00f0li"
         },
         "jp": {
-          "label": "米国航空会社機内持ち込み"
+          "label": "\u7c73\u56fd\u822a\u7a7a\u4f1a\u793e\u6a5f\u5185\u6301\u3061\u8fbc\u307f"
         },
         "it": {
           "label": "Bagaglio a mano per compagnie aeree statunitensi"
         },
         "el": {
-          "label": "Χειραποσκευή αμερικανικής αεροπορικής"
+          "label": "\u03a7\u03b5\u03b9\u03c1\u03b1\u03c0\u03bf\u03c3\u03ba\u03b5\u03c5\u03ae \u03b1\u03bc\u03b5\u03c1\u03b9\u03ba\u03b1\u03bd\u03b9\u03ba\u03ae\u03c2 \u03b1\u03b5\u03c1\u03bf\u03c0\u03bf\u03c1\u03b9\u03ba\u03ae\u03c2"
         },
         "xx": {
           "label": "Boardin' mate's carry crate"
@@ -147,22 +147,22 @@
           "label": "Medium checked suitcase"
         },
         "de": {
-          "label": "Mittelgroßer aufgegebener Koffer"
+          "label": "Mittelgro\u00dfer aufgegebener Koffer"
         },
         "es": {
           "label": "Maleta facturada mediana"
         },
         "is": {
-          "label": "Meðalstór innritað ferðataska"
+          "label": "Me\u00f0alst\u00f3r innrita\u00f0 fer\u00f0ataska"
         },
         "jp": {
-          "label": "中型受託手荷物スーツケース"
+          "label": "\u4e2d\u578b\u53d7\u8a17\u624b\u8377\u7269\u30b9\u30fc\u30c4\u30b1\u30fc\u30b9"
         },
         "it": {
           "label": "Valigia da stiva media"
         },
         "el": {
-          "label": "Μεσαία βαλίτσα για παράδοση"
+          "label": "\u039c\u03b5\u03c3\u03b1\u03af\u03b1 \u03b2\u03b1\u03bb\u03af\u03c4\u03c3\u03b1 \u03b3\u03b9\u03b1 \u03c0\u03b1\u03c1\u03ac\u03b4\u03bf\u03c3\u03b7"
         },
         "xx": {
           "label": "Rum-runner barrel"
@@ -203,22 +203,22 @@
           "label": "Large checked suitcase"
         },
         "de": {
-          "label": "Großer aufgegebener Koffer"
+          "label": "Gro\u00dfer aufgegebener Koffer"
         },
         "es": {
           "label": "Maleta facturada grande"
         },
         "is": {
-          "label": "Stór innritað ferðataska"
+          "label": "St\u00f3r innrita\u00f0 fer\u00f0ataska"
         },
         "jp": {
-          "label": "大型受託手荷物スーツケース"
+          "label": "\u5927\u578b\u53d7\u8a17\u624b\u8377\u7269\u30b9\u30fc\u30c4\u30b1\u30fc\u30b9"
         },
         "it": {
           "label": "Valigia da stiva grande"
         },
         "el": {
-          "label": "Μεγάλη βαλίτσα για παράδοση"
+          "label": "\u039c\u03b5\u03b3\u03ac\u03bb\u03b7 \u03b2\u03b1\u03bb\u03af\u03c4\u03c3\u03b1 \u03b3\u03b9\u03b1 \u03c0\u03b1\u03c1\u03ac\u03b4\u03bf\u03c3\u03b7"
         },
         "xx": {
           "label": "Captain's grand sea trunk"
@@ -272,7 +272,7 @@
       "maxQuantity": 24,
       "translations": {
         "fr": {
-          "label": "Sac à dos de voyage souple"
+          "label": "Sac \u00e0 dos de voyage souple"
         },
         "en": {
           "label": "Soft travel backpack"
@@ -284,16 +284,16 @@
           "label": "Mochila de viaje blanda"
         },
         "is": {
-          "label": "Mjúkur ferðabakpoki"
+          "label": "Mj\u00fakur fer\u00f0abakpoki"
         },
         "jp": {
-          "label": "ソフトトラベルバックパック"
+          "label": "\u30bd\u30d5\u30c8\u30c8\u30e9\u30d9\u30eb\u30d0\u30c3\u30af\u30d1\u30c3\u30af"
         },
         "it": {
           "label": "Zaino da viaggio morbido"
         },
         "el": {
-          "label": "Μαλακό ταξιδιωτικό σακίδιο"
+          "label": "\u039c\u03b1\u03bb\u03b1\u03ba\u03cc \u03c4\u03b1\u03be\u03b9\u03b4\u03b9\u03c9\u03c4\u03b9\u03ba\u03cc \u03c3\u03b1\u03ba\u03af\u03b4\u03b9\u03bf"
         },
         "xx": {
           "label": "Deckhand's rope-slung rucksack"
@@ -334,7 +334,7 @@
           "label": "Golf Clubs"
         },
         "de": {
-          "label": "Golfschläger"
+          "label": "Golfschl\u00e4ger"
         },
         "es": {
           "label": "Palos de golf"
@@ -343,13 +343,13 @@
           "label": "Golfkylfur"
         },
         "jp": {
-          "label": "ゴルフクラブ"
+          "label": "\u30b4\u30eb\u30d5\u30af\u30e9\u30d6"
         },
         "it": {
           "label": "Mazze da golf"
         },
         "el": {
-          "label": "Μπαστούνια γκολφ"
+          "label": "\u039c\u03c0\u03b1\u03c3\u03c4\u03bf\u03cd\u03bd\u03b9\u03b1 \u03b3\u03ba\u03bf\u03bb\u03c6"
         },
         "xx": {
           "label": "Shipboard cannon"
@@ -384,28 +384,28 @@
       "maxQuantity": 50,
       "translations": {
         "fr": {
-          "label": "Balles de golf (boîte de 12)"
+          "label": "Balles de golf (bo\u00eete de 12)"
         },
         "en": {
           "label": "Golf balls (box of 12)"
         },
         "de": {
-          "label": "Golfbälle (12er-Pack)"
+          "label": "Golfb\u00e4lle (12er-Pack)"
         },
         "es": {
           "label": "Pelotas de golf (caja de 12)"
         },
         "is": {
-          "label": "Golfboltar (kassi með 12)"
+          "label": "Golfboltar (kassi me\u00f0 12)"
         },
         "jp": {
-          "label": "ゴルフボール（12個入り）"
+          "label": "\u30b4\u30eb\u30d5\u30dc\u30fc\u30eb\uff0812\u500b\u5165\u308a\uff09"
         },
         "it": {
           "label": "Palline da golf (confezione da 12)"
         },
         "el": {
-          "label": "Μπαλάκια γκολφ (κουτί των 12)"
+          "label": "\u039c\u03c0\u03b1\u03bb\u03ac\u03ba\u03b9\u03b1 \u03b3\u03ba\u03bf\u03bb\u03c6 (\u03ba\u03bf\u03c5\u03c4\u03af \u03c4\u03c9\u03bd 12)"
         },
         "xx": {
           "label": "Pouch o' doubloons (12 coins)"
@@ -446,7 +446,7 @@
           "label": "Oddson Family carry-on"
         },
         "de": {
-          "label": "Oddson Family Handgepäck"
+          "label": "Oddson Family Handgep\u00e4ck"
         },
         "es": {
           "label": "Equipaje de mano Oddson Family"
@@ -455,13 +455,13 @@
           "label": "Oddson Family handfarangur"
         },
         "jp": {
-          "label": "Oddson Family機内持ち込み"
+          "label": "Oddson Family\u6a5f\u5185\u6301\u3061\u8fbc\u307f"
         },
         "it": {
           "label": "Bagaglio a mano famiglia Oddson"
         },
         "el": {
-          "label": "Χειραποσκευή οικογένειας Oddson"
+          "label": "\u03a7\u03b5\u03b9\u03c1\u03b1\u03c0\u03bf\u03c3\u03ba\u03b5\u03c5\u03ae \u03bf\u03b9\u03ba\u03bf\u03b3\u03ad\u03bd\u03b5\u03b9\u03b1\u03c2 Oddson"
         },
         "xx": {
           "label": "Oddson crew deck trunk"
@@ -471,12 +471,12 @@
     {
       "id": "custom-bag",
       "label": "@i18n:label",
-      "quantity": 1,
+      "quantity": 0,
       "shapeType": "box",
       "dimensionsMm": {
-        "length": 550,
-        "width": 350,
-        "height": 200
+        "length": 0,
+        "width": 0,
+        "height": 0
       },
       "rotationAllowed": true,
       "sources": [

@@ -40,9 +40,19 @@ function validateLuggageSet(luggageSet) {
     const label = `luggage item ${item.id ?? '<missing id>'}`;
     assert(typeof item.id === 'string' && item.id.length > 0, `${label}.id is required`, errors);
     assert(typeof item.label === 'string' && item.label.length > 0, `${label}.label is required`, errors);
-    assert(Number.isInteger(item.quantity) && item.quantity > 0, `${label}.quantity must be a positive integer`, errors);
+    const quantityValid = item.id === 'custom-bag'
+      ? Number.isInteger(item.quantity) && item.quantity >= 0
+      : Number.isInteger(item.quantity) && item.quantity > 0;
+    assert(quantityValid, `${label}.quantity must be ${item.id === 'custom-bag' ? 'a non-negative integer' : 'a positive integer'}`, errors);
     assert(['box', 'soft_box', 'ellipsoid', 'cylinder', 'free_form'].includes(item.shapeType), `${label}.shapeType is invalid`, errors);
-    validateDimensions(item.dimensionsMm, `${label}.dimensionsMm`, errors);
+    if (item.id === 'custom-bag') {
+      assert(item.dimensionsMm && typeof item.dimensionsMm === 'object', `${label}.dimensionsMm must be an object`, errors);
+      for (const axis of ['length', 'width', 'height']) {
+        assert(Number.isFinite(item.dimensionsMm?.[axis]) && item.dimensionsMm[axis] >= 0, `${label}.dimensionsMm.${axis} must be a non-negative number`, errors);
+      }
+    } else {
+      validateDimensions(item.dimensionsMm, `${label}.dimensionsMm`, errors);
+    }
     if (item.compressibility !== undefined) assert(item.compressibility >= 0 && item.compressibility <= 1, `${label}.compressibility must be 0..1`, errors);
     if (item.boundingBoxes) item.boundingBoxes.forEach((box, index) => validateDimensions(box.dimensionsMm, `${label}.boundingBoxes[${index}].dimensionsMm`, errors));
     validateSources(item.sources, label, errors);
