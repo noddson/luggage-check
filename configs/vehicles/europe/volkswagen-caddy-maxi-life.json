@@ -66,14 +66,14 @@
       "notes": "Five-seat luggage volume is sourced from rental/editorial references and cargo floor length behind row 2 is sourced from Volkswagen. Dimensions are an estimated rectangular planning envelope and do not guarantee clearance around folded/removed seat mounts.",
       "seatBackEncroachment": {
         "angleFromVerticalDegrees": 20,
-        "notes": "Hypothèse par défaut de l’inclinaison du dossier arrière pour une planification du coffre tenant compte de l’empiètement."
+        "notes": "Default assumption of the rear seat backrest angle for trunk planning that takes into account the overhang."
       },
       "translations": {
         "en": {
           "label": "Cargo area with third row removed / folded, 5 seats available"
         },
         "fr": {
-          "label": "Cargo area with third row removed / folded, 5 seats available"
+          "label": "Espace de chargement avec la troisième rangée retirée/repliée, 5 places disponibles"
         }
       }
     },
@@ -98,7 +98,7 @@
           "label": "Maximum cargo area with 2nd and 3rd rows removed"
         },
         "fr": {
-          "label": "Maximum cargo area with 2nd and 3rd rows removed"
+          "label": "Volume de chargement maximal avec les 2e et 3e rangées retirées"
         }
       }
     }
@@ -117,7 +117,7 @@
           "label": "All 7 seats in use"
         },
         "fr": {
-          "label": "All 7 seats in use"
+          "label": "Les 7 sièges sont occupés"
         }
       }
     },
@@ -134,7 +134,7 @@
           "label": "Third row removed / folded"
         },
         "fr": {
-          "label": "Third row removed / folded"
+          "label": "Troisième rangée retirée / pliée"
         }
       }
     },
@@ -151,7 +151,7 @@
           "label": "2nd and 3rd rows removed"
         },
         "fr": {
-          "label": "2nd and 3rd rows removed"
+          "label": "2e et 3e lignes supprimées"
         }
       }
     }
@@ -201,7 +201,7 @@
   ],
   "translations": {
     "fr": {
-      "bodyStyle": "7-seat compact passenger van / Monospace"
+      "bodyStyle": "Minibus compact 7 places"
     },
     "en": {
       "bodyStyle": "7-seat compact passenger van / MPV"
