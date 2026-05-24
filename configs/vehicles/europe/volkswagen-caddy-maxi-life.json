@@ -54,6 +54,9 @@
         },
         "is": {
           "label": "Farangursrými aftan við 3. röð með öll 7 sæti í notkun"
+        },
+        "jp": {
+          "label": "7人乗車時の3列目後方トランク"
         }
       }
     },
@@ -92,6 +95,9 @@
         },
         "is": {
           "label": "Farangursrými með 3. röð fjarlægða / fellda, 5 sæti í boði"
+        },
+        "jp": {
+          "label": "3列目取り外し／折りたたみ時ラゲッジスペース（5席利用可）"
         }
       }
     },
@@ -126,6 +132,9 @@
         },
         "is": {
           "label": "Hámarksfarangursrými með 2. og 3. röð fjarlægð"
+        },
+        "jp": {
+          "label": "2列目・3列目取り外し時の最大ラゲッジスペース"
         }
       }
     }
@@ -154,6 +163,9 @@
         },
         "is": {
           "label": "Öll 7 sæti í notkun"
+        },
+        "jp": {
+          "label": "7席すべて使用"
         }
       }
     },
@@ -180,6 +192,9 @@
         },
         "is": {
           "label": "3. röð fjarlægð / felld"
+        },
+        "jp": {
+          "label": "3列目取り外し／折りたたみ"
         }
       }
     },
@@ -206,6 +221,9 @@
         },
         "is": {
           "label": "2. og 3. sætaröð fjarlægð"
+        },
+        "jp": {
+          "label": "2列目・3列目取り外し"
         }
       }
     }
@@ -268,6 +286,9 @@
     },
     "is": {
       "bodyStyle": "7 sæta nettur farþegabíll / fjölnotabíll"
+    },
+    "jp": {
+      "bodyStyle": "7人乗りコンパクト乗用バン／MPV"
     }
   }
 }

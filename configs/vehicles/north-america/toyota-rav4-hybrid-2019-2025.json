@@ -62,6 +62,9 @@
         },
         "is": {
           "label": "Farangursrými aftan við 2. röð"
+        },
+        "jp": {
+          "label": "2列目後方ラゲッジスペース"
         }
       }
     },
@@ -96,6 +99,9 @@
         },
         "is": {
           "label": "Hámarksfarangursrými með 2. röð fellda"
+        },
+        "jp": {
+          "label": "2列目折りたたみ時の最大ラゲッジスペース"
         }
       }
     },
@@ -126,6 +132,9 @@
         },
         "is": {
           "label": "Yfirflæði í fótarými aftari farþega"
+        },
+        "jp": {
+          "label": "後席足元オーバーフロー"
         }
       }
     }
@@ -154,6 +163,9 @@
         },
         "is": {
           "label": "Öll sæti uppi"
+        },
+        "jp": {
+          "label": "全席使用"
         }
       }
     },
@@ -180,6 +192,9 @@
         },
         "is": {
           "label": "2. röð felld"
+        },
+        "jp": {
+          "label": "2列目折りたたみ"
         }
       }
     },
@@ -207,6 +222,9 @@
         },
         "is": {
           "label": "Einn hluti aftursætis felldur"
+        },
+        "jp": {
+          "label": "後席片側折りたたみ"
         }
       }
     }
@@ -298,6 +316,9 @@
     },
     "is": {
       "bodyStyle": "5 dyra nettur tvinnjepplingur"
+    },
+    "jp": {
+      "bodyStyle": "5ドアコンパクトハイブリッドSUV"
     }
   }
 }

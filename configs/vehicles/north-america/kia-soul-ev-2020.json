@@ -53,6 +53,9 @@
         },
         "is": {
           "label": "Aftara farangursrými með sæti uppi og farangursgólf lækkað"
+        },
+        "jp": {
+          "label": "シート使用・荷室フロア下段時の後部ラゲッジスペース"
         }
       }
     },
@@ -91,6 +94,9 @@
         },
         "is": {
           "label": "Aftara farangursrými með sæti uppi og farangursgólf hækkað"
+        },
+        "jp": {
+          "label": "シート使用・荷室フロア上段時の後部ラゲッジスペース"
         }
       }
     },
@@ -125,6 +131,9 @@
         },
         "is": {
           "label": "Stækkað farangursrými með aftursæti felld"
+        },
+        "jp": {
+          "label": "後席折りたたみ時の拡張ラゲッジスペース"
         }
       }
     },
@@ -155,6 +164,9 @@
         },
         "is": {
           "label": "Yfirflæði í fótarými aftari farþega"
+        },
+        "jp": {
+          "label": "後席足元オーバーフロー"
         }
       }
     }
@@ -182,6 +194,9 @@
         },
         "is": {
           "label": "Aftursæti uppi, farangursgólf lækkað"
+        },
+        "jp": {
+          "label": "後席使用・荷室フロア下段"
         }
       }
     },
@@ -208,6 +223,9 @@
         },
         "is": {
           "label": "Aftursæti uppi, farangursgólf hækkað"
+        },
+        "jp": {
+          "label": "後席使用・荷室フロア上段"
         }
       }
     },
@@ -235,6 +253,9 @@
         },
         "is": {
           "label": "Aftursæti felld"
+        },
+        "jp": {
+          "label": "後席折りたたみ"
         }
       }
     },
@@ -262,6 +283,9 @@
         },
         "is": {
           "label": "Aftursæti uppi með yfirflæði í aftara fótarými"
+        },
+        "jp": {
+          "label": "後席使用＋後席足元オーバーフロー"
         }
       }
     }
@@ -333,6 +357,9 @@
     },
     "is": {
       "bodyStyle": "5 dyra rafknúinn smágerður crossover hlaðbakur"
+    },
+    "jp": {
+      "bodyStyle": "5ドア電動サブコンパクトクロスオーバーハッチバック"
     }
   }
 }

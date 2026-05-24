@@ -55,6 +55,9 @@
         },
         "is": {
           "label": "L1 farangursrými aftan við 3. röð með 8/9 sæti í notkun"
+        },
+        "jp": {
+          "label": "8/9席使用時の3列目後方L1トランク"
         }
       }
     },
@@ -93,6 +96,9 @@
         },
         "is": {
           "label": "L1 farangursrými með 3. röð fellda, um 6 sæti í boði"
+        },
+        "jp": {
+          "label": "3列目折りたたみ時のL1ラゲッジスペース（約6席利用可）"
         }
       }
     },
@@ -131,6 +137,9 @@
         },
         "is": {
           "label": "L1 farangursrými í 5/6 sæta uppsetningu"
+        },
+        "jp": {
+          "label": "5/6席レイアウト時のL1ラゲッジスペース"
         }
       }
     },
@@ -169,6 +178,9 @@
         },
         "is": {
           "label": "L2 farangursrými aftan við 3. röð með 8/9 sæti í notkun"
+        },
+        "jp": {
+          "label": "8/9席使用時の3列目後方L2トランク"
         }
       }
     },
@@ -207,6 +219,9 @@
         },
         "is": {
           "label": "L2 farangursrými með 3. röð fellda, um 6 sæti í boði"
+        },
+        "jp": {
+          "label": "3列目折りたたみ時のL2ラゲッジスペース（約6席利用可）"
         }
       }
     },
@@ -245,6 +260,9 @@
         },
         "is": {
           "label": "L2 farangursrými í 5/6 sæta uppsetningu"
+        },
+        "jp": {
+          "label": "5/6席レイアウト時のL2ラゲッジスペース"
         }
       }
     },
@@ -279,6 +297,9 @@
         },
         "is": {
           "label": "L2 hámarksfarangursrými með aftari raðir fjarlægðar, 2/3 sæti í boði"
+        },
+        "jp": {
+          "label": "後列取り外し時のL2最大ラゲッジスペース（2/3席利用可）"
         }
       }
     }
@@ -307,6 +328,9 @@
         },
         "is": {
           "label": "L1 8/9 sæta uppsetning"
+        },
+        "jp": {
+          "label": "L1 8/9席レイアウト"
         }
       }
     },
@@ -333,6 +357,9 @@
         },
         "is": {
           "label": "L1 3. röð felld"
+        },
+        "jp": {
+          "label": "L1 3列目折りたたみ"
         }
       }
     },
@@ -359,6 +386,9 @@
         },
         "is": {
           "label": "L1 5/6 sæta uppsetning"
+        },
+        "jp": {
+          "label": "L1 5/6席レイアウト"
         }
       }
     },
@@ -385,6 +415,9 @@
         },
         "is": {
           "label": "L2 8/9 sæta uppsetning"
+        },
+        "jp": {
+          "label": "L2 8/9席レイアウト"
         }
       }
     },
@@ -411,6 +444,9 @@
         },
         "is": {
           "label": "L2 3. röð felld"
+        },
+        "jp": {
+          "label": "L2 3列目折りたたみ"
         }
       }
     },
@@ -437,6 +473,9 @@
         },
         "is": {
           "label": "L2 5/6 sæta uppsetning"
+        },
+        "jp": {
+          "label": "L2 5/6席レイアウト"
         }
       }
     },
@@ -463,6 +502,9 @@
         },
         "is": {
           "label": "L2 aftari raðir fjarlægðar"
+        },
+        "jp": {
+          "label": "L2 後列取り外し"
         }
       }
     }
@@ -540,6 +582,9 @@
     },
     "is": {
       "bodyStyle": "8/9 sæta farþegabíll / smárúta"
+    },
+    "jp": {
+      "bodyStyle": "8/9人乗り乗用バン／ミニバス"
     }
   }
 }

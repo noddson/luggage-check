@@ -54,6 +54,9 @@
         },
         "is": {
           "label": "Aftara farangursrými aftan við 2. röð"
+        },
+        "jp": {
+          "label": "2列目後方リアトランク"
         }
       }
     },
@@ -88,6 +91,9 @@
         },
         "is": {
           "label": "Framfarangursrými / frunk"
+        },
+        "jp": {
+          "label": "フロントトランク／フランク"
         }
       }
     },
@@ -122,6 +128,9 @@
         },
         "is": {
           "label": "Skálaframlenging með aftursæti felldu"
+        },
+        "jp": {
+          "label": "後席折りたたみ時キャビン拡張"
         }
       }
     },
@@ -152,6 +161,9 @@
         },
         "is": {
           "label": "Yfirflæði í fótarými aftari farþega"
+        },
+        "jp": {
+          "label": "後席足元オーバーフロー"
         }
       }
     }
@@ -181,6 +193,9 @@
         },
         "is": {
           "label": "Aftursæti uppi"
+        },
+        "jp": {
+          "label": "後席使用"
         }
       }
     },
@@ -209,6 +224,9 @@
         },
         "is": {
           "label": "Aftursæti felld"
+        },
+        "jp": {
+          "label": "後席折りたたみ"
         }
       }
     },
@@ -237,6 +255,9 @@
         },
         "is": {
           "label": "Aftursæti uppi með yfirflæði í aftara fótarými"
+        },
+        "jp": {
+          "label": "後席使用＋後席足元オーバーフロー"
         }
       }
     }
@@ -297,6 +318,9 @@
     },
     "is": {
       "bodyStyle": "4 dyra rafknúinn meðalstór fólksbíll"
+    },
+    "jp": {
+      "bodyStyle": "4ドア電動ミッドサイズセダン"
     }
   }
 }

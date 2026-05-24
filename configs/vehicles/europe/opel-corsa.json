@@ -48,6 +48,9 @@
         },
         "is": {
           "label": "Farangursrými með aftursæti uppi"
+        },
+        "jp": {
+          "label": "後席使用時のトランク"
         }
       }
     },
@@ -78,6 +81,9 @@
         },
         "is": {
           "label": "Stækkað farangursrými með aftursæti felld"
+        },
+        "jp": {
+          "label": "後席折りたたみ時の拡張ラゲッジスペース"
         }
       }
     },
@@ -108,6 +114,9 @@
         },
         "is": {
           "label": "Yfirflæði í fótarými aftari farþega"
+        },
+        "jp": {
+          "label": "後席足元オーバーフロー"
         }
       }
     }
@@ -135,6 +144,9 @@
         },
         "is": {
           "label": "Aftursæti uppi"
+        },
+        "jp": {
+          "label": "後席使用"
         }
       }
     },
@@ -162,6 +174,9 @@
         },
         "is": {
           "label": "Aftursæti felld"
+        },
+        "jp": {
+          "label": "後席折りたたみ"
         }
       }
     },
@@ -189,6 +204,9 @@
         },
         "is": {
           "label": "Aftursæti uppi með yfirflæði í aftara fótarými"
+        },
+        "jp": {
+          "label": "後席使用＋後席足元オーバーフロー"
         }
       }
     }
@@ -233,6 +251,9 @@
     },
     "is": {
       "bodyStyle": "5 dyra hlaðbakur"
+    },
+    "jp": {
+      "bodyStyle": "5ドアハッチバック"
     }
   }
 }
