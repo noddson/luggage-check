@@ -14,6 +14,9 @@ const DEFAULT_MAX_QUANTITY_BY_SIZE = {
   small: 36,
   verySmall: 50
 };
+const CUSTOM_BAG_ID = 'custom-bag';
+const CUSTOM_BAG_MIN_DIMENSIONS_MM = { length: 10, width: 10, height: 10 };
+const CUSTOM_BAG_MAX_DIMENSIONS_MM = { length: 2500, width: 2500, height: 2500 };
 const state = {
   luggageSet: null,
   vehicles: [],
@@ -328,7 +331,7 @@ function cloneLuggageWithQuantities() {
     ...state.luggageSet,
     items: state.luggageSet.items.map((item) => ({
       ...item,
-      quantity: Math.min(maxQuantityForItem(item), Math.max(0, Number($(`#qty-${item.id}`).value)))
+      quantity: item.id === CUSTOM_BAG_ID ? 0 : Math.min(maxQuantityForItem(item), Math.max(0, Number($(`#qty-${item.id}`).value)))
     })).filter((item) => item.quantity > 0)
   };
 }
@@ -431,10 +434,49 @@ function renderLuggageControls() {
       createEl('input', { attrs: { id: `qty-${item.id}`, type: 'number', min: '0', max: String(maxQuantityForItem(item)), step: '1', value: quantitiesByItemId.get(item.id) ?? 0 } })
     );
     article.append(meta, label);
+    if (item.id === CUSTOM_BAG_ID) {
+      const dims = ['height', 'width', 'length'].map((axis) => {
+        const input = createEl('input', {
+          attrs: {
+            id: `custom-${axis}`,
+            type: 'number',
+            min: String(CUSTOM_BAG_MIN_DIMENSIONS_MM[axis]),
+            max: String(CUSTOM_BAG_MAX_DIMENSIONS_MM[axis]),
+            step: '1',
+            value: String(Math.round(item.dimensionsMm[axis]))
+          }
+        });
+        const row = createEl('label', { className: 'custom-bag-dimension' });
+        row.append(createEl('span', { text: `${axis === 'height' ? 'H' : axis === 'width' ? 'W' : 'D'} (mm)` }), input);
+        return row;
+      });
+      const customDimensions = createEl('div', { className: 'custom-bag-dimensions' });
+      customDimensions.append(...dims);
+      meta.append(customDimensions);
+    }
     return article;
   });
   luggageControls.replaceChildren(...controls);
   luggageControls.querySelectorAll('input').forEach((input) => input.addEventListener('input', renderResults));
+  const customBag = state.luggageSet.items.find((item) => item.id === CUSTOM_BAG_ID);
+  if (customBag) {
+    ['height', 'width', 'length'].forEach((axis) => {
+      const input = $(`#custom-${axis}`);
+      const updateCustomDimension = () => {
+        const parsed = Number.parseInt(input.value, 10);
+        const hasValue = Number.isFinite(parsed);
+        const isOutOfBounds = hasValue && (parsed < CUSTOM_BAG_MIN_DIMENSIONS_MM[axis] || parsed > CUSTOM_BAG_MAX_DIMENSIONS_MM[axis]);
+        input.classList.toggle('field-input--out-of-bounds', isOutOfBounds);
+        const clamped = hasValue ? clamp(parsed, CUSTOM_BAG_MIN_DIMENSIONS_MM[axis], CUSTOM_BAG_MAX_DIMENSIONS_MM[axis]) : customBag.dimensionsMm[axis];
+        customBag.dimensionsMm[axis] = clamped;
+      };
+      updateCustomDimension();
+      input.addEventListener('input', updateCustomDimension);
+    });
+    const qtyInput = $(`#qty-${CUSTOM_BAG_ID}`);
+    qtyInput.max = String(maxQuantityForItem(customBag));
+    if (Number(qtyInput.value) > maxQuantityForItem(customBag)) qtyInput.value = String(maxQuantityForItem(customBag));
+  }
 }
 
 function metricCard(label, value, detail = '', className = '') {
