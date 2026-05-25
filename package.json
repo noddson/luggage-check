@@ -13,7 +13,8 @@
     "generate:vehicle-index": "node generate-vehicle-index.mjs",
     "validate:vehicle-index": "node generate-vehicle-index.mjs --check",
     "validate:version": "node validate-version.mjs",
-    "validate:i18n": "node validate-i18n.mjs"
+    "validate:i18n": "node validate-i18n.mjs",
+    "test": "node --test"
   },
   "engines": {
     "node": ">=20"
