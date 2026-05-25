@@ -3,12 +3,23 @@ import { loadLuggageSet, loadVehicles } from './loadConfigs.js';
 import { estimateFit } from './fitEstimator.node.js';
 import { I18N } from './configs/i18n/index.js';
 import { createLocalization } from './src/i18n/localization.js';
+import {
+  createBoxVertices,
+  dimensionsLabel,
+  mixWithWhite,
+  projectBox,
+  projectZone,
+  renderFace,
+  rotatePoint3d,
+  shadeColor
+} from './src/render/helpers.js';
 
-const [html, css, entryPoint, app, luggageSet, vehicles] = await Promise.all([
+const [html, css, entryPoint, app, renderHelpers, luggageSet, vehicles] = await Promise.all([
   readFile('index.html', 'utf8'),
   readFile('styles.css', 'utf8'),
   readFile('app.js', 'utf8'),
   readFile('initApp/bootstrap.js', 'utf8'),
+  readFile('src/render/helpers.js', 'utf8'),
   loadLuggageSet(),
   loadVehicles()
 ]);
@@ -50,6 +61,9 @@ for (const marker of ['vehicleSelect', 'configurationSelect', 'seatBackEncroachm
 for (const marker of ['estimateFit', 'renderVisualization', 'seatEncroachmentOverlay', 'renderSeatEncroachmentWedge3d', 'view-tab', 'orientation-axis-control', 'defaultVehicle', 'resetLuggageQuantities', 'loadVehicles', 'VEHICLE_INDEX_PATH', "activeView: '3d'"]) {
   if (!app.includes(marker)) throw new Error(`Browser app missing ${marker}`);
 }
+for (const marker of ['dimensionsLabel', 'projectBox', 'projectZone', 'createBoxVertices', 'rotatePoint3d', 'renderFace', 'shadeColor', 'mixWithWhite']) {
+  if (!renderHelpers.includes(marker)) throw new Error(`Render helpers missing ${marker}`);
+}
 for (const marker of ['bootView', 'sideView', 'topView', 'activeOrientationLabel', 'orientationPresets']) {
   if (!app.includes(marker)) throw new Error(`Browser app missing orientation preset label ${marker}`);
 }
@@ -81,6 +95,40 @@ if (localeBundle() !== I18N.fr || t('pageTitle') !== I18N.fr.pageTitle || locali
 localizationState.language = 'unknown';
 if (localeBundle() !== I18N.en || t('pageTitle') !== I18N.en.pageTitle || localizeEntity(translatedEntity, 'label') !== 'English name') {
   throw new Error('Extracted localization helpers should retain English fallbacks');
+}
+const renderPlacement = {
+  positionMm: { x: 10, y: 20, z: 30 },
+  orientationMm: { length: 100, width: 50, height: 40 }
+};
+const renderZone = { dimensionsMm: { length: 800, width: 500, height: 600 } };
+const translateAxis = (key) => ({ length: 'Length', width: 'Width', height: 'Height' }[key]);
+if (dimensionsLabel({ length: 99.7, width: 49.6, height: 39.5 }) !== '100 × 50 × 40 mm') {
+  throw new Error('Extracted render helpers should retain dimension formatting');
+}
+if (shadeColor('#2563eb', -18) !== '#0035bd' || mixWithWhite('#2563eb', 0.9) !== '#e9effd') {
+  throw new Error('Extracted render helpers should retain placement color shading');
+}
+if (JSON.stringify(projectBox(renderPlacement, 'side')) !== JSON.stringify({ x: 10, y: 30, width: 100, height: 40 })) {
+  throw new Error('Extracted render helpers should retain side-view box projection');
+}
+if (JSON.stringify(projectZone(renderZone, 'front', translateAxis)) !== JSON.stringify({ width: 500, height: 600, xLabel: 'Width', yLabel: 'Height' })) {
+  throw new Error('Extracted render helpers should retain translated zone projection labels');
+}
+const boxVertices = createBoxVertices({ x: 0, y: 0, z: 0 }, { length: 100, width: 50, height: 40 });
+if (boxVertices.length !== 8 || boxVertices[6].x !== 100 || boxVertices[6].y !== 50 || boxVertices[6].z !== 40) {
+  throw new Error('Extracted render helpers should retain cuboid vertices');
+}
+const rotatedPoint = rotatePoint3d({ x: 10, y: 0, z: 0 }, { x: 0, y: 0, z: 0 }, { yaw: Math.PI / 2, pitch: 0 });
+if (Math.abs(rotatedPoint.x) > 0.00001 || Math.abs(rotatedPoint.y - 10) > 0.00001 || Math.abs(rotatedPoint.depth) > 0.00001) {
+  throw new Error('Extracted render helpers should retain 3D rotation math');
+}
+const renderedFace = renderFace([
+  { x: 0, y: 0, depth: 1 },
+  { x: 2, y: 0, depth: 1 },
+  { x: 2, y: 2, depth: 1 }
+], [0, 1, 2], '#ffffff', 'test-face', 'Face');
+if (renderedFace.depth !== 1 || !renderedFace.markup.includes('points="0.0,0.0 2.0,0.0 2.0,2.0"')) {
+  throw new Error('Extracted render helpers should retain SVG face markup');
 }
 if (!css.includes('.zone-card')) throw new Error('Styles missing visualization card rules');
 if (!css.includes('.seat-encroachment-line') || !css.includes('.seat-encroachment-face')) throw new Error('Styles missing seat-back encroachment rules');

@@ -8,6 +8,7 @@ This document explains the luggage-check codebase at the level needed to maintai
 | --- | --- | --- |
 | Browser UI | `index.html`, `styles.css`, `app.js`, `initApp/bootstrap.js` | Static single-page app whose thin entry point invokes ordered bootstrap logic that loads luggage plus the generated vehicle index, lets users choose a vehicle/seat setup/luggage quantities, supports a custom bag profile, persists trip setup/language preferences in cookies, runs the fit estimator, and renders 2D/3D SVG visualizations. |
 | Localization accessors | `src/i18n/localization.js`, `configs/i18n/*.json` | Builds language-aware text and entity-label accessors from the live browser state while retaining English fallbacks. |
+| Render helpers | `src/render/helpers.js` | Pure formatting, color, 2D projection, and 3D geometry/SVG-face primitives consumed by browser rendering orchestration. |
 | Fit estimation | `fitEstimator.js` | Deterministic multi-pass rectangular packing estimator. Expands luggage quantities, applies soft-bag compression, tests rotations/opening constraints/seat-back encroachment, and returns placements plus warnings. |
 | Config loading | `loadConfigs.js` | Node-side JSON readers used by validation and smoke scripts. |
 | Domain documentation | `types.js` | JSDoc typedefs for luggage, vehicles, cargo zones, seat configurations, and estimator result shapes. |
@@ -636,11 +637,15 @@ function estimateFit(
 
 ## `app.js` and `initApp/bootstrap.js` — browser bootstrap and application
 
-`app.js` only invokes startup in a browser environment. `initApp/bootstrap.js` owns the ordered startup sequence, client-side state, DOM updates, user events, and SVG visualization. It passes its live `state` object to `src/i18n/localization.js`, so language changes continue to affect every accessor without moving the language selection flow.
+`app.js` only invokes startup in a browser environment. `initApp/bootstrap.js` owns the ordered startup sequence, client-side state, DOM updates, user events, and visualization composition. It passes its live `state` object to `src/i18n/localization.js`, so language changes continue to affect every accessor without moving the language selection flow, and passes current inputs to the pure primitives in `src/render/helpers.js`.
 
 ### Localization Accessors
 
 `createLocalization({ state, i18n })` returns `localeBundle`, `t`, and `localizeEntity`. Each accessor reads `state.language` at call time, falls back to English when a locale or value is unavailable, and leaves `setLanguage()` in bootstrap responsible for updating state and rerendering controls/text.
+
+### Render Helpers
+
+`src/render/helpers.js` owns input-driven output primitives: dimension formatting, color shading/mixing, 2D box/zone projections, cuboid and seat-guide vertices, yaw normalization, point rotation/projector construction, polygon formatting, and individual SVG face rendering. It has no DOM access or event binding; bootstrap retains full-card composition, state-dependent encroachment calculations, localized copy injection, and interaction wiring.
 
 ### Top-level state and constants
 
@@ -804,7 +809,7 @@ function estimateFit(
 
 **Testing:** Snapshot or string-contains tests for label/value/detail.
 
-### Color and projection helpers
+### Color and projection helpers (`src/render/helpers.js` and bootstrap)
 
 #### `colorForPlacement(placement)` and `estimateSources()`
 
@@ -868,7 +873,7 @@ function estimateFit(
 
 **Testing:** For known placements, assert SVG contains placement labels and dimensions; for dimensionless zones, assert the no-rectangle message appears.
 
-### 3D visualization
+### 3D visualization (`src/render/helpers.js` primitives, bootstrap composition)
 
 The 3D view is SVG-based, not WebGL. It creates cuboid vertices, rotates them, projects them orthographically, sorts faces, and emits polygons.
 
@@ -1140,7 +1145,7 @@ This script combines static asset checks with estimator regression checks.
 
 ### Static checks
 
-It reads `index.html`, `styles.css`, `app.js`, and `initApp/bootstrap.js`, exercises `src/i18n/localization.js`, and asserts that the entry point delegates to bootstrap and important UI markers exist:
+It reads `index.html`, `styles.css`, `app.js`, `initApp/bootstrap.js`, and `src/render/helpers.js`, exercises the extracted localization/render helpers, and asserts that the entry point delegates to bootstrap and important UI markers exist:
 
 - App shell ids/classes.
 - Seat-back encroachment degrees controls.
