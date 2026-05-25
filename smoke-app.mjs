@@ -14,7 +14,7 @@ import {
   shadeColor
 } from './src/render/helpers.js';
 
-const [html, css, entryPoint, app, renderHelpers, metricsHeader, visualizationRegion, listsRegion, controlsStateRegion, luggageSet, vehicles] = await Promise.all([
+const [html, css, entryPoint, app, renderHelpers, metricsHeader, visualizationRegion, listsRegion, controlsStateRegion, eventActions, eventBindings, luggageSet, vehicles] = await Promise.all([
   readFile('index.html', 'utf8'),
   readFile('styles.css', 'utf8'),
   readFile('app.js', 'utf8'),
@@ -24,6 +24,8 @@ const [html, css, entryPoint, app, renderHelpers, metricsHeader, visualizationRe
   readFile('src/render/visualization.js', 'utf8'),
   readFile('src/render/lists.js', 'utf8'),
   readFile('src/render/controlsState.js', 'utf8'),
+  readFile('src/events/actions.js', 'utf8'),
+  readFile('src/events/bindings.js', 'utf8'),
   loadLuggageSet(),
   loadVehicles()
 ]);
@@ -41,7 +43,7 @@ for (const step of [
   'state.vehicles = vehicles.sort',
   'state.vehicleId = initialVehicle.id',
   'state.configurationId = initialVehicle.seatConfigurations[0].id',
-  'syncSeatBackEncroachmentDefault()',
+  'actions.resetSeatBackAngleToDefault()',
   'applyPersistedTripSetupPreference()',
   'renderVehicleOptions()',
   'renderConfigurationOptions()',
@@ -50,7 +52,7 @@ for (const step of [
   'await renderBuildVersion()',
   'bindEvents()',
   'getPersistedLanguagePreference()',
-  'setLanguage(persistedLanguage)',
+  'actions.setLanguage(persistedLanguage)',
   'applyStaticTranslations()',
   'renderSeatBackEncroachmentState()',
   'renderResults()'
@@ -62,7 +64,7 @@ for (const step of [
 for (const marker of ['vehicleSelect', 'configurationSelect', 'seatBackEncroachmentDegrees', 'seatBackEncroachmentNote', 'luggageControls', 'resetLuggageButton', 'visualization']) {
   if (!html.includes(marker)) throw new Error(`App shell missing #${marker}`);
 }
-for (const marker of ['estimateFit', 'renderMetricsHeader(vehicle, config, result)', 'renderVisualization(vehicle, config, result)', 'renderLists(result)', 'syncCustomBagControlState(result)', "$('#placedList').addEventListener('click'", "$('#unplacedList').addEventListener('click'", 'seatEncroachmentOverlay', 'renderSeatEncroachmentWedge3d', 'view-tab', 'orientation-axis-control', 'defaultVehicle', 'resetLuggageQuantities', 'loadVehicles', 'VEHICLE_INDEX_PATH', "activeView: '3d'"]) {
+for (const marker of ['estimateFit', 'renderMetricsHeader(vehicle, config, result)', 'renderVisualization(vehicle, config, result)', 'renderLists(result)', 'syncCustomBagControlState(result)', 'createActions', 'createEventBindings', 'seatEncroachmentOverlay', 'renderSeatEncroachmentWedge3d', 'view-tab', 'orientation-axis-control', 'defaultVehicle', 'loadVehicles', 'VEHICLE_INDEX_PATH', "activeView: '3d'"]) {
   if (!app.includes(marker)) throw new Error(`Browser app missing ${marker}`);
 }
 for (const marker of ['dimensionsLabel', 'projectBox', 'projectZone', 'createBoxVertices', 'rotatePoint3d', 'renderFace', 'shadeColor', 'mixWithWhite']) {
@@ -70,9 +72,11 @@ for (const marker of ['dimensionsLabel', 'projectBox', 'projectZone', 'createBox
 }
 for (const [region, markers] of [
   [metricsHeader, ['createMetricsHeaderRenderer', 'renderMetricsHeader', 'renderMetricsLoadError', 'fitBadge', 'metrics']],
-  [visualizationRegion, ['createVisualizationRenderer', 'renderVisualization', 'bind3dRotation']],
+  [visualizationRegion, ['createVisualizationRenderer', 'renderVisualization']],
   [listsRegion, ['createListsRenderer', 'renderLists', 'placedList', 'unplacedList', 'placed-delete']],
-  [controlsStateRegion, ['createControlsStateSync', 'syncCustomBagControlState', 'customBagLocked']]
+  [controlsStateRegion, ['createControlsStateSync', 'syncCustomBagControlState', 'customBagLocked']],
+  [eventActions, ['createActions', 'setVehicle', 'setConfiguration', 'setSeatBackAngle', 'setBuffer', 'setLanguage', 'decrementItemQuantity', 'render.results()']],
+  [eventBindings, ['createEventBindings', 'bindEvents', 'bindRemovalList', 'luggageControls.addEventListener', 'visualization.addEventListener', 'actions.setLanguage']]
 ]) {
   for (const marker of markers) {
     if (!region.includes(marker)) throw new Error(`Render region missing ${marker}`);

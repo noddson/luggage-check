@@ -6,7 +6,8 @@ This document explains the luggage-check codebase at the level needed to maintai
 
 | Area | Files | Purpose |
 | --- | --- | --- |
-| Browser UI | `index.html`, `styles.css`, `app.js`, `initApp/bootstrap.js` | Static single-page app whose thin entry point invokes ordered bootstrap logic that loads luggage plus the generated vehicle index, lets users choose a vehicle/seat setup/luggage quantities, supports a custom bag profile, persists trip setup/language preferences in cookies, runs the fit estimator, and renders 2D/3D SVG visualizations. |
+| Browser UI | `index.html`, `styles.css`, `app.js`, `initApp/bootstrap.js` | Static single-page app whose thin entry point invokes ordered bootstrap logic that loads luggage plus the generated vehicle index, composes application services, runs the fit estimator, and renders 2D/3D SVG visualizations. |
+| UI events | `src/events/actions.js`, `src/events/bindings.js` | Action handlers own interaction-driven state mutations, persistence, and render triggers; once-only delegated DOM bindings remain valid when language or result rendering replaces descendants. |
 | Localization accessors | `src/i18n/localization.js`, `configs/i18n/*.json` | Builds language-aware text and entity-label accessors from the live browser state while retaining English fallbacks. |
 | Render helpers | `src/render/helpers.js` | Pure formatting, color, 2D projection, and 3D geometry/SVG-face primitives consumed by browser rendering orchestration. |
 | Render regions | `src/render/metricsHeader.js`, `src/render/visualization.js`, `src/render/lists.js`, `src/render/controlsState.js` | DOM region delegates called by `renderResults()` for header/metrics, visualization insertion, lists, and result-driven control synchronization. |
@@ -638,11 +639,11 @@ function estimateFit(
 
 ## `app.js` and `initApp/bootstrap.js` — browser bootstrap and application
 
-`app.js` only invokes startup in a browser environment. `initApp/bootstrap.js` owns the ordered startup sequence, client-side state, `renderResults()` calculation facade, and user events. It passes its live `state` object to `src/i18n/localization.js`, delegates output regions to `src/render/*.js`, and passes current inputs to the pure primitives in `src/render/helpers.js`.
+`app.js` only invokes startup in a browser environment. `initApp/bootstrap.js` owns the ordered startup sequence, client-side state, and `renderResults()` calculation facade. It composes `src/events/actions.js` and `src/events/bindings.js`, passes its live `state` object to `src/i18n/localization.js`, delegates output regions to `src/render/*.js`, and passes current inputs to the pure primitives in `src/render/helpers.js`.
 
 ### Localization Accessors
 
-`createLocalization({ state, i18n })` returns `localeBundle`, `t`, and `localizeEntity`. Each accessor reads `state.language` at call time, falls back to English when a locale or value is unavailable, and leaves `setLanguage()` in bootstrap responsible for updating state and rerendering controls/text.
+`createLocalization({ state, i18n })` returns `localeBundle`, `t`, and `localizeEntity`. Each accessor reads `state.language` at call time and falls back to English when a locale or value is unavailable. The `setLanguage()` action updates state and rerenders controls/text.
 
 ### Render Helpers
 
@@ -650,7 +651,7 @@ function estimateFit(
 
 ### Render Regions
 
-`renderResults()` remains the estimator/recompute facade. It delegates populated output to `createMetricsHeaderRenderer()`, `createVisualizationRenderer()`, `createListsRenderer()`, and `createControlsStateSync()`. Bootstrap still owns click/input handlers, including delete-row handlers and 3D drag/orientation binding, so this split does not change event flow.
+`renderResults()` remains the estimator/recompute facade. It delegates populated output to `createMetricsHeaderRenderer()`, `createVisualizationRenderer()`, `createListsRenderer()`, and `createControlsStateSync()`. All interaction-driven mutations and render triggers run through action handlers; delegated bindings on stable containers cover rebuilt luggage, list, and 3D descendants.
 
 ### Top-level state and constants
 
@@ -962,13 +963,13 @@ The 3D view is SVG-based, not WebGL. It creates cuboid vertices, rotates them, p
 
 **Testing:** `npm run smoke:app` checks that 3D orientation controls and CSS markers exist. Browser tests should verify drag rotation and preset controls.
 
-#### `bind3dRotation()`
+#### Delegated 3D interaction bindings (`src/events/bindings.js`)
 
-**Purpose:** Attach click/keyboard events to orientation controls and pointer-drag rotation to each 3D SVG.
+**Purpose:** Handle click/keyboard orientation controls and pointer-drag rotation from the stable visualization container.
 
 **Behavior:** Dragging changes yaw and pitch, clamps pitch between 0 and 90 degrees, clears the active preset label, and re-renders results.
 
-**Errors:** Assumes visualization markup exists. Re-rendering replaces SVGs, so this is called after rendering visualization.
+**Errors:** Missing 3D descendants are ignored. Re-rendering can replace SVGs without attaching another container listener.
 
 **Testing:** Browser/e2e test: pointer-drag an SVG and assert `state.rotation3d` changes and the SVG remains rendered.
 
@@ -976,7 +977,7 @@ The 3D view is SVG-based, not WebGL. It creates cuboid vertices, rotates them, p
 
 #### `renderVisualization(vehicle, config, result)` (`src/render/visualization.js`)
 
-**Purpose:** Render all active cargo zones in the selected view (`top`, `side`, `front`, or `3d`) and bind 3D interactions when needed.
+**Purpose:** Render all active cargo zones in the selected view (`top`, `side`, `front`, or `3d`). Stable event delegation handles 3D interactions independently.
 
 **Testing:** Change view tabs and assert active visualization type changes.
 
@@ -994,11 +995,11 @@ The 3D view is SVG-based, not WebGL. It creates cuboid vertices, rotates them, p
 
 **Testing:** Use a fixture state and assert changing quantities changes placed/unplaced counts. Smoke tests cover estimator placement completeness.
 
-#### `bindEvents()`
+#### Actions and `bindEvents()` (`src/events/actions.js`, `src/events/bindings.js`)
 
-**Purpose:** Wire UI controls to state changes and re-rendering.
+**Purpose:** Bind stable DOM event entry points once, then route each interaction through an action that mutates state and invokes persistence/render facades.
 
-**Controls:** Vehicle select, configuration select, seat-back degrees input, reset button, and view tabs.
+**Controls:** Vehicle/configuration selects, seat-back and buffer inputs, luggage quantities/custom dimensions, reset button, view tabs, placed/unplaced deletion, language selection, and 3D interactions.
 
 **Testing:** Browser/e2e tests should dispatch change/click events and assert state plus DOM updates.
 
@@ -1150,7 +1151,7 @@ This script combines static asset checks with estimator regression checks.
 
 ### Static checks
 
-It reads `index.html`, `styles.css`, `app.js`, `initApp/bootstrap.js`, and the `src/render/` modules, exercises the extracted localization/render helpers, and asserts that the entry point delegates to bootstrap, `renderResults()` retains region delegation, and important UI/event markers exist:
+It reads `index.html`, `styles.css`, `app.js`, `initApp/bootstrap.js`, and the `src/render/` and `src/events/` modules, exercises the extracted localization/render helpers, and asserts that the entry point delegates to bootstrap, `renderResults()` retains region delegation, and action/binding markers exist:
 
 - App shell ids/classes.
 - Seat-back encroachment degrees controls.

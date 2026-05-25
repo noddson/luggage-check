@@ -3,8 +3,7 @@ export function createVisualizationRenderer({
   visualization,
   setSanitizedMarkup,
   renderZoneSvg,
-  renderZone3dSvg,
-  bind3dRotation
+  renderZone3dSvg
 }) {
   return function renderVisualization(vehicle, config, result) {
     const zones = config.cargoZoneIds.map((id) => vehicle.cargoZones.find((zone) => zone.id === id)).filter(Boolean);
@@ -12,6 +11,5 @@ export function createVisualizationRenderer({
       const placements = result.placements.filter((placement) => placement.zoneId === zone.id);
       return state.activeView === '3d' ? renderZone3dSvg(zone, placements) : renderZoneSvg(zone, placements, index);
     }).join(''));
-    bind3dRotation();
   };
 }

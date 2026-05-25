@@ -28,6 +28,8 @@ import {
 } from '../src/render/helpers.js';
 import { createVisualizationRenderer } from '../src/render/visualization.js';
 import { createPersistence } from '../persistence.js';
+import { createActions } from '../src/events/actions.js';
+import { createEventBindings } from '../src/events/bindings.js';
 
 const VEHICLE_INDEX_PATH = './configs/vehicles/index.json';
 
@@ -90,6 +92,14 @@ const usableVolumeBufferNote = $('#usableVolumeBufferNote');
 const luggageControls = $('#luggageControls');
 const resetLuggageButton = $('#resetLuggageButton');
 const visualization = $('#visualization');
+const languageSelect = $('#languageSelect');
+const placedList = $('#placedList');
+const unplacedList = $('#unplacedList');
+
+function updateBoundaryStatus(input, isOutOfBounds) {
+  input.classList.toggle('field-input--out-of-bounds', isOutOfBounds);
+  input.setAttribute('aria-invalid', isOutOfBounds ? 'true' : 'false');
+}
 
 async function readJson(path) {
   const response = await fetch(path);
@@ -182,10 +192,7 @@ function renderConfigurationOptions() {
     text: `${localizeEntity(config, 'label')} · ${config.seatsAvailable} ${t('seats')}`,
     attrs: { value: config.id }
   })));
-  if (!vehicle.seatConfigurations.some((config) => config.id === state.configurationId)) {
-    state.configurationId = vehicle.seatConfigurations[0].id;
-  }
-  configurationSelect.value = state.configurationId;
+  configurationSelect.value = selectedConfiguration(vehicle).id;
 }
 
 function renderBufferControl() {
@@ -219,27 +226,12 @@ function renderSeatBackEncroachmentControl(zones) {
   seatBackEncroachmentDegreesInput.classList.toggle('field-input--out-of-bounds', outOfBounds);
 }
 
-function syncSeatBackEncroachmentDefault() {
+function defaultSeatBackAngleForSelection() {
   const vehicle = selectedVehicle();
   const config = selectedConfiguration(vehicle);
   const zones = config.cargoZoneIds.map((id) => vehicle.cargoZones.find((zone) => zone.id === id)).filter(Boolean);
   const hasEncroachment = hasActiveSeatBackEncroachment(zones);
-  state.seatBackEncroachmentAngleDegrees = hasEncroachment ? defaultSeatBackAngleDegrees(zones) : 0;
-  state.seatBackEncroachmentInputDegrees = String(state.seatBackEncroachmentAngleDegrees);
-}
-
-function resetLuggageQuantities() {
-  const customBag = state.luggageSet?.items?.find((item) => item.id === CUSTOM_BAG_ID);
-  luggageControls.querySelectorAll('input').forEach((input) => {
-    input.value = 0;
-  });
-  if (customBag) {
-    ['height', 'width', 'length'].forEach((axis) => {
-      customBag.dimensionsMm[axis] = 0;
-    });
-  }
-  syncCustomBagControlState();
-  renderResults();
+  return hasEncroachment ? defaultSeatBackAngleDegrees(zones) : 0;
 }
 
 function renderLuggageControls() {
@@ -288,27 +280,7 @@ function renderLuggageControls() {
     return article;
   });
   luggageControls.replaceChildren(...controls);
-  luggageControls.querySelectorAll('input').forEach((input) => input.addEventListener('input', renderResults));
-  const customBag = state.luggageSet.items.find((item) => item.id === CUSTOM_BAG_ID);
-  if (customBag) {
-    const qtyInput = $(`#qty-${CUSTOM_BAG_ID}`);
-    ['height', 'width', 'length'].forEach((axis) => {
-      const input = $(`#custom-${axis}`);
-      const updateCustomDimension = () => {
-        const parsed = Number.parseInt(input.value, 10);
-        const hasValue = Number.isFinite(parsed);
-        const isOutOfBounds = !hasValue || parsed < CUSTOM_BAG_MIN_DIMENSIONS_MM[axis] || parsed > CUSTOM_BAG_MAX_DIMENSIONS_MM[axis];
-        input.classList.toggle('field-input--out-of-bounds', isOutOfBounds);
-        const customBagLocked = input.disabled;
-        if (customBagLocked) return;
-        customBag.dimensionsMm[axis] = hasValue ? parsed : 0;
-        syncCustomBagControlState();
-      };
-      updateCustomDimension();
-      input.addEventListener('input', updateCustomDimension);
-    });
-    syncCustomBagControlState();
-  }
+  syncCustomBagControlState();
 }
 
 const syncCustomBagControlState = createControlsStateSync({
@@ -548,14 +520,6 @@ function renderOrientationAxisControl() {
   `;
 }
 
-function set3dOrientation(axis) {
-  const preset = orientationPresets()[axis];
-  if (!preset) return;
-  state.rotation3d = { yaw: normalizeYaw(preset.yaw), pitch: preset.pitch };
-  state.activeOrientationLabel = preset.label;
-  renderResults();
-}
-
 function renderSeatEncroachmentWedge3d(zone, project) {
   const rawVertices = createSeatEncroachmentWedgeVertices(zone);
   if (rawVertices.length === 0) return [];
@@ -644,59 +608,13 @@ function renderZone3dSvg(zone, placements) {
   `;
 }
 
-function bind3dRotation() {
-  if (state.activeView !== '3d') return;
-  visualization.querySelectorAll('.zone-3d-svg').forEach((svg) => {
-    svg.querySelectorAll('.orientation-axis-button').forEach((button) => {
-      button.addEventListener('click', (event) => {
-        event.stopPropagation();
-        set3dOrientation(button.dataset.axis);
-      });
-      button.addEventListener('keydown', (event) => {
-        if (event.key !== 'Enter' && event.key !== ' ') return;
-        event.preventDefault();
-        event.stopPropagation();
-        set3dOrientation(button.dataset.axis);
-      });
-    });
-
-    svg.addEventListener('pointerdown', (event) => {
-      if (event.target.closest('.orientation-axis-control')) return;
-      event.preventDefault();
-      let previous = { x: event.clientX, y: event.clientY };
-      svg.classList.add('is-dragging');
-
-      const handleMove = (moveEvent) => {
-        const dx = moveEvent.clientX - previous.x;
-        const dy = moveEvent.clientY - previous.y;
-        previous = { x: moveEvent.clientX, y: moveEvent.clientY };
-        state.rotation3d.yaw = normalizeYaw(state.rotation3d.yaw - dx * 0.35);
-        state.rotation3d.pitch = clamp(state.rotation3d.pitch - dy * 0.25, 0, 90);
-        if (dx || dy) state.activeOrientationLabel = '';
-        renderResults();
-      };
-      const endDrag = () => {
-        window.removeEventListener('pointermove', handleMove);
-        window.removeEventListener('pointerup', endDrag);
-        window.removeEventListener('pointercancel', endDrag);
-        visualization.querySelectorAll('.zone-3d-svg').forEach((currentSvg) => currentSvg.classList.remove('is-dragging'));
-      };
-
-      window.addEventListener('pointermove', handleMove);
-      window.addEventListener('pointerup', endDrag, { once: true });
-      window.addEventListener('pointercancel', endDrag, { once: true });
-    });
-  });
-}
-
 const { renderMetricsHeader, renderMetricsLoadError } = createMetricsHeaderRenderer({ $, createEl, t, localizeEntity });
 const renderVisualization = createVisualizationRenderer({
   state,
   visualization,
   setSanitizedMarkup,
   renderZoneSvg,
-  renderZone3dSvg,
-  bind3dRotation
+  renderZone3dSvg
 });
 const renderLists = createListsRenderer({ $, createEl, t, colorForSourceId, localizedPlacementLabel, localizedZoneLabel });
 
@@ -717,92 +635,6 @@ function renderResults() {
   $('#warnings').replaceChildren();
 }
 
-function bindEvents() {
-  vehicleSelect.addEventListener('change', () => {
-    state.vehicleId = vehicleSelect.value;
-    renderConfigurationOptions();
-    syncSeatBackEncroachmentDefault();
-    state.usableVolumeBufferPercent = DEFAULT_USABLE_VOLUME_BUFFER_PERCENT;
-    state.usableVolumeBufferInputPercent = String(DEFAULT_USABLE_VOLUME_BUFFER_PERCENT);
-    renderSeatBackEncroachmentState();
-    persistTripSetupPreference();
-    renderResults();
-  });
-  configurationSelect.addEventListener('change', () => {
-    state.configurationId = configurationSelect.value;
-    syncSeatBackEncroachmentDefault();
-    renderSeatBackEncroachmentState();
-    persistTripSetupPreference();
-    renderResults();
-  });
-  const updateBoundaryStatus = (input, isOutOfBounds) => {
-    input.classList.toggle('field-input--out-of-bounds', isOutOfBounds);
-    input.setAttribute('aria-invalid', isOutOfBounds ? 'true' : 'false');
-  };
-
-  seatBackEncroachmentDegreesInput.addEventListener('input', () => {
-    state.seatBackEncroachmentInputDegrees = seatBackEncroachmentDegreesInput.value;
-    const validation = validateSeatBackAngleInput(state.seatBackEncroachmentInputDegrees, {
-      defaultValue: DEFAULT_SEAT_BACK_ANGLE_DEGREES,
-      max: MAX_SEAT_BACK_ANGLE_DEGREES
-    });
-    updateBoundaryStatus(seatBackEncroachmentDegreesInput, validation.outOfBounds);
-    state.seatBackEncroachmentAngleDegrees = validation.normalized;
-    persistTripSetupPreference();
-    renderResults();
-  });
-
-  const updateUsableVolumeBuffer = () => {
-    state.usableVolumeBufferInputPercent = usableVolumeBufferPercentInput.value;
-    const validation = validateUsableVolumeBufferInput(state.usableVolumeBufferInputPercent, {
-      min: MIN_USABLE_VOLUME_BUFFER_PERCENT,
-      max: MAX_USABLE_VOLUME_BUFFER_PERCENT,
-      defaultValue: DEFAULT_USABLE_VOLUME_BUFFER_PERCENT
-    });
-    updateBoundaryStatus(usableVolumeBufferPercentInput, validation.outOfBounds);
-    state.usableVolumeBufferPercent = validation.normalized;
-    persistTripSetupPreference();
-    renderResults();
-  };
-
-  usableVolumeBufferPercentInput.addEventListener('input', updateUsableVolumeBuffer);
-  usableVolumeBufferPercentInput.addEventListener('change', updateUsableVolumeBuffer);
-  usableVolumeBufferPercentInput.addEventListener('blur', updateUsableVolumeBuffer);
-  resetLuggageButton.addEventListener('click', resetLuggageQuantities);
-  document.querySelectorAll('.view-tab').forEach((button) => button.addEventListener('click', () => {
-    state.activeView = button.dataset.view;
-    document.querySelectorAll('.view-tab').forEach((tab) => tab.classList.toggle('active', tab === button));
-    renderResults();
-  }));
-  $('#placedList').addEventListener('click', (event) => {
-    const deleteButton = event.target.closest('.placed-delete');
-    if (!deleteButton) return;
-    const row = deleteButton.closest('.placed-item');
-    const sourceId = row?.dataset.sourceId;
-    if (!sourceId) return;
-    const quantityInput = $(`#qty-${sourceId}`);
-    if (!quantityInput) return;
-    const current = Math.max(0, Number(quantityInput.value) || 0);
-    quantityInput.value = String(Math.max(0, current - 1));
-    renderResults();
-  });
-  $('#unplacedList').addEventListener('click', (event) => {
-    const deleteButton = event.target.closest('.placed-delete');
-    if (!deleteButton) return;
-    const row = deleteButton.closest('.placed-item');
-    const sourceId = row?.dataset.sourceId;
-    if (!sourceId) return;
-    const quantityInput = $(`#qty-${sourceId}`);
-    if (!quantityInput) return;
-    const current = Math.max(0, Number(quantityInput.value) || 0);
-    quantityInput.value = String(Math.max(0, current - 1));
-    renderResults();
-  });
-  $('#languageSelect').addEventListener('change', (event) => {
-    setLanguage(event.target.value);
-  });
-}
-
 function applyStaticTranslations() {
   document.title = t('pageTitle');
   document.querySelectorAll('[data-i18n]').forEach((el) => {
@@ -815,21 +647,6 @@ function applyStaticTranslations() {
   });
 }
 
-function setLanguage(language) {
-  state.language = language;
-  document.documentElement.lang = language;
-  const languageSelect = $('#languageSelect');
-  if (languageSelect && languageSelect.value !== language) {
-    languageSelect.value = language;
-  }
-  persistLanguagePreference(language);
-  applyStaticTranslations();
-  renderVehicleOptions();
-  renderConfigurationOptions();
-  renderSeatBackEncroachmentState();
-  renderLuggageControls();
-  renderResults();
-}
 function currentVehicleDefaults(vehicle = selectedVehicle()) {
   const defaultConfigurationId = vehicle.seatConfigurations[0]?.id ?? '';
   const defaultBufferPercent = DEFAULT_USABLE_VOLUME_BUFFER_PERCENT;
@@ -870,6 +687,68 @@ const {
   maxUsableVolumeBufferPercent: MAX_USABLE_VOLUME_BUFFER_PERCENT
 });
 
+const actions = createActions({
+  state,
+  document,
+  $,
+  constants: {
+    customBagId: CUSTOM_BAG_ID,
+    customBagMinDimensionsMm: CUSTOM_BAG_MIN_DIMENSIONS_MM,
+    customBagMaxDimensionsMm: CUSTOM_BAG_MAX_DIMENSIONS_MM,
+    defaultSeatBackAngleDegrees: DEFAULT_SEAT_BACK_ANGLE_DEGREES,
+    maxSeatBackAngleDegrees: MAX_SEAT_BACK_ANGLE_DEGREES,
+    defaultUsableVolumeBufferPercent: DEFAULT_USABLE_VOLUME_BUFFER_PERCENT,
+    minUsableVolumeBufferPercent: MIN_USABLE_VOLUME_BUFFER_PERCENT,
+    maxUsableVolumeBufferPercent: MAX_USABLE_VOLUME_BUFFER_PERCENT
+  },
+  render: {
+    elements: {
+      seatBackAngleInput: seatBackEncroachmentDegreesInput,
+      bufferInput: usableVolumeBufferPercentInput,
+      luggageControls,
+      languageSelect
+    },
+    boundaryStatus: updateBoundaryStatus,
+    vehicleOptions: renderVehicleOptions,
+    configurationOptions: renderConfigurationOptions,
+    seatBackEncroachmentState: renderSeatBackEncroachmentState,
+    luggageControls: renderLuggageControls,
+    staticTranslations: applyStaticTranslations,
+    activeViewTab(view) {
+      document.querySelectorAll('.view-tab').forEach((tab) => tab.classList.toggle('active', tab.dataset.view === view));
+    },
+    syncCustomBagControlState,
+    results: renderResults
+  },
+  persistence: {
+    persistLanguagePreference,
+    persistTripSetupPreference
+  },
+  validConfigurationId() {
+    return selectedConfiguration().id;
+  },
+  defaultSeatBackAngleForSelection,
+  orientationPresets
+});
+
+const bindEvents = createEventBindings({
+  document,
+  window,
+  elements: {
+    vehicleSelect,
+    configurationSelect,
+    seatBackAngleInput: seatBackEncroachmentDegreesInput,
+    bufferInput: usableVolumeBufferPercentInput,
+    resetLuggageButton,
+    luggageControls,
+    placedList,
+    unplacedList,
+    languageSelect,
+    visualization
+  },
+  actions
+});
+
 async function renderBuildVersion() {
   const appVersionEl = $('#appVersion');
   if (!appVersionEl) return;
@@ -902,7 +781,7 @@ export async function bootstrap() {
     const initialVehicle = defaultVehicle();
     state.vehicleId = initialVehicle.id;
     state.configurationId = initialVehicle.seatConfigurations[0].id;
-    syncSeatBackEncroachmentDefault();
+    actions.resetSeatBackAngleToDefault();
     applyPersistedTripSetupPreference();
     renderVehicleOptions();
     renderConfigurationOptions();
@@ -912,7 +791,7 @@ export async function bootstrap() {
     bindEvents();
     const persistedLanguage = getPersistedLanguagePreference();
     if (persistedLanguage && persistedLanguage !== state.language) {
-      setLanguage(persistedLanguage);
+      actions.setLanguage(persistedLanguage);
       return;
     }
     applyStaticTranslations();

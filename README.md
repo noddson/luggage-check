@@ -13,6 +13,9 @@ The repository has been flattened so the runtime and tooling files are at the ro
 │  └─ bootstrap.js           # ordered startup and browser application logic
 ├─ src/i18n/
 │  └─ localization.js        # language-dependent text and entity accessors
+├─ src/events/
+│  ├─ actions.js             # state mutations and render/persistence triggers
+│  └─ bindings.js            # once-only DOM event delegation
 ├─ src/render/
 │  ├─ helpers.js             # pure render formatting and geometry helpers
 │  ├─ metricsHeader.js       # result title, badge, and metric region
