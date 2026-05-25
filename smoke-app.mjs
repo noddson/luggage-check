@@ -1,6 +1,7 @@
 import { readFile } from 'node:fs/promises';
 import { loadLuggageSet, loadVehicles } from './loadConfigs.js';
 import { estimateFit } from './fitEstimator.node.js';
+import { I18N } from './configs/i18n/index.js';
 
 const [html, css, app, luggageSet, vehicles] = await Promise.all([
   readFile('index.html', 'utf8'),
@@ -19,8 +20,17 @@ for (const marker of ['estimateFit', 'renderVisualization', 'seatEncroachmentOve
 for (const marker of ['bootView', 'sideView', 'topView', 'activeOrientationLabel', 'orientationPresets']) {
   if (!app.includes(marker)) throw new Error(`Browser app missing orientation preset label ${marker}`);
 }
-for (const marker of ["es: {", "it: {", "xx: {", "zoneViewAria", "seatGuideTitle"]) {
-  if (!app.includes(marker)) throw new Error(`Browser app missing localization marker ${marker}`);
+if (!app.includes('I18N') || !app.includes("t = (key)")) {
+  throw new Error('Browser app missing I18N localization usage markers');
+}
+
+for (const locale of ['en', 'es', 'it', 'xx']) {
+  if (!I18N[locale]) throw new Error(`I18N bundle missing locale ${locale}`);
+}
+for (const key of ['zoneViewAria', 'seatGuideTitle']) {
+  if (typeof I18N.en?.[key] !== 'string' || I18N.en[key].length === 0) {
+    throw new Error(`English localization missing required key ${key}`);
+  }
 }
 if (!css.includes('.zone-card')) throw new Error('Styles missing visualization card rules');
 if (!css.includes('.seat-encroachment-line') || !css.includes('.seat-encroachment-face')) throw new Error('Styles missing seat-back encroachment rules');

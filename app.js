@@ -1,5 +1,12 @@
 import { estimateFit } from './fitEstimator.js';
 import { I18N } from './configs/i18n/index.js';
+import {
+  clampNumber,
+  isValidCustomBagDimensions,
+  validatePersistedTripSetupPayload,
+  validateSeatBackAngleInput,
+  validateUsableVolumeBufferInput
+} from './src/state/validators.js';
 
 const VEHICLE_INDEX_PATH = './configs/vehicles/index.json';
 
@@ -103,7 +110,10 @@ function maxQuantityForItem(item) {
 }
 
 function hasValidCustomBagDimensions(dimensions) {
-  return ['length', 'width', 'height'].every((axis) => Number.isFinite(Number(dimensions?.[axis])) && Number(dimensions[axis]) >= CUSTOM_BAG_MIN_DIMENSIONS_MM[axis] && Number(dimensions[axis]) <= CUSTOM_BAG_MAX_DIMENSIONS_MM[axis]);
+  return isValidCustomBagDimensions(dimensions, {
+    min: CUSTOM_BAG_MIN_DIMENSIONS_MM,
+    max: CUSTOM_BAG_MAX_DIMENSIONS_MM
+  });
 }
 
 function defaultSeatBackAngleDegrees(zones) {
@@ -176,8 +186,11 @@ function renderConfigurationOptions() {
 function renderBufferControl() {
   usableVolumeBufferPercentInput.value = state.usableVolumeBufferInputPercent;
   usableVolumeBufferNote.textContent = `${t('safetyMarginNote')} (min 5%, max 50%)`;
-  const parsed = Number.parseInt(state.usableVolumeBufferInputPercent, 10);
-  const outOfBounds = Number.isFinite(parsed) && (parsed < MIN_USABLE_VOLUME_BUFFER_PERCENT || parsed > MAX_USABLE_VOLUME_BUFFER_PERCENT);
+  const { outOfBounds } = validateUsableVolumeBufferInput(state.usableVolumeBufferInputPercent, {
+    min: MIN_USABLE_VOLUME_BUFFER_PERCENT,
+    max: MAX_USABLE_VOLUME_BUFFER_PERCENT,
+    defaultValue: DEFAULT_USABLE_VOLUME_BUFFER_PERCENT
+  });
   usableVolumeBufferPercentInput.classList.toggle('field-input--out-of-bounds', outOfBounds);
 }
 
@@ -194,8 +207,10 @@ function renderSeatBackEncroachmentControl(zones) {
   seatBackEncroachmentDegreesInput.value = state.seatBackEncroachmentInputDegrees;
   seatBackEncroachmentDegreesInput.disabled = !hasEncroachment;
   seatBackEncroachmentNote.textContent = `${t('seatBackNote')} (max ${MAX_SEAT_BACK_ANGLE_DEGREES}°)`;
-  const parsed = Number.parseInt(state.seatBackEncroachmentInputDegrees, 10);
-  const outOfBounds = Number.isFinite(parsed) && (parsed < 0 || parsed > MAX_SEAT_BACK_ANGLE_DEGREES);
+  const { outOfBounds } = validateSeatBackAngleInput(state.seatBackEncroachmentInputDegrees, {
+    defaultValue: DEFAULT_SEAT_BACK_ANGLE_DEGREES,
+    max: MAX_SEAT_BACK_ANGLE_DEGREES
+  });
   seatBackEncroachmentDegreesInput.classList.toggle('field-input--out-of-bounds', outOfBounds);
 }
 
@@ -445,7 +460,7 @@ function seatOutlineFor2dView(projection, view, padding, scale) {
 }
 
 function clamp(value, min, max) {
-  return Math.min(max, Math.max(min, value));
+  return clampNumber(value, min, max);
 }
 
 function shadeColor(hex, percent) {
@@ -925,26 +940,25 @@ function bindEvents() {
 
   seatBackEncroachmentDegreesInput.addEventListener('input', () => {
     state.seatBackEncroachmentInputDegrees = seatBackEncroachmentDegreesInput.value;
-    const parsed = Number.parseInt(state.seatBackEncroachmentInputDegrees, 10);
-    const hasValue = Number.isFinite(parsed);
-    const isOutOfBounds = hasValue && (parsed < 0 || parsed > MAX_SEAT_BACK_ANGLE_DEGREES);
-    updateBoundaryStatus(seatBackEncroachmentDegreesInput, isOutOfBounds);
-    state.seatBackEncroachmentAngleDegrees = hasValue
-      ? clamp(parsed, 0, MAX_SEAT_BACK_ANGLE_DEGREES)
-      : DEFAULT_SEAT_BACK_ANGLE_DEGREES;
+    const validation = validateSeatBackAngleInput(state.seatBackEncroachmentInputDegrees, {
+      defaultValue: DEFAULT_SEAT_BACK_ANGLE_DEGREES,
+      max: MAX_SEAT_BACK_ANGLE_DEGREES
+    });
+    updateBoundaryStatus(seatBackEncroachmentDegreesInput, validation.outOfBounds);
+    state.seatBackEncroachmentAngleDegrees = validation.normalized;
     persistTripSetupPreference();
     renderResults();
   });
 
   const updateUsableVolumeBuffer = () => {
     state.usableVolumeBufferInputPercent = usableVolumeBufferPercentInput.value;
-    const parsed = Number.parseInt(state.usableVolumeBufferInputPercent, 10);
-    const hasValue = Number.isFinite(parsed);
-    const isOutOfBounds = hasValue && (parsed < MIN_USABLE_VOLUME_BUFFER_PERCENT || parsed > MAX_USABLE_VOLUME_BUFFER_PERCENT);
-    updateBoundaryStatus(usableVolumeBufferPercentInput, isOutOfBounds);
-    state.usableVolumeBufferPercent = hasValue
-      ? clamp(parsed, MIN_USABLE_VOLUME_BUFFER_PERCENT, MAX_USABLE_VOLUME_BUFFER_PERCENT)
-      : DEFAULT_USABLE_VOLUME_BUFFER_PERCENT;
+    const validation = validateUsableVolumeBufferInput(state.usableVolumeBufferInputPercent, {
+      min: MIN_USABLE_VOLUME_BUFFER_PERCENT,
+      max: MAX_USABLE_VOLUME_BUFFER_PERCENT,
+      defaultValue: DEFAULT_USABLE_VOLUME_BUFFER_PERCENT
+    });
+    updateBoundaryStatus(usableVolumeBufferPercentInput, validation.outOfBounds);
+    state.usableVolumeBufferPercent = validation.normalized;
     persistTripSetupPreference();
     renderResults();
   };
@@ -1065,8 +1079,12 @@ function applyPersistedTripSetupPreference() {
   const raw = cookieValue(TRIP_SETUP_COOKIE_NAME);
   if (!raw) return;
   try {
-    const persisted = JSON.parse(raw);
-    if (!persisted || typeof persisted !== 'object') return;
+    const parsedPayload = JSON.parse(raw);
+    const persisted = validatePersistedTripSetupPayload(parsedPayload);
+    if (!persisted) {
+      clearCookie(TRIP_SETUP_COOKIE_NAME);
+      return;
+    }
     const persistedVehicle = state.vehicles.find((vehicle) => vehicle.id === persisted.vehicleId);
     if (!persistedVehicle) return;
     state.vehicleId = persistedVehicle.id;
