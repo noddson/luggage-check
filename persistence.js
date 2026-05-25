@@ -67,9 +67,11 @@ export function createPersistence({
       state.seatBackEncroachmentAngleDegrees = typeof persisted.seatBackAngleDegrees === 'number'
         ? clamp(persisted.seatBackAngleDegrees, minSeatBackAngleDegrees, maxSeatBackAngleDegrees)
         : defaults.seatBackAngleDegrees;
+      state.seatBackEncroachmentInputDegrees = String(state.seatBackEncroachmentAngleDegrees);
       state.usableVolumeBufferPercent = typeof persisted.usableVolumeBufferPercent === 'number'
         ? clamp(persisted.usableVolumeBufferPercent, minUsableVolumeBufferPercent, maxUsableVolumeBufferPercent)
         : defaults.usableVolumeBufferPercent;
+      state.usableVolumeBufferInputPercent = String(state.usableVolumeBufferPercent);
     } catch {
       clearCookie(tripSetupCookieName);
     }
