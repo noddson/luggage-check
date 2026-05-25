@@ -3,14 +3,46 @@ import { loadLuggageSet, loadVehicles } from './loadConfigs.js';
 import { estimateFit } from './fitEstimator.node.js';
 import { I18N } from './configs/i18n/index.js';
 
-const [html, css, app, luggageSet, vehicles] = await Promise.all([
+const [html, css, entryPoint, app, luggageSet, vehicles] = await Promise.all([
   readFile('index.html', 'utf8'),
   readFile('styles.css', 'utf8'),
   readFile('app.js', 'utf8'),
+  readFile('initApp/bootstrap.js', 'utf8'),
   loadLuggageSet(),
   loadVehicles()
 ]);
 
+if (!entryPoint.includes("import { bootstrap } from './initApp/bootstrap.js'") || !entryPoint.includes('bootstrap()')) {
+  throw new Error('Browser entry point should delegate initialization to initApp/bootstrap.js');
+}
+const bootstrapStart = app.indexOf('export async function bootstrap()');
+if (bootstrapStart < 0) throw new Error('Browser app missing exported bootstrap orchestrator');
+let previousBootstrapStep = bootstrapStart;
+for (const step of [
+  "readJson('./configs/luggage/common.json')",
+  'loadVehicles()',
+  'state.luggageSet = luggageSet',
+  'state.vehicles = vehicles.sort',
+  'state.vehicleId = initialVehicle.id',
+  'state.configurationId = initialVehicle.seatConfigurations[0].id',
+  'syncSeatBackEncroachmentDefault()',
+  'applyPersistedTripSetupPreference()',
+  'renderVehicleOptions()',
+  'renderConfigurationOptions()',
+  'renderSeatBackEncroachmentState()',
+  'renderLuggageControls()',
+  'await renderBuildVersion()',
+  'bindEvents()',
+  'getPersistedLanguagePreference()',
+  'setLanguage(persistedLanguage)',
+  'applyStaticTranslations()',
+  'renderSeatBackEncroachmentState()',
+  'renderResults()'
+]) {
+  const stepIndex = app.indexOf(step, previousBootstrapStep);
+  if (stepIndex < 0) throw new Error(`Bootstrap sequence missing or reordered: ${step}`);
+  previousBootstrapStep = stepIndex + step.length;
+}
 for (const marker of ['vehicleSelect', 'configurationSelect', 'seatBackEncroachmentDegrees', 'seatBackEncroachmentNote', 'luggageControls', 'resetLuggageButton', 'visualization']) {
   if (!html.includes(marker)) throw new Error(`App shell missing #${marker}`);
 }

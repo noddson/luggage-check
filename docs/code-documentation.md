@@ -6,7 +6,7 @@ This document explains the luggage-check codebase at the level needed to maintai
 
 | Area | Files | Purpose |
 | --- | --- | --- |
-| Browser UI | `index.html`, `styles.css`, `app.js` | Static single-page app that loads luggage plus the generated vehicle index, lets users choose a vehicle/seat setup/luggage quantities, supports a custom bag profile, persists trip setup/language preferences in cookies, runs the fit estimator, and renders 2D/3D SVG visualizations. |
+| Browser UI | `index.html`, `styles.css`, `app.js`, `initApp/bootstrap.js` | Static single-page app whose thin entry point invokes ordered bootstrap logic that loads luggage plus the generated vehicle index, lets users choose a vehicle/seat setup/luggage quantities, supports a custom bag profile, persists trip setup/language preferences in cookies, runs the fit estimator, and renders 2D/3D SVG visualizations. |
 | Fit estimation | `fitEstimator.js` | Deterministic multi-pass rectangular packing estimator. Expands luggage quantities, applies soft-bag compression, tests rotations/opening constraints/seat-back encroachment, and returns placements plus warnings. |
 | Config loading | `loadConfigs.js` | Node-side JSON readers used by validation and smoke scripts. |
 | Domain documentation | `types.js` | JSDoc typedefs for luggage, vehicles, cargo zones, seat configurations, and estimator result shapes. |
@@ -144,7 +144,7 @@ Each vehicle has one or more cargo zones and one or more seat configurations tha
 
 ## `loadConfigs.js` — configuration loading
 
-This module is used by Node scripts, not by the browser. The browser uses its own `fetch`-based loader in `app.js`.
+This module is used by Node scripts, not by the browser. The browser uses its own `fetch`-based loader in `initApp/bootstrap.js`.
 
 ### `readJson(filePath)`
 
@@ -633,9 +633,9 @@ function estimateFit(
 - `npm run smoke:app` verifies complete placement coordinates, rejects overlap/out-of-bounds placements, checks deterministic results under reversed luggage input order, and covers seat-back encroachment, coplanar support, and supported-overhang regressions.
 - Add focused unit tests for unknown seat configuration, opening constraints, and zero-quantity UI clones if a unit test framework is introduced.
 
-## `app.js` — browser application
+## `app.js` and `initApp/bootstrap.js` — browser bootstrap and application
 
-This file owns client-side state, DOM updates, user events, and SVG visualization. It imports only the estimator from `fitEstimator.js`.
+`app.js` only invokes startup in a browser environment. `initApp/bootstrap.js` owns the ordered startup sequence, client-side state, DOM updates, user events, and SVG visualization.
 
 ### Top-level state and constants
 
@@ -1006,7 +1006,7 @@ The 3D view is SVG-based, not WebGL. It creates cuboid vertices, rotates them, p
 
 ## `index.html` — app shell
 
-The HTML file provides the semantic structure and DOM ids/classes consumed by `app.js`:
+The HTML file provides the semantic structure and DOM ids/classes consumed by `initApp/bootstrap.js`:
 
 - Vehicle/configuration selectors.
 - Seat-back encroachment degrees input with vehicle-default initialization.
@@ -1014,7 +1014,7 @@ The HTML file provides the semantic structure and DOM ids/classes consumed by `a
 - View tabs for top, side, rear/front, and 3D views.
 - Hero result, metrics, visualization, placed/unplaced lists, and warnings containers.
 
-**Errors:** If IDs expected by `app.js` are renamed or removed, top-level DOM lookups can return `null`, causing event binding or rendering failures.
+**Errors:** If IDs expected by `initApp/bootstrap.js` are renamed or removed, top-level DOM lookups can return `null`, causing event binding or rendering failures.
 
 **Testing:** `npm run smoke:app` checks for required app-shell markers.
 
@@ -1031,7 +1031,7 @@ This script keeps browser vehicle loading data-driven. It discovers vehicle JSON
 ### Constants
 
 - `VEHICLES_DIR = 'configs/vehicles'`: root directory scanned for regional vehicle config folders.
-- `INDEX_PATH = 'configs/vehicles/index.json'`: generated manifest consumed by `app.js`.
+- `INDEX_PATH = 'configs/vehicles/index.json'`: generated manifest consumed by `initApp/bootstrap.js`.
 - `GENERATED_NOTE`: text stored in the manifest to discourage manual edits.
 
 ### `discoverVehicleFiles(dir = VEHICLES_DIR)`
@@ -1135,7 +1135,7 @@ This script combines static asset checks with estimator regression checks.
 
 ### Static checks
 
-It reads `index.html`, `styles.css`, and `app.js` and asserts that important UI markers exist:
+It reads `index.html`, `styles.css`, `app.js`, and `initApp/bootstrap.js` and asserts that the entry point delegates to bootstrap and important UI markers exist:
 
 - App shell ids/classes.
 - Seat-back encroachment degrees controls.

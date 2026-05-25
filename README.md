@@ -8,7 +8,9 @@ The repository has been flattened so the runtime and tooling files are at the ro
 
 ```text
 .
-├─ app.js                    # browser application logic
+├─ app.js                    # thin browser entry point
+├─ initApp/
+│  └─ bootstrap.js           # ordered startup and browser application logic
 ├─ styles.css                # browser styling
 ├─ index.html                # GitHub Pages/root app shell
 ├─ fitEstimator.js           # browser fit estimator module
@@ -30,7 +32,8 @@ The repository has been flattened so the runtime and tooling files are at the ro
 The app is now root-relative for this repository layout:
 
 - `index.html` loads `./app.js`
-- `app.js` loads config JSON from `./configs/...`
+- `app.js` delegates startup to `./initApp/bootstrap.js`
+- `initApp/bootstrap.js` loads config JSON from `./configs/...`
 
 This supports loading from:
 
