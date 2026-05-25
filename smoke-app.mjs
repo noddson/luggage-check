@@ -14,11 +14,12 @@ import {
   shadeColor
 } from './src/render/helpers.js';
 
-const [html, css, entryPoint, app, renderHelpers, metricsHeader, visualizationRegion, listsRegion, controlsStateRegion, eventActions, eventBindings, luggageSet, vehicles] = await Promise.all([
+const [html, css, entryPoint, app, nodeLoaders, renderHelpers, metricsHeader, visualizationRegion, listsRegion, controlsStateRegion, eventActions, eventBindings, luggageSet, vehicles] = await Promise.all([
   readFile('index.html', 'utf8'),
   readFile('styles.css', 'utf8'),
   readFile('app.js', 'utf8'),
   readFile('initApp/bootstrap.js', 'utf8'),
+  readFile('loadConfigs.js', 'utf8'),
   readFile('src/render/helpers.js', 'utf8'),
   readFile('src/render/metricsHeader.js', 'utf8'),
   readFile('src/render/visualization.js', 'utf8'),
@@ -66,6 +67,9 @@ for (const marker of ['vehicleSelect', 'configurationSelect', 'seatBackEncroachm
 }
 for (const marker of ['estimateFit', 'renderMetricsHeader(vehicle, config, result)', 'renderVisualization(vehicle, config, result)', 'renderLists(result)', 'syncCustomBagControlState(result)', 'createActions', 'createEventBindings', 'seatEncroachmentOverlay', 'renderSeatEncroachmentWedge3d', 'view-tab', 'orientation-axis-control', 'defaultVehicle', 'loadVehicles', 'VEHICLE_INDEX_PATH', "activeView: '3d'"]) {
   if (!app.includes(marker)) throw new Error(`Browser app missing ${marker}`);
+}
+for (const marker of ["'configs/vehicles/index.json'", 'vehicleIndex.files']) {
+  if (!nodeLoaders.includes(marker)) throw new Error(`Node config loader missing shared vehicle-index marker ${marker}`);
 }
 for (const marker of ['RENDER_REGIONS_BY_CHANGE_KEY', 'createEstimatorSnapshot', 'derivedEstimatorModel', "orientation3d: ['visualization']", "localization: ['metrics', 'visualization', 'lists']"]) {
   if (!app.includes(marker)) throw new Error(`Browser app missing incremental render marker ${marker}`);

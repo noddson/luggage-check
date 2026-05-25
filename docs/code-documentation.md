@@ -14,7 +14,7 @@ This document explains the luggage-check codebase at the level needed to maintai
 | Fit estimation | `fitEstimator.js` | Deterministic multi-pass rectangular packing estimator. Expands luggage quantities, applies soft-bag compression, tests rotations/opening constraints/seat-back encroachment, and returns placements plus warnings. |
 | Config loading | `loadConfigs.js` | Node-side JSON readers used by validation and smoke scripts. |
 | Domain documentation | `types.js` | JSDoc typedefs for luggage, vehicles, cargo zones, seat configurations, and estimator result shapes. |
-| Config data | `configs/luggage/*.json`, `configs/vehicles/**/*.json` | Source-backed luggage and vehicle cargo data. `configs/vehicles/index.json` is generated from regional vehicle files for browser loading. Schema files document the expected JSON shapes. |
+| Config data | `configs/luggage/*.json`, `configs/vehicles/**/*.json` | Source-backed luggage and vehicle cargo data. `configs/vehicles/index.json` is generated from regional vehicle files for browser and Node loading. Schema files document the expected JSON shapes. |
 | Developer scripts | `generate-vehicle-index.mjs`, `validate-configs.mjs`, `smoke-app.mjs`, `serve-app.mjs` | Vehicle-index generation/staleness checks, dataset validation, app/estimator smoke checks, and a zero-dependency static file server. |
 
 ## Safe rendering policy
@@ -148,7 +148,7 @@ Each vehicle has one or more cargo zones and one or more seat configurations tha
 
 ## `loadConfigs.js` — configuration loading
 
-This module is used by Node scripts, not by the browser. The browser uses its own `fetch`-based loader in `initApp/bootstrap.js`.
+This module is used by Node scripts, not by the browser. It and the browser's `fetch`-based loader in `initApp/bootstrap.js` use the same generated vehicle manifest.
 
 ### `readJson(filePath)`
 
@@ -189,43 +189,29 @@ async function loadLuggageSet(filePath?: string): Promise<LuggageSet>
 
 **Correctness tests:** Covered by `npm run validate:configs`, which loads the default set and validates required fields.
 
-### `loadVehicles(dir = 'configs/vehicles')`
+### `loadVehicles(indexPath = 'configs/vehicles/index.json')`
 
-**Purpose:** Load all regional vehicle JSON files below a root vehicle directory.
+**Purpose:** Load every vehicle config listed by the generated vehicle manifest, matching browser startup behavior.
 
 **Interface:**
 
 ```js
-async function loadVehicles(dir?: string): Promise<VehicleConfig[]>
+async function loadVehicles(indexPath?: string): Promise<VehicleConfig[]>
 ```
 
-**Inputs:** `dir` should contain region subdirectories, and each region directory should contain vehicle `.json` files.
+**Inputs:** `indexPath` should identify a manifest with a `files` array of paths relative to the manifest's directory.
 
-**Output:** A flat array of vehicle objects. Region folders and files are sorted before loading, so output order is deterministic.
+**Output:** An array of vehicle objects in manifest order. `generate-vehicle-index.mjs` generates that list deterministically from sorted region folders and files.
 
 **Errors:**
 
-- Propagates `readdir` errors if the root or a region directory does not exist.
-- Propagates `readJson` errors for malformed or unreadable vehicle files.
+- Propagates `readJson` errors for a missing/malformed manifest or a malformed or unreadable listed vehicle file.
 
 **Correctness tests:**
 
-- `npm run validate:configs` checks that all vehicle files load and conform to expected field rules.
-- Add a fixture directory with two region folders and assert deterministic flattening if unit tests are added later.
-
-### `loadEuropeanVehicles(dir = 'configs/vehicles/europe')`
-
-**Purpose:** Legacy/specialized loader for European vehicle files only.
-
-**Interface:**
-
-```js
-async function loadEuropeanVehicles(dir?: string): Promise<VehicleConfig[]>
-```
-
-**Errors:** Same as `loadVehicles`, limited to one directory.
-
-**Correctness tests:** Load the default directory and assert each returned vehicle has a `rentalClasses` array and `cargoZones`.
+- `npm run validate:vehicle-index` checks that the manifest includes exactly the regional vehicle files on disk.
+- `npm run validate:configs` checks that listed vehicle files load and conform to expected field rules.
+- `npm run smoke:app` checks that both the browser and Node loader use the generated vehicle index.
 
 ## `fitEstimator.js` — packing estimator
 
@@ -655,7 +641,7 @@ function estimateFit(
 
 ### Top-level state and constants
 
-- `VEHICLE_INDEX_PATH`: points to `./configs/vehicles/index.json`, the generated manifest of browser-visible vehicle config files. New vehicle files are discovered by `generate-vehicle-index.mjs` rather than hard-coded in the browser.
+- `VEHICLE_INDEX_PATH`: points to `./configs/vehicles/index.json`, the generated manifest of browser-visible vehicle config files. New vehicle files are discovered by `generate-vehicle-index.mjs`; Node scripts consume the same manifest through `loadConfigs.js`.
 - `BAG_COLORS`: palette used to color placements by source luggage item.
 - `DEFAULT_SEAT_BACK_ANGLE_DEGREES`: UI copy/visual default matching the estimator fallback.
 - `state`: current app state:
@@ -1042,12 +1028,12 @@ The stylesheet defines responsive layout, form controls, result cards, warning/l
 
 ## `generate-vehicle-index.mjs` — vehicle manifest generation
 
-This script keeps browser vehicle loading data-driven. It discovers vehicle JSON files under region directories and writes or checks `configs/vehicles/index.json`.
+This script keeps browser and Node vehicle loading data-driven. It discovers vehicle JSON files under region directories and writes or checks `configs/vehicles/index.json`.
 
 ### Constants
 
 - `VEHICLES_DIR = 'configs/vehicles'`: root directory scanned for regional vehicle config folders.
-- `INDEX_PATH = 'configs/vehicles/index.json'`: generated manifest consumed by `initApp/bootstrap.js`.
+- `INDEX_PATH = 'configs/vehicles/index.json'`: generated manifest consumed by `initApp/bootstrap.js` and `loadConfigs.js`.
 - `GENERATED_NOTE`: text stored in the manifest to discourage manual edits.
 
 ### `discoverVehicleFiles(dir = VEHICLES_DIR)`
@@ -1253,7 +1239,7 @@ This script serves the static app without external dependencies.
 
 ### Vehicle configs
 
-Vehicle configs are split by region under `configs/vehicles/europe` and `configs/vehicles/north-america`. `configs/vehicles/index.json` is generated from those regional JSON files and is consumed by the browser. `configs/vehicles/schema.json` documents the intended schema.
+Vehicle configs are split by region under `configs/vehicles/europe` and `configs/vehicles/north-america`. `configs/vehicles/index.json` is generated from those regional JSON files and is consumed by both browser startup and Node validation/smoke scripts. `configs/vehicles/schema.json` documents the intended schema.
 
 **Correctness checklist for changes:**
 
