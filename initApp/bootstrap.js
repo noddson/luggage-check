@@ -7,6 +7,9 @@ import {
   validateUsableVolumeBufferInput
 } from '../src/state/validators.js';
 import { createLocalization } from '../src/i18n/localization.js';
+import { createControlsStateSync } from '../src/render/controlsState.js';
+import { createListsRenderer } from '../src/render/lists.js';
+import { createMetricsHeaderRenderer } from '../src/render/metricsHeader.js';
 import {
   clamp,
   createBoxVertices,
@@ -23,6 +26,7 @@ import {
   rotatePoint3d,
   shadeColor
 } from '../src/render/helpers.js';
+import { createVisualizationRenderer } from '../src/render/visualization.js';
 import { createPersistence } from '../persistence.js';
 
 const VEHICLE_INDEX_PATH = './configs/vehicles/index.json';
@@ -307,37 +311,15 @@ function renderLuggageControls() {
   }
 }
 
-function syncCustomBagControlState(result = null) {
-  const customBag = state.luggageSet?.items?.find((item) => item.id === CUSTOM_BAG_ID);
-  const qtyInput = $(`#qty-${CUSTOM_BAG_ID}`);
-  if (!customBag || !qtyInput) return;
-  const customBagInResult = Boolean(result) && (
-    result.placements.some((placement) => (placement.sourceId ?? placement.itemId?.split('#')[0]) === CUSTOM_BAG_ID)
-    || result.unplacedItems.some((item) => (item.sourceId ?? item.id?.split('#')[0]) === CUSTOM_BAG_ID)
-  );
-  const customBagLocked = customBagInResult || Number(qtyInput.value) > 0;
-  ['height', 'width', 'length'].forEach((axis) => {
-    const input = $(`#custom-${axis}`);
-    if (!input) return;
-    input.disabled = customBagLocked;
-    const parsed = Number.parseInt(input.value, 10);
-    const hasValue = Number.isFinite(parsed);
-    const isOutOfBounds = !hasValue || parsed < CUSTOM_BAG_MIN_DIMENSIONS_MM[axis] || parsed > CUSTOM_BAG_MAX_DIMENSIONS_MM[axis];
-    input.classList.toggle('field-input--out-of-bounds', isOutOfBounds);
-  });
-  const hasValidDimensions = hasValidCustomBagDimensions(customBag.dimensionsMm);
-  qtyInput.max = String(maxQuantityForItem(customBag));
-  qtyInput.disabled = !hasValidDimensions;
-  if (!hasValidDimensions) qtyInput.value = '0';
-  if (Number(qtyInput.value) > maxQuantityForItem(customBag)) qtyInput.value = String(maxQuantityForItem(customBag));
-}
-
-function metricCard(label, value, detail = '', className = '') {
-  const card = createEl('article', { className: ['metric', className].filter(Boolean).join(' ') });
-  card.append(createEl('span', { text: label }), createEl('strong', { text: value }));
-  if (detail) card.append(createEl('small', { text: detail }));
-  return card;
-}
+const syncCustomBagControlState = createControlsStateSync({
+  state,
+  $,
+  customBagId: CUSTOM_BAG_ID,
+  customBagMinDimensionsMm: CUSTOM_BAG_MIN_DIMENSIONS_MM,
+  customBagMaxDimensionsMm: CUSTOM_BAG_MAX_DIMENSIONS_MM,
+  hasValidCustomBagDimensions,
+  maxQuantityForItem
+});
 
 function colorForSourceId(sourceId) {
   if (sourceId === CUSTOM_BAG_ID) return CUSTOM_BAG_COLOR;
@@ -662,15 +644,6 @@ function renderZone3dSvg(zone, placements) {
   `;
 }
 
-function renderVisualization(vehicle, config, result) {
-  const zones = config.cargoZoneIds.map((id) => vehicle.cargoZones.find((zone) => zone.id === id)).filter(Boolean);
-  setSanitizedMarkup(visualization, zones.map((zone, index) => {
-    const placements = result.placements.filter((placement) => placement.zoneId === zone.id);
-    return state.activeView === '3d' ? renderZone3dSvg(zone, placements) : renderZoneSvg(zone, placements, index);
-  }).join(''));
-  bind3dRotation();
-}
-
 function bind3dRotation() {
   if (state.activeView !== '3d') return;
   visualization.querySelectorAll('.zone-3d-svg').forEach((svg) => {
@@ -716,45 +689,16 @@ function bind3dRotation() {
   });
 }
 
-function renderLists(result) {
-  const placedList = $('#placedList');
-  if (result.placements.length) {
-    placedList.replaceChildren(...result.placements.map((placement) => {
-      const sourceId = placement.sourceId ?? placement.itemId.split('#')[0];
-      const tint = colorForSourceId(sourceId);
-      const li = createEl('li', { className: 'placed-item', attrs: { 'data-source-id': sourceId } });
-      li.append(
-        createEl('span', { className: 'item-status item-status--placed', text: '✓', attrs: { 'aria-hidden': 'true' } }),
-        createEl('button', { className: 'placed-delete', text: '✕', attrs: { type: 'button', title: t('removeOne').replace('{item}', localizedPlacementLabel(placement)), 'aria-label': t('removeOne').replace('{item}', localizedPlacementLabel(placement)) } }),
-        createEl('strong', { text: localizedPlacementLabel(placement) }),
-        createEl('small', { text: `${localizedZoneLabel(placement.zoneLabel, placement.zoneId)} · ${dimensionsLabel(placement.orientationMm)}` })
-      );
-      li.style.setProperty('--bag-panel-bg', mixWithWhite(tint, 0.9));
-      return li;
-    }));
-  } else {
-    placedList.replaceChildren(createEl('li', { className: 'muted', text: t('nothingPlacedYet') }));
-  }
-
-  const unplacedList = $('#unplacedList');
-  if (result.unplacedItems.length) {
-    unplacedList.replaceChildren(...result.unplacedItems.map((item) => {
-      const sourceId = item.sourceId ?? item.id?.split('#')[0] ?? item.id;
-      const tint = colorForSourceId(sourceId);
-      const li = createEl('li', { className: 'problem placed-item', attrs: { 'data-source-id': sourceId } });
-      li.append(
-        createEl('span', { className: 'item-status item-status--unplaced', text: '⊘', attrs: { 'aria-hidden': 'true' } }),
-        createEl('button', { className: 'placed-delete', text: '✕', attrs: { type: 'button', title: t('removeOne').replace('{item}', localizedPlacementLabel(item)), 'aria-label': t('removeOne').replace('{item}', localizedPlacementLabel(item)) } }),
-        createEl('strong', { text: localizedPlacementLabel(item) }),
-        createEl('small', { text: `${dimensionsLabel(item.dimensionsMm)} · ${item.volumeLitres} L` })
-      );
-      li.style.setProperty('--bag-panel-bg', mixWithWhite(tint, 0.9));
-      return li;
-    }));
-  } else {
-    unplacedList.replaceChildren(createEl('li', { className: 'success', text: t('allPlaced') }));
-  }
-}
+const { renderMetricsHeader, renderMetricsLoadError } = createMetricsHeaderRenderer({ $, createEl, t, localizeEntity });
+const renderVisualization = createVisualizationRenderer({
+  state,
+  visualization,
+  setSanitizedMarkup,
+  renderZoneSvg,
+  renderZone3dSvg,
+  bind3dRotation
+});
+const renderLists = createListsRenderer({ $, createEl, t, colorForSourceId, localizedPlacementLabel, localizedZoneLabel });
 
 function renderResults() {
   const vehicle = selectedVehicle();
@@ -766,20 +710,7 @@ function renderResults() {
     seatBackAngleDegrees: state.seatBackEncroachmentAngleDegrees,
     defaultUsableFraction: (100 - state.usableVolumeBufferPercent) / 100
   });
-  const percent = Math.round(result.fitScore * 100);
-  const volumePercent = Math.round((result.usedVolumeLitres / Math.max(1, result.usableVolumeLitres)) * 100);
-
-  const fitResultLabel = t('placedCount').replace('{placed}', String(result.placements.length)).replace('{unplaced}', String(result.unplacedItems.length));
-  const fitResultDetail = t('volumeUsedPercent').replace('{percent}', String(volumePercent));
-
-  $('#resultTitle').textContent = `${vehicle.make} ${vehicle.model} · ${localizeEntity(config, 'label')}`;
-  $('#fitBadge').className = `fit-badge ${result.fits ? 'fit-badge--ok' : 'fit-badge--bad'}`;
-  $('#fitBadge').textContent = result.fits ? t('bagsFit') : t('bagsUnplaced');
-  $('#metrics').replaceChildren(...[
-    metricCard(t('fitScore'), `${percent}%`, t('placedSummary').replace('{placed}', String(result.placements.length)).replace('{total}', String(result.placements.length + result.unplacedItems.length))),
-    metricCard(t('usableVolume'), `${result.usableVolumeLitres} L`, t('usedVolume').replace('{used}', String(result.usedVolumeLitres))),
-    metricCard(t('fitResult'), fitResultLabel, fitResultDetail, 'metric--fit-result')
-  ]);
+  renderMetricsHeader(vehicle, config, result);
   renderVisualization(vehicle, config, result);
   renderLists(result);
   syncCustomBagControlState(result);
@@ -988,7 +919,7 @@ export async function bootstrap() {
     renderSeatBackEncroachmentState();
     renderResults();
   } catch (error) {
-    $('#metrics').replaceChildren(metricCard(t('fitResult'), t('loadErrorTitle'), error.message, 'metric--fit-result'));
+    renderMetricsLoadError(error.message);
     console.error(error);
   }
 }

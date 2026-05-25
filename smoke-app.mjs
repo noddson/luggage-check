@@ -14,12 +14,16 @@ import {
   shadeColor
 } from './src/render/helpers.js';
 
-const [html, css, entryPoint, app, renderHelpers, luggageSet, vehicles] = await Promise.all([
+const [html, css, entryPoint, app, renderHelpers, metricsHeader, visualizationRegion, listsRegion, controlsStateRegion, luggageSet, vehicles] = await Promise.all([
   readFile('index.html', 'utf8'),
   readFile('styles.css', 'utf8'),
   readFile('app.js', 'utf8'),
   readFile('initApp/bootstrap.js', 'utf8'),
   readFile('src/render/helpers.js', 'utf8'),
+  readFile('src/render/metricsHeader.js', 'utf8'),
+  readFile('src/render/visualization.js', 'utf8'),
+  readFile('src/render/lists.js', 'utf8'),
+  readFile('src/render/controlsState.js', 'utf8'),
   loadLuggageSet(),
   loadVehicles()
 ]);
@@ -58,11 +62,21 @@ for (const step of [
 for (const marker of ['vehicleSelect', 'configurationSelect', 'seatBackEncroachmentDegrees', 'seatBackEncroachmentNote', 'luggageControls', 'resetLuggageButton', 'visualization']) {
   if (!html.includes(marker)) throw new Error(`App shell missing #${marker}`);
 }
-for (const marker of ['estimateFit', 'renderVisualization', 'seatEncroachmentOverlay', 'renderSeatEncroachmentWedge3d', 'view-tab', 'orientation-axis-control', 'defaultVehicle', 'resetLuggageQuantities', 'loadVehicles', 'VEHICLE_INDEX_PATH', "activeView: '3d'"]) {
+for (const marker of ['estimateFit', 'renderMetricsHeader(vehicle, config, result)', 'renderVisualization(vehicle, config, result)', 'renderLists(result)', 'syncCustomBagControlState(result)', "$('#placedList').addEventListener('click'", "$('#unplacedList').addEventListener('click'", 'seatEncroachmentOverlay', 'renderSeatEncroachmentWedge3d', 'view-tab', 'orientation-axis-control', 'defaultVehicle', 'resetLuggageQuantities', 'loadVehicles', 'VEHICLE_INDEX_PATH', "activeView: '3d'"]) {
   if (!app.includes(marker)) throw new Error(`Browser app missing ${marker}`);
 }
 for (const marker of ['dimensionsLabel', 'projectBox', 'projectZone', 'createBoxVertices', 'rotatePoint3d', 'renderFace', 'shadeColor', 'mixWithWhite']) {
   if (!renderHelpers.includes(marker)) throw new Error(`Render helpers missing ${marker}`);
+}
+for (const [region, markers] of [
+  [metricsHeader, ['createMetricsHeaderRenderer', 'renderMetricsHeader', 'renderMetricsLoadError', 'fitBadge', 'metrics']],
+  [visualizationRegion, ['createVisualizationRenderer', 'renderVisualization', 'bind3dRotation']],
+  [listsRegion, ['createListsRenderer', 'renderLists', 'placedList', 'unplacedList', 'placed-delete']],
+  [controlsStateRegion, ['createControlsStateSync', 'syncCustomBagControlState', 'customBagLocked']]
+]) {
+  for (const marker of markers) {
+    if (!region.includes(marker)) throw new Error(`Render region missing ${marker}`);
+  }
 }
 for (const marker of ['bootView', 'sideView', 'topView', 'activeOrientationLabel', 'orientationPresets']) {
   if (!app.includes(marker)) throw new Error(`Browser app missing orientation preset label ${marker}`);

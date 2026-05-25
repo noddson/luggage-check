@@ -9,6 +9,7 @@ This document explains the luggage-check codebase at the level needed to maintai
 | Browser UI | `index.html`, `styles.css`, `app.js`, `initApp/bootstrap.js` | Static single-page app whose thin entry point invokes ordered bootstrap logic that loads luggage plus the generated vehicle index, lets users choose a vehicle/seat setup/luggage quantities, supports a custom bag profile, persists trip setup/language preferences in cookies, runs the fit estimator, and renders 2D/3D SVG visualizations. |
 | Localization accessors | `src/i18n/localization.js`, `configs/i18n/*.json` | Builds language-aware text and entity-label accessors from the live browser state while retaining English fallbacks. |
 | Render helpers | `src/render/helpers.js` | Pure formatting, color, 2D projection, and 3D geometry/SVG-face primitives consumed by browser rendering orchestration. |
+| Render regions | `src/render/metricsHeader.js`, `src/render/visualization.js`, `src/render/lists.js`, `src/render/controlsState.js` | DOM region delegates called by `renderResults()` for header/metrics, visualization insertion, lists, and result-driven control synchronization. |
 | Fit estimation | `fitEstimator.js` | Deterministic multi-pass rectangular packing estimator. Expands luggage quantities, applies soft-bag compression, tests rotations/opening constraints/seat-back encroachment, and returns placements plus warnings. |
 | Config loading | `loadConfigs.js` | Node-side JSON readers used by validation and smoke scripts. |
 | Domain documentation | `types.js` | JSDoc typedefs for luggage, vehicles, cargo zones, seat configurations, and estimator result shapes. |
@@ -637,7 +638,7 @@ function estimateFit(
 
 ## `app.js` and `initApp/bootstrap.js` — browser bootstrap and application
 
-`app.js` only invokes startup in a browser environment. `initApp/bootstrap.js` owns the ordered startup sequence, client-side state, DOM updates, user events, and visualization composition. It passes its live `state` object to `src/i18n/localization.js`, so language changes continue to affect every accessor without moving the language selection flow, and passes current inputs to the pure primitives in `src/render/helpers.js`.
+`app.js` only invokes startup in a browser environment. `initApp/bootstrap.js` owns the ordered startup sequence, client-side state, `renderResults()` calculation facade, and user events. It passes its live `state` object to `src/i18n/localization.js`, delegates output regions to `src/render/*.js`, and passes current inputs to the pure primitives in `src/render/helpers.js`.
 
 ### Localization Accessors
 
@@ -646,6 +647,10 @@ function estimateFit(
 ### Render Helpers
 
 `src/render/helpers.js` owns input-driven output primitives: dimension formatting, color shading/mixing, 2D box/zone projections, cuboid and seat-guide vertices, yaw normalization, point rotation/projector construction, polygon formatting, and individual SVG face rendering. It has no DOM access or event binding; bootstrap retains full-card composition, state-dependent encroachment calculations, localized copy injection, and interaction wiring.
+
+### Render Regions
+
+`renderResults()` remains the estimator/recompute facade. It delegates populated output to `createMetricsHeaderRenderer()`, `createVisualizationRenderer()`, `createListsRenderer()`, and `createControlsStateSync()`. Bootstrap still owns click/input handlers, including delete-row handlers and 3D drag/orientation binding, so this split does not change event flow.
 
 ### Top-level state and constants
 
@@ -803,7 +808,7 @@ function estimateFit(
 
 **Testing:** Assert generated controls and that input events call `renderResults()`.
 
-#### `metricCard(label, value, detail = '')`
+#### `metricCard(label, value, detail = '')` (`src/render/metricsHeader.js`)
 
 **Purpose:** Return HTML for summary metric cards.
 
@@ -969,13 +974,13 @@ The 3D view is SVG-based, not WebGL. It creates cuboid vertices, rotates them, p
 
 ### Result rendering and events
 
-#### `renderVisualization(vehicle, config, result)`
+#### `renderVisualization(vehicle, config, result)` (`src/render/visualization.js`)
 
 **Purpose:** Render all active cargo zones in the selected view (`top`, `side`, `front`, or `3d`) and bind 3D interactions when needed.
 
 **Testing:** Change view tabs and assert active visualization type changes.
 
-#### `renderLists(result)`
+#### `renderLists(result)` (`src/render/lists.js`)
 
 **Purpose:** Render placed and unplaced luggage lists from estimator output.
 
@@ -983,7 +988,7 @@ The 3D view is SVG-based, not WebGL. It creates cuboid vertices, rotates them, p
 
 #### `renderResults()`
 
-**Purpose:** Main UI recomputation loop. Reads selections and quantities, calls `estimateFit`, updates hero text, badges, metrics, visualization, lists, and warnings.
+**Purpose:** Main UI recomputation facade. Reads selections and quantities, calls `estimateFit`, then delegates header/metrics, visualization, lists, and controls-state updates before clearing warnings.
 
 **Errors:** Propagates estimator errors if state references an unknown seat configuration, though normal UI selection prevents this.
 
@@ -1145,7 +1150,7 @@ This script combines static asset checks with estimator regression checks.
 
 ### Static checks
 
-It reads `index.html`, `styles.css`, `app.js`, `initApp/bootstrap.js`, and `src/render/helpers.js`, exercises the extracted localization/render helpers, and asserts that the entry point delegates to bootstrap and important UI markers exist:
+It reads `index.html`, `styles.css`, `app.js`, `initApp/bootstrap.js`, and the `src/render/` modules, exercises the extracted localization/render helpers, and asserts that the entry point delegates to bootstrap, `renderResults()` retains region delegation, and important UI/event markers exist:
 
 - App shell ids/classes.
 - Seat-back encroachment degrees controls.

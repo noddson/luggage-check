@@ -14,7 +14,11 @@ The repository has been flattened so the runtime and tooling files are at the ro
 ├─ src/i18n/
 │  └─ localization.js        # language-dependent text and entity accessors
 ├─ src/render/
-│  └─ helpers.js             # pure render formatting and geometry helpers
+│  ├─ helpers.js             # pure render formatting and geometry helpers
+│  ├─ metricsHeader.js       # result title, badge, and metric region
+│  ├─ visualization.js       # visualization region facade
+│  ├─ lists.js               # placed and unplaced item regions
+│  └─ controlsState.js       # result-driven custom bag control state
 ├─ styles.css                # browser styling
 ├─ index.html                # GitHub Pages/root app shell
 ├─ fitEstimator.js           # browser fit estimator module
