@@ -618,21 +618,52 @@ const renderVisualization = createVisualizationRenderer({
 });
 const renderLists = createListsRenderer({ $, createEl, t, colorForSourceId, localizedPlacementLabel, localizedZoneLabel });
 
-function renderResults() {
+const RENDER_REGIONS_BY_CHANGE_KEY = Object.freeze({
+  estimator: ['metrics', 'visualization', 'lists', 'controls', 'warnings'],
+  view: ['visualization'],
+  orientation3d: ['visualization'],
+  localization: ['metrics', 'visualization', 'lists']
+});
+let estimatorModel = null;
+
+function createEstimatorSnapshot() {
   const vehicle = selectedVehicle();
   const config = selectedConfiguration(vehicle);
   const zones = config.cargoZoneIds.map((id) => vehicle.cargoZones.find((zone) => zone.id === id)).filter(Boolean);
   const luggageSet = cloneLuggageWithQuantities();
-  const result = estimateFit(luggageSet, vehicle, config.id, {
+  const options = {
     considerSeatBackEncroachment: hasActiveSeatBackEncroachment(zones),
     seatBackAngleDegrees: state.seatBackEncroachmentAngleDegrees,
     defaultUsableFraction: (100 - state.usableVolumeBufferPercent) / 100
+  };
+  const key = JSON.stringify({
+    vehicleId: vehicle.id,
+    configurationId: config.id,
+    luggageSet,
+    options
   });
-  renderMetricsHeader(vehicle, config, result);
-  renderVisualization(vehicle, config, result);
-  renderLists(result);
-  syncCustomBagControlState(result);
-  $('#warnings').replaceChildren();
+  return { key, vehicle, config, luggageSet, options };
+}
+
+function derivedEstimatorModel() {
+  const snapshot = createEstimatorSnapshot();
+  if (!estimatorModel || estimatorModel.key !== snapshot.key) {
+    estimatorModel = {
+      ...snapshot,
+      result: estimateFit(snapshot.luggageSet, snapshot.vehicle, snapshot.config.id, snapshot.options)
+    };
+  }
+  return estimatorModel;
+}
+
+function renderResults(changeKey = 'estimator') {
+  const regions = RENDER_REGIONS_BY_CHANGE_KEY[changeKey] ?? RENDER_REGIONS_BY_CHANGE_KEY.estimator;
+  const { vehicle, config, result } = derivedEstimatorModel();
+  if (regions.includes('metrics')) renderMetricsHeader(vehicle, config, result);
+  if (regions.includes('visualization')) renderVisualization(vehicle, config, result);
+  if (regions.includes('lists')) renderLists(result);
+  if (regions.includes('controls')) syncCustomBagControlState(result);
+  if (regions.includes('warnings')) $('#warnings').replaceChildren();
 }
 
 function applyStaticTranslations() {

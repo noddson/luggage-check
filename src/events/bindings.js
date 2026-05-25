@@ -29,19 +29,23 @@ export function createEventBindings({ document, window, elements, actions }) {
       if (!svg || event.target.closest('.orientation-axis-control')) return;
       event.preventDefault();
       let previous = { x: event.clientX, y: event.clientY };
-      svg.classList.add('is-dragging');
+      const setDraggingState = (isDragging) => {
+        elements.visualization.querySelectorAll('.zone-3d-svg').forEach((currentSvg) => currentSvg.classList.toggle('is-dragging', isDragging));
+      };
+      setDraggingState(true);
 
       const handleMove = (moveEvent) => {
         const dx = moveEvent.clientX - previous.x;
         const dy = moveEvent.clientY - previous.y;
         previous = { x: moveEvent.clientX, y: moveEvent.clientY };
         actions.rotate3d(dx, dy);
+        setDraggingState(true);
       };
       const endDrag = () => {
         window.removeEventListener('pointermove', handleMove);
         window.removeEventListener('pointerup', endDrag);
         window.removeEventListener('pointercancel', endDrag);
-        elements.visualization.querySelectorAll('.zone-3d-svg').forEach((currentSvg) => currentSvg.classList.remove('is-dragging'));
+        setDraggingState(false);
       };
 
       window.addEventListener('pointermove', handleMove);

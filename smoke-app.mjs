@@ -67,6 +67,9 @@ for (const marker of ['vehicleSelect', 'configurationSelect', 'seatBackEncroachm
 for (const marker of ['estimateFit', 'renderMetricsHeader(vehicle, config, result)', 'renderVisualization(vehicle, config, result)', 'renderLists(result)', 'syncCustomBagControlState(result)', 'createActions', 'createEventBindings', 'seatEncroachmentOverlay', 'renderSeatEncroachmentWedge3d', 'view-tab', 'orientation-axis-control', 'defaultVehicle', 'loadVehicles', 'VEHICLE_INDEX_PATH', "activeView: '3d'"]) {
   if (!app.includes(marker)) throw new Error(`Browser app missing ${marker}`);
 }
+for (const marker of ['RENDER_REGIONS_BY_CHANGE_KEY', 'createEstimatorSnapshot', 'derivedEstimatorModel', "orientation3d: ['visualization']", "localization: ['metrics', 'visualization', 'lists']"]) {
+  if (!app.includes(marker)) throw new Error(`Browser app missing incremental render marker ${marker}`);
+}
 for (const marker of ['dimensionsLabel', 'projectBox', 'projectZone', 'createBoxVertices', 'rotatePoint3d', 'renderFace', 'shadeColor', 'mixWithWhite']) {
   if (!renderHelpers.includes(marker)) throw new Error(`Render helpers missing ${marker}`);
 }
@@ -75,8 +78,8 @@ for (const [region, markers] of [
   [visualizationRegion, ['createVisualizationRenderer', 'renderVisualization']],
   [listsRegion, ['createListsRenderer', 'renderLists', 'placedList', 'unplacedList', 'placed-delete']],
   [controlsStateRegion, ['createControlsStateSync', 'syncCustomBagControlState', 'customBagLocked']],
-  [eventActions, ['createActions', 'setVehicle', 'setConfiguration', 'setSeatBackAngle', 'setBuffer', 'setLanguage', 'decrementItemQuantity', 'render.results()']],
-  [eventBindings, ['createEventBindings', 'bindEvents', 'bindRemovalList', 'luggageControls.addEventListener', 'visualization.addEventListener', 'actions.setLanguage']]
+  [eventActions, ['createActions', 'setVehicle', 'setConfiguration', 'setSeatBackAngle', 'setBuffer', 'setLanguage', 'decrementItemQuantity', 'render.results()', "render.results('orientation3d')", "render.results('localization')"]],
+  [eventBindings, ['createEventBindings', 'bindEvents', 'bindRemovalList', 'luggageControls.addEventListener', 'visualization.addEventListener', 'actions.setLanguage', 'setDraggingState(true)']]
 ]) {
   for (const marker of markers) {
     if (!region.includes(marker)) throw new Error(`Render region missing ${marker}`);

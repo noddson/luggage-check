@@ -651,7 +651,7 @@ function estimateFit(
 
 ### Render Regions
 
-`renderResults()` remains the estimator/recompute facade. It delegates populated output to `createMetricsHeaderRenderer()`, `createVisualizationRenderer()`, `createListsRenderer()`, and `createControlsStateSync()`. All interaction-driven mutations and render triggers run through action handlers; delegated bindings on stable containers cover rebuilt luggage, list, and 3D descendants.
+`renderResults(changeKey)` remains the estimator/render facade. It builds an estimator-input snapshot and retains the derived estimator model while the vehicle, configuration, luggage, and estimator options are unchanged. Change keys select touched regions: estimator changes update all result regions, `view` and `orientation3d` update only visualization, and `localization` updates translated result regions without recomputing packing. All interaction-driven mutations and render triggers run through action handlers; delegated bindings on stable containers cover rebuilt luggage, list, and 3D descendants.
 
 ### Top-level state and constants
 
@@ -967,7 +967,7 @@ The 3D view is SVG-based, not WebGL. It creates cuboid vertices, rotates them, p
 
 **Purpose:** Handle click/keyboard orientation controls and pointer-drag rotation from the stable visualization container.
 
-**Behavior:** Dragging changes yaw and pitch, clamps pitch between 0 and 90 degrees, clears the active preset label, and re-renders results.
+**Behavior:** Dragging changes yaw and pitch, clamps pitch between 0 and 90 degrees, clears the active preset label, and renders only the 3D visualization from the retained estimator model. Because replacing SVG markup during a drag removes element-local classes, the binding reapplies the dragging state after each move.
 
 **Errors:** Missing 3D descendants are ignored. Re-rendering can replace SVGs without attaching another container listener.
 
@@ -987,13 +987,13 @@ The 3D view is SVG-based, not WebGL. It creates cuboid vertices, rotates them, p
 
 **Testing:** Assert empty/success messages for zero placed/unplaced states and item rows when populated.
 
-#### `renderResults()`
+#### `renderResults(changeKey = 'estimator')`
 
-**Purpose:** Main UI recomputation facade. Reads selections and quantities, calls `estimateFit`, then delegates header/metrics, visualization, lists, and controls-state updates before clearing warnings.
+**Purpose:** Main UI rendering facade. Reads selections and quantities into a keyed estimator snapshot, calls `estimateFit` only when that snapshot changes, and delegates only regions selected by the change key. Orientation drag and preset controls therefore update visualization without rebuilding metrics or lists.
 
 **Errors:** Propagates estimator errors if state references an unknown seat configuration, though normal UI selection prevents this.
 
-**Testing:** Use a fixture state and assert changing quantities changes placed/unplaced counts. Smoke tests cover estimator placement completeness.
+**Testing:** Use a fixture state and assert changing quantities changes placed/unplaced counts. Assert repeated orientation changes preserve the derived result and do not update fit-score/list regions. Smoke tests cover estimator placement completeness and incremental-render wiring.
 
 #### Actions and `bindEvents()` (`src/events/actions.js`, `src/events/bindings.js`)
 
@@ -1301,7 +1301,7 @@ Then open `http://localhost:4173` and manually check:
 - Reset restores default quantities.
 - Top, side, rear/front, and 3D tabs render expected placement views.
 - Seat-back encroachment degree changes warnings, fit calculations, and wedge visualization when active zones support it.
-- 3D drag and orientation presets update the view.
+- 3D drag and orientation presets update the view smoothly without changing fit metrics or lists.
 
 ## Suggested future unit tests
 

@@ -121,7 +121,7 @@ export function createActions({
   function setView(view) {
     state.activeView = view;
     render.activeViewTab(view);
-    render.results();
+    render.results('view');
   }
 
   function setLanguage(language) {
@@ -136,7 +136,7 @@ export function createActions({
     render.configurationOptions();
     render.seatBackEncroachmentState();
     render.luggageControls();
-    render.results();
+    render.results('localization');
   }
 
   function set3dOrientation(axis) {
@@ -144,14 +144,14 @@ export function createActions({
     if (!preset) return;
     state.rotation3d = { yaw: normalizeYaw(preset.yaw), pitch: preset.pitch };
     state.activeOrientationLabel = preset.label;
-    render.results();
+    render.results('orientation3d');
   }
 
   function rotate3d(dx, dy) {
     state.rotation3d.yaw = normalizeYaw(state.rotation3d.yaw - dx * 0.35);
     state.rotation3d.pitch = clamp(state.rotation3d.pitch - dy * 0.25, 0, 90);
     if (dx || dy) state.activeOrientationLabel = '';
-    render.results();
+    render.results('orientation3d');
   }
 
   return {
