@@ -7,12 +7,13 @@
   "scripts": {
     "generate:version": "node generate-version.mjs",
     "validate:configs": "node validate-configs.mjs",
-    "check": "npm run validate:vehicle-index && npm run validate:configs && npm run validate:version && npm run smoke:app",
+    "check": "npm run validate:vehicle-index && npm run validate:configs && npm run validate:i18n && npm run validate:version && npm run smoke:app",
     "start": "npm run generate:version && npm run generate:vehicle-index && node serve-app.mjs",
     "smoke:app": "node smoke-app.mjs",
     "generate:vehicle-index": "node generate-vehicle-index.mjs",
     "validate:vehicle-index": "node generate-vehicle-index.mjs --check",
-    "validate:version": "node validate-version.mjs"
+    "validate:version": "node validate-version.mjs",
+    "validate:i18n": "node validate-i18n.mjs"
   },
   "engines": {
     "node": ">=20"
