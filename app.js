@@ -7,6 +7,7 @@ import {
   validateSeatBackAngleInput,
   validateUsableVolumeBufferInput
 } from './src/state/validators.js';
+import { createPersistence } from './persistence.js';
 
 const VEHICLE_INDEX_PATH = './configs/vehicles/index.json';
 
@@ -1028,27 +1029,6 @@ function setLanguage(language) {
   renderLuggageControls();
   renderResults();
 }
-
-function cookieValue(name) {
-  if (typeof document === 'undefined') return null;
-  const segment = document.cookie
-    .split(';')
-    .map((entry) => entry.trim())
-    .find((entry) => entry.startsWith(`${name}=`));
-  if (!segment) return null;
-  return decodeURIComponent(segment.split('=').slice(1).join('='));
-}
-
-function setCookie(name, value, maxAgeSeconds = LANGUAGE_COOKIE_MAX_AGE_SECONDS) {
-  if (typeof document === 'undefined') return;
-  document.cookie = `${name}=${encodeURIComponent(value)}; path=/; max-age=${maxAgeSeconds}; SameSite=Lax`;
-}
-
-function clearCookie(name) {
-  if (typeof document === 'undefined') return;
-  document.cookie = `${name}=; path=/; max-age=0; SameSite=Lax`;
-}
-
 function currentVehicleDefaults(vehicle = selectedVehicle()) {
   const defaultConfigurationId = vehicle.seatConfigurations[0]?.id ?? '';
   const defaultBufferPercent = DEFAULT_USABLE_VOLUME_BUFFER_PERCENT;
@@ -1062,61 +1042,32 @@ function currentVehicleDefaults(vehicle = selectedVehicle()) {
   };
 }
 
-function persistTripSetupPreference() {
-  const vehicle = selectedVehicle();
-  if (!vehicle?.id) return;
-  const defaults = currentVehicleDefaults(vehicle);
-  const payload = {
-    vehicleId: vehicle.id,
-    configurationId: state.configurationId,
-    seatBackAngleDegrees: state.seatBackEncroachmentAngleDegrees !== defaults.seatBackAngleDegrees ? state.seatBackEncroachmentAngleDegrees : undefined,
-    usableVolumeBufferPercent: state.usableVolumeBufferPercent !== defaults.usableVolumeBufferPercent ? state.usableVolumeBufferPercent : undefined
-  };
-  setCookie(TRIP_SETUP_COOKIE_NAME, JSON.stringify(payload));
-}
 
-function applyPersistedTripSetupPreference() {
-  const raw = cookieValue(TRIP_SETUP_COOKIE_NAME);
-  if (!raw) return;
-  try {
-    const parsedPayload = JSON.parse(raw);
-    const persisted = validatePersistedTripSetupPayload(parsedPayload);
-    if (!persisted) {
-      clearCookie(TRIP_SETUP_COOKIE_NAME);
-      return;
-    }
-    const persistedVehicle = state.vehicles.find((vehicle) => vehicle.id === persisted.vehicleId);
-    if (!persistedVehicle) return;
-    state.vehicleId = persistedVehicle.id;
-    const vehicle = selectedVehicle();
-    const defaults = currentVehicleDefaults(vehicle);
-    const validConfig = vehicle.seatConfigurations.some((config) => config.id === persisted.configurationId);
-    state.configurationId = validConfig ? persisted.configurationId : defaults.configurationId;
-    state.seatBackEncroachmentAngleDegrees = typeof persisted.seatBackAngleDegrees === 'number'
-      ? clamp(persisted.seatBackAngleDegrees, 0, MAX_SEAT_BACK_ANGLE_DEGREES)
-      : defaults.seatBackAngleDegrees;
-    state.usableVolumeBufferPercent = typeof persisted.usableVolumeBufferPercent === 'number'
-      ? clamp(persisted.usableVolumeBufferPercent, MIN_USABLE_VOLUME_BUFFER_PERCENT, MAX_USABLE_VOLUME_BUFFER_PERCENT)
-      : defaults.usableVolumeBufferPercent;
-  } catch {
-    clearCookie(TRIP_SETUP_COOKIE_NAME);
-  }
-}
 
-function persistLanguagePreference(language) {
-  if (typeof document === 'undefined') return;
-  if (language === DEFAULT_LANGUAGE) {
-    clearCookie(LANGUAGE_COOKIE_NAME);
-    return;
-  }
-  setCookie(LANGUAGE_COOKIE_NAME, language);
-}
 
-function getPersistedLanguagePreference() {
-  const cookieLanguage = cookieValue(LANGUAGE_COOKIE_NAME);
-  if (!cookieLanguage) return null;
-  return I18N[cookieLanguage] ? cookieLanguage : null;
-}
+
+
+const {
+  persistLanguagePreference,
+  getPersistedLanguagePreference,
+  persistTripSetupPreference,
+  applyPersistedTripSetupPreference
+} = createPersistence({
+  state,
+  i18n: I18N,
+  selectedVehicle,
+  currentVehicleDefaults,
+  validatePersistedTripSetupPayload,
+  clamp,
+  languageCookieName: LANGUAGE_COOKIE_NAME,
+  languageCookieMaxAgeSeconds: LANGUAGE_COOKIE_MAX_AGE_SECONDS,
+  defaultLanguage: DEFAULT_LANGUAGE,
+  tripSetupCookieName: TRIP_SETUP_COOKIE_NAME,
+  minSeatBackAngleDegrees: 0,
+  maxSeatBackAngleDegrees: MAX_SEAT_BACK_ANGLE_DEGREES,
+  minUsableVolumeBufferPercent: MIN_USABLE_VOLUME_BUFFER_PERCENT,
+  maxUsableVolumeBufferPercent: MAX_USABLE_VOLUME_BUFFER_PERCENT
+});
 
 async function renderBuildVersion() {
   const appVersionEl = $('#appVersion');
