@@ -11,6 +11,8 @@ The repository has been flattened so the runtime and tooling files are at the ro
 ├─ app.js                    # thin browser entry point
 ├─ initApp/
 │  └─ bootstrap.js           # ordered startup and browser application logic
+├─ src/i18n/
+│  └─ localization.js        # language-dependent text and entity accessors
 ├─ styles.css                # browser styling
 ├─ index.html                # GitHub Pages/root app shell
 ├─ fitEstimator.js           # browser fit estimator module

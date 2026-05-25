@@ -2,6 +2,7 @@ import { readFile } from 'node:fs/promises';
 import { loadLuggageSet, loadVehicles } from './loadConfigs.js';
 import { estimateFit } from './fitEstimator.node.js';
 import { I18N } from './configs/i18n/index.js';
+import { createLocalization } from './src/i18n/localization.js';
 
 const [html, css, entryPoint, app, luggageSet, vehicles] = await Promise.all([
   readFile('index.html', 'utf8'),
@@ -52,8 +53,8 @@ for (const marker of ['estimateFit', 'renderVisualization', 'seatEncroachmentOve
 for (const marker of ['bootView', 'sideView', 'topView', 'activeOrientationLabel', 'orientationPresets']) {
   if (!app.includes(marker)) throw new Error(`Browser app missing orientation preset label ${marker}`);
 }
-if (!app.includes('I18N') || !app.includes("t = (key)")) {
-  throw new Error('Browser app missing I18N localization usage markers');
+if (!app.includes('I18N') || !app.includes('createLocalization({ state, i18n: I18N })')) {
+  throw new Error('Browser app missing extracted I18N localization wiring');
 }
 
 for (const locale of ['en', 'es', 'it', 'xx']) {
@@ -63,6 +64,23 @@ for (const key of ['zoneViewAria', 'seatGuideTitle']) {
   if (typeof I18N.en?.[key] !== 'string' || I18N.en[key].length === 0) {
     throw new Error(`English localization missing required key ${key}`);
   }
+}
+const localizationState = { language: 'en' };
+const { localeBundle, t, localizeEntity } = createLocalization({ state: localizationState, i18n: I18N });
+const translatedEntity = {
+  label: '@i18n:name',
+  translations: { en: { name: 'English name' }, fr: { name: 'French name' } }
+};
+if (localeBundle() !== I18N.en || t('pageTitle') !== I18N.en.pageTitle || localizeEntity(translatedEntity, 'label') !== 'English name') {
+  throw new Error('Extracted localization helpers should resolve the initial state language');
+}
+localizationState.language = 'fr';
+if (localeBundle() !== I18N.fr || t('pageTitle') !== I18N.fr.pageTitle || localizeEntity(translatedEntity, 'label') !== 'French name') {
+  throw new Error('Extracted localization helpers should follow state language changes');
+}
+localizationState.language = 'unknown';
+if (localeBundle() !== I18N.en || t('pageTitle') !== I18N.en.pageTitle || localizeEntity(translatedEntity, 'label') !== 'English name') {
+  throw new Error('Extracted localization helpers should retain English fallbacks');
 }
 if (!css.includes('.zone-card')) throw new Error('Styles missing visualization card rules');
 if (!css.includes('.seat-encroachment-line') || !css.includes('.seat-encroachment-face')) throw new Error('Styles missing seat-back encroachment rules');

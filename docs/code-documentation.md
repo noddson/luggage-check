@@ -7,6 +7,7 @@ This document explains the luggage-check codebase at the level needed to maintai
 | Area | Files | Purpose |
 | --- | --- | --- |
 | Browser UI | `index.html`, `styles.css`, `app.js`, `initApp/bootstrap.js` | Static single-page app whose thin entry point invokes ordered bootstrap logic that loads luggage plus the generated vehicle index, lets users choose a vehicle/seat setup/luggage quantities, supports a custom bag profile, persists trip setup/language preferences in cookies, runs the fit estimator, and renders 2D/3D SVG visualizations. |
+| Localization accessors | `src/i18n/localization.js`, `configs/i18n/*.json` | Builds language-aware text and entity-label accessors from the live browser state while retaining English fallbacks. |
 | Fit estimation | `fitEstimator.js` | Deterministic multi-pass rectangular packing estimator. Expands luggage quantities, applies soft-bag compression, tests rotations/opening constraints/seat-back encroachment, and returns placements plus warnings. |
 | Config loading | `loadConfigs.js` | Node-side JSON readers used by validation and smoke scripts. |
 | Domain documentation | `types.js` | JSDoc typedefs for luggage, vehicles, cargo zones, seat configurations, and estimator result shapes. |
@@ -635,7 +636,11 @@ function estimateFit(
 
 ## `app.js` and `initApp/bootstrap.js` — browser bootstrap and application
 
-`app.js` only invokes startup in a browser environment. `initApp/bootstrap.js` owns the ordered startup sequence, client-side state, DOM updates, user events, and SVG visualization.
+`app.js` only invokes startup in a browser environment. `initApp/bootstrap.js` owns the ordered startup sequence, client-side state, DOM updates, user events, and SVG visualization. It passes its live `state` object to `src/i18n/localization.js`, so language changes continue to affect every accessor without moving the language selection flow.
+
+### Localization Accessors
+
+`createLocalization({ state, i18n })` returns `localeBundle`, `t`, and `localizeEntity`. Each accessor reads `state.language` at call time, falls back to English when a locale or value is unavailable, and leaves `setLanguage()` in bootstrap responsible for updating state and rerendering controls/text.
 
 ### Top-level state and constants
 
@@ -1135,7 +1140,7 @@ This script combines static asset checks with estimator regression checks.
 
 ### Static checks
 
-It reads `index.html`, `styles.css`, `app.js`, and `initApp/bootstrap.js` and asserts that the entry point delegates to bootstrap and important UI markers exist:
+It reads `index.html`, `styles.css`, `app.js`, and `initApp/bootstrap.js`, exercises `src/i18n/localization.js`, and asserts that the entry point delegates to bootstrap and important UI markers exist:
 
 - App shell ids/classes.
 - Seat-back encroachment degrees controls.

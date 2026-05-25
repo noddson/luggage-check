@@ -7,6 +7,7 @@ import {
   validateSeatBackAngleInput,
   validateUsableVolumeBufferInput
 } from '../src/state/validators.js';
+import { createLocalization } from '../src/i18n/localization.js';
 import { createPersistence } from '../persistence.js';
 
 const VEHICLE_INDEX_PATH = './configs/vehicles/index.json';
@@ -46,19 +47,7 @@ const LANGUAGE_COOKIE_NAME = 'preferredLanguage';
 const LANGUAGE_COOKIE_MAX_AGE_SECONDS = 60 * 60 * 24 * 365;
 const DEFAULT_LANGUAGE = 'en';
 const TRIP_SETUP_COOKIE_NAME = 'tripSetup';
-const localeBundle = () => I18N[state.language] ?? I18N.en;
-const t = (key) => localeBundle()[key] ?? I18N.en[key] ?? key;
-
-function localizeEntity(entity, key) {
-  const value = entity?.[key];
-  if (typeof value === 'string' && value.startsWith('@i18n:')) {
-    const token = value.slice(6);
-    return entity?.translations?.[state.language]?.[token]
-      ?? entity?.translations?.en?.[token]
-      ?? token;
-  }
-  return entity?.translations?.[state.language]?.[key] ?? entity?.translations?.en?.[key] ?? value;
-}
+const { localeBundle, t, localizeEntity } = createLocalization({ state, i18n: I18N });
 
 const $ = (selector) => document.querySelector(selector);
 function createEl(tag, { className = '', text = '', attrs = {} } = {}) {
