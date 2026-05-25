@@ -2,10 +2,11 @@ import { readFile } from 'node:fs/promises';
 import { loadLuggageSet, loadVehicles } from './loadConfigs.js';
 import { estimateFit } from './fitEstimator.node.js';
 
-const [html, css, app, luggageSet, vehicles] = await Promise.all([
+const [html, css, app, i18nResources, luggageSet, vehicles] = await Promise.all([
   readFile('index.html', 'utf8'),
   readFile('styles.css', 'utf8'),
   readFile('app.js', 'utf8'),
+  readFile('src/i18n/resources.js', 'utf8'),
   loadLuggageSet(),
   loadVehicles()
 ]);
@@ -20,7 +21,7 @@ for (const marker of ['bootView', 'sideView', 'topView', 'activeOrientationLabel
   if (!app.includes(marker)) throw new Error(`Browser app missing orientation preset label ${marker}`);
 }
 for (const marker of ["es: {", "it: {", "xx: {", "zoneViewAria", "seatGuideTitle"]) {
-  if (!app.includes(marker)) throw new Error(`Browser app missing localization marker ${marker}`);
+  if (!i18nResources.includes(marker)) throw new Error(`Browser i18n resources missing localization marker ${marker}`);
 }
 if (!css.includes('.zone-card')) throw new Error('Styles missing visualization card rules');
 if (!css.includes('.seat-encroachment-line') || !css.includes('.seat-encroachment-face')) throw new Error('Styles missing seat-back encroachment rules');
