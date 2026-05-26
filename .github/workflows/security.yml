@@ -64,6 +64,12 @@ jobs:
       - name: Run application checks
         run: npm run check
 
+      - name: Install browser test runtime
+        run: npx playwright install --with-deps chromium
+
+      - name: Run browser behavior tests
+        run: npm run test:browser
+
   dependency-review:
     name: Dependency review (PR only)
     if: ${{ github.event_name == 'pull_request' }}

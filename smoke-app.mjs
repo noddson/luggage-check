@@ -1,4 +1,3 @@
-import { readFile } from 'node:fs/promises';
 import { loadLuggageSet, loadVehicles } from './loadConfigs.js';
 import { estimateFit } from './fitEstimator.node.js';
 import { I18N } from './configs/i18n/index.js';
@@ -14,87 +13,10 @@ import {
   shadeColor
 } from './src/render/helpers.js';
 
-const [html, css, entryPoint, app, nodeLoaders, renderHelpers, metricsHeader, visualizationRegion, listsRegion, controlsStateRegion, eventActions, eventBindings, luggageSet, vehicles] = await Promise.all([
-  readFile('index.html', 'utf8'),
-  readFile('styles.css', 'utf8'),
-  readFile('app.js', 'utf8'),
-  readFile('initApp/bootstrap.js', 'utf8'),
-  readFile('loadConfigs.js', 'utf8'),
-  readFile('src/render/helpers.js', 'utf8'),
-  readFile('src/render/metricsHeader.js', 'utf8'),
-  readFile('src/render/visualization.js', 'utf8'),
-  readFile('src/render/lists.js', 'utf8'),
-  readFile('src/render/controlsState.js', 'utf8'),
-  readFile('src/events/actions.js', 'utf8'),
-  readFile('src/events/bindings.js', 'utf8'),
+const [luggageSet, vehicles] = await Promise.all([
   loadLuggageSet(),
   loadVehicles()
 ]);
-
-if (!entryPoint.includes("import { bootstrap } from './initApp/bootstrap.js'") || !entryPoint.includes('bootstrap()')) {
-  throw new Error('Browser entry point should delegate initialization to initApp/bootstrap.js');
-}
-const bootstrapStart = app.indexOf('export async function bootstrap()');
-if (bootstrapStart < 0) throw new Error('Browser app missing exported bootstrap orchestrator');
-let previousBootstrapStep = bootstrapStart;
-for (const step of [
-  "readJson('./configs/luggage/common.json')",
-  'loadVehicles()',
-  'state.luggageSet = luggageSet',
-  'state.vehicles = vehicles.sort',
-  'state.vehicleId = initialVehicle.id',
-  'state.configurationId = initialVehicle.seatConfigurations[0].id',
-  'actions.resetSeatBackAngleToDefault()',
-  'applyPersistedTripSetupPreference()',
-  'renderVehicleOptions()',
-  'renderConfigurationOptions()',
-  'renderSeatBackEncroachmentState()',
-  'renderLuggageControls()',
-  'await renderBuildVersion()',
-  'bindEvents()',
-  'getPersistedLanguagePreference()',
-  'actions.setLanguage(persistedLanguage)',
-  'applyStaticTranslations()',
-  'renderSeatBackEncroachmentState()',
-  'renderResults()'
-]) {
-  const stepIndex = app.indexOf(step, previousBootstrapStep);
-  if (stepIndex < 0) throw new Error(`Bootstrap sequence missing or reordered: ${step}`);
-  previousBootstrapStep = stepIndex + step.length;
-}
-for (const marker of ['vehicleSelect', 'configurationSelect', 'seatBackEncroachmentDegrees', 'seatBackEncroachmentNote', 'luggageControls', 'resetLuggageButton', 'visualization']) {
-  if (!html.includes(marker)) throw new Error(`App shell missing #${marker}`);
-}
-for (const marker of ['estimateFit', 'renderMetricsHeader(vehicle, config, result)', 'renderVisualization(vehicle, config, result)', 'renderLists(result)', 'syncCustomBagControlState(result)', 'createActions', 'createEventBindings', 'seatEncroachmentOverlay', 'renderSeatEncroachmentWedge3d', 'view-tab', 'orientation-axis-control', 'defaultVehicle', 'loadVehicles', 'VEHICLE_INDEX_PATH', "activeView: '3d'"]) {
-  if (!app.includes(marker)) throw new Error(`Browser app missing ${marker}`);
-}
-for (const marker of ["'configs/vehicles/index.json'", 'vehicleIndex.files']) {
-  if (!nodeLoaders.includes(marker)) throw new Error(`Node config loader missing shared vehicle-index marker ${marker}`);
-}
-for (const marker of ['RENDER_REGIONS_BY_CHANGE_KEY', 'createEstimatorSnapshot', 'derivedEstimatorModel', "orientation3d: ['visualization']", "localization: ['metrics', 'visualization', 'lists']"]) {
-  if (!app.includes(marker)) throw new Error(`Browser app missing incremental render marker ${marker}`);
-}
-for (const marker of ['dimensionsLabel', 'projectBox', 'projectZone', 'createBoxVertices', 'rotatePoint3d', 'renderFace', 'shadeColor', 'mixWithWhite']) {
-  if (!renderHelpers.includes(marker)) throw new Error(`Render helpers missing ${marker}`);
-}
-for (const [region, markers] of [
-  [metricsHeader, ['createMetricsHeaderRenderer', 'renderMetricsHeader', 'renderMetricsLoadError', 'fitBadge', 'metrics']],
-  [visualizationRegion, ['createVisualizationRenderer', 'renderVisualization']],
-  [listsRegion, ['createListsRenderer', 'renderLists', 'placedList', 'unplacedList', 'placed-delete']],
-  [controlsStateRegion, ['createControlsStateSync', 'syncCustomBagControlState', 'customBagLocked']],
-  [eventActions, ['createActions', 'setVehicle', 'setConfiguration', 'setSeatBackAngle', 'setBuffer', 'setLanguage', 'decrementItemQuantity', 'render.results()', "render.results('orientation3d')", "render.results('localization')"]],
-  [eventBindings, ['createEventBindings', 'bindEvents', 'bindRemovalList', 'luggageControls.addEventListener', 'visualization.addEventListener', 'actions.setLanguage', 'setDraggingState(true)']]
-]) {
-  for (const marker of markers) {
-    if (!region.includes(marker)) throw new Error(`Render region missing ${marker}`);
-  }
-}
-for (const marker of ['bootView', 'sideView', 'topView', 'activeOrientationLabel', 'orientationPresets']) {
-  if (!app.includes(marker)) throw new Error(`Browser app missing orientation preset label ${marker}`);
-}
-if (!app.includes('I18N') || !app.includes('createLocalization({ state, i18n: I18N })')) {
-  throw new Error('Browser app missing extracted I18N localization wiring');
-}
 
 for (const locale of ['en', 'es', 'it', 'xx']) {
   if (!I18N[locale]) throw new Error(`I18N bundle missing locale ${locale}`);
@@ -154,16 +76,6 @@ const renderedFace = renderFace([
 ], [0, 1, 2], '#ffffff', 'test-face', 'Face');
 if (renderedFace.depth !== 1 || !renderedFace.markup.includes('points="0.0,0.0 2.0,0.0 2.0,2.0"')) {
   throw new Error('Extracted render helpers should retain SVG face markup');
-}
-if (!css.includes('.zone-card')) throw new Error('Styles missing visualization card rules');
-if (!css.includes('.seat-encroachment-line') || !css.includes('.seat-encroachment-face')) throw new Error('Styles missing seat-back encroachment rules');
-if (!css.includes('.orientation-axis-button')) throw new Error('Styles missing 3D orientation axis controls');
-if (!css.includes('.orientation-axis-preset-label')) throw new Error('Styles missing 3D orientation preset label');
-if (!css.includes('.orientation-axis-angle-label')) throw new Error('Styles missing 3D orientation angle label');
-if (!css.includes('.secondary-button')) throw new Error('Styles missing secondary button rules');
-
-if (app.includes('VEHICLE_FILES')) {
-  throw new Error('Browser app should load the generated vehicle index instead of a hard-coded VEHICLE_FILES list');
 }
 const defaultVehicles = vehicles.filter((vehicle) => vehicle.isDefault);
 if (defaultVehicles.length !== 1 || defaultVehicles[0].id !== 'volkswagen-caddy-maxi-life') {
@@ -347,4 +259,4 @@ for (const vehicle of vehicles) {
   }
 }
 
-console.log(`Smoke-tested app shell and ${vehicles.length} vehicles across every seat configuration.`);
+console.log(`Smoke-tested render helpers and ${vehicles.length} vehicles across every seat configuration.`);

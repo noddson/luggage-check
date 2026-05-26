@@ -31,6 +31,9 @@ The repository has been flattened so the runtime and tooling files are at the ro
 ├─ validate-configs.mjs
 ├─ smoke-app.mjs
 ├─ serve-app.mjs
+├─ playwright.config.js       # browser behavior test configuration
+├─ e2e/
+│  └─ app.spec.js             # user-journey browser checks
 ├─ configs/
 │  ├─ luggage/
 │  └─ vehicles/
@@ -65,6 +68,8 @@ npm run validate:vehicle-index
 npm run validate:configs
 npm run validate:version
 npm run smoke:app
+npm test
+npm run test:browser
 npm run check
 ```
 

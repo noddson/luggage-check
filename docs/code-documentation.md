@@ -15,7 +15,7 @@ This document explains the luggage-check codebase at the level needed to maintai
 | Config loading | `loadConfigs.js` | Node-side JSON readers used by validation and smoke scripts. |
 | Domain documentation | `types.js` | JSDoc typedefs for luggage, vehicles, cargo zones, seat configurations, and estimator result shapes. |
 | Config data | `configs/luggage/*.json`, `configs/vehicles/**/*.json` | Source-backed luggage and vehicle cargo data. `configs/vehicles/index.json` is generated from regional vehicle files for browser and Node loading. Schema files document the expected JSON shapes. |
-| Developer scripts | `generate-vehicle-index.mjs`, `validate-configs.mjs`, `smoke-app.mjs`, `serve-app.mjs` | Vehicle-index generation/staleness checks, dataset validation, app/estimator smoke checks, and a zero-dependency static file server. |
+| Developer tests/scripts | `test/*.mjs`, `e2e/*.spec.js`, `playwright.config.js`, `generate-vehicle-index.mjs`, `validate-configs.mjs`, `smoke-app.mjs`, `serve-app.mjs` | Node regression checks, browser behavior checks, vehicle-index generation/staleness, dataset validation, render-helper/estimator smoke checks, and a zero-dependency static file server. |
 
 ## Safe rendering policy
 
@@ -211,7 +211,7 @@ async function loadVehicles(indexPath?: string): Promise<VehicleConfig[]>
 
 - `npm run validate:vehicle-index` checks that the manifest includes exactly the regional vehicle files on disk.
 - `npm run validate:configs` checks that listed vehicle files load and conform to expected field rules.
-- `npm run smoke:app` checks that both the browser and Node loader use the generated vehicle index.
+- `npm run test:browser` confirms browser startup loads the indexed default vehicle; Node validation scripts load the same manifest.
 
 ## `fitEstimator.js` — packing estimator
 
@@ -671,7 +671,7 @@ function estimateFit(
 
 **Errors:** Throws if the HTTP response is not OK, or if JSON parsing fails. `init()` catches these errors and shows an app-load failure message.
 
-**Testing:** `npm run smoke:app` checks static file markers, but a browser/e2e test would be needed to fully exercise failed network responses.
+**Testing:** `npm run test:browser` confirms successful startup. A mocked fetch test would still be needed to fully exercise failed network responses.
 
 #### `loadVehicles()`
 
@@ -681,7 +681,7 @@ function estimateFit(
 
 **Errors:** Propagates `readJson` failures for a missing/stale index, missing vehicle file, HTTP error, or malformed JSON. `init()` catches these errors and shows the app-load failure state.
 
-**Testing:** `npm run smoke:app` asserts the browser code uses `VEHICLE_INDEX_PATH` and no longer contains the removed hard-coded `VEHICLE_FILES` list. `npm run validate:vehicle-index` checks that the generated index matches the files on disk.
+**Testing:** `npm run test:browser` exercises browser vehicle loading and selection. `npm run validate:vehicle-index` checks that the generated index matches the files on disk.
 
 #### `dimensionsLabel(dimensions)`
 
@@ -947,7 +947,7 @@ The 3D view is SVG-based, not WebGL. It creates cuboid vertices, rotates them, p
 
 **Output:** HTML string. Dimensionless zones get the same explanatory no-rectangle card pattern.
 
-**Testing:** `npm run smoke:app` checks that 3D orientation controls and CSS markers exist. Browser tests should verify drag rotation and preset controls.
+**Testing:** `npm run test:browser` verifies 3D preset selection and drag rotation through the rendered controls.
 
 #### Delegated 3D interaction bindings (`src/events/bindings.js`)
 
@@ -957,7 +957,7 @@ The 3D view is SVG-based, not WebGL. It creates cuboid vertices, rotates them, p
 
 **Errors:** Missing 3D descendants are ignored. Re-rendering can replace SVGs without attaching another container listener.
 
-**Testing:** Browser/e2e test: pointer-drag an SVG and assert `state.rotation3d` changes and the SVG remains rendered.
+**Testing:** `npm run test:browser` pointer-drags an SVG and asserts the orientation indicator changes while the SVG remains rendered.
 
 ### Result rendering and events
 
@@ -979,7 +979,7 @@ The 3D view is SVG-based, not WebGL. It creates cuboid vertices, rotates them, p
 
 **Errors:** Propagates estimator errors if state references an unknown seat configuration, though normal UI selection prevents this.
 
-**Testing:** Use a fixture state and assert changing quantities changes placed/unplaced counts. Assert repeated orientation changes preserve the derived result and do not update fit-score/list regions. Smoke tests cover estimator placement completeness and incremental-render wiring.
+**Testing:** `npm run test:browser` covers quantity-driven list changes and orientation interaction; smoke tests retain estimator placement completeness and geometric regression coverage.
 
 #### Actions and `bindEvents()` (`src/events/actions.js`, `src/events/bindings.js`)
 
@@ -987,7 +987,7 @@ The 3D view is SVG-based, not WebGL. It creates cuboid vertices, rotates them, p
 
 **Controls:** Vehicle/configuration selects, seat-back and buffer inputs, luggage quantities/custom dimensions, reset button, view tabs, placed/unplaced deletion, language selection, and 3D interactions.
 
-**Testing:** Browser/e2e tests should dispatch change/click events and assert state plus DOM updates.
+**Testing:** `npm run test:browser` selects controls, restores persisted settings, resets custom luggage, removes a placed bag, and exercises 3D controls.
 
 #### `init()`
 
@@ -1004,7 +1004,7 @@ The 3D view is SVG-based, not WebGL. It creates cuboid vertices, rotates them, p
 
 **Errors:** Catches network/JSON loading errors and displays `Unable to load app`.
 
-**Testing:** `npm start` plus a browser check should confirm the page loads. A mocked fetch test can assert the failure path.
+**Testing:** `npm run test:browser` confirms the page loads through `serve-app.mjs`. A mocked fetch test can assert the failure path.
 
 ## `index.html` — app shell
 
@@ -1018,13 +1018,13 @@ The HTML file provides the semantic structure and DOM ids/classes consumed by `i
 
 **Errors:** If IDs expected by `initApp/bootstrap.js` are renamed or removed, top-level DOM lookups can return `null`, causing event binding or rendering failures.
 
-**Testing:** `npm run smoke:app` checks for required app-shell markers.
+**Testing:** `npm run test:browser` exercises required app-shell controls and rendered results.
 
 ## `styles.css` — styling
 
 The stylesheet defines responsive layout, form controls, result cards, warning/list styles, 2D SVG placement styles, 3D SVG cuboid styles, seat-back overlays, and orientation controls.
 
-**Testing:** `npm run smoke:app` checks for key CSS selectors, including visualization cards, seat-back encroachment lines, 3D orientation controls, and secondary button styles. Visual regression screenshots would be useful for future UI changes.
+**Testing:** `npm run test:browser` verifies interaction-relevant rendered controls. Visual regression screenshots would be useful for future styling changes.
 
 ## `generate-vehicle-index.mjs` — vehicle manifest generation
 
@@ -1131,22 +1131,13 @@ After loading configs, the script also checks:
 
 **Errors:** If any validation errors are accumulated, the script prints them and exits with code `1`. Unexpected loader/parser errors also fail the process.
 
-## `smoke-app.mjs` — app shell and estimator smoke tests
+## `smoke-app.mjs` — render helper and estimator smoke tests
 
-This script combines static asset checks with estimator regression checks.
+This script exercises pure localization/render helpers and estimator regressions without binding tests to browser module arrangement. Browser journeys are exercised by Playwright under `e2e/`.
 
-### Static checks
+### Helper checks
 
-It reads `index.html`, `styles.css`, `app.js`, `initApp/bootstrap.js`, and the `src/render/` and `src/events/` modules, exercises the extracted localization/render helpers, and asserts that the entry point delegates to bootstrap, `renderResults()` retains region delegation, and action/binding markers exist:
-
-- App shell ids/classes.
-- Seat-back encroachment degrees controls.
-- Generated vehicle-index loading hooks (`VEHICLE_INDEX_PATH`, `loadVehicles`) and absence of the removed hard-coded `VEHICLE_FILES` list.
-- 3D view tab and orientation controls.
-- CSS classes used by zone cards and overlays.
-- Reset/secondary button styling.
-
-These checks catch accidental removal of DOM hooks needed by the browser code.
+It checks localization fallback behavior and pure projection, cuboid, color, rotation, and SVG-face helper outputs.
 
 ### Default vehicle check
 
@@ -1271,30 +1262,19 @@ npm run generate:vehicle-index
 npm run validate:vehicle-index
 npm run validate:configs
 npm run smoke:app
+npm test
+npm run test:browser
 npm run check
 ```
 
-For UI behavior changes, also run:
-
-```bash
-npm start
-```
-
-Then open `http://localhost:4173` and manually check:
-
-- Vehicle and seat-configuration selectors update results.
-- Quantity inputs update fit metrics and lists.
-- Reset restores default quantities.
-- Top, side, rear/front, and 3D tabs render expected placement views.
-- Seat-back encroachment degree changes warnings, fit calculations, and wedge visualization when active zones support it.
-- 3D drag and orientation presets update the view smoothly without changing fit metrics or lists.
+The Playwright suite starts `serve-app.mjs` automatically and checks loading, vehicle/configuration and language persistence, custom luggage reset, removal actions, and 3D orientation interaction.
 
 ## Suggested future unit tests
 
-The current project has script-level smoke tests but no dedicated unit test framework. If one is added, prioritize:
+The current project has Node and browser behavior tests. Additional focused unit tests should prioritize:
 
 1. `fitEstimator` helpers: permutations, opening fit, seat-back encroachment, collision, split/normalize spaces, and unknown seat config error.
 2. Config validators with synthetic invalid fixtures.
-3. Browser state/render helpers under a DOM test environment.
+3. Rendering error paths and safe text handling for config-derived labels.
 4. Static server `safePath` traversal and content-type behavior.
 5. Regression fixtures for known real-world vehicles where expected starter luggage fit/non-fit behavior should remain stable.
