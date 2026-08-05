@@ -66,5 +66,10 @@
   "seatGuideTitle": "前席の輪郭",
   "disclaimerLabel": "免責事項:",
   "disclaimerText": "この荷物積載結果はあくまで推定であり、誤っている可能性があります。実際の荷室形状や積載条件は異なるため、精度や積載適合を保証するものではありません。",
+  "supportDevelopmentPrefix": "継続的な開発を",
+  "supportDevelopmentLink": "金額を自由に設定できる寄付",
+  "supportDevelopmentSuffix": "で支援してください。",
+  "vehicleRequestEmailLabel": "新しい車両の追加を依頼",
+  "vehicleRequestEmailSubject": "この新しい車両を luggage-check に追加してください",
   "copyrightRights": "無断転載を禁じます。"
 }

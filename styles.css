@@ -40,6 +40,11 @@ button { cursor: pointer; }
 .secondary-button { border: 1px solid var(--line); border-radius: 999px; background: #fff; color: var(--brand); padding: 9px 14px; font-weight: 900; }
 .secondary-button:hover, .secondary-button:focus { border-color: var(--brand); box-shadow: 0 0 0 4px var(--brand-soft); outline: none; }
 .field { display: grid; gap: 8px; margin-bottom: 16px; color: var(--muted); font-weight: 800; }
+.field-label-row { display: flex; align-items: center; gap: 7px; }
+.vehicle-request-link { display: inline-flex; align-items: center; justify-content: center; width: 24px; height: 24px; border-radius: 999px; color: var(--brand); }
+.vehicle-request-link:hover, .vehicle-request-link:focus { background: var(--brand-soft); outline: none; }
+.vehicle-request-link:focus-visible { box-shadow: 0 0 0 3px var(--brand-soft); }
+.vehicle-request-link svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 1.9; stroke-linecap: round; stroke-linejoin: round; }
 .field select, .field input, .luggage-item input { width: 100%; border: 1px solid var(--line); background: #fff; color: var(--ink); border-radius: 14px; padding: 12px 14px; outline: none; }
 .field select:focus, .field input:focus, .luggage-item input:focus { border-color: var(--brand); box-shadow: 0 0 0 4px var(--brand-soft); }
 .degree-field small { color: #475569; font-weight: 700; line-height: 1.45; }
@@ -145,4 +150,5 @@ button { cursor: pointer; }
 .app-footer { margin-top: 24px; padding: 14px 16px; border: 1px solid var(--line); border-radius: 14px; background: #fff7ed; color: #7c2d12; font-size: 0.9rem; line-height: 1.5; }
 .app-footer p { margin: 0; }
 .app-footer p + p { margin-top: 8px; color: #9a3412; }
-.app-version a { color: #9a3412; font-weight: 800; }
+.app-footer a { color: #9a3412; }
+.app-version a { font-weight: 800; }

@@ -66,5 +66,10 @@
   "seatGuideTitle": "Útlínur framsæta",
   "disclaimerLabel": "Fyrirvari:",
   "disclaimerText": "Þessi niðurstaða um farangurspassun er aðeins mat og getur verið röng. Raunveruleg rúmfræði farangursrýmis og hleðsluaðstæður eru breytilegar, því er engin trygging veitt um nákvæmni eða passun.",
+  "supportDevelopmentPrefix": "Styðjið áframhaldandi þróun með",
+  "supportDevelopmentLink": "frjálsu framlagi",
+  "supportDevelopmentSuffix": ".",
+  "vehicleRequestEmailLabel": "Biðja um nýtt ökutæki",
+  "vehicleRequestEmailSubject": "Vinsamlegast bættu þessu nýja ökutæki við luggage-check",
   "copyrightRights": "Öll réttindi áskilin."
 }

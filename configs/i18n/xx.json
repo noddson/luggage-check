@@ -66,5 +66,10 @@
   "seatGuideTitle": "Forward berth outline",
   "disclaimerLabel": "Cap'n warnin':",
   "disclaimerText": "This cargo stow result be but an estimate an' may be wrong. Real-world hold geometry an' loadin' conditions vary, so no accuracy or fit guarantee be offered.",
+  "supportDevelopmentPrefix": "Keep this vessel shipshape with a",
+  "supportDevelopmentLink": "pay-what-ye-want doubloon",
+  "supportDevelopmentSuffix": ".",
+  "vehicleRequestEmailLabel": "Request a new land vessel",
+  "vehicleRequestEmailSubject": "Please add this new land vessel to luggage-check, arr!",
   "copyrightRights": "All plunderin' rights reserved."
 }

@@ -66,5 +66,10 @@
   "seatGuideTitle": "Kontur der Vordersitze",
   "disclaimerLabel": "Hinweis:",
   "disclaimerText": "Dieses Ergebnis zur Gepäckpassung ist nur eine Schätzung und kann falsch sein. Reale Laderaumgeometrie und Beladungsbedingungen variieren; daher wird keine Genauigkeits- oder Passgarantie gegeben.",
+  "supportDevelopmentPrefix": "Unterstütze die Weiterentwicklung mit einem",
+  "supportDevelopmentLink": "Beitrag in selbst gewählter Höhe",
+  "supportDevelopmentSuffix": ".",
+  "vehicleRequestEmailLabel": "Neues Fahrzeug vorschlagen",
+  "vehicleRequestEmailSubject": "Bitte füge dieses neue Fahrzeug zu luggage-check hinzu",
   "copyrightRights": "Alle Rechte vorbehalten."
 }

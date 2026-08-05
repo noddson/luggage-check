@@ -676,6 +676,11 @@ function applyStaticTranslations() {
     const key = el.dataset.i18nAriaLabel;
     el.setAttribute('aria-label', t(key));
   });
+  document.querySelectorAll('[data-i18n-mailto-subject]').forEach((el) => {
+    const key = el.dataset.i18nMailtoSubject;
+    const address = el.dataset.mailtoAddress;
+    el.setAttribute('href', `mailto:${address}?subject=${encodeURIComponent(t(key))}`);
+  });
 }
 
 function currentVehicleDefaults(vehicle = selectedVehicle()) {

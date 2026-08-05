@@ -66,5 +66,10 @@
   "seatGuideTitle": "Contorno de los asientos delanteros",
   "disclaimerLabel": "Aviso legal:",
   "disclaimerText": "Este resultado de ajuste de equipaje es solo una estimación y puede ser incorrecto. La geometría real del maletero y las condiciones de carga varían, por lo que no se ofrece ninguna garantía de precisión o de encaje.",
+  "supportDevelopmentPrefix": "Apoya el desarrollo continuo con una",
+  "supportDevelopmentLink": "contribución del importe que tú elijas",
+  "supportDevelopmentSuffix": ".",
+  "vehicleRequestEmailLabel": "Solicitar un vehículo nuevo",
+  "vehicleRequestEmailSubject": "Por favor, añade este nuevo vehículo a luggage-check",
   "copyrightRights": "Todos los derechos reservados."
 }
