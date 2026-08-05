@@ -1,4 +1,5 @@
 import { test, expect } from '@playwright/test';
+import { I18N } from '../configs/i18n/index.js';
 
 const DEFAULT_VEHICLE_ID = 'volkswagen-caddy-maxi-life';
 const SAVED_VEHICLE_ID = 'toyota-corolla-sedan-2025';
@@ -21,6 +22,22 @@ test('loads the default planning result and 3D visualization', async ({ page }) 
   await expect(page.locator('#metrics .metric')).toHaveCount(3);
   await expect(page.locator('#placedList .placed-item')).not.toHaveCount(0);
   await expect(page.locator('#unplacedList')).toBeVisible();
+});
+
+test('offers contribution and localized new-vehicle email links', async ({ page }) => {
+  const contributionLink = page.getByRole('link', { name: 'pay-what-you-want contribution' });
+  await expect(contributionLink).toHaveAttribute('href', 'https://paypal.me/noddson');
+
+  const vehicleRequestLink = page.locator('#vehicleRequestEmail');
+  await expect(vehicleRequestLink).toHaveAccessibleName('Request a new vehicle');
+  for (const [locale, bundle] of Object.entries(I18N)) {
+    await page.locator('#languageSelect').selectOption(locale);
+    await expect(vehicleRequestLink).toHaveAttribute('aria-label', bundle.vehicleRequestEmailLabel);
+    await expect(vehicleRequestLink).toHaveAttribute(
+      'href',
+      `mailto:noddson+luggage-check@gmail.com?subject=${encodeURIComponent(bundle.vehicleRequestEmailSubject)}`
+    );
+  }
 });
 
 test('persists vehicle, configuration, input overrides, and language', async ({ page }) => {

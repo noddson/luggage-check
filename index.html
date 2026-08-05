@@ -46,10 +46,26 @@
             <h2 data-i18n="tripSetup">Trip setup</h2>
           </div>
 
-          <label class="field">
-            <span data-i18n="vehicle">Vehicle</span>
+          <div class="field">
+            <div class="field-label-row">
+              <label for="vehicleSelect" data-i18n="vehicle">Vehicle</label>
+              <a
+                id="vehicleRequestEmail"
+                class="vehicle-request-link"
+                href="mailto:noddson+luggage-check@gmail.com?subject=Please%20add%20this%20new%20vehicle%20to%20luggage-check"
+                data-mailto-address="noddson+luggage-check@gmail.com"
+                data-i18n-mailto-subject="vehicleRequestEmailSubject"
+                data-i18n-aria-label="vehicleRequestEmailLabel"
+                aria-label="Request a new vehicle"
+              >
+                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                  <path d="M3 6.75A1.75 1.75 0 0 1 4.75 5h14.5A1.75 1.75 0 0 1 21 6.75v10.5A1.75 1.75 0 0 1 19.25 19H4.75A1.75 1.75 0 0 1 3 17.25V6.75Z" />
+                  <path d="m4 7 8 6 8-6" />
+                </svg>
+              </a>
+            </div>
             <select id="vehicleSelect"></select>
-          </label>
+          </div>
 
           <label class="field">
             <span data-i18n="seatCargoConfig">Seat / cargo configuration</span>
@@ -114,6 +130,7 @@
       <footer class="app-footer">
         <p id="appVersion" class="app-version"></p>
         <p><strong data-i18n="disclaimerLabel">Disclaimer:</strong> <span data-i18n="disclaimerText">This luggage fit result is an estimate only and may be wrong. Real-world cargo geometry and loading conditions vary, so no accuracy or fit guarantee is provided.</span></p>
+        <p><span data-i18n="supportDevelopmentPrefix">Support continued development with a</span> <a href="https://paypal.me/noddson" target="_blank" rel="noopener noreferrer"><strong data-i18n="supportDevelopmentLink">pay-what-you-want contribution</strong></a><span data-i18n="supportDevelopmentSuffix">.</span></p>
         <p>© 2026 Nick Oddson. <span data-i18n="copyrightRights">All rights reserved.</span></p>
       </footer>
     </main>

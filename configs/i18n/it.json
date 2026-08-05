@@ -66,5 +66,10 @@
   "seatGuideTitle": "Profilo dei sedili anteriori",
   "disclaimerLabel": "Avvertenza:",
   "disclaimerText": "Questo risultato di carico bagagli è solo una stima e potrebbe essere errato. La geometria reale del vano di carico e le condizioni di carico variano, quindi non viene fornita alcuna garanzia di accuratezza o di effettiva compatibilità.",
+  "supportDevelopmentPrefix": "Sostieni lo sviluppo continuo con un",
+  "supportDevelopmentLink": "contributo a offerta libera",
+  "supportDevelopmentSuffix": ".",
+  "vehicleRequestEmailLabel": "Richiedi un nuovo veicolo",
+  "vehicleRequestEmailSubject": "Per favore, aggiungi questo nuovo veicolo a luggage-check",
   "copyrightRights": "Tutti i diritti riservati."
 }

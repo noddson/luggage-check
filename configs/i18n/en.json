@@ -66,5 +66,10 @@
   "seatGuideTitle": "Forward seat outline",
   "disclaimerLabel": "Disclaimer:",
   "disclaimerText": "This luggage fit result is an estimate only and may be wrong. Real-world cargo geometry and loading conditions vary, so no accuracy or fit guarantee is provided.",
+  "supportDevelopmentPrefix": "Support continued development with a",
+  "supportDevelopmentLink": "pay-what-you-want contribution",
+  "supportDevelopmentSuffix": ".",
+  "vehicleRequestEmailLabel": "Request a new vehicle",
+  "vehicleRequestEmailSubject": "Please add this new vehicle to luggage-check",
   "copyrightRights": "All rights reserved."
 }

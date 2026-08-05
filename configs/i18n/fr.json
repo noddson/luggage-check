@@ -66,5 +66,10 @@
   "seatGuideTitle": "Contour des sièges avant",
   "disclaimerLabel": "Avertissement :",
   "disclaimerText": "Ce résultat d’ajustement des bagages est uniquement une estimation et peut être erroné. La géométrie réelle du coffre et les conditions de chargement varient, donc aucune garantie de précision ou d’ajustement n’est fournie.",
+  "supportDevelopmentPrefix": "Soutenez la poursuite du développement avec une",
+  "supportDevelopmentLink": "contribution à prix libre",
+  "supportDevelopmentSuffix": ".",
+  "vehicleRequestEmailLabel": "Demander l’ajout d’un nouveau véhicule",
+  "vehicleRequestEmailSubject": "Veuillez ajouter ce nouveau véhicule à luggage-check",
   "copyrightRights": "Tous droits réservés."
 }
