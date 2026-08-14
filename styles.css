@@ -56,9 +56,10 @@ button { cursor: pointer; }
 .luggage-item span { color: var(--muted); margin-top: 4px; font-size: 0.88rem; line-height: 1.35; }
 .luggage-item input { text-align: center; font-weight: 900; }
 .luggage-item--custom { grid-template-columns: 1fr; gap: 8px; }
-.custom-bag-controls { display: grid; grid-template-columns: auto minmax(0, 1fr) 58px; gap: 6px; align-items: center; min-width: 0; }
-.luggage-item .custom-bag-format { margin: 0; color: var(--muted); font-size: 0.72rem; font-weight: 800; line-height: 1; white-space: nowrap; }
-.custom-bag-dimensions { display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr); gap: 3px; align-items: center; min-width: 0; }
+.custom-bag-controls { display: grid; grid-template: "format quantity" auto "dimensions quantity" auto / minmax(0, 1fr) 58px; column-gap: 6px; row-gap: 4px; align-items: center; min-width: 0; }
+.luggage-item .custom-bag-format { grid-area: format; margin: 0; color: var(--muted); font-size: 0.72rem; font-weight: 800; line-height: 1; white-space: nowrap; }
+.custom-bag-dimensions { grid-area: dimensions; display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr); gap: 3px; align-items: center; min-width: 0; }
+.custom-bag-quantity { grid-area: quantity; align-self: end; }
 .custom-bag-dimension { min-width: 0; }
 .custom-bag-dimension input, .custom-bag-quantity input { min-width: 0; padding: 8px 3px; }
 .custom-bag-dimension input { width: 100%; font-weight: 700; }

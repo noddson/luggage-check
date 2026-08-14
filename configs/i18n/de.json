@@ -73,6 +73,6 @@
   "vehicleRequestEmailSubject": "Bitte füge dieses neue Fahrzeug zu luggage-check hinzu",
   "bagRequestEmailLabel": "Neuen Gepäcktyp vorschlagen",
   "bagRequestEmailSubject": "Bitte füge diesen neuen Gepäcktyp zu luggage-check hinzu",
-  "customBagNumber": "Benutzerdefiniert #{number}",
+  "customBagNumber": "Benutzerdefinierte Tasche #{number}",
   "copyrightRights": "Alle Rechte vorbehalten."
 }

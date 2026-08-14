@@ -73,6 +73,6 @@
   "vehicleRequestEmailSubject": "Por favor, añade este nuevo vehículo a luggage-check",
   "bagRequestEmailLabel": "Solicitar un nuevo tipo de equipaje",
   "bagRequestEmailSubject": "Por favor, añade este nuevo tipo de equipaje a luggage-check",
-  "customBagNumber": "Personalizado n.º {number}",
+  "customBagNumber": "Bolsa personalizada n.º {number}",
   "copyrightRights": "Todos los derechos reservados."
 }

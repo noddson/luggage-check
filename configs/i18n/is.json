@@ -73,6 +73,6 @@
   "vehicleRequestEmailSubject": "Vinsamlegast bættu þessu nýja ökutæki við luggage-check",
   "bagRequestEmailLabel": "Biðja um nýja tegund farangurs",
   "bagRequestEmailSubject": "Vinsamlegast bættu þessari nýju tegund farangurs við luggage-check",
-  "customBagNumber": "Sérsniðið #{number}",
+  "customBagNumber": "Sérsniðin taska #{number}",
   "copyrightRights": "Öll réttindi áskilin."
 }

@@ -79,20 +79,25 @@ test('manages three independently sized custom bags and omits zero quantities fr
   await page.getByRole('button', { name: 'Reset' }).click();
   const customRows = page.locator('.luggage-item--custom');
   await expect(customRows).toHaveCount(3);
-  await expect(customRows.locator('.custom-bag-meta strong')).toHaveText(['Custom #1', 'Custom #2', 'Custom #3']);
+  await expect(customRows.locator('.custom-bag-meta strong')).toHaveText(['Custom Bag #1', 'Custom Bag #2', 'Custom Bag #3']);
   await expect(customRows.locator('.custom-bag-format')).toHaveText(['H×W×D (mm)', 'H×W×D (mm)', 'H×W×D (mm)']);
   const customRowLayouts = await customRows.evaluateAll((rows) => rows.map((row) => {
+    const formatRect = row.querySelector('.custom-bag-format').getBoundingClientRect();
     const dimensionRects = [...row.querySelectorAll('[data-custom-bag-axis]')].map((input) => input.getBoundingClientRect());
     const quantityRect = row.querySelector('[id^="qty-custom-bag-"]').getBoundingClientRect();
     return {
+      formatBottom: formatRect.bottom,
       dimensionTops: dimensionRects.map((rect) => rect.top),
+      dimensionWidths: dimensionRects.map((rect) => rect.width),
       lastDimensionRight: dimensionRects.at(-1).right,
       quantityLeft: quantityRect.left,
       fitsWithinRow: row.scrollWidth <= row.clientWidth
     };
   }));
-  customRowLayouts.forEach(({ dimensionTops, lastDimensionRight, quantityLeft, fitsWithinRow }) => {
+  customRowLayouts.forEach(({ formatBottom, dimensionTops, dimensionWidths, lastDimensionRight, quantityLeft, fitsWithinRow }) => {
+    expect(Math.min(...dimensionTops)).toBeGreaterThanOrEqual(formatBottom);
     expect(Math.max(...dimensionTops) - Math.min(...dimensionTops)).toBeLessThan(2);
+    expect(Math.min(...dimensionWidths)).toBeGreaterThan(50);
     expect(quantityLeft).toBeGreaterThan(lastDimensionRight);
     expect(fitsWithinRow).toBe(true);
   });

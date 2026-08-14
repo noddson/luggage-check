@@ -73,6 +73,6 @@
   "vehicleRequestEmailSubject": "Please add this new vehicle to luggage-check",
   "bagRequestEmailLabel": "Request a new bag type",
   "bagRequestEmailSubject": "Please add this new bag type to luggage-check",
-  "customBagNumber": "Custom #{number}",
+  "customBagNumber": "Custom Bag #{number}",
   "copyrightRights": "All rights reserved."
 }

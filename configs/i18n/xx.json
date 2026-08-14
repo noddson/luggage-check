@@ -73,6 +73,6 @@
   "vehicleRequestEmailSubject": "Please add this new land vessel to luggage-check, arr!",
   "bagRequestEmailLabel": "Request a new plunder sack type",
   "bagRequestEmailSubject": "Please add this new plunder sack type to luggage-check, arr!",
-  "customBagNumber": "Custom plunder #{number}",
+  "customBagNumber": "Custom plunder sack #{number}",
   "copyrightRights": "All plunderin' rights reserved."
 }
