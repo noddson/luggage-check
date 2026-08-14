@@ -71,5 +71,8 @@
   "supportDevelopmentSuffix": "で支援してください。",
   "vehicleRequestEmailLabel": "新しい車両の追加を依頼",
   "vehicleRequestEmailSubject": "この新しい車両を luggage-check に追加してください",
+  "bagRequestEmailLabel": "新しいバッグの種類の追加を依頼",
+  "bagRequestEmailSubject": "この新しいバッグの種類を luggage-check に追加してください",
+  "customBagNumber": "カスタム #{number}",
   "copyrightRights": "無断転載を禁じます。"
 }

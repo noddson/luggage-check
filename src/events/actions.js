@@ -16,7 +16,7 @@ export function createActions({
   orientationPresets
 }) {
   const {
-    customBagId,
+    customBagIds,
     customBagMinDimensionsMm,
     customBagMaxDimensionsMm,
     defaultSeatBackAngleDegrees,
@@ -80,9 +80,9 @@ export function createActions({
     render.results();
   }
 
-  function setCustomBagDimension(axis, value) {
-    if (!['height', 'width', 'length'].includes(axis)) return;
-    const input = $(`#custom-${axis}`);
+  function setCustomBagDimension(customBagId, axis, value) {
+    if (!customBagIds.includes(customBagId) || !['height', 'width', 'length'].includes(axis)) return;
+    const input = $(`#${customBagId}-${axis}`);
     const customBag = state.luggageSet?.items?.find((item) => item.id === customBagId);
     if (!input || !customBag || input.disabled) return;
 
@@ -97,15 +97,14 @@ export function createActions({
   }
 
   function resetLuggageQuantities() {
-    const customBag = state.luggageSet?.items?.find((item) => item.id === customBagId);
     render.elements.luggageControls.querySelectorAll('input').forEach((input) => {
       input.value = '0';
     });
-    if (customBag) {
+    state.luggageSet?.items?.filter((item) => customBagIds.includes(item.id)).forEach((customBag) => {
       ['height', 'width', 'length'].forEach((axis) => {
         customBag.dimensionsMm[axis] = 0;
       });
-    }
+    });
     render.syncCustomBagControlState();
     render.results();
   }

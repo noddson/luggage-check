@@ -69,8 +69,8 @@ export function createEventBindings({ document, window, elements, actions }) {
       button.addEventListener('click', () => actions.setView(button.dataset.view));
     });
     elements.luggageControls.addEventListener('input', (event) => {
-      if (event.target.id.startsWith('custom-')) {
-        actions.setCustomBagDimension(event.target.id.slice('custom-'.length), event.target.value);
+      if (event.target.dataset.customBagId && event.target.dataset.customBagAxis) {
+        actions.setCustomBagDimension(event.target.dataset.customBagId, event.target.dataset.customBagAxis, event.target.value);
         return;
       }
       if (event.target.id.startsWith('qty-')) actions.setItemQuantity();

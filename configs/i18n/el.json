@@ -71,5 +71,8 @@
   "supportDevelopmentSuffix": ".",
   "vehicleRequestEmailLabel": "Αίτημα προσθήκης νέου οχήματος",
   "vehicleRequestEmailSubject": "Παρακαλώ προσθέστε αυτό το νέο όχημα στο luggage-check",
+  "bagRequestEmailLabel": "Αίτημα προσθήκης νέου τύπου αποσκευής",
+  "bagRequestEmailSubject": "Παρακαλώ προσθέστε αυτόν τον νέο τύπο αποσκευής στο luggage-check",
+  "customBagNumber": "Προσαρμοσμένο #{number}",
   "copyrightRights": "Με επιφύλαξη παντός δικαιώματος."
 }

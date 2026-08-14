@@ -71,5 +71,8 @@
   "supportDevelopmentSuffix": ".",
   "vehicleRequestEmailLabel": "Biðja um nýtt ökutæki",
   "vehicleRequestEmailSubject": "Vinsamlegast bættu þessu nýja ökutæki við luggage-check",
+  "bagRequestEmailLabel": "Biðja um nýja tegund farangurs",
+  "bagRequestEmailSubject": "Vinsamlegast bættu þessari nýju tegund farangurs við luggage-check",
+  "customBagNumber": "Sérsniðið #{number}",
   "copyrightRights": "Öll réttindi áskilin."
 }

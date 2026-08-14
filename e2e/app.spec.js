@@ -22,20 +22,35 @@ test('loads the default planning result and 3D visualization', async ({ page }) 
   await expect(page.locator('#metrics .metric')).toHaveCount(3);
   await expect(page.locator('#placedList .placed-item')).not.toHaveCount(0);
   await expect(page.locator('#unplacedList')).toBeVisible();
+
+  const [tripSetupFontSize, bagListFontSize] = await page
+    .locator('[data-i18n="tripSetup"], [data-i18n="bagList"]')
+    .evaluateAll((headings) => headings.map((heading) => getComputedStyle(heading).fontSize));
+  expect(bagListFontSize).toBe(tripSetupFontSize);
 });
 
-test('offers contribution and localized new-vehicle email links', async ({ page }) => {
+test('offers contribution and localized request email links', async ({ page }) => {
   const contributionLink = page.getByRole('link', { name: 'pay-what-you-want contribution' });
   await expect(contributionLink).toHaveAttribute('href', 'https://paypal.me/noddson');
 
   const vehicleRequestLink = page.locator('#vehicleRequestEmail');
+  const bagRequestLink = page.locator('#bagRequestEmail');
   await expect(vehicleRequestLink).toHaveAccessibleName('Request a new vehicle');
+  await expect(bagRequestLink).toHaveAccessibleName('Request a new bag type');
   for (const [locale, bundle] of Object.entries(I18N)) {
     await page.locator('#languageSelect').selectOption(locale);
     await expect(vehicleRequestLink).toHaveAttribute('aria-label', bundle.vehicleRequestEmailLabel);
     await expect(vehicleRequestLink).toHaveAttribute(
       'href',
       `mailto:noddson+luggage-check@gmail.com?subject=${encodeURIComponent(bundle.vehicleRequestEmailSubject)}`
+    );
+    await expect(bagRequestLink).toHaveAttribute('aria-label', bundle.bagRequestEmailLabel);
+    await expect(bagRequestLink).toHaveAttribute(
+      'href',
+      `mailto:noddson+luggage-check@gmail.com?subject=${encodeURIComponent(bundle.bagRequestEmailSubject)}`
+    );
+    await expect(page.locator('.custom-bag-meta strong')).toHaveText(
+      [1, 2, 3].map((number) => bundle.customBagNumber.replace('{number}', String(number)))
     );
   }
 });
@@ -60,24 +75,69 @@ test('persists vehicle, configuration, input overrides, and language', async ({ 
   await expect(page.locator('html')).toHaveAttribute('lang', 'fr');
 });
 
-test('enables, places, and resets a custom bag only after dimensions are valid', async ({ page }) => {
+test('manages three independently sized custom bags and omits zero quantities from results', async ({ page }) => {
   await page.getByRole('button', { name: 'Reset' }).click();
-  const quantity = page.locator('#qty-custom-bag');
-  await expect(quantity).toBeDisabled();
+  const customRows = page.locator('.luggage-item--custom');
+  await expect(customRows).toHaveCount(3);
+  await expect(customRows.locator('.custom-bag-meta strong')).toHaveText(['Custom #1', 'Custom #2', 'Custom #3']);
+  await expect(customRows.locator('.custom-bag-format')).toHaveText(['H×W×D (mm)', 'H×W×D (mm)', 'H×W×D (mm)']);
+  const customRowLayouts = await customRows.evaluateAll((rows) => rows.map((row) => {
+    const dimensionRects = [...row.querySelectorAll('[data-custom-bag-axis]')].map((input) => input.getBoundingClientRect());
+    const quantityRect = row.querySelector('[id^="qty-custom-bag-"]').getBoundingClientRect();
+    return {
+      dimensionTops: dimensionRects.map((rect) => rect.top),
+      lastDimensionRight: dimensionRects.at(-1).right,
+      quantityLeft: quantityRect.left,
+      fitsWithinRow: row.scrollWidth <= row.clientWidth
+    };
+  }));
+  customRowLayouts.forEach(({ dimensionTops, lastDimensionRight, quantityLeft, fitsWithinRow }) => {
+    expect(Math.max(...dimensionTops) - Math.min(...dimensionTops)).toBeLessThan(2);
+    expect(quantityLeft).toBeGreaterThan(lastDimensionRight);
+    expect(fitsWithinRow).toBe(true);
+  });
 
-  await page.locator('#custom-height').fill('300');
-  await page.locator('#custom-width').fill('400');
-  await page.locator('#custom-length').fill('500');
-  await expect(quantity).toBeEnabled();
-  await quantity.fill('1');
+  const customBag1Quantity = page.locator('#qty-custom-bag-1');
+  const customBag2Quantity = page.locator('#qty-custom-bag-2');
+  const customBag3Quantity = page.locator('#qty-custom-bag-3');
+  await expect(customBag1Quantity).toBeDisabled();
+  await expect(customBag2Quantity).toBeDisabled();
+  await expect(customBag3Quantity).toBeDisabled();
 
-  await expect(page.locator('#placedList .placed-item[data-source-id="custom-bag"], #unplacedList .placed-item[data-source-id="custom-bag"]')).toHaveCount(1);
-  await expect(page.locator('#custom-height')).toBeDisabled();
+  await page.locator('#custom-bag-1-height').fill('300');
+  await page.locator('#custom-bag-1-width').fill('400');
+  await page.locator('#custom-bag-1-length').fill('500');
+  await page.locator('#custom-bag-2-height').fill('200');
+  await page.locator('#custom-bag-2-width').fill('300');
+  await page.locator('#custom-bag-2-length').fill('400');
+  await page.locator('#custom-bag-3-height').fill('100');
+  await page.locator('#custom-bag-3-width').fill('200');
+  await page.locator('#custom-bag-3-length').fill('300');
+  await expect(customBag1Quantity).toBeEnabled();
+  await expect(customBag2Quantity).toBeEnabled();
+  await expect(customBag3Quantity).toBeEnabled();
+
+  await customBag1Quantity.fill('1');
+  await customBag2Quantity.fill('2');
+  await expect(page.locator('#placedList .placed-item[data-source-id="custom-bag-1"], #unplacedList .placed-item[data-source-id="custom-bag-1"]')).toHaveCount(1);
+  await expect(page.locator('#placedList .placed-item[data-source-id="custom-bag-2"], #unplacedList .placed-item[data-source-id="custom-bag-2"]')).toHaveCount(2);
+  await expect(page.locator('#placedList .placed-item[data-source-id="custom-bag-3"], #unplacedList .placed-item[data-source-id="custom-bag-3"]')).toHaveCount(0);
+  await expect(page.locator('#custom-bag-1-height')).toBeDisabled();
+  await expect(page.locator('#custom-bag-2-height')).toBeDisabled();
+  await expect(page.locator('#custom-bag-3-height')).toBeEnabled();
+
+  await customBag1Quantity.fill('0');
+  await expect(page.locator('#placedList .placed-item[data-source-id="custom-bag-1"], #unplacedList .placed-item[data-source-id="custom-bag-1"]')).toHaveCount(0);
+  await expect(page.locator('#custom-bag-1-height')).toBeEnabled();
 
   await page.getByRole('button', { name: 'Reset' }).click();
-  await expect(quantity).toHaveValue('0');
-  await expect(quantity).toBeDisabled();
-  await expect(page.locator('#custom-height')).toBeEnabled();
+  await expect(customBag1Quantity).toHaveValue('0');
+  await expect(customBag2Quantity).toHaveValue('0');
+  await expect(customBag3Quantity).toHaveValue('0');
+  await expect(customBag1Quantity).toBeDisabled();
+  await expect(customBag2Quantity).toBeDisabled();
+  await expect(customBag3Quantity).toBeDisabled();
+  await expect(page.locator('#placedList .placed-item[data-source-id^="custom-bag-"], #unplacedList .placed-item[data-source-id^="custom-bag-"]')).toHaveCount(0);
 });
 
 test('removes a selected bag through the results list', async ({ page }) => {

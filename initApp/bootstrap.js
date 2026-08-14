@@ -34,7 +34,7 @@ import { createEventBindings } from '../src/events/bindings.js';
 const VEHICLE_INDEX_PATH = './configs/vehicles/index.json';
 
 const BAG_COLORS = ['#2563eb', '#16a34a', '#f97316', '#9333ea', '#0891b2', '#e11d48', '#ca8a04', '#4f46e5'];
-const CUSTOM_BAG_COLOR = '#facc15';
+const CUSTOM_BAG_COLORS = ['#facc15', '#fb923c', '#a3e635'];
 const DEFAULT_SEAT_BACK_ANGLE_DEGREES = 20;
 const MAX_SEAT_BACK_ANGLE_DEGREES = 45;
 const DEFAULT_USABLE_VOLUME_BUFFER_PERCENT = 10;
@@ -46,7 +46,8 @@ const DEFAULT_MAX_QUANTITY_BY_SIZE = {
   small: 36,
   verySmall: 50
 };
-const CUSTOM_BAG_ID = 'custom-bag';
+const CUSTOM_BAG_TEMPLATE_ID = 'custom-bag';
+const CUSTOM_BAG_IDS = ['custom-bag-1', 'custom-bag-2', 'custom-bag-3'];
 const CUSTOM_BAG_MIN_DIMENSIONS_MM = { length: 10, width: 10, height: 10 };
 const CUSTOM_BAG_MAX_DIMENSIONS_MM = { length: 2500, width: 2500, height: 2500 };
 const state = {
@@ -131,6 +132,31 @@ function hasValidCustomBagDimensions(dimensions) {
   });
 }
 
+function isCustomBagId(itemId) {
+  return CUSTOM_BAG_IDS.includes(itemId);
+}
+
+function expandCustomBagTemplate(luggageSet) {
+  return {
+    ...luggageSet,
+    items: luggageSet.items.flatMap((item) => {
+      if (item.id !== CUSTOM_BAG_TEMPLATE_ID) return [item];
+      return CUSTOM_BAG_IDS.map((id, index) => ({
+        ...item,
+        id,
+        dimensionsMm: { ...item.dimensionsMm },
+        translations: Object.fromEntries(Object.entries(I18N).map(([locale, bundle]) => [
+          locale,
+          {
+            ...(item.translations?.[locale] ?? {}),
+            label: bundle.customBagNumber.replace('{number}', String(index + 1))
+          }
+        ]))
+      }));
+    })
+  };
+}
+
 function defaultSeatBackAngleDegrees(zones) {
   return zones.find((zone) => zone.seatBackEncroachment)?.seatBackEncroachment?.angleFromVerticalDegrees ?? 0;
 }
@@ -160,7 +186,7 @@ function cloneLuggageWithQuantities() {
     ...state.luggageSet,
     items: state.luggageSet.items.map((item) => {
       const requestedQuantity = Math.min(maxQuantityForItem(item), Math.max(0, Number($(`#qty-${item.id}`).value)));
-      const quantity = item.id === CUSTOM_BAG_ID && !hasValidCustomBagDimensions(item.dimensionsMm) ? 0 : requestedQuantity;
+      const quantity = isCustomBagId(item.id) && !hasValidCustomBagDimensions(item.dimensionsMm) ? 0 : requestedQuantity;
       return { ...item, quantity };
     }).filter((item) => item.quantity > 0)
   };
@@ -243,39 +269,54 @@ function renderLuggageControls() {
     })
   );
   const controls = state.luggageSet.items.map((item) => {
+    const isCustomBag = isCustomBagId(item.id);
     const color = colorForSourceId(item.id);
-    const article = createEl('article', { className: 'luggage-item', attrs: { style: `--bag-tint:${color};--bag-panel-bg:${mixWithWhite(color, 0.9)}` } });
-    const meta = createEl('div');
+    const article = createEl('article', { className: `luggage-item${isCustomBag ? ' luggage-item--custom' : ''}`, attrs: { style: `--bag-tint:${color};--bag-panel-bg:${mixWithWhite(color, 0.9)}` } });
+    const meta = createEl('div', { className: isCustomBag ? 'custom-bag-meta' : '' });
     meta.append(createEl('strong', { text: localizeEntity(item, 'label') }));
     const dimensionsAndTypeLabel = `${dimensionsLabel(item.dimensionsMm)} · ${item.shapeType.replace('_', ' ')}`;
-    if (item.id !== CUSTOM_BAG_ID) {
+    if (!isCustomBag) {
       meta.append(createEl('span', { text: dimensionsAndTypeLabel }));
     }
-    const label = createEl('label');
-    label.append(
+    const quantityLabel = createEl('label', { className: isCustomBag ? 'custom-bag-quantity' : '' });
+    quantityLabel.append(
       createEl('span', { className: 'sr-only', text: t('quantityFor').replace('{item}', localizeEntity(item, 'label')) }),
       createEl('input', { attrs: { id: `qty-${item.id}`, type: 'number', min: '0', max: String(maxQuantityForItem(item)), step: '1', value: quantitiesByItemId.get(item.id) ?? 0 } })
     );
-    article.append(meta, label);
-    if (item.id === CUSTOM_BAG_ID) {
-      const dims = ['height', 'width', 'length'].map((axis) => {
+    if (isCustomBag) {
+      const dimensionControls = ['height', 'width', 'length'].map((axis) => {
         const input = createEl('input', {
           attrs: {
-            id: `custom-${axis}`,
+            id: `${item.id}-${axis}`,
             type: 'number',
             min: String(CUSTOM_BAG_MIN_DIMENSIONS_MM[axis]),
             max: String(CUSTOM_BAG_MAX_DIMENSIONS_MM[axis]),
             step: '1',
-            value: String(Math.round(item.dimensionsMm[axis]))
+            value: String(Math.round(item.dimensionsMm[axis])),
+            'data-custom-bag-id': item.id,
+            'data-custom-bag-axis': axis,
+            'aria-label': `${t(axis)} (mm)`,
+            title: `${t(axis)} (mm)`
           }
         });
         const row = createEl('label', { className: 'custom-bag-dimension' });
-        row.append(createEl('span', { text: `${axis === 'height' ? 'H' : axis === 'width' ? 'W' : 'D'} (mm)` }), input);
+        row.append(createEl('span', { className: 'sr-only', text: `${t(axis)} (mm)` }), input);
         return row;
       });
       const customDimensions = createEl('div', { className: 'custom-bag-dimensions' });
-      customDimensions.append(...dims);
-      meta.append(customDimensions);
+      dimensionControls.forEach((control, index) => {
+        if (index > 0) customDimensions.append(createEl('span', { className: 'custom-bag-dimension-separator', text: '×', attrs: { 'aria-hidden': 'true' } }));
+        customDimensions.append(control);
+      });
+      const controlsRow = createEl('div', { className: 'custom-bag-controls' });
+      controlsRow.append(
+        createEl('span', { className: 'custom-bag-format', text: 'H×W×D (mm)', attrs: { 'aria-hidden': 'true' } }),
+        customDimensions,
+        quantityLabel
+      );
+      article.append(meta, controlsRow);
+    } else {
+      article.append(meta, quantityLabel);
     }
     return article;
   });
@@ -286,7 +327,7 @@ function renderLuggageControls() {
 const syncCustomBagControlState = createControlsStateSync({
   state,
   $,
-  customBagId: CUSTOM_BAG_ID,
+  customBagIds: CUSTOM_BAG_IDS,
   customBagMinDimensionsMm: CUSTOM_BAG_MIN_DIMENSIONS_MM,
   customBagMaxDimensionsMm: CUSTOM_BAG_MAX_DIMENSIONS_MM,
   hasValidCustomBagDimensions,
@@ -294,7 +335,8 @@ const syncCustomBagControlState = createControlsStateSync({
 });
 
 function colorForSourceId(sourceId) {
-  if (sourceId === CUSTOM_BAG_ID) return CUSTOM_BAG_COLOR;
+  const customBagIndex = CUSTOM_BAG_IDS.indexOf(sourceId);
+  if (customBagIndex >= 0) return CUSTOM_BAG_COLORS[customBagIndex];
   const uniqueSources = [...new Set(estimateSources().map((item) => item.id))];
   const index = uniqueSources.indexOf(sourceId);
   return BAG_COLORS[(index < 0 ? 0 : index) % BAG_COLORS.length];
@@ -728,7 +770,7 @@ const actions = createActions({
   document,
   $,
   constants: {
-    customBagId: CUSTOM_BAG_ID,
+    customBagIds: CUSTOM_BAG_IDS,
     customBagMinDimensionsMm: CUSTOM_BAG_MIN_DIMENSIONS_MM,
     customBagMaxDimensionsMm: CUSTOM_BAG_MAX_DIMENSIONS_MM,
     defaultSeatBackAngleDegrees: DEFAULT_SEAT_BACK_ANGLE_DEGREES,
@@ -812,7 +854,7 @@ export async function bootstrap() {
       readJson('./configs/luggage/common.json'),
       loadVehicles()
     ]);
-    state.luggageSet = luggageSet;
+    state.luggageSet = expandCustomBagTemplate(luggageSet);
     state.vehicles = vehicles.sort((a, b) => vehicleLabel(a).localeCompare(vehicleLabel(b)));
     const initialVehicle = defaultVehicle();
     state.vehicleId = initialVehicle.id;

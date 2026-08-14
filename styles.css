@@ -35,16 +35,17 @@ button { cursor: pointer; }
 .controls-panel { position: sticky; top: 24px; }
 .panel-heading { margin-bottom: 18px; }
 .panel-heading h2, .results-header h2 { margin: 0; font-size: 1.45rem; letter-spacing: -0.03em; }
+.heading-title-row { display: flex; align-items: center; gap: 7px; }
 .panel-heading.compact { margin-top: 28px; }
 .luggage-heading { display: flex; justify-content: space-between; gap: 12px; align-items: end; }
 .secondary-button { border: 1px solid var(--line); border-radius: 999px; background: #fff; color: var(--brand); padding: 9px 14px; font-weight: 900; }
 .secondary-button:hover, .secondary-button:focus { border-color: var(--brand); box-shadow: 0 0 0 4px var(--brand-soft); outline: none; }
 .field { display: grid; gap: 8px; margin-bottom: 16px; color: var(--muted); font-weight: 800; }
 .field-label-row { display: flex; align-items: center; gap: 7px; }
-.vehicle-request-link { display: inline-flex; align-items: center; justify-content: center; width: 24px; height: 24px; border-radius: 999px; color: var(--brand); }
-.vehicle-request-link:hover, .vehicle-request-link:focus { background: var(--brand-soft); outline: none; }
-.vehicle-request-link:focus-visible { box-shadow: 0 0 0 3px var(--brand-soft); }
-.vehicle-request-link svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 1.9; stroke-linecap: round; stroke-linejoin: round; }
+.request-email-link { display: inline-flex; align-items: center; justify-content: center; width: 24px; height: 24px; border-radius: 999px; color: var(--brand); }
+.request-email-link:hover, .request-email-link:focus { background: var(--brand-soft); outline: none; }
+.request-email-link:focus-visible { box-shadow: 0 0 0 3px var(--brand-soft); }
+.request-email-link svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 1.9; stroke-linecap: round; stroke-linejoin: round; }
 .field select, .field input, .luggage-item input { width: 100%; border: 1px solid var(--line); background: #fff; color: var(--ink); border-radius: 14px; padding: 12px 14px; outline: none; }
 .field select:focus, .field input:focus, .luggage-item input:focus { border-color: var(--brand); box-shadow: 0 0 0 4px var(--brand-soft); }
 .degree-field small { color: #475569; font-weight: 700; line-height: 1.45; }
@@ -54,9 +55,14 @@ button { cursor: pointer; }
 .luggage-item strong, .luggage-item span { display: block; }
 .luggage-item span { color: var(--muted); margin-top: 4px; font-size: 0.88rem; line-height: 1.35; }
 .luggage-item input { text-align: center; font-weight: 900; }
-.custom-bag-dimensions { margin-top: 8px; display: grid; gap: 8px; }
-.custom-bag-dimension { display: grid; grid-template-columns: 72px minmax(0, 1fr); gap: 8px; align-items: center; font-size: 0.86rem; color: var(--muted); }
-.custom-bag-dimension input { text-align: left; font-weight: 700; }
+.luggage-item--custom { grid-template-columns: 1fr; gap: 8px; }
+.custom-bag-controls { display: grid; grid-template-columns: auto minmax(0, 1fr) 58px; gap: 6px; align-items: center; min-width: 0; }
+.luggage-item .custom-bag-format { margin: 0; color: var(--muted); font-size: 0.72rem; font-weight: 800; line-height: 1; white-space: nowrap; }
+.custom-bag-dimensions { display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr); gap: 3px; align-items: center; min-width: 0; }
+.custom-bag-dimension { min-width: 0; }
+.custom-bag-dimension input, .custom-bag-quantity input { min-width: 0; padding: 8px 3px; }
+.custom-bag-dimension input { width: 100%; font-weight: 700; }
+.luggage-item .custom-bag-dimension-separator { margin: 0; color: var(--muted); font-size: 0.78rem; line-height: 1; }
 
 .results-header { display: flex; justify-content: space-between; gap: 16px; align-items: start; margin-bottom: 18px; }
 .fit-badge { padding: 10px 14px; border-radius: 999px; background: #e2e8f0; color: #334155; font-weight: 900; white-space: nowrap; }

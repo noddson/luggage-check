@@ -71,5 +71,8 @@
   "supportDevelopmentSuffix": ".",
   "vehicleRequestEmailLabel": "Neues Fahrzeug vorschlagen",
   "vehicleRequestEmailSubject": "Bitte füge dieses neue Fahrzeug zu luggage-check hinzu",
+  "bagRequestEmailLabel": "Neuen Gepäcktyp vorschlagen",
+  "bagRequestEmailSubject": "Bitte füge diesen neuen Gepäcktyp zu luggage-check hinzu",
+  "customBagNumber": "Benutzerdefiniert #{number}",
   "copyrightRights": "Alle Rechte vorbehalten."
 }
